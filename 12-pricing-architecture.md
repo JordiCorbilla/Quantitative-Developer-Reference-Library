@@ -1,6 +1,6 @@
 # Pricing Architecture
 
-Related chapters: [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [15-performance-and-production.md](15-performance-and-production.md).
+Related chapters: [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [15-performance-and-production.md](15-performance-and-production.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
 Pricing architecture is the translation layer between financial models and maintainable systems. Most analytics platforms fail not because the formulas are unknown, but because product representation, market-state access, model dependency management, and risk workflows are tangled together.

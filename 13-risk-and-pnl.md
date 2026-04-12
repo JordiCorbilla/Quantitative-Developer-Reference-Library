@@ -1,6 +1,6 @@
 # Risk and PnL
 
-Related chapters: [01-options.md](01-options.md), [06-interest-rates.md](06-interest-rates.md), [09-cross-asset.md](09-cross-asset.md), [12-pricing-architecture.md](12-pricing-architecture.md), and [14-testing-and-validation.md](14-testing-and-validation.md).
+Related chapters: [01-options.md](01-options.md), [06-interest-rates.md](06-interest-rates.md), [09-cross-asset.md](09-cross-asset.md), [12-pricing-architecture.md](12-pricing-architecture.md), [14-testing-and-validation.md](14-testing-and-validation.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
 Pricing tells you what a position is worth. Risk and PnL tell you what can change, why it changed, and whether the explanation is trustworthy. This is where quantitative analytics meet daily trading workflow and control infrastructure.

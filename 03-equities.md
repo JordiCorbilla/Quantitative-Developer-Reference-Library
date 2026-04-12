@@ -1,6 +1,6 @@
 # Cash Equities and Equity Analytics
 
-Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
+Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
 Cash equities look simple compared with derivatives, but equity analytics sit at the center of portfolio construction, execution, financing, and hedging workflows. This chapter focuses on what a quant developer needs to support cash books and equity-linked products correctly.

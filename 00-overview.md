@@ -37,6 +37,7 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 | [13-risk-and-pnl.md](13-risk-and-pnl.md) | Greeks, scenarios, explain, controls | Bridges pricing output to daily desk workflows |
 | [14-testing-and-validation.md](14-testing-and-validation.md) | Unit tests, numerical controls, model validation | Prevents silent regressions and false confidence |
 | [15-performance-and-production.md](15-performance-and-production.md) | Latency, scaling, observability, resilience | Production quality is part of quantitative correctness |
+| [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) | Factor models, optimization, backtests, transaction costs | Connects analytics to portfolio decisions and executable workflows |
 
 ## Shared Quantitative Conventions
 
@@ -138,3 +139,4 @@ Every chapter in this repo follows the same top-level structure:
 - Build the core stack: [01-options.md](01-options.md) -> [10-numerical-methods.md](10-numerical-methods.md) -> [12-pricing-architecture.md](12-pricing-architecture.md)
 - Build rates competency: [05-fixed-income.md](05-fixed-income.md) -> [06-interest-rates.md](06-interest-rates.md) -> [11-market-data.md](11-market-data.md)
 - Build production judgment: [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [14-testing-and-validation.md](14-testing-and-validation.md) -> [15-performance-and-production.md](15-performance-and-production.md)
+- Build portfolio engineering judgment: [03-equities.md](03-equities.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md)
