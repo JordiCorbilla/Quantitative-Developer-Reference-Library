@@ -7,17 +7,17 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 ## Library Map
 
 ### Core Instruments
-- [00-overview.md](00-overview.md) - entrypoint, conventions, glossary, and reading guide
-- [01-options.md](01-options.md) - options pricing, volatility, Greeks, and hedging
-- [02-futures.md](02-futures.md) - futures, forwards, basis, carry, and contract mechanics
-- [03-equities.md](03-equities.md) - cash equities, financing, execution, and factor intuition
-- [04-fx.md](04-fx.md) - spot, forwards, swaps, and FX options conventions
-- [05-fixed-income.md](05-fixed-income.md) - bonds, yields, duration, spreads, and curve inputs
-- [06-interest-rates.md](06-interest-rates.md) - swaps, FRAs, futures, caps/floors, and multi-curve pricing
-- [07-credit.md](07-credit.md) - CDS, bond-credit linkage, indices, and tranche concepts
-- [08-commodities.md](08-commodities.md) - forwards, storage, convenience yield, and seasonal structure
-- [09-cross-asset.md](09-cross-asset.md) - correlation, funding, collateral, and xVA framing
-- [10-numerical-methods.md](10-numerical-methods.md) - Monte Carlo, PDE, trees, interpolation, and calibration
+- [00-overview.md](00-overview.md) - shared notation, discounting language, curve and surface vocabulary, sanity checks, and reading paths
+- [01-options.md](01-options.md) - calls, puts, exercise styles, payoff mechanics, volatility surfaces, Greeks, hedging, and listed contract multipliers
+- [02-futures.md](02-futures.md) - forwards and futures as linear future-price agreements, including carry, basis, daily margining, contract multipliers, and rolls
+- [03-equities.md](03-equities.md) - direct share ownership, long/short PnL, dividends, corporate actions, borrow costs, execution, and factor risk
+- [04-fx.md](04-fx.md) - currency-pair orientation, spot, forwards, swaps, NDFs, FX option conventions, premium currency, and settlement calendars
+- [05-fixed-income.md](05-fixed-income.md) - bonds as dated cashflows, clean vs dirty price, yield, duration, convexity, spreads, schedules, and curve inputs
+- [06-interest-rates.md](06-interest-rates.md) - swaps, FRAs, short-rate futures, caps/floors, swaptions, multi-curve pricing, fixing logic, and rate-vol surfaces
+- [07-credit.md](07-credit.md) - CDS protection, default probability, recovery, credit curves, bond-CDS basis, indices, and structured-credit framing
+- [08-commodities.md](08-commodities.md) - commodity futures and forwards, delivery months, storage, convenience yield, seasonality, location basis, and physical optionality
+- [09-cross-asset.md](09-cross-asset.md) - hybrid payoffs, correlation, funding, collateral, counterparty exposure, xVA, and multi-asset scenario dependencies
+- [10-numerical-methods.md](10-numerical-methods.md) - Monte Carlo, PDE, trees, interpolation, calibration, convergence, and numerical validation
 
 ### Quant Engineering
 - [11-market-data.md](11-market-data.md) - identifiers, symbology, time series, curves, surfaces, and data quality
@@ -26,6 +26,18 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [14-testing-and-validation.md](14-testing-and-validation.md) - numerical tests, model validation, and release discipline
 - [15-performance-and-production.md](15-performance-and-production.md) - latency, throughput, observability, and operational resilience
 - [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - factor models, optimizers, turnover, costs, and benchmark-relative workflows
+
+## Current Coverage Review
+The library now covers the main building blocks a quant developer usually needs first: options, linear derivatives, cash equities, FX, bonds, rates, credit, commodities, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, and portfolio construction.
+
+The main remaining gaps for future expansion are:
+- inflation products beyond the fixed-income/rates references,
+- volatility derivatives such as variance swaps, VIX products, and dispersion,
+- securities lending, repo, and financing as a deeper standalone chapter,
+- execution microstructure and transaction-cost modelling beyond equity portfolio notes,
+- crypto and digital-asset market structure,
+- model governance, documentation packs, and independent price verification workflows,
+- regulatory capital, SIMM, FRTB, and margin analytics.
 
 ## How To Use This Repo
 - Read the overview once, then use chapters as standalone references.

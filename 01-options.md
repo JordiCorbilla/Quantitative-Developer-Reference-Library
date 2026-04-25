@@ -3,7 +3,9 @@
 Related chapters: [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Options embed nonlinear exposure. For a quant developer this means more than a payoff formula: you need surface construction, risk representation, hedge intuition, exercise logic, and consistent market-data handling. This chapter focuses on listed and OTC vanilla options first, then sketches the path to more complex exotics.
+Options are contracts that give the buyer the right, but not the obligation, to trade an underlying asset at a fixed strike price. A call gives upside participation above the strike. A put gives downside protection or downside participation below the strike. The buyer pays a premium up front; the seller receives that premium and takes the opposite payoff risk.
+
+For a quant developer, this means more than a payoff formula. You need surface construction, risk representation, hedge intuition, exercise logic, contract multipliers, expiry handling, and consistent market-data treatment. This chapter focuses on listed and OTC vanilla options first, then sketches the path to more complex exotics.
 
 ## Product Taxonomy and Market Structure
 - European calls and puts: single exercise at expiry, often the cleanest starting point for analytics.
@@ -14,6 +16,67 @@ Options embed nonlinear exposure. For a quant developer this means more than a p
 - OTC options: customized notionals, schedules, barriers, settlement styles, and collateral terms.
 
 Replication logic is central. A large part of options infrastructure is built around relationships between payoffs, not just direct valuation. Vanilla calls and puts span a basis for many structured payoffs, and risk reports often reduce exotic books back to vanilla hedges and benchmark Greeks.
+
+## Worked Instrument Example: Equity Calls And Puts
+Assume, hypothetically, Apple stock is trading at $277 today. A trader buys a 30-day listed call option with:
+- strike: $300,
+- quoted premium: $5.00 per share,
+- equity option multiplier: 100 shares per contract,
+- position size: 100 option contracts.
+
+The phrase "one option contract" does not mean one share. For a standard US equity option, one contract usually controls 100 shares. A quoted premium of $5.00 therefore costs:
+
+$$
+5.00 \times 100 = 500
+$$
+
+per contract, before fees. For 100 contracts:
+
+$$
+5.00 \times 100 \times 100 = 50{,}000
+$$
+
+The buyer has paid $50,000 for the right to buy 10,000 Apple shares at $300 in 30 days. The call's intrinsic value at expiry is:
+
+$$
+\max(S_T - 300, 0) \times 10{,}000
+$$
+
+The net PnL after premium is:
+
+$$
+\left[\max(S_T - 300, 0) - 5\right] \times 10{,}000
+$$
+
+| Apple price at expiry | Call intrinsic value | Net PnL after $50,000 premium | Interpretation |
+| --- | ---: | ---: | --- |
+| $260 | $0 | -$50,000 | The call expires worthless; the stock moved down. |
+| $277 | $0 | -$50,000 | The stock stayed below the strike; the right to buy at $300 has no value. |
+| $300 | $0 | -$50,000 | At-the-strike at expiry still does not recover the premium. |
+| $305 | $50,000 | $0 | Break-even: $300 strike plus $5 premium. |
+| $330 | $300,000 | $250,000 | The call is valuable because buying at $300 is better than market at $330. |
+
+A put is the mirror intuition: it gives the right to sell at the strike. If the trader instead buys a 30-day $250 put for $4.00 per share on 100 contracts, the premium is:
+
+$$
+4.00 \times 100 \times 100 = 40{,}000
+$$
+
+The put's net PnL at expiry is:
+
+$$
+\left[\max(250 - S_T, 0) - 4\right] \times 10{,}000
+$$
+
+| Apple price at expiry | Put intrinsic value | Net PnL after $40,000 premium | Interpretation |
+| --- | ---: | ---: | --- |
+| $220 | $300,000 | $260,000 | The put pays because selling at $250 is better than market at $220. |
+| $246 | $40,000 | $0 | Break-even: $250 strike minus $4 premium. |
+| $250 | $0 | -$40,000 | At-the-strike at expiry does not recover the premium. |
+| $277 | $0 | -$40,000 | The stock stayed above the strike; the put expires worthless. |
+| $310 | $0 | -$40,000 | Upside in the stock does not help a long put. |
+
+This example is expiry-only. Before expiry, the option can still have time value because there is remaining uncertainty. That is why an out-of-the-money call or put can trade above zero before the final day.
 
 ## Quoting and Market Conventions
 - Equity and index options are often discussed in implied-volatility terms, not premium terms.

@@ -3,7 +3,7 @@
 Related chapters: [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), and [12-pricing-architecture.md](12-pricing-architecture.md).
 
 ## What This Domain Covers
-Rates is where a large amount of quant infrastructure complexity becomes unavoidable. Instruments are schedule-heavy, conventions vary by currency and tenor, and modern pricing uses multiple curves. This chapter focuses on the objects and relationships a quant developer needs to build reliably.
+Interest-rate products transfer exposure to the level, shape, and volatility of rate curves. A vanilla swap exchanges fixed interest payments for floating payments; caps, floors, and swaptions add option-like exposure to future rates. Rates is where a large amount of quant infrastructure complexity becomes unavoidable. Instruments are schedule-heavy, conventions vary by currency and tenor, and modern pricing uses multiple curves. This chapter focuses on the objects and relationships a quant developer needs to build reliably.
 
 ## Product Taxonomy and Market Structure
 - Deposits and short-end instruments
@@ -62,6 +62,30 @@ Model families commonly encountered:
 - Hull-White or GSR for callable rates products,
 - SABR for smile interpolation,
 - LMM for term-structure dynamics.
+
+## Worked Instrument Example: Fixed-Float Interest Rate Swap
+Assume a company enters a 5-year USD swap with:
+- notional: $10,000,000,
+- fixed rate paid by the company: 4.00% per year,
+- floating leg received: SOFR-based rate,
+- annualized current floating expectation for the next period: 5.00%,
+- one-year accrual period for this simplified example.
+
+For the next payment period, the fixed payment is:
+
+$$
+10{,}000{,}000 \times 4.00\% = 400{,}000
+$$
+
+The floating receipt is:
+
+$$
+10{,}000{,}000 \times 5.00\% = 500{,}000
+$$
+
+The net cashflow to the fixed-rate payer is +$100,000 for that period before discounting. If the floating rate fixes at 3.00%, the floating receipt is $300,000 and the net cashflow is -$100,000.
+
+The payer swap benefits when floating rates rise relative to the fixed rate. A receiver swap benefits when rates fall. In production, each coupon uses its own accrual fraction, fixing date, projection curve, payment date, and discount factor.
 
 ## Key Risk Measures and Sensitivities
 - PV01 by curve and by tenor bucket

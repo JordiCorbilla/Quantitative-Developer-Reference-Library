@@ -22,15 +22,15 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 
 | File | Focus | Why It Matters |
 | --- | --- | --- |
-| [01-options.md](01-options.md) | Vanilla and exotic options, Greeks, volatility surfaces | The most common entry point for pricing and hedging logic |
-| [02-futures.md](02-futures.md) | Futures, forwards, basis, carry, and rolling | Core mechanics for listed and OTC linear products |
-| [03-equities.md](03-equities.md) | Cash equities, financing, factor intuition, execution | Links pricing theory to real trading and portfolio systems |
-| [04-fx.md](04-fx.md) | Spot, forwards, swaps, and FX option conventions | Essential for multi-currency systems and collateral logic |
-| [05-fixed-income.md](05-fixed-income.md) | Bonds, cashflows, yields, duration, spread measures | The foundation for rates and credit analytics |
-| [06-interest-rates.md](06-interest-rates.md) | Swaps, FRAs, caps/floors, swaptions, curve building | Multi-curve pricing is a quant dev core skill |
-| [07-credit.md](07-credit.md) | CDS, credit curves, indices, tranche framing | Connects hazard-rate modelling to tradable products |
-| [08-commodities.md](08-commodities.md) | Storage, convenience yield, seasonality, optionality | Highlights where spot-carry intuition breaks |
-| [09-cross-asset.md](09-cross-asset.md) | Correlation, collateral, funding, xVA, hybrids | Shows what changes once desks and curves interact |
+| [01-options.md](01-options.md) | Calls, puts, payoff mechanics, contract multipliers, Greeks, volatility surfaces | The most common entry point for pricing and hedging logic |
+| [02-futures.md](02-futures.md) | Futures, forwards, basis, carry, margining, and rolling | Core mechanics for listed and OTC linear products |
+| [03-equities.md](03-equities.md) | Cash equities, long/short PnL, dividends, financing, factors, execution | Links direct share exposure to real trading and portfolio systems |
+| [04-fx.md](04-fx.md) | Spot, forwards, swaps, NDFs, pair orientation, and FX option conventions | Essential for multi-currency systems and collateral logic |
+| [05-fixed-income.md](05-fixed-income.md) | Bonds, dated cashflows, clean/dirty price, yields, duration, spread measures | The foundation for rates and credit analytics |
+| [06-interest-rates.md](06-interest-rates.md) | Swaps, FRAs, futures, caps/floors, swaptions, fixing logic, curve building | Multi-curve pricing is a quant dev core skill |
+| [07-credit.md](07-credit.md) | CDS, default probability, recovery, credit curves, indices, tranche framing | Connects hazard-rate modelling to tradable default-risk products |
+| [08-commodities.md](08-commodities.md) | Delivery months, storage, convenience yield, seasonality, location basis, optionality | Highlights where spot-carry intuition breaks |
+| [09-cross-asset.md](09-cross-asset.md) | Hybrid payoffs, correlation, collateral, funding, exposure, xVA | Shows what changes once desks, currencies, and curves interact |
 | [10-numerical-methods.md](10-numerical-methods.md) | Trees, PDE, Monte Carlo, interpolation, calibration | The implementation toolkit behind every product chapter |
 | [11-market-data.md](11-market-data.md) | Symbology, cleaning, timeseries, curves, surfaces | Analytics fail when market state is wrong |
 | [12-pricing-architecture.md](12-pricing-architecture.md) | Trade models, engines, dependencies, APIs | Turns formulas into maintainable systems |
@@ -122,18 +122,31 @@ This matters because production systems should not hard-code "risk-free rate" in
 - Calendar, day count, and schedule changes should be explainable from conventions, not from hidden defaults.
 - Bump sizes must be stable enough to avoid noise but small enough to approximate the intended derivative.
 
+## Coverage Review And Missing Areas
+The current library is strongest in core pricing and risk infrastructure: options, linear derivatives, equities, FX, fixed income, rates, credit, commodities, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, and portfolio construction.
+
+The clearest gaps to add next are:
+- inflation products, such as CPI swaps, inflation-linked derivatives, and seasonality treatment,
+- volatility products, such as variance swaps, volatility futures, VIX-linked products, and dispersion trades,
+- financing products, including repo, securities lending, prime-broker financing, and collateral optimization,
+- execution and microstructure as a standalone topic rather than scattered equity notes,
+- regulatory and margin analytics, including SIMM, FRTB, stress capital, and initial-margin explain,
+- independent price verification and model governance workflows,
+- crypto and digital-asset market structure if the library is intended to cover modern multi-asset desks.
+
 ## Chapter Contract
 Every chapter in this repo follows the same top-level structure:
 1. What This Domain Covers
 2. Product Taxonomy and Market Structure
 3. Quoting and Market Conventions
 4. Core Pricing Framework
-5. Key Risk Measures and Sensitivities
-6. Required Data, Curves, Surfaces, and Calibration Objects
-7. Numerical and Implementation Approaches
-8. Production Pitfalls and Sanity Checks
-9. Illustrative Code
-10. References and Further Reading
+5. Worked Instrument Example where concrete cashflows or payoff mechanics help
+6. Key Risk Measures and Sensitivities
+7. Required Data, Curves, Surfaces, and Calibration Objects
+8. Numerical and Implementation Approaches
+9. Production Pitfalls and Sanity Checks
+10. Illustrative Code
+11. References and Further Reading
 
 ## Recommended Reading Paths
 - Build the core stack: [01-options.md](01-options.md) -> [10-numerical-methods.md](10-numerical-methods.md) -> [12-pricing-architecture.md](12-pricing-architecture.md)

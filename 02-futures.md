@@ -3,7 +3,7 @@
 Related chapters: [04-fx.md](04-fx.md), [05-fixed-income.md](05-fixed-income.md), [08-commodities.md](08-commodities.md), and [11-market-data.md](11-market-data.md).
 
 ## What This Domain Covers
-Futures and forwards are linear contracts, but the implementation details are not trivial. Contract specification, settlement mechanics, carry inputs, and rolling behavior all affect pricing, hedging, and PnL explain.
+Futures and forwards are agreements to buy or sell an underlying asset at a future date for a price agreed today. They are linear contracts: if the underlying reference price moves up by one unit, the long position gains roughly one contract multiplier of value, and the short position loses the same amount. The implementation details are still not trivial. Contract specification, settlement mechanics, carry inputs, and rolling behavior all affect pricing, hedging, and PnL explain.
 
 ## Product Taxonomy and Market Structure
 - OTC forwards: customized notional, maturity, settlement, and collateral terms.
@@ -32,6 +32,26 @@ where $u$ is storage or financing cost and $y$ is income or convenience yield. V
 - futures on margined exchanges may differ from forwards due to daily settlement and convexity effects.
 
 For fixed-income futures, the core pricing object is often the implied repo or cheapest-to-deliver package rather than a clean carry formula.
+
+## Worked Instrument Example: Equity Index Future
+Assume an equity index future is bought at 5,000 with:
+- contract multiplier: $50 per index point,
+- position size: 10 contracts,
+- current futures price after one week: 5,080.
+
+The PnL for the long futures position is:
+
+$$
+(5{,}080 - 5{,}000) \times 50 \times 10 = 40{,}000
+$$
+
+If the future instead falls to 4,920:
+
+$$
+(4{,}920 - 5{,}000) \times 50 \times 10 = -40{,}000
+$$
+
+There is no option-like right to walk away. A long future benefits from price increases and loses from price decreases. A short future has the exact opposite PnL. For exchange-traded futures, this gain or loss is usually settled through daily variation margin rather than paid only at final maturity.
 
 ## Key Risk Measures and Sensitivities
 - Delta to spot or relevant cash instrument.

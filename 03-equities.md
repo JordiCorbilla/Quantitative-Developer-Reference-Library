@@ -3,7 +3,7 @@
 Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
-Cash equities look simple compared with derivatives, but equity analytics sit at the center of portfolio construction, execution, financing, and hedging workflows. This chapter focuses on what a quant developer needs to support cash books and equity-linked products correctly.
+Cash equities are direct ownership interests in companies, quoted as a price per share. A long position gains when the share price rises and loses when it falls; a short position has the opposite exposure and usually pays borrow or financing costs. Cash equities look simple compared with derivatives, but equity analytics sit at the center of portfolio construction, execution, financing, and hedging workflows. This chapter focuses on what a quant developer needs to support cash books and equity-linked products correctly.
 
 ## Product Taxonomy and Market Structure
 - Common and preferred shares
@@ -35,6 +35,29 @@ What matters is not closed-form valuation but the consistency of:
 - benchmark and factor mapping.
 
 Factor models and cost models turn cash equities into a risk and optimization problem rather than a derivative-pricing problem.
+
+## Worked Instrument Example: Long And Short Stock
+Assume a portfolio buys 1,000 shares at $50. The stock later trades at $56 and pays a $0.40 dividend per share during the holding period.
+
+The long-position PnL is:
+
+$$
+1{,}000 \times (56 - 50 + 0.40) = 6{,}400
+$$
+
+If the stock instead falls to $45 with the same dividend:
+
+$$
+1{,}000 \times (45 - 50 + 0.40) = -4{,}600
+$$
+
+For a short position of 1,000 shares initiated at $50 and covered at $45, the price move is profitable, but the trader may owe the dividend and borrow cost:
+
+$$
+1{,}000 \times (50 - 45 - 0.40) - \text{borrow cost}
+$$
+
+The core implementation point is that price PnL, dividends, splits, borrow, and financing belong in the same economic ledger. A clean equity system does not treat corporate actions as comments on a price series.
 
 ## Key Risk Measures and Sensitivities
 - Price delta to each name

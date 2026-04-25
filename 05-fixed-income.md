@@ -3,7 +3,7 @@
 Related chapters: [06-interest-rates.md](06-interest-rates.md), [07-credit.md](07-credit.md), [10-numerical-methods.md](10-numerical-methods.md), and [11-market-data.md](11-market-data.md).
 
 ## What This Domain Covers
-Fixed-income analytics begin with cashflows, calendars, and discounting. They scale into curve construction, spread analysis, callable structures, and credit decomposition. Quant developers need to understand both the instrument math and the mechanics that make bond systems hard to reproduce exactly.
+Fixed-income instruments are contracts built from dated cashflows: principal repayment, coupons, floating coupons, amortization, or inflation-linked payments. A bond price is the present value of those cashflows under the relevant discount and spread assumptions. Fixed-income analytics begin with cashflows, calendars, and discounting. They scale into curve construction, spread analysis, callable structures, and credit decomposition. Quant developers need to understand both the instrument math and the mechanics that make bond systems hard to reproduce exactly.
 
 ## Product Taxonomy and Market Structure
 - Treasury and sovereign bonds
@@ -69,6 +69,26 @@ $$
 - I-spread / G-spread: spread over swap or government benchmark curves.
 
 A good implementation stores which spread measure is being reported. "Spread" without qualifier is not a stable interface.
+
+## Worked Instrument Example: Fixed Coupon Bond
+Assume a 2-year bond has:
+- face value: $1,000,000,
+- annual coupon: 5% paid once per year,
+- required market yield: 4% with annual compounding.
+
+The cashflows are $50,000 after one year and $1,050,000 after two years. The dirty price is:
+
+$$
+\frac{50{,}000}{1.04} + \frac{1{,}050{,}000}{1.04^2} = 1{,}018{,}860.95
+$$
+
+The bond trades above par because its 5% coupon is higher than the 4% market yield. If the required yield rises to 6%, the same cashflows are worth:
+
+$$
+\frac{50{,}000}{1.06} + \frac{1{,}050{,}000}{1.06^2} = 981{,}666.07
+$$
+
+The price falls when yield rises because the fixed cashflows are discounted more heavily. Clean price then subtracts accrued interest from the dirty price; the valuation engine should keep both values explicit.
 
 ## Key Risk Measures and Sensitivities
 - DV01 / PVBP: price sensitivity to a one-basis-point shift.

@@ -3,7 +3,7 @@
 Related chapters: [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Credit products combine fixed-income cashflow mechanics with default timing and recovery assumptions. The asset class is implementation-heavy because the same issuer can trade through bonds, CDS, indices, and structured credit products with different conventions.
+Credit products transfer exposure to whether a borrower or reference entity defaults, when that default happens, and how much value is recovered after default. They combine fixed-income cashflow mechanics with default timing and recovery assumptions. The asset class is implementation-heavy because the same issuer can trade through bonds, CDS, indices, and structured credit products with different conventions.
 
 ## Product Taxonomy and Market Structure
 - Single-name CDS
@@ -26,6 +26,26 @@ Q(0, T) = \exp\left(-\int_0^T \lambda(u) du\right)
 $$
 
 CDS pricing balances premium leg and protection leg under a recovery assumption. Bond pricing adds default-adjusted expected cashflows and, often, liquidity premia not captured by a simple hazard-rate model.
+
+## Worked Instrument Example: Single-Name CDS Protection
+Assume an investor buys 5-year CDS protection on $10,000,000 notional with:
+- annual running spread: 100 bps,
+- assumed recovery rate after default: 40%,
+- default event after one year.
+
+Ignoring accrual, discounting, and settlement timing for the moment, the annual premium paid by the protection buyer is:
+
+$$
+10{,}000{,}000 \times 1.00\% = 100{,}000
+$$
+
+If the reference entity defaults and the recovery value is 40%, the protection payment is approximately:
+
+$$
+10{,}000{,}000 \times (1 - 40\%) = 6{,}000{,}000
+$$
+
+The protection buyer pays periodic spread and receives a large payment if default occurs. The protection seller receives the spread but is short default risk. A CDS valuation engine therefore needs premium-leg cashflows, accrued premium on default, default probabilities, discount factors, and recovery assumptions.
 
 ## Key Risk Measures and Sensitivities
 - CS01 by name and bucket
