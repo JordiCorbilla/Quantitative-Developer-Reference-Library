@@ -12,7 +12,7 @@ Fixed-income instruments are contracts built from dated cashflows: principal rep
 - Floating-rate notes
 - Inflation-linked bonds
 - Callable, puttable, sinkable, and amortizing structures
-- Repos and securities financing, which often determine practical funding assumptions
+- Repo and reverse repo transactions, plus securities financing, which often determine practical funding and collateral assumptions
 
 ## Quoting and Market Conventions
 - Clean price excludes accrued interest; dirty price includes it.

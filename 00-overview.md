@@ -128,7 +128,7 @@ The current library is strongest in core pricing and risk infrastructure: option
 The clearest gaps to add next are:
 - inflation products, such as CPI swaps, inflation-linked derivatives, and seasonality treatment,
 - volatility products, such as variance swaps, volatility futures, VIX-linked products, and dispersion trades,
-- financing products, including repo, securities lending, prime-broker financing, and collateral optimization,
+- financing products, including repo, reverse repo, securities lending, prime-broker financing, and collateral optimization,
 - execution and microstructure as a standalone topic rather than scattered equity notes,
 - regulatory and margin analytics, including SIMM, FRTB, stress capital, and initial-margin explain,
 - independent price verification and model governance workflows,

@@ -33,7 +33,7 @@ The library now covers the main building blocks a quant developer usually needs 
 The main remaining gaps for future expansion are:
 - inflation products beyond the fixed-income/rates references,
 - volatility derivatives such as variance swaps, VIX products, and dispersion,
-- securities lending, repo, and financing as a deeper standalone chapter,
+- repo, reverse repo, securities lending, and financing as a deeper standalone chapter,
 - execution microstructure and transaction-cost modelling beyond equity portfolio notes,
 - crypto and digital-asset market structure,
 - model governance, documentation packs, and independent price verification workflows,
