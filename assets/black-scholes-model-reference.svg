@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="920" viewBox="0 0 1180 920" role="img" aria-labelledby="title desc">
+  <title id="title">Black-Scholes model reference sheet</title>
+  <desc id="desc">A visual reference for the Black-Scholes European option pricing model, including inputs, assumptions, formulas, put-call parity, GBM dynamics, Greeks, and normal-distribution intuition.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.card{fill:#fff;stroke:#d9e2ef;stroke-width:2}.green{fill:#f0fdf4;stroke:#86efac}.blue{fill:#eff6ff;stroke:#93c5fd}.pink{fill:#fdf2f8;stroke:#f9a8d4}.amber{fill:#fffbeb;stroke:#fcd34d}.axis{stroke:#334155;stroke-width:2}.grid{stroke:#e5edf7;stroke-width:1}.mark{stroke:#94a3b8;stroke-width:2;stroke-dasharray:5 5}.curve{stroke:#2563eb;stroke-width:4;fill:none}.curve2{stroke:#16a34a;stroke-width:4;fill:none}.title{font:bold 31px Arial,sans-serif;fill:#0f172a}.sub{font:15px Arial,sans-serif;fill:#475569}.h{font:bold 17px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.formula{font:bold 16px Arial,sans-serif;fill:#1e293b}.mono{font:13px Consolas,monospace;fill:#1e293b}
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="920"/>
+  <text class="title" x="40" y="48">Black-Scholes Model: European Options At A Glance</text>
+  <text class="sub" x="40" y="76">A closed-form reference model for vanilla calls and puts, implied volatility, first-pass Greeks, and regression tests.</text>
+
+  <rect class="blue" x="40" y="110" width="250" height="172" rx="10"/>
+  <text class="h" x="60" y="140">1. What It Is</text>
+  <text class="txt" x="60" y="166">Closed-form fair value for</text>
+  <text class="txt" x="60" y="184">European call and put options.</text>
+  <text class="txt" x="60" y="212">Used as a common language for</text>
+  <text class="txt" x="60" y="230">premium, implied vol, Greeks,</text>
+  <text class="txt" x="60" y="248">and test fixtures.</text>
+
+  <rect class="card" x="320" y="110" width="385" height="172" rx="10"/>
+  <text class="h" x="340" y="140">2. Core Assumptions</text>
+  <text class="txt" x="340" y="166">Frictionless markets; no transaction costs or taxes.</text>
+  <text class="txt" x="340" y="186">Continuous trading and no arbitrage.</text>
+  <text class="txt" x="340" y="206">Constant risk-free rate and constant volatility.</text>
+  <text class="txt" x="340" y="226">Underlying follows geometric Brownian motion.</text>
+  <text class="txt" x="340" y="246">European exercise only; continuous yield q is optional.</text>
+
+  <rect class="green" x="735" y="110" width="405" height="172" rx="10"/>
+  <text class="h" x="755" y="140">3. Parameters</text>
+  <text class="mono" x="755" y="166">S0</text><text class="txt" x="795" y="166">current spot price</text>
+  <text class="mono" x="755" y="186">K</text><text class="txt" x="795" y="186">strike price</text>
+  <text class="mono" x="755" y="206">T</text><text class="txt" x="795" y="206">time to maturity in years</text>
+  <text class="mono" x="755" y="226">r</text><text class="txt" x="795" y="226">continuously compounded risk-free rate</text>
+  <text class="mono" x="755" y="246">q</text><text class="txt" x="795" y="246">continuous dividend or carry yield</text>
+  <text class="mono" x="755" y="266">sigma</text><text class="txt" x="820" y="266">annualized volatility</text>
+
+  <rect class="card" x="40" y="315" width="520" height="220" rx="10"/>
+  <text class="h" x="60" y="345">4. Pricing Formulas</text>
+  <text class="formula" x="60" y="378">Call: C = S0 e^(-qT) N(d1) - K e^(-rT) N(d2)</text>
+  <text class="formula" x="60" y="415">Put:  P = K e^(-rT) N(-d2) - S0 e^(-qT) N(-d1)</text>
+  <text class="mono" x="60" y="462">d1 = [ln(S0/K) + (r - q + sigma^2/2)T] / [sigma sqrt(T)]</text>
+  <text class="mono" x="60" y="492">d2 = d1 - sigma sqrt(T)</text>
+  <text class="txt" x="60" y="520">N(x) is the standard normal cumulative distribution function.</text>
+
+  <rect class="pink" x="590" y="315" width="250" height="220" rx="10"/>
+  <text class="h" x="610" y="345">5. Put-Call Parity</text>
+  <text class="formula" x="610" y="382">C - P = S0 e^(-qT) - K e^(-rT)</text>
+  <text class="txt" x="610" y="420">A direct consistency check for</text>
+  <text class="txt" x="610" y="440">European call and put prices.</text>
+  <text class="txt" x="610" y="475">Violations usually mean stale data,</text>
+  <text class="txt" x="610" y="495">wrong units, dividends, rates, or</text>
+  <text class="txt" x="610" y="515">settlement convention errors.</text>
+
+  <rect class="amber" x="870" y="315" width="270" height="220" rx="10"/>
+  <text class="h" x="890" y="345">6. GBM Dynamics</text>
+  <text class="formula" x="890" y="382">dS_t / S_t = mu dt + sigma dW_t</text>
+  <text class="txt" x="890" y="420">Under risk-neutral pricing:</text>
+  <text class="formula" x="890" y="450">mu becomes r - q</text>
+  <text class="txt" x="890" y="488">This produces log-normal terminal</text>
+  <text class="txt" x="890" y="508">stock prices, not normal prices.</text>
+
+  <rect class="card" x="40" y="570" width="350" height="275" rx="10"/>
+  <text class="h" x="60" y="600">7. Normal Distribution Intuition</text>
+  <line class="axis" x1="80" y1="765" x2="350" y2="765"/><line class="axis" x1="215" y1="785" x2="215" y2="630"/>
+  <line class="mark" x1="150" y1="640" x2="150" y2="785"/><line class="mark" x1="280" y1="640" x2="280" y2="785"/>
+  <path class="curve" d="M80 760 C115 758,128 730,150 690 C175 640,255 640,280 690 C302 730,315 758,350 760"/>
+  <text class="small" x="141" y="804">-d2</text><text class="small" x="208" y="804">0</text><text class="small" x="273" y="804">d2</text>
+  <text class="txt" x="60" y="830">N(d2): risk-neutral exercise probability for calls.</text>
+
+  <rect class="card" x="420" y="570" width="350" height="275" rx="10"/>
+  <text class="h" x="440" y="600">8. Key Greeks</text>
+  <text class="mono" x="440" y="632">Delta_call = e^(-qT) N(d1)</text>
+  <text class="mono" x="440" y="660">Gamma = e^(-qT) n(d1) / [S0 sigma sqrt(T)]</text>
+  <text class="mono" x="440" y="688">Vega = S0 e^(-qT) n(d1) sqrt(T)</text>
+  <text class="mono" x="440" y="716">Rho_call = K T e^(-rT) N(d2)</text>
+  <text class="mono" x="440" y="744">n(x) = standard normal PDF</text>
+  <text class="txt" x="440" y="790">Full call/put theta and rho formulas depend on</text>
+  <text class="txt" x="440" y="810">the sign convention and are listed in the chapter.</text>
+
+  <rect class="card" x="800" y="570" width="340" height="275" rx="10"/>
+  <text class="h" x="820" y="600">9. Model Boundary</text>
+  <text class="txt" x="820" y="632">Black-Scholes is continuous-time and closed-form.</text>
+  <text class="txt" x="820" y="660">Binomial trees are discrete-time and numerical.</text>
+  <text class="txt" x="820" y="688">BS handles European vanilla options cleanly.</text>
+  <text class="txt" x="820" y="716">Trees handle American exercise and schedules.</text>
+  <text class="txt" x="820" y="754">Use BS for intuition, implied vol, Greeks, and</text>
+  <text class="txt" x="820" y="774">regression tests; use richer models when payoff,</text>
+  <text class="txt" x="820" y="794">surface, or exercise behavior requires it.</text>
+</svg>

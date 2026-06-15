@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="420" viewBox="0 0 1050 420" role="img" aria-labelledby="title desc">
+  <title id="title">Options pricing and risk workflow</title>
+  <desc id="desc">Workflow from market inputs to pricing model, Greeks, hedging, PnL explain, and validation controls.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.accent{fill:#eff6ff;stroke:#93c5fd}.warn{fill:#fff7ed;stroke:#fdba74}.ok{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1050" height="420"/>
+  <text class="title" x="40" y="48">Options Pricing, Greeks, and PnL Explain Workflow</text>
+
+  <rect class="box" x="40" y="95" width="160" height="105" rx="9"/>
+  <text class="h" x="60" y="125">Trade terms</text>
+  <text class="txt" x="60" y="150">payoff, strike, expiry</text>
+  <text class="txt" x="60" y="168">exercise style, multiplier</text>
+  <text class="txt" x="60" y="186">settlement, currency</text>
+
+  <rect class="box" x="40" y="245" width="160" height="105" rx="9"/>
+  <text class="h" x="60" y="275">Market state</text>
+  <text class="txt" x="60" y="300">spot or forward</text>
+  <text class="txt" x="60" y="318">discount/dividend curves</text>
+  <text class="txt" x="60" y="336">volatility surface</text>
+
+  <rect class="accent" x="270" y="165" width="165" height="115" rx="9"/>
+  <text class="h" x="292" y="197">Pricing model</text>
+  <text class="txt" x="292" y="222">Black-Scholes</text>
+  <text class="txt" x="292" y="240">tree, PDE, Monte Carlo</text>
+  <text class="txt" x="292" y="258">calibrated surface access</text>
+
+  <rect class="box" x="505" y="95" width="160" height="105" rx="9"/>
+  <text class="h" x="526" y="125">Price</text>
+  <text class="txt" x="526" y="150">premium / PV</text>
+  <text class="txt" x="526" y="168">implied volatility</text>
+  <text class="txt" x="526" y="186">parity and bounds checks</text>
+
+  <rect class="box" x="505" y="245" width="160" height="105" rx="9"/>
+  <text class="h" x="526" y="275">Greeks</text>
+  <text class="txt" x="526" y="300">delta, gamma, vega</text>
+  <text class="txt" x="526" y="318">theta, rho, cross Greeks</text>
+  <text class="txt" x="526" y="336">unit scaling and buckets</text>
+
+  <rect class="warn" x="735" y="95" width="160" height="105" rx="9"/>
+  <text class="h" x="756" y="125">Hedging</text>
+  <text class="txt" x="756" y="150">shares, futures, options</text>
+  <text class="txt" x="756" y="168">vol surface instruments</text>
+  <text class="txt" x="756" y="186">rebalance policy</text>
+
+  <rect class="warn" x="735" y="245" width="160" height="105" rx="9"/>
+  <text class="h" x="756" y="275">PnL explain</text>
+  <text class="txt" x="756" y="300">market move + carry</text>
+  <text class="txt" x="756" y="318">new trades + lifecycle</text>
+  <text class="txt" x="756" y="336">residual investigation</text>
+
+  <rect class="ok" x="930" y="165" width="85" height="115" rx="9"/>
+  <text class="h" x="946" y="197">Control</text>
+  <text class="txt" x="946" y="222">bump tests</text>
+  <text class="txt" x="946" y="240">limits</text>
+  <text class="txt" x="946" y="258">sign-off</text>
+
+  <path class="arrow" d="M200 148 L270 202"/>
+  <path class="arrow" d="M200 298 L270 242"/>
+  <path class="arrow" d="M435 205 L505 150"/>
+  <path class="arrow" d="M435 245 L505 300"/>
+  <path class="arrow" d="M665 150 L735 150"/>
+  <path class="arrow" d="M665 300 L735 300"/>
+  <path class="arrow" d="M895 150 L930 200"/>
+  <path class="arrow" d="M895 300 L930 245"/>
+</svg>

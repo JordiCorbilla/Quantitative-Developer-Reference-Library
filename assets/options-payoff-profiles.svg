@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560" role="img" aria-labelledby="title desc">
+  <title id="title">Vanilla option payoff profiles</title>
+  <desc id="desc">Long call and long put payoff diagrams showing strike, premium, break-even, intrinsic value, and maximum loss.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.card{fill:#fff;stroke:#d9e2ef;stroke-width:2}.axis{stroke:#334155;stroke-width:2}.grid{stroke:#e5edf7;stroke-width:1}.label{font:14px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.panel{font:bold 18px Arial,sans-serif;fill:#0f172a}.call{stroke:#2563eb;stroke-width:4;fill:none}.put{stroke:#dc2626;stroke-width:4;fill:none}.intrinsic{stroke:#94a3b8;stroke-width:3;stroke-dasharray:7 6;fill:none}.mark{stroke:#475569;stroke-width:2;stroke-dasharray:5 5}.note{fill:#eff6ff;stroke:#bfdbfe}.loss{fill:#fee2e2;stroke:#fecaca}
+    </style>
+  </defs>
+  <rect class="bg" width="980" height="560"/>
+  <text class="title" x="40" y="48">Vanilla Option Payoff Profiles</text>
+  <text class="label" x="40" y="76">Payoff at expiry separates intrinsic value from premium-paid net PnL.</text>
+
+  <rect class="card" x="40" y="105" width="430" height="375" rx="10"/>
+  <text class="panel" x="70" y="142">Long Call</text>
+  <text class="small" x="70" y="166">Right to buy at strike K</text>
+  <line class="axis" x1="90" y1="390" x2="425" y2="390"/>
+  <line class="axis" x1="125" y1="430" x2="125" y2="195"/>
+  <line class="grid" x1="125" y1="300" x2="425" y2="300"/>
+  <line class="mark" x1="260" y1="195" x2="260" y2="430"/>
+  <line class="mark" x1="310" y1="195" x2="310" y2="430"/>
+  <path class="intrinsic" d="M125 300 L260 300 L410 210"/>
+  <path class="call" d="M125 335 L260 335 L425 230"/>
+  <text class="small" x="248" y="448">K</text>
+  <text class="small" x="285" y="448">K + premium</text>
+  <text class="small" x="410" y="410">S</text>
+  <text class="small" x="88" y="198">PnL</text>
+  <rect class="loss" x="72" y="406" width="170" height="42" rx="6"/>
+  <text class="small" x="86" y="431">Max loss = premium</text>
+  <text class="small" x="300" y="250">Net call PnL</text>
+  <text class="small" x="295" y="294">Intrinsic value</text>
+  <text class="label" x="70" y="505">Break-even: S = K + premium</text>
+
+  <rect class="card" x="510" y="105" width="430" height="375" rx="10"/>
+  <text class="panel" x="540" y="142">Long Put</text>
+  <text class="small" x="540" y="166">Right to sell at strike K</text>
+  <line class="axis" x1="560" y1="390" x2="895" y2="390"/>
+  <line class="axis" x1="595" y1="430" x2="595" y2="195"/>
+  <line class="grid" x1="595" y1="300" x2="895" y2="300"/>
+  <line class="mark" x1="760" y1="195" x2="760" y2="430"/>
+  <line class="mark" x1="710" y1="195" x2="710" y2="430"/>
+  <path class="intrinsic" d="M595 210 L760 300 L895 300"/>
+  <path class="put" d="M595 230 L760 335 L895 335"/>
+  <text class="small" x="752" y="448">K</text>
+  <text class="small" x="660" y="448">K - premium</text>
+  <text class="small" x="880" y="410">S</text>
+  <text class="small" x="558" y="198">PnL</text>
+  <rect class="loss" x="778" y="406" width="132" height="42" rx="6"/>
+  <text class="small" x="792" y="431">Max loss = premium</text>
+  <text class="small" x="620" y="252">Net put PnL</text>
+  <text class="small" x="626" y="294">Intrinsic value</text>
+  <text class="label" x="540" y="505">Break-even: S = K - premium</text>
+</svg>
