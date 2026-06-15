@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">Equity total return ledger</title>
+  <desc id="desc">Equity PnL decomposition across price moves, dividends, corporate actions, borrow, financing, and FX translation.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.plus{fill:#f0fdf4;stroke:#86efac}.minus{fill:#fef2f2;stroke:#fca5a5}.info{fill:#eff6ff;stroke:#93c5fd}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}.eq{font:bold 24px Arial,sans-serif;fill:#475569}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1040" height="430"/>
+  <text class="title" x="40" y="48">Cash Equity PnL: Total Return Ledger</text>
+  <rect class="info" x="45" y="115" width="155" height="100" rx="9"/><text class="h" x="65" y="148">Position</text><text class="txt" x="65" y="173">quantity x price</text><text class="txt" x="65" y="193">raw shares</text>
+  <text class="eq" x="220" y="175">+</text>
+  <rect class="plus" x="260" y="115" width="155" height="100" rx="9"/><text class="h" x="280" y="148">Price Move</text><text class="txt" x="280" y="173">end - start</text><text class="txt" x="280" y="193">per share</text>
+  <text class="eq" x="435" y="175">+</text>
+  <rect class="plus" x="475" y="115" width="155" height="100" rx="9"/><text class="h" x="495" y="148">Dividends</text><text class="txt" x="495" y="173">cash or accrued</text><text class="txt" x="495" y="193">with ex-date logic</text>
+  <text class="eq" x="650" y="175">+/-</text>
+  <rect class="box" x="705" y="115" width="155" height="100" rx="9"/><text class="h" x="725" y="148">Corporate Actions</text><text class="txt" x="725" y="173">splits, rights</text><text class="txt" x="725" y="193">spin-offs</text>
+  <text class="eq" x="880" y="175">-</text>
+  <rect class="minus" x="910" y="115" width="95" height="100" rx="9"/><text class="h" x="930" y="148">Costs</text><text class="txt" x="930" y="173">borrow</text><text class="txt" x="930" y="193">funding</text>
+  <rect class="box" x="120" y="280" width="800" height="95" rx="9"/>
+  <text class="h" x="145" y="312">Implementation rule</text>
+  <text class="txt" x="145" y="338">Adjusted prices, raw position quantities, dividend ledgers, borrow fees, financing, and FX translation must reconcile to one economic PnL.</text>
+  <path class="arrow" d="M520 215V280"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">FX forward points and currency orientation</title>
+  <desc id="desc">Diagram showing spot, domestic and foreign discount curves, forward price, points, and settlement currency orientation.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.formula{font:bold 18px Arial,sans-serif;fill:#1e293b}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1040" height="430"/>
+  <text class="title" x="40" y="48">FX Forward: Pair Orientation, Curves, and Points</text>
+  <rect class="blue" x="55" y="110" width="180" height="110" rx="9"/><text class="h" x="75" y="142">Spot Pair</text><text class="txt" x="75" y="168">EUR/USD = 1.1000</text><text class="txt" x="75" y="190">base / quote</text><text class="txt" x="75" y="210">EUR bought, USD paid</text>
+  <rect class="box" x="315" y="80" width="190" height="95" rx="9"/><text class="h" x="335" y="112">Foreign Curve</text><text class="txt" x="335" y="138">EUR discount factor</text><text class="txt" x="335" y="158">P_f(0,T)</text>
+  <rect class="box" x="315" y="210" width="190" height="95" rx="9"/><text class="h" x="335" y="242">Domestic Curve</text><text class="txt" x="335" y="268">USD discount factor</text><text class="txt" x="335" y="288">P_d(0,T)</text>
+  <rect class="green" x="610" y="130" width="210" height="130" rx="9"/><text class="h" x="630" y="162">Forward Outright</text><text class="formula" x="630" y="195">F = S x P_f / P_d</text><text class="txt" x="630" y="225">forward points = F - S</text><text class="txt" x="630" y="245">scaled by market convention</text>
+  <rect class="box" x="875" y="130" width="125" height="130" rx="9"/><text class="h" x="895" y="162">Settlement</text><text class="txt" x="895" y="190">spot date</text><text class="txt" x="895" y="210">holidays</text><text class="txt" x="895" y="230">NDF fixing</text>
+  <path class="arrow" d="M235 165H315"/><path class="arrow" d="M505 128L610 170"/><path class="arrow" d="M505 258L610 220"/><path class="arrow" d="M820 195H875"/>
+  <text class="txt" x="75" y="350">Most FX bugs come from silently inverting the pair, losing premium currency, or treating spot date as trade date.</text>
+</svg>

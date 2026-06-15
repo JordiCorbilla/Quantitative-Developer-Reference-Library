@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">PnL explain waterfall</title>
+  <desc id="desc">PnL explain waterfall from start PV to market move, carry and theta, new trades, lifecycle events, model changes, residual, and end PV.</desc>
+  <defs><style>.bg{fill:#fbfcff}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.bar{fill:#93c5fd;stroke:#2563eb;stroke-width:2}.pos{fill:#86efac;stroke:#16a34a;stroke-width:2}.neg{fill:#fca5a5;stroke:#dc2626;stroke-width:2}.res{fill:#fde68a;stroke:#d97706;stroke-width:2}.axis{stroke:#334155;stroke-width:2}</style></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="48">PnL Explain Waterfall</text>
+  <line class="axis" x1="70" y1="330" x2="1000" y2="330"/>
+  <rect class="bar" x="90" y="170" width="90" height="160"/><text class="h" x="105" y="355">Start PV</text>
+  <rect class="pos" x="220" y="125" width="90" height="205"/><text class="h" x="224" y="355">Market</text><text class="txt" x="228" y="375">delta/vega</text>
+  <rect class="neg" x="350" y="230" width="90" height="100"/><text class="h" x="360" y="355">Carry</text><text class="txt" x="356" y="375">theta/roll</text>
+  <rect class="pos" x="480" y="205" width="90" height="125"/><text class="h" x="484" y="355">New Trades</text>
+  <rect class="neg" x="610" y="260" width="90" height="70"/><text class="h" x="614" y="355">Lifecycle</text>
+  <rect class="res" x="740" y="245" width="90" height="85"/><text class="h" x="755" y="355">Residual</text>
+  <rect class="bar" x="870" y="145" width="90" height="185"/><text class="h" x="890" y="355">End PV</text>
+  <text class="txt" x="150" y="92">A useful explain separates market moves, time, trades, lifecycle events, model/data changes, and unexplained residual.</text>
+</svg>

@@ -59,6 +59,12 @@ $$
 
 The core implementation point is that price PnL, dividends, splits, borrow, and financing belong in the same economic ledger. A clean equity system does not treat corporate actions as comments on a price series.
 
+### Visual Ledger Reference
+
+![Equity total return ledger](assets/equity-total-return-ledger.svg)
+
+This ledger view is the safest way to reason about adjusted prices, raw share quantities, dividends, borrow, financing, and corporate actions without double-counting or dropping economics.
+
 ## Key Risk Measures and Sensitivities
 - Price delta to each name
 - Beta to benchmark or sector factors

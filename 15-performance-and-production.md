@@ -32,6 +32,12 @@ The best gains often come from architecture:
 - calibration reuse,
 - parallelism aligned with the dependency graph.
 
+### Visual Production Reference
+
+![Production pricing observability](assets/production-pricing-observability.svg)
+
+Production quality is not just speed. The system must expose cache lineage, latency, failure rates, fallback use, and numerical diagnostics so results remain explainable under load.
+
 ## Key Risk Measures and Sensitivities
 - Latency percentiles and throughput
 - CPU and memory usage

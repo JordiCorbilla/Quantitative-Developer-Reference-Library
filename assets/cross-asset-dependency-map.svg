@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">Cross-asset dependency map</title>
+  <desc id="desc">Hybrid payoff dependency map connecting equity, FX, rates, credit, commodities, volatility, correlation, funding, and collateral.</desc>
+  <defs><style>.bg{fill:#fbfcff}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#93c5fd}.risk{fill:#fef3c7;stroke:#fcd34d}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.link{stroke:#64748b;stroke-width:2}</style></defs>
+  <rect class="bg" width="1040" height="430"/>
+  <text class="title" x="40" y="48">Cross-Asset Products: Dependency Map</text>
+  <rect class="core" x="420" y="155" width="200" height="115" rx="12"/><text class="h" x="455" y="196">Hybrid Payoff</text><text class="txt" x="455" y="222">cashflows, barriers, coupons</text><text class="txt" x="455" y="242">multi-factor scenarios</text>
+  <rect class="node" x="80" y="100" width="145" height="70" rx="9"/><text class="h" x="115" y="133">Equity</text><text class="txt" x="105" y="153">spot, dividends</text>
+  <rect class="node" x="80" y="235" width="145" height="70" rx="9"/><text class="h" x="125" y="268">FX</text><text class="txt" x="105" y="288">pairs, forwards</text>
+  <rect class="node" x="285" y="80" width="145" height="70" rx="9"/><text class="h" x="330" y="113">Rates</text><text class="txt" x="305" y="133">curves, discounting</text>
+  <rect class="node" x="285" y="285" width="145" height="70" rx="9"/><text class="h" x="325" y="318">Credit</text><text class="txt" x="305" y="338">default, recovery</text>
+  <rect class="node" x="610" y="80" width="145" height="70" rx="9"/><text class="h" x="640" y="113">Commodities</text><text class="txt" x="630" y="133">delivery curves</text>
+  <rect class="node" x="610" y="285" width="145" height="70" rx="9"/><text class="h" x="650" y="318">Volatility</text><text class="txt" x="630" y="338">smile, term</text>
+  <rect class="risk" x="815" y="100" width="145" height="70" rx="9"/><text class="h" x="845" y="133">Correlation</text><text class="txt" x="835" y="153">joint moves</text>
+  <rect class="risk" x="815" y="235" width="145" height="70" rx="9"/><text class="h" x="850" y="268">Funding</text><text class="txt" x="835" y="288">CSA, collateral</text>
+  <line class="link" x1="225" y1="135" x2="420" y2="190"/><line class="link" x1="225" y1="270" x2="420" y2="235"/><line class="link" x1="430" y1="115" x2="475" y2="155"/><line class="link" x1="430" y1="320" x2="475" y2="270"/><line class="link" x1="610" y1="190" x2="755" y2="115"/><line class="link" x1="610" y1="235" x2="755" y2="320"/><line class="link" x1="620" y1="190" x2="815" y2="135"/><line class="link" x1="620" y1="235" x2="815" y2="270"/>
+</svg>

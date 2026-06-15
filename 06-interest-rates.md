@@ -87,6 +87,12 @@ The net cashflow to the fixed-rate payer is +$100,000 for that period before dis
 
 The payer swap benefits when floating rates rise relative to the fixed rate. A receiver swap benefits when rates fall. In production, each coupon uses its own accrual fraction, fixing date, projection curve, payment date, and discount factor.
 
+### Visual Swap Reference
+
+![Interest rate swap curve stack](assets/rates-swap-curve-stack.svg)
+
+The diagram separates schedule mechanics from curve dependencies: projection curves create future floating coupons, while the discount curve turns both legs into present value.
+
 ## Key Risk Measures and Sensitivities
 - PV01 by curve and by tenor bucket
 - Key-rate duration or bucketed zero-rate sensitivities

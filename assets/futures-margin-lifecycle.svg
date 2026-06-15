@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="420" viewBox="0 0 1050 420" role="img" aria-labelledby="title desc">
+  <title id="title">Futures margin lifecycle</title>
+  <desc id="desc">Lifecycle of an exchange-traded futures position from trade through daily variation margin, roll, expiry, and settlement.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}.axis{stroke:#334155;stroke-width:2}.line{stroke:#2563eb;stroke-width:4;fill:none}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1050" height="420"/>
+  <text class="title" x="40" y="48">Futures Lifecycle: Contract, Margin, Roll, Settlement</text>
+  <rect class="blue" x="45" y="95" width="160" height="105" rx="9"/><text class="h" x="65" y="126">1. Trade</text><text class="txt" x="65" y="152">standard contract</text><text class="txt" x="65" y="172">price, multiplier</text><text class="txt" x="65" y="192">initial margin</text>
+  <rect class="box" x="260" y="95" width="170" height="105" rx="9"/><text class="h" x="280" y="126">2. Daily Mark</text><text class="txt" x="280" y="152">exchange settlement</text><text class="txt" x="280" y="172">variation margin</text><text class="txt" x="280" y="192">cash PnL realized</text>
+  <rect class="box" x="485" y="95" width="170" height="105" rx="9"/><text class="h" x="505" y="126">3. Maintenance</text><text class="txt" x="505" y="152">margin call if balance</text><text class="txt" x="505" y="172">falls below threshold</text><text class="txt" x="505" y="192">liquidity matters</text>
+  <rect class="amber" x="710" y="95" width="150" height="105" rx="9"/><text class="h" x="730" y="126">4. Roll</text><text class="txt" x="730" y="152">close nearby</text><text class="txt" x="730" y="172">open deferred</text><text class="txt" x="730" y="192">basis changes</text>
+  <rect class="green" x="915" y="95" width="100" height="105" rx="9"/><text class="h" x="935" y="126">5. Expiry</text><text class="txt" x="935" y="152">cash or</text><text class="txt" x="935" y="172">physical</text>
+  <path class="arrow" d="M205 148H260"/><path class="arrow" d="M430 148H485"/><path class="arrow" d="M655 148H710"/><path class="arrow" d="M860 148H915"/>
+  <rect class="box" x="90" y="255" width="860" height="105" rx="9"/>
+  <text class="h" x="115" y="286">Linear PnL and Margin Cashflow</text>
+  <line class="axis" x1="130" y1="330" x2="460" y2="330"/><line class="axis" x1="180" y1="345" x2="180" y2="285"/>
+  <path class="line" d="M140 342L440 292"/><text class="small" x="465" y="333">futures price</text><text class="small" x="145" y="282">long PnL</text>
+  <text class="txt" x="560" y="305">Daily settlement means PnL is transferred through margin,</text>
+  <text class="txt" x="560" y="328">not merely accumulated until final maturity.</text>
+</svg>

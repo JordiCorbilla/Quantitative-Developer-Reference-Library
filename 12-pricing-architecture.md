@@ -35,6 +35,12 @@ Useful design rules:
 
 The architecture should support multiple engines per product: for example, Black closed form for benchmarking, PDE for American features, and Monte Carlo for exotic or exposure calculations.
 
+### Visual Architecture Reference
+
+![Pricing architecture flow](assets/pricing-architecture-flow.svg)
+
+A maintainable pricing stack keeps trade representation, market state, model configuration, pricing engines, result objects, and risk workflows explicit and separately testable.
+
 ## Key Risk Measures and Sensitivities
 - Trade-level and portfolio-level price/risk outputs
 - Sensitivity lineage: what was bumped, shocked, or re-calibrated

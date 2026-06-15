@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">Commodity futures curve and carry</title>
+  <desc id="desc">Commodity curve diagram showing contango, backwardation, storage cost, convenience yield, delivery month, and location basis.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.axis{stroke:#334155;stroke-width:2}.up{stroke:#2563eb;stroke-width:4;fill:none}.down{stroke:#16a34a;stroke-width:4;fill:none}.note{fill:#fffbeb;stroke:#fcd34d}</style></defs>
+  <rect class="bg" width="1040" height="430"/>
+  <text class="title" x="40" y="48">Commodity Curves: Carry, Seasonality, and Basis</text>
+  <rect class="box" x="55" y="95" width="560" height="280" rx="9"/>
+  <text class="h" x="80" y="128">Forward Curve Shapes</text>
+  <line class="axis" x1="105" y1="315" x2="565" y2="315"/><line class="axis" x1="135" y1="335" x2="135" y2="150"/>
+  <path class="up" d="M145 285 C260 260,390 220,555 175"/><path class="down" d="M145 180 C265 205,390 250,555 292"/>
+  <text class="small" x="565" y="333">delivery month</text><text class="small" x="95" y="150">price</text>
+  <text class="txt" x="405" y="184">contango</text><text class="txt" x="400" y="286">backwardation</text>
+  <rect class="note" x="675" y="105" width="300" height="230" rx="9"/>
+  <text class="h" x="700" y="138">Drivers</text>
+  <text class="txt" x="700" y="166">storage cost and financing</text>
+  <text class="txt" x="700" y="194">convenience yield and scarcity</text>
+  <text class="txt" x="700" y="222">delivery location and grade</text>
+  <text class="txt" x="700" y="250">seasonality and inventory</text>
+  <text class="txt" x="700" y="278">transport constraints</text>
+  <text class="small" x="700" y="320">Model the delivery curve, not one generic spot.</text>
+</svg>

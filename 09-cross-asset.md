@@ -32,6 +32,12 @@ Representative adjustments:
 
 Joint dynamics matter when payoff or exposure depends on multiple risk factors. Correlation and wrong-way risk cannot be bolted on casually after the fact.
 
+### Visual Dependency Reference
+
+![Cross-asset dependency map](assets/cross-asset-dependency-map.svg)
+
+This map is a reminder that hybrid valuation depends on the dependency graph: clean price engines, volatility inputs, correlation assumptions, funding, collateral, and counterparty terms all interact.
+
 ## Worked Instrument Example: Quanto Equity Payoff
 Assume a USD investor buys a one-year quanto note linked to a European stock index. The index return is paid in USD at a fixed FX conversion, so the investor gets equity exposure without direct EUR/USD conversion at maturity.
 

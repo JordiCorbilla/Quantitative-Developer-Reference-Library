@@ -47,6 +47,12 @@ $$
 
 The protection buyer pays periodic spread and receives a large payment if default occurs. The protection seller receives the spread but is short default risk. A CDS valuation engine therefore needs premium-leg cashflows, accrued premium on default, default probabilities, discount factors, and recovery assumptions.
 
+### Visual CDS Reference
+
+![CDS premium and protection legs](assets/credit-cds-legs.svg)
+
+CDS pricing is easiest to reason about as two legs: expected premium payments while the name survives, and expected protection payments if default occurs.
+
 ## Key Risk Measures and Sensitivities
 - CS01 by name and bucket
 - Jump-to-default exposure

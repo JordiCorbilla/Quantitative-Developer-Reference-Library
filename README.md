@@ -42,6 +42,7 @@ The main remaining gaps for future expansion are:
 ## How To Use This Repo
 - Read the overview once, then use chapters as standalone references.
 - Treat each chapter as a practitioner checklist: what gets quoted, what gets built, what breaks.
+- Use the embedded SVG diagrams as quick mental models for payoff shapes, cashflow timing, curve dependencies, market-data pipelines, pricing architecture, risk explain, and validation workflows.
 - Follow the cross-links. Options, fixed income, rates, numerical methods, and pricing architecture are intentionally tightly connected.
 - Use the code snippets as sanity-check scaffolding, not as production-ready libraries.
 

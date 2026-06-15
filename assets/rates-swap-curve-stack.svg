@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="450" viewBox="0 0 1060 450" role="img" aria-labelledby="title desc">
+  <title id="title">Interest rate swap curve stack</title>
+  <desc id="desc">Fixed-float swap cashflows with separate discount and projection curves in a multi-curve framework.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}.leg{stroke:#2563eb;stroke-width:4}.leg2{stroke:#16a34a;stroke-width:4}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="450"/>
+  <text class="title" x="40" y="48">Rates Swap Pricing: Cashflow Legs and Curve Dependencies</text>
+  <rect class="box" x="55" y="105" width="470" height="235" rx="9"/>
+  <text class="h" x="80" y="138">Fixed-Float Swap</text>
+  <line class="leg" x1="120" y1="195" x2="455" y2="195"/><text class="txt" x="120" y="178">fixed leg: K x accrual x notional</text>
+  <line class="leg2" x1="120" y1="265" x2="455" y2="265"/><text class="txt" x="120" y="248">floating leg: projected index fixing</text>
+  <text class="small" x="115" y="310">reset dates, accrual periods, payment dates, calendars, fixing lags</text>
+  <rect class="blue" x="600" y="95" width="175" height="110" rx="9"/><text class="h" x="620" y="128">Projection Curves</text><text class="txt" x="620" y="154">SOFR / 3M / 6M</text><text class="txt" x="620" y="174">forward coupons</text>
+  <rect class="green" x="600" y="250" width="175" height="110" rx="9"/><text class="h" x="620" y="283">Discount Curve</text><text class="txt" x="620" y="309">OIS collateral curve</text><text class="txt" x="620" y="329">present value</text>
+  <rect class="box" x="850" y="170" width="150" height="115" rx="9"/><text class="h" x="870" y="203">Results</text><text class="txt" x="870" y="229">PV</text><text class="txt" x="870" y="249">par rate</text><text class="txt" x="870" y="269">PV01 buckets</text>
+  <path class="arrow" d="M525 265L600 150"/><path class="arrow" d="M525 195L600 305"/><path class="arrow" d="M775 150L850 215"/><path class="arrow" d="M775 305L850 245"/>
+</svg>

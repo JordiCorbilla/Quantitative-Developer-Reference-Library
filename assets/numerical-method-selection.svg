@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Numerical method selection map</title>
+  <desc id="desc">Decision map for choosing closed form, tree, finite difference, Monte Carlo, or AAD based on payoff, exercise, dimensionality, and risk throughput.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="48">Numerical Method Selection</text>
+  <rect class="blue" x="70" y="115" width="160" height="100" rx="9"/><text class="h" x="90" y="148">Closed Form</text><text class="txt" x="90" y="174">vanilla baseline</text><text class="txt" x="90" y="194">fast regression</text>
+  <rect class="box" x="285" y="115" width="160" height="100" rx="9"/><text class="h" x="305" y="148">Trees</text><text class="txt" x="305" y="174">early exercise</text><text class="txt" x="305" y="194">callable features</text>
+  <rect class="box" x="500" y="115" width="160" height="100" rx="9"/><text class="h" x="520" y="148">PDE / FD</text><text class="txt" x="520" y="174">low dimension</text><text class="txt" x="520" y="194">boundaries</text>
+  <rect class="box" x="715" y="115" width="160" height="100" rx="9"/><text class="h" x="735" y="148">Monte Carlo</text><text class="txt" x="735" y="174">path dependence</text><text class="txt" x="735" y="194">many factors</text>
+  <rect class="green" x="430" y="285" width="200" height="90" rx="9"/><text class="h" x="455" y="318">AAD / Risk Engine</text><text class="txt" x="455" y="344">large books and many Greeks</text>
+  <rect class="amber" x="900" y="115" width="110" height="100" rx="9"/><text class="h" x="920" y="148">Validate</text><text class="txt" x="920" y="174">limits</text><text class="txt" x="920" y="194">convergence</text>
+  <path class="arrow" d="M230 165H285"/><path class="arrow" d="M445 165H500"/><path class="arrow" d="M660 165H715"/><path class="arrow" d="M875 165H900"/><path class="arrow" d="M580 215L540 285"/><path class="arrow" d="M800 215L620 315"/>
+</svg>

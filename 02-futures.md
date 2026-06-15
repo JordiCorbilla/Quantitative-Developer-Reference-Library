@@ -53,6 +53,12 @@ $$
 
 There is no option-like right to walk away. A long future benefits from price increases and loses from price decreases. A short future has the exact opposite PnL. For exchange-traded futures, this gain or loss is usually settled through daily variation margin rather than paid only at final maturity.
 
+### Visual Lifecycle Reference
+
+![Futures margin lifecycle](assets/futures-margin-lifecycle.svg)
+
+The key implementation distinction is that listed futures realize gains and losses through daily margin cashflows, while OTC forwards usually accumulate value until settlement or collateral exchange.
+
 ## Key Risk Measures and Sensitivities
 - Delta to spot or relevant cash instrument.
 - Carry and roll-down exposure over the holding horizon.

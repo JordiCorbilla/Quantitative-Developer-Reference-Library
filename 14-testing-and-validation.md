@@ -32,6 +32,12 @@ Useful validation categories:
 - stress and limit-case behavior,
 - sensitivity stability under bump-size variation.
 
+### Visual Validation Reference
+
+![Quant testing and validation pyramid](assets/testing-validation-pyramid.svg)
+
+The base of the pyramid is deterministic mechanics. Higher layers add invariants, model benchmarks, convergence, historical replay, and model-risk evidence.
+
 ## Key Risk Measures and Sensitivities
 - Price error against benchmarks
 - Greek stability and symmetry checks

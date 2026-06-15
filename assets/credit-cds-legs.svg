@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">CDS premium and protection legs</title>
+  <desc id="desc">CDS cashflow diagram showing premium payments, default event, recovery, protection payment, hazard curve, and CS01.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.red{fill:#fef2f2;stroke:#fca5a5}.green{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.axis{stroke:#334155;stroke-width:2}.tick{stroke:#475569;stroke-width:2}.pay{stroke:#2563eb;stroke-width:4}.prot{stroke:#dc2626;stroke-width:5}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1040" height="430"/>
+  <text class="title" x="40" y="48">CDS Mechanics: Premium Leg vs Protection Leg</text>
+  <rect class="box" x="55" y="105" width="620" height="245" rx="9"/>
+  <text class="h" x="80" y="138">Timeline</text>
+  <line class="axis" x1="100" y1="245" x2="620" y2="245"/>
+  <line class="pay" x1="160" y1="225" x2="160" y2="245"/><line class="pay" x1="255" y1="225" x2="255" y2="245"/><line class="pay" x1="350" y1="225" x2="350" y2="245"/><line class="pay" x1="445" y1="225" x2="445" y2="245"/>
+  <line class="prot" x1="515" y1="155" x2="515" y2="245"/><text class="small" x="490" y="148">default</text>
+  <text class="txt" x="105" y="292">Protection buyer pays spread until maturity or default.</text>
+  <text class="txt" x="105" y="318">At default, protection seller pays notional x (1 - recovery), plus accrued premium rules.</text>
+  <rect class="green" x="730" y="95" width="250" height="110" rx="9"/><text class="h" x="750" y="128">Credit Curve</text><text class="txt" x="750" y="154">hazard rates</text><text class="txt" x="750" y="174">survival probabilities</text>
+  <rect class="red" x="730" y="245" width="250" height="110" rx="9"/><text class="h" x="750" y="278">Risk</text><text class="txt" x="750" y="304">CS01, JTD, recovery</text><text class="txt" x="750" y="324">bond-CDS basis</text>
+  <path class="arrow" d="M675 215L730 150"/><path class="arrow" d="M675 255L730 300"/>
+</svg>

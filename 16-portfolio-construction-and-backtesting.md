@@ -63,6 +63,12 @@ where:
 
 This matters because portfolio tools are usually built around exposures, active bets, and risk budgets rather than pairwise asset covariances alone.
 
+### Visual Backtesting Reference
+
+![Portfolio construction and backtesting loop](assets/backtesting-research-loop.svg)
+
+The research loop is only credible when universe membership, signal timing, optimization constraints, costs, execution assumptions, and attribution can be replayed exactly.
+
 ## Key Risk Measures and Sensitivities
 - Portfolio volatility and marginal risk contribution
 - Tracking error and active share

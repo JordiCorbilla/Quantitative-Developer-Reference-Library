@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="440" viewBox="0 0 1060 440" role="img" aria-labelledby="title desc">
+  <title id="title">Bond cashflows and duration</title>
+  <desc id="desc">Fixed coupon bond cashflow timeline and inverse price-yield curve with duration and convexity intuition.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#64748b}.axis{stroke:#334155;stroke-width:2}.tick{stroke:#475569;stroke-width:2}.curve{stroke:#2563eb;stroke-width:4;fill:none}.bar{fill:#93c5fd;stroke:#2563eb}</style></defs>
+  <rect class="bg" width="1060" height="440"/>
+  <text class="title" x="40" y="48">Bond Analytics: Cashflows, Clean/Dirty Price, Duration</text>
+  <rect class="box" x="45" y="95" width="515" height="265" rx="9"/>
+  <text class="h" x="70" y="128">Cashflow Timeline</text>
+  <line class="axis" x1="95" y1="255" x2="505" y2="255"/>
+  <line class="tick" x1="135" y1="245" x2="135" y2="265"/><rect class="bar" x="125" y="210" width="20" height="45"/><text class="small" x="120" y="285">T1</text><text class="small" x="105" y="202">coupon</text>
+  <line class="tick" x1="255" y1="245" x2="255" y2="265"/><rect class="bar" x="245" y="210" width="20" height="45"/><text class="small" x="240" y="285">T2</text>
+  <line class="tick" x1="375" y1="245" x2="375" y2="265"/><rect class="bar" x="365" y="210" width="20" height="45"/><text class="small" x="360" y="285">T3</text>
+  <line class="tick" x1="485" y1="245" x2="485" y2="265"/><rect class="bar" x="470" y="125" width="30" height="130"/><text class="small" x="466" y="285">Tn</text><text class="small" x="420" y="118">coupon + principal</text>
+  <text class="txt" x="70" y="328">Dirty price = PV of all cashflows. Clean price = dirty price - accrued interest.</text>
+  <rect class="blue" x="600" y="95" width="410" height="265" rx="9"/>
+  <text class="h" x="625" y="128">Price-Yield Shape</text>
+  <line class="axis" x1="660" y1="305" x2="950" y2="305"/><line class="axis" x1="690" y1="320" x2="690" y2="150"/>
+  <path class="curve" d="M700 165 C760 185,820 230,940 298"/>
+  <text class="small" x="950" y="322">yield</text><text class="small" x="645" y="155">price</text>
+  <text class="txt" x="625" y="350">Duration is the local slope; convexity is the curvature correction.</text>
+</svg>

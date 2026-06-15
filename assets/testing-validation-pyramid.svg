@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">Quant testing and validation pyramid</title>
+  <desc id="desc">Testing pyramid for quant libraries from unit tests to invariant checks, benchmark comparisons, convergence, scenario tests, and production replay.</desc>
+  <defs><style>.bg{fill:#fbfcff}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.l1{fill:#dbeafe;stroke:#60a5fa}.l2{fill:#dcfce7;stroke:#4ade80}.l3{fill:#fef3c7;stroke:#facc15}.l4{fill:#fee2e2;stroke:#f87171}</style></defs>
+  <rect class="bg" width="1040" height="430"/>
+  <text class="title" x="40" y="48">Quant Testing and Validation Pyramid</text>
+  <polygon class="l1" points="190,335 850,335 770,270 270,270"/><text class="h" x="420" y="312">Unit and Convention Tests</text>
+  <polygon class="l2" points="270,270 770,270 700,210 340,210"/><text class="h" x="430" y="248">Invariants and No-Arbitrage Checks</text>
+  <polygon class="l3" points="340,210 700,210 630,150 410,150"/><text class="h" x="455" y="188">Benchmarks and Convergence</text>
+  <polygon class="l4" points="410,150 630,150 560,90 480,90"/><text class="h" x="470" y="128">Replay and Sign-off</text>
+  <text class="txt" x="180" y="382">Start with deterministic mechanics; then add model benchmarks, stress scenarios, historical replay, and independent validation evidence.</text>
+</svg>

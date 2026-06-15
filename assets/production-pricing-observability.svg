@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Production pricing observability</title>
+  <desc id="desc">Production pricing flow covering job orchestration, caches, parallel workers, pricing engines, result store, monitoring, alerts, and fallback behavior.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.red{fill:#fef2f2;stroke:#fca5a5}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="48">Production Pricing: Throughput, Caching, Observability</text>
+  <rect class="box" x="55" y="135" width="145" height="95" rx="9"/><text class="h" x="75" y="168">Scheduler</text><text class="txt" x="75" y="194">books, batches</text><text class="txt" x="75" y="214">priorities</text>
+  <rect class="blue" x="255" y="135" width="145" height="95" rx="9"/><text class="h" x="275" y="168">Cache</text><text class="txt" x="275" y="194">market state</text><text class="txt" x="275" y="214">static data</text>
+  <rect class="green" x="455" y="135" width="145" height="95" rx="9"/><text class="h" x="475" y="168">Workers</text><text class="txt" x="475" y="194">parallel pricing</text><text class="txt" x="475" y="214">timeouts</text>
+  <rect class="box" x="655" y="135" width="145" height="95" rx="9"/><text class="h" x="675" y="168">Result Store</text><text class="txt" x="675" y="194">PV, risk</text><text class="txt" x="675" y="214">metadata</text>
+  <rect class="red" x="855" y="135" width="145" height="95" rx="9"/><text class="h" x="875" y="168">Monitoring</text><text class="txt" x="875" y="194">latency, errors</text><text class="txt" x="875" y="214">alerts</text>
+  <path class="arrow" d="M200 183H255"/><path class="arrow" d="M400 183H455"/><path class="arrow" d="M600 183H655"/><path class="arrow" d="M800 183H855"/>
+  <text class="txt" x="115" y="325">Production quality means repeatable results, bounded latency, graceful degradation, traceable inputs, and actionable failure signals.</text>
+</svg>

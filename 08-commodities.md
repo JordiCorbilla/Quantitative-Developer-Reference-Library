@@ -47,6 +47,12 @@ $$
 
 The same price move can have different meaning across delivery months. A front-month crude contract may react to immediate inventory scarcity, while a deferred contract may react more to long-term supply expectations. That is why commodity systems usually model a delivery curve, not a single spot-like number.
 
+### Visual Curve Reference
+
+![Commodity futures curve and carry](assets/commodities-curve-carry.svg)
+
+Commodity risk is usually delivery-month, location, and grade specific. The curve shape carries information about storage, scarcity, convenience yield, seasonality, and basis.
+
 ## Key Risk Measures and Sensitivities
 - Delta to nearby and deferred curve points
 - Calendar-spread and crack/spread risk

@@ -31,6 +31,12 @@ The practical challenge is not writing the formula. It is:
 - deciding how recalibration is handled,
 - explaining residuals.
 
+### Visual PnL Explain Reference
+
+![PnL explain waterfall](assets/risk-pnl-waterfall.svg)
+
+A good explain separates start value, market moves, carry, new trades, lifecycle events, model or data changes, and residual. The residual is a diagnostic, not a bucket to ignore.
+
 ## Key Risk Measures and Sensitivities
 - Delta, gamma, vega, theta, rho
 - PV01, CS01, and key-rate buckets

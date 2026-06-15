@@ -32,6 +32,12 @@ Quant developers should distinguish:
 - consensus or official marks,
 - derived model state.
 
+### Visual Pipeline Reference
+
+![Market data pipeline](assets/market-data-pipeline.svg)
+
+The important contract is lineage: every curve, surface, fixing, and snapshot should be traceable back to source quotes, validation rules, overrides, and build configuration.
+
 ## Key Risk Measures and Sensitivities
 - Sensitivity of valuation to missing or stale market inputs
 - Sensitivity of downstream analytics to interpolation or cleaning rules

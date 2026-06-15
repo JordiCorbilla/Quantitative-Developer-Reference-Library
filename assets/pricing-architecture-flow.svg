@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Pricing architecture flow</title>
+  <desc id="desc">Pricing architecture diagram from trade representation and market state through model selection, pricer, result object, risk, and audit metadata.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="48">Pricing Architecture: Inputs, Engine, Results</text>
+  <rect class="box" x="55" y="115" width="150" height="100" rx="9"/><text class="h" x="75" y="148">Trade Model</text><text class="txt" x="75" y="174">terms, schedules</text><text class="txt" x="75" y="194">payoff definition</text>
+  <rect class="box" x="55" y="255" width="150" height="100" rx="9"/><text class="h" x="75" y="288">Market State</text><text class="txt" x="75" y="314">curves, surfaces</text><text class="txt" x="75" y="334">fixings, spots</text>
+  <rect class="blue" x="290" y="185" width="165" height="110" rx="9"/><text class="h" x="310" y="218">Model Config</text><text class="txt" x="310" y="244">assumptions</text><text class="txt" x="310" y="264">calibration</text>
+  <rect class="green" x="540" y="185" width="165" height="110" rx="9"/><text class="h" x="560" y="218">Pricer</text><text class="txt" x="560" y="244">closed form, tree</text><text class="txt" x="560" y="264">PDE, Monte Carlo</text>
+  <rect class="box" x="790" y="115" width="170" height="100" rx="9"/><text class="h" x="810" y="148">Result Object</text><text class="txt" x="810" y="174">PV, cashflows</text><text class="txt" x="810" y="194">warnings, metadata</text>
+  <rect class="box" x="790" y="255" width="170" height="100" rx="9"/><text class="h" x="810" y="288">Risk Layer</text><text class="txt" x="810" y="314">bumps, scenarios</text><text class="txt" x="810" y="334">explain outputs</text>
+  <path class="arrow" d="M205 165L290 220"/><path class="arrow" d="M205 305L290 260"/><path class="arrow" d="M455 240H540"/><path class="arrow" d="M705 220L790 165"/><path class="arrow" d="M705 260L790 305"/>
+</svg>

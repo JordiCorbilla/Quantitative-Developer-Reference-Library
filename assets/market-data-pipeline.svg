@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Market data pipeline</title>
+  <desc id="desc">Market data pipeline from raw feeds to normalization, validation, curve and surface construction, snapshots, and consumers.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="48">Market Data Pipeline: From Quotes to Pricing State</text>
+  <rect class="box" x="45" y="125" width="135" height="95" rx="9"/><text class="h" x="65" y="158">Raw Feeds</text><text class="txt" x="65" y="184">venues, vendors</text><text class="txt" x="65" y="204">files, APIs</text>
+  <rect class="box" x="230" y="125" width="145" height="95" rx="9"/><text class="h" x="250" y="158">Normalize</text><text class="txt" x="250" y="184">ids, units</text><text class="txt" x="250" y="204">timestamps</text>
+  <rect class="blue" x="425" y="125" width="145" height="95" rx="9"/><text class="h" x="445" y="158">Validate</text><text class="txt" x="445" y="184">stale, bounds</text><text class="txt" x="445" y="204">cross checks</text>
+  <rect class="green" x="620" y="95" width="150" height="95" rx="9"/><text class="h" x="640" y="128">Curves</text><text class="txt" x="640" y="154">discount</text><text class="txt" x="640" y="174">projection</text>
+  <rect class="green" x="620" y="235" width="150" height="95" rx="9"/><text class="h" x="640" y="268">Surfaces</text><text class="txt" x="640" y="294">vol, credit</text><text class="txt" x="640" y="314">correlation</text>
+  <rect class="box" x="840" y="125" width="155" height="95" rx="9"/><text class="h" x="860" y="158">Snapshot</text><text class="txt" x="860" y="184">versioned state</text><text class="txt" x="860" y="204">audit trail</text>
+  <path class="arrow" d="M180 173H230"/><path class="arrow" d="M375 173H425"/><path class="arrow" d="M570 160L620 140"/><path class="arrow" d="M570 190L620 280"/><path class="arrow" d="M770 140L840 160"/><path class="arrow" d="M770 280L840 195"/>
+  <text class="txt" x="190" y="325">Pricing, risk, PnL explain, and backtests should all consume explicit market snapshots, not live mutable globals.</text>
+</svg>

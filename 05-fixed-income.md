@@ -90,6 +90,12 @@ $$
 
 The price falls when yield rises because the fixed cashflows are discounted more heavily. Clean price then subtracts accrued interest from the dirty price; the valuation engine should keep both values explicit.
 
+### Visual Cashflow Reference
+
+![Bond cashflows and duration](assets/bond-cashflow-duration.svg)
+
+Fixed-income systems should start from dated cashflows and discount factors. Yield, duration, and convexity are useful summaries, but they should not replace the cashflow schedule as the source of valuation truth.
+
 ## Key Risk Measures and Sensitivities
 - DV01 / PVBP: price sensitivity to a one-basis-point shift.
 - Key-rate duration: sensitivity to localized curve moves.

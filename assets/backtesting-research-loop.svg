@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Portfolio construction and backtesting loop</title>
+  <desc id="desc">Backtesting loop from universe and data to signals, portfolio construction, transaction costs, execution assumptions, performance attribution, and validation.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="48">Backtesting Loop: Research to Portfolio Evidence</text>
+  <rect class="box" x="80" y="120" width="145" height="80" rx="9"/><text class="h" x="105" y="152">Universe</text><text class="txt" x="105" y="176">survivorship rules</text>
+  <rect class="box" x="285" y="120" width="145" height="80" rx="9"/><text class="h" x="315" y="152">Signals</text><text class="txt" x="305" y="176">features, labels</text>
+  <rect class="blue" x="490" y="120" width="145" height="80" rx="9"/><text class="h" x="515" y="152">Optimizer</text><text class="txt" x="510" y="176">risk, constraints</text>
+  <rect class="box" x="695" y="120" width="145" height="80" rx="9"/><text class="h" x="720" y="152">Execution</text><text class="txt" x="720" y="176">costs, slippage</text>
+  <rect class="green" x="490" y="270" width="145" height="80" rx="9"/><text class="h" x="515" y="302">Attribution</text><text class="txt" x="510" y="326">return and risk</text>
+  <path class="arrow" d="M225 160H285"/><path class="arrow" d="M430 160H490"/><path class="arrow" d="M635 160H695"/><path class="arrow" d="M768 200C750 300,655 315,635 315"/><path class="arrow" d="M490 315C320 315,160 260,150 200"/>
+  <text class="txt" x="155" y="390">The loop is only credible when data timing, universe membership, costs, constraints, and attribution are all replayable.</text>
+</svg>

@@ -22,6 +22,10 @@ This is a methods chapter rather than an asset-class chapter, but the same patte
 
 ## Core Pricing Framework
 
+![Numerical method selection map](assets/numerical-method-selection.svg)
+
+The method choice should follow the payoff and workflow: closed form for benchmarks, trees or PDEs for low-dimensional exercise and boundary behavior, Monte Carlo for path dependence and many factors, and AAD when risk throughput dominates.
+
 ### Root-Finding
 Used for implied volatility, yield, spread, and calibration problems. Good practice:
 - start with a bracket whenever possible,
