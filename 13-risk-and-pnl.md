@@ -79,10 +79,6 @@ Production checks:
 - Compare ES against the worst historical and stress losses; ES should not hide named scenario exposure.
 - Report approximation error when using sensitivities instead of full revaluation, especially for nonlinear books.
 
-Reference note:
-
-![Handwritten VaR and ES note](assets/var-es-reference.jpg)
-
 ## Required Data, Curves, Surfaces, and Calibration Objects
 - Official trade population and positions
 - End-of-day or intraday market snapshots
