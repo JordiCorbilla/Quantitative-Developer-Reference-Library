@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Repo and securities financing loop</title>
+  <desc id="desc">Repo, reverse repo, securities lending, collateral, haircut, margin, and reuse workflow.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.cash{fill:#eff6ff;stroke:#93c5fd}.sec{fill:#f0fdf4;stroke:#86efac}.warn{fill:#fff7ed;stroke:#fdba74}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/><text class="title" x="40" y="52">Repo, Securities Lending, and Collateral</text>
+  <rect class="cash" x="90" y="135" width="190" height="105" rx="8"/><text class="h" x="125" y="168">Cash Provider</text><text class="txt" x="122" y="194">lends cash</text><text class="txt" x="122" y="212">receives collateral</text>
+  <rect class="sec" x="395" y="135" width="230" height="105" rx="8"/><text class="h" x="430" y="168">Collateral Taker / Borrower</text><text class="txt" x="430" y="194">posts securities</text><text class="txt" x="430" y="212">pays repo or borrow fee</text>
+  <rect class="warn" x="740" y="135" width="220" height="105" rx="8"/><text class="h" x="772" y="168">Risk Controls</text><text class="txt" x="772" y="194">haircut, margin calls</text><text class="txt" x="772" y="212">eligibility, concentration</text>
+  <path class="arrow" d="M280 165L395 165"/><text class="txt" x="315" y="150">cash</text>
+  <path class="arrow" d="M395 210L280 210"/><text class="txt" x="310" y="235">collateral</text>
+  <path class="arrow" d="M625 188L740 188"/>
+  <rect class="box" x="160" y="305" width="740" height="70" rx="8"/><text class="h" x="190" y="335">Pricing objects: repo curves, borrow curves, collateral schedules, haircuts, eligibility rules, settlement calendars, close-out terms</text><text class="txt" x="190" y="358">PnL and risk depend on financing rate, collateral value, margin timing, specials, fails, and collateral substitution.</text>
+</svg>

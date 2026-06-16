@@ -38,6 +38,12 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 | [14-testing-and-validation.md](14-testing-and-validation.md) | Unit tests, numerical controls, model validation | Prevents silent regressions and false confidence |
 | [15-performance-and-production.md](15-performance-and-production.md) | Latency, scaling, observability, resilience | Production quality is part of quantitative correctness |
 | [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) | Factor models, optimization, backtests, transaction costs | Connects analytics to portfolio decisions and executable workflows |
+| [17-inflation-products.md](17-inflation-products.md) | Inflation-linked bonds, CPI swaps, lags, seasonality, real-rate risk | Captures the index mechanics that make inflation products implementation-heavy |
+| [18-volatility-products.md](18-volatility-products.md) | Variance swaps, VIX, volatility futures, dispersion, realized variance | Extends option-surface knowledge into traded volatility and correlation exposure |
+| [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) | Repo, reverse repo, securities lending, collateral, haircuts, borrow cost | Makes financing and collateral explicit inputs to pricing and risk |
+| [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) | Execution benchmarks, slippage, impact, implementation shortfall, TCA | Connects portfolio decisions to realized trading cost |
+| [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) | Initial margin, variation margin, SIMM, FRTB, stress, capital explain | Links risk analytics to regulatory and collateral requirements |
+| [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) | Model inventory, validation, IPV, reserves, approvals, monitoring | Makes valuation control and model risk management part of the quant stack |
 
 ## Shared Quantitative Conventions
 
@@ -122,17 +128,15 @@ This matters because production systems should not hard-code "risk-free rate" in
 - Calendar, day count, and schedule changes should be explainable from conventions, not from hidden defaults.
 - Bump sizes must be stable enough to avoid noise but small enough to approximate the intended derivative.
 
-## Coverage Review And Missing Areas
-The current library is strongest in core pricing and risk infrastructure: options, linear derivatives, equities, FX, fixed income, rates, credit, commodities, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, and portfolio construction.
+## Coverage Review And Expansion Areas
+The current library now has broad first-pass coverage across core pricing, traded products, risk infrastructure, market data, production engineering, portfolio workflow, financing, execution, regulatory margin, and model governance.
 
-The clearest gaps to add next are:
-- inflation products, such as CPI swaps, inflation-linked derivatives, and seasonality treatment,
-- volatility products, such as variance swaps, volatility futures, VIX-linked products, and dispersion trades,
-- financing products, including repo, reverse repo, securities lending, prime-broker financing, and collateral optimization,
-- execution and microstructure as a standalone topic rather than scattered equity notes,
-- regulatory and margin analytics, including SIMM, FRTB, stress capital, and initial-margin explain,
-- independent price verification and model governance workflows,
-- crypto and digital-asset market structure if the library is intended to cover modern multi-asset desks.
+The clearest next improvements are depth-oriented:
+- worked examples that connect quote inputs, valuation, risk, PnL explain, and validation,
+- calibration case studies for curves, volatility surfaces, inflation curves, and credit curves,
+- stress-testing examples across market, liquidity, counterparty, and funding risk,
+- deeper product-specific implementation patterns where market conventions are especially fragile,
+- crypto and digital-asset market structure if the library is intended to cover that asset class.
 
 ## Chapter Contract
 Every chapter in this repo follows the same top-level structure:
@@ -153,3 +157,5 @@ Every chapter in this repo follows the same top-level structure:
 - Build rates competency: [05-fixed-income.md](05-fixed-income.md) -> [06-interest-rates.md](06-interest-rates.md) -> [11-market-data.md](11-market-data.md)
 - Build production judgment: [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [14-testing-and-validation.md](14-testing-and-validation.md) -> [15-performance-and-production.md](15-performance-and-production.md)
 - Build portfolio engineering judgment: [03-equities.md](03-equities.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md)
+- Build valuation-control judgment: [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) -> [14-testing-and-validation.md](14-testing-and-validation.md) -> [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md)
+- Build execution and financing judgment: [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) -> [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)

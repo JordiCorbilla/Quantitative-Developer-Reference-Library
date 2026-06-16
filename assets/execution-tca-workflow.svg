@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Execution and transaction cost analysis workflow</title>
+  <desc id="desc">Execution workflow from decision price and order to fills, cost decomposition, TCA, and model feedback.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.a{fill:#eff6ff;stroke:#93c5fd}.b{fill:#fff7ed;stroke:#fdba74}.c{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/><text class="title" x="40" y="52">Execution Microstructure and TCA</text>
+  <rect class="box" x="45" y="160" width="150" height="95" rx="8"/><text class="h" x="68" y="190">Decision</text><text class="txt" x="68" y="215">signal price</text><text class="txt" x="68" y="233">target quantity</text>
+  <rect class="a" x="250" y="160" width="150" height="95" rx="8"/><text class="h" x="273" y="190">Order</text><text class="txt" x="273" y="215">schedule</text><text class="txt" x="273" y="233">urgency</text>
+  <rect class="a" x="455" y="160" width="150" height="95" rx="8"/><text class="h" x="478" y="190">Market</text><text class="txt" x="478" y="215">spread, depth</text><text class="txt" x="478" y="233">volume, volatility</text>
+  <rect class="b" x="660" y="160" width="150" height="95" rx="8"/><text class="h" x="683" y="190">Fills</text><text class="txt" x="683" y="215">price, time</text><text class="txt" x="683" y="233">venue, fees</text>
+  <rect class="c" x="865" y="160" width="150" height="95" rx="8"/><text class="h" x="888" y="190">TCA</text><text class="txt" x="888" y="215">slippage</text><text class="txt" x="888" y="233">impact, alpha decay</text>
+  <path class="arrow" d="M195 208L250 208"/><path class="arrow" d="M400 208L455 208"/><path class="arrow" d="M605 208L660 208"/><path class="arrow" d="M810 208L865 208"/>
+  <rect class="box" x="180" y="310" width="700" height="55" rx="8"/><text class="h" x="205" y="338">Implementation shortfall = realized execution value minus decision-time benchmark value</text><text class="txt" x="205" y="356">Separate spread, fees, delay, market impact, opportunity cost, and residual unexplained cost.</text>
+</svg>

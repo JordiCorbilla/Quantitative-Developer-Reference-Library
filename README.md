@@ -18,6 +18,9 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [08-commodities.md](08-commodities.md) - commodity futures and forwards, delivery months, storage, convenience yield, seasonality, location basis, and physical optionality
 - [09-cross-asset.md](09-cross-asset.md) - hybrid payoffs, correlation, funding, collateral, counterparty exposure, xVA, and multi-asset scenario dependencies
 - [10-numerical-methods.md](10-numerical-methods.md) - Monte Carlo, PDE, trees, interpolation, calibration, convergence, and numerical validation
+- [17-inflation-products.md](17-inflation-products.md) - inflation-linked bonds, CPI swaps, indexation lags, seasonality, and real-rate risk
+- [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX products, volatility futures, dispersion, realized variance, and vol-surface risk
+- [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) - repo, reverse repo, securities lending, collateral, haircuts, borrow cost, and financing curves
 
 ### Quant Engineering
 - [11-market-data.md](11-market-data.md) - identifiers, symbology, time series, curves, surfaces, and data quality
@@ -26,23 +29,24 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [14-testing-and-validation.md](14-testing-and-validation.md) - numerical tests, model validation, and release discipline
 - [15-performance-and-production.md](15-performance-and-production.md) - latency, throughput, observability, and operational resilience
 - [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - factor models, optimizers, turnover, costs, and benchmark-relative workflows
+- [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - execution benchmarks, implementation shortfall, market impact, slippage, and TCA workflows
+- [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - variation margin, initial margin, SIMM, FRTB, capital, stress, and margin explain
+- [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - model inventory, documentation, validation, IPV, reserves, approvals, and monitoring
 
 ## Current Coverage Review
-The library now covers the main building blocks a quant developer usually needs first: options, linear derivatives, cash equities, FX, bonds, rates, credit, commodities, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, and portfolio construction.
+The library now covers the main building blocks a quant developer usually needs first: options, linear derivatives, cash equities, FX, bonds, rates, credit, commodities, inflation, volatility products, financing, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, regulatory margin, and model governance.
 
-The main remaining gaps for future expansion are:
-- inflation products beyond the fixed-income/rates references,
-- volatility derivatives such as variance swaps, VIX products, and dispersion,
-- repo, reverse repo, securities lending, and financing as a deeper standalone chapter,
-- execution microstructure and transaction-cost modelling beyond equity portfolio notes,
-- crypto and digital-asset market structure,
-- model governance, documentation packs, and independent price verification workflows,
-- regulatory capital, SIMM, FRTB, and margin analytics.
+The main future direction is depth rather than first-pass coverage:
+- more worked end-to-end examples that connect market inputs, pricing, risk, and validation,
+- deeper calibration case studies for curves, volatility surfaces, and credit curves,
+- broader stress-testing examples across market, liquidity, and counterparty risk,
+- crypto and digital-asset market structure if the library scope expands into that asset class,
+- more code-oriented examples once the documentation layer is stable.
 
 ## How To Use This Repo
 - Read the overview once, then use chapters as standalone references.
 - Treat each chapter as a practitioner checklist: what gets quoted, what gets built, what breaks.
-- Use the embedded SVG diagrams as quick mental models for payoff shapes, cashflow timing, curve dependencies, market-data pipelines, pricing architecture, risk explain, and validation workflows.
+- Use the embedded SVG diagrams as quick mental models for payoff shapes, cashflow timing, curve dependencies, volatility products, financing, market-data pipelines, pricing architecture, risk explain, margin, governance, and validation workflows.
 - Follow the cross-links. Options, fixed income, rates, numerical methods, and pricing architecture are intentionally tightly connected.
 - Use the code snippets as sanity-check scaffolding, not as production-ready libraries.
 

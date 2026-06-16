@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Inflation products data flow</title>
+  <desc id="desc">Inflation analytics flow from index fixings and lag rules through seasonality, real rates, cashflows, pricing, and risk.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.a{fill:#eff6ff;stroke:#93c5fd}.b{fill:#f0fdf4;stroke:#86efac}.c{fill:#fff7ed;stroke:#fdba74}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="52">Inflation Analytics Flow</text>
+  <rect class="box" x="45" y="115" width="160" height="100" rx="8"/><text class="h" x="68" y="145">Index Fixings</text><text class="txt" x="68" y="170">CPI/RPI/HICP</text><text class="txt" x="68" y="188">publication lag</text>
+  <rect class="box" x="45" y="260" width="160" height="100" rx="8"/><text class="h" x="68" y="290">Nominal Curves</text><text class="txt" x="68" y="315">discounting</text><text class="txt" x="68" y="333">nominal forwards</text>
+  <rect class="a" x="265" y="185" width="170" height="110" rx="8"/><text class="h" x="288" y="215">Reference CPI</text><text class="txt" x="288" y="240">interpolation</text><text class="txt" x="288" y="258">indexation lag</text><text class="txt" x="288" y="276">seasonality</text>
+  <rect class="a" x="500" y="185" width="170" height="110" rx="8"/><text class="h" x="523" y="215">Inflation Curve</text><text class="txt" x="523" y="240">zero-coupon swaps</text><text class="txt" x="523" y="258">breakevens</text><text class="txt" x="523" y="276">real yields</text>
+  <rect class="b" x="735" y="115" width="160" height="100" rx="8"/><text class="h" x="758" y="145">Cashflows</text><text class="txt" x="758" y="170">indexed notionals</text><text class="txt" x="758" y="188">caps/floors</text>
+  <rect class="c" x="735" y="260" width="160" height="100" rx="8"/><text class="h" x="758" y="290">Risk</text><text class="txt" x="758" y="315">real DV01</text><text class="txt" x="758" y="333">CPI fixing risk</text>
+  <rect class="box" x="930" y="185" width="95" height="110" rx="8"/><text class="h" x="948" y="215">Controls</text><text class="txt" x="948" y="240">lags</text><text class="txt" x="948" y="258">floors</text><text class="txt" x="948" y="276">revisions</text>
+  <path class="arrow" d="M205 165L265 220"/><path class="arrow" d="M205 310L265 260"/><path class="arrow" d="M435 240L500 240"/><path class="arrow" d="M670 225L735 165"/><path class="arrow" d="M670 255L735 310"/><path class="arrow" d="M895 165L930 220"/><path class="arrow" d="M895 310L930 260"/>
+</svg>

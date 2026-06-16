@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Volatility products map</title>
+  <desc id="desc">Map of volatility products from option surfaces to variance swaps, volatility futures, VIX products, and dispersion.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#93c5fd}.risk{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/><text class="title" x="40" y="52">Volatility Product Dependencies</text>
+  <rect class="core" x="410" y="70" width="240" height="95" rx="8"/><text class="h" x="455" y="104">Option Surface</text><text class="txt" x="445" y="130">strikes, maturities, skew, term structure</text>
+  <rect class="box" x="70" y="210" width="190" height="110" rx="8"/><text class="h" x="103" y="242">Variance Swaps</text><text class="txt" x="100" y="268">realized variance</text><text class="txt" x="100" y="286">fair variance strike</text>
+  <rect class="box" x="315" y="210" width="190" height="110" rx="8"/><text class="h" x="350" y="242">Vol Futures</text><text class="txt" x="345" y="268">forward variance</text><text class="txt" x="345" y="286">roll and convexity</text>
+  <rect class="box" x="560" y="210" width="190" height="110" rx="8"/><text class="h" x="610" y="242">VIX Products</text><text class="txt" x="590" y="268">index methodology</text><text class="txt" x="590" y="286">futures/options basis</text>
+  <rect class="box" x="805" y="210" width="190" height="110" rx="8"/><text class="h" x="845" y="242">Dispersion</text><text class="txt" x="835" y="268">index vs constituents</text><text class="txt" x="835" y="286">correlation exposure</text>
+  <rect class="risk" x="260" y="355" width="540" height="45" rx="8"/><text class="h" x="285" y="383">Key risk: vega, vol-of-vol, skew, convexity, correlation, forward-start exposure</text>
+  <path class="arrow" d="M470 165L200 210"/><path class="arrow" d="M510 165L410 210"/><path class="arrow" d="M550 165L650 210"/><path class="arrow" d="M590 165L890 210"/>
+</svg>

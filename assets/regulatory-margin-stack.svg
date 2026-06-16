@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Regulatory margin and capital stack</title>
+  <desc id="desc">Risk and regulatory stack from trades and sensitivities to initial margin, variation margin, capital, stress, and controls.</desc>
+  <defs><style>.bg{fill:#fbfcff}.layer{fill:#fff;stroke:#cbd5e1;stroke-width:2}.a{fill:#eff6ff}.b{fill:#f0fdf4}.c{fill:#fff7ed}.d{fill:#fff1f2}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 16px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}</style></defs>
+  <rect class="bg" width="1060" height="430"/><text class="title" x="40" y="52">Margin and Capital Analytics Stack</text>
+  <rect class="layer a" x="120" y="95" width="820" height="55" rx="8"/><text class="h" x="155" y="128">Trade population, CSA, netting sets, legal entity, collateral terms</text>
+  <rect class="layer b" x="160" y="165" width="740" height="55" rx="8"/><text class="h" x="195" y="198">Sensitivities, scenarios, risk factors, liquidity horizons</text>
+  <rect class="layer c" x="200" y="235" width="660" height="55" rx="8"/><text class="h" x="235" y="268">Variation margin, initial margin, SIMM, CCP margin, stress add-ons</text>
+  <rect class="layer d" x="240" y="305" width="580" height="55" rx="8"/><text class="h" x="275" y="338">Capital, FRTB, stress capital, margin explain, governance controls</text>
+  <text class="txt" x="120" y="392">The analytics contract is legal and operational as much as quantitative: netting, collateral, eligibility, model version, and reporting date all change the result.</text>
+</svg>

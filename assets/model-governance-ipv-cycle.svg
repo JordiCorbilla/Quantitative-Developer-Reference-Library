@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Model governance and IPV cycle</title>
+  <desc id="desc">Cycle from model inventory through documentation, validation, independent price verification, reserves, approvals, and monitoring.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.a{fill:#eff6ff;stroke:#93c5fd}.b{fill:#fff7ed;stroke:#fdba74}.c{fill:#f0fdf4;stroke:#86efac}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1060" height="430"/><text class="title" x="40" y="52">Model Governance and IPV Cycle</text>
+  <rect class="a" x="70" y="145" width="145" height="90" rx="8"/><text class="h" x="93" y="175">Inventory</text><text class="txt" x="93" y="200">model scope</text><text class="txt" x="93" y="218">ownership</text>
+  <rect class="box" x="275" y="75" width="145" height="90" rx="8"/><text class="h" x="298" y="105">Documentation</text><text class="txt" x="298" y="130">assumptions</text><text class="txt" x="298" y="148">limitations</text>
+  <rect class="b" x="480" y="75" width="145" height="90" rx="8"/><text class="h" x="503" y="105">Validation</text><text class="txt" x="503" y="130">tests</text><text class="txt" x="503" y="148">benchmarks</text>
+  <rect class="box" x="685" y="145" width="145" height="90" rx="8"/><text class="h" x="708" y="175">IPV</text><text class="txt" x="708" y="200">independent marks</text><text class="txt" x="708" y="218">price challenges</text>
+  <rect class="c" x="480" y="275" width="145" height="90" rx="8"/><text class="h" x="503" y="305">Approvals</text><text class="txt" x="503" y="330">sign-off</text><text class="txt" x="503" y="348">conditions</text>
+  <rect class="box" x="275" y="275" width="145" height="90" rx="8"/><text class="h" x="298" y="305">Monitoring</text><text class="txt" x="298" y="330">exceptions</text><text class="txt" x="298" y="348">drift</text>
+  <path class="arrow" d="M215 165L275 125"/><path class="arrow" d="M420 120L480 120"/><path class="arrow" d="M625 120L685 165"/><path class="arrow" d="M755 235L625 300"/><path class="arrow" d="M480 320L420 320"/><path class="arrow" d="M275 320L170 235"/>
+</svg>
