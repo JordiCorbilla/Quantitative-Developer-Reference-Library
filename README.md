@@ -22,7 +22,7 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 ### Quant Engineering
 - [11-market-data.md](11-market-data.md) - identifiers, symbology, time series, curves, surfaces, and data quality
 - [12-pricing-architecture.md](12-pricing-architecture.md) - trade models, market state, pricing engines, and library design
-- [13-risk-and-pnl.md](13-risk-and-pnl.md) - sensitivities, explain, scenario risk, and control frameworks
+- [13-risk-and-pnl.md](13-risk-and-pnl.md) - sensitivities, VaR, expected shortfall, explain, scenario risk, and control frameworks
 - [14-testing-and-validation.md](14-testing-and-validation.md) - numerical tests, model validation, and release discipline
 - [15-performance-and-production.md](15-performance-and-production.md) - latency, throughput, observability, and operational resilience
 - [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - factor models, optimizers, turnover, costs, and benchmark-relative workflows

@@ -42,8 +42,46 @@ A good explain separates start value, market moves, carry, new trades, lifecycle
 - PV01, CS01, and key-rate buckets
 - Cross-gammas and correlation risk
 - Scenario loss under historical or hypothetical shocks
+- Value at Risk (VaR) and Expected Shortfall (ES)
 - Carry and roll-down
 - Residual or unexplained PnL
+
+### Value at Risk and Expected Shortfall
+
+![VaR and expected shortfall](assets/var-expected-shortfall.svg)
+
+VaR and ES summarize the loss tail of a portfolio distribution over a fixed horizon. They are portfolio-level measures: the result depends on the position set, valuation models, market-data history, risk-factor mapping, holding period, confidence level, and aggregation currency.
+
+Let $L$ be portfolio loss over the horizon and let $\alpha$ be the confidence level.
+
+$$
+P(L > \text{VaR}_\alpha) = 1 - \alpha
+$$
+
+VaR is the loss threshold at the chosen confidence level. A 1-day 95% VaR of USD 10m means that, under the model and data window, losses are expected to exceed USD 10m on roughly 5% of days. VaR is useful for summary reporting, trading limits, and quick comparison across books, but it does not say how severe losses are once the threshold has been breached.
+
+$$
+\text{ES}_\alpha = E[L \mid L > \text{VaR}_\alpha]
+$$
+
+Expected Shortfall, also called conditional VaR in some systems, is the average loss beyond the VaR threshold. It is more tail-sensitive than VaR and is a coherent risk measure under the usual axioms, including sub-additivity. That makes ES better suited to stress management, capital-style views, and portfolios where diversification can break down in the tail.
+
+Common implementation choices:
+- Historical simulation: revalue or approximate the current portfolio under historical market moves.
+- Parametric or variance-covariance: assume a distribution for risk-factor moves and map sensitivities into a portfolio loss distribution.
+- Monte Carlo simulation: generate market scenarios from a calibrated model and value the portfolio under each scenario.
+- Filtered historical simulation: rescale historical returns using current volatility or regime estimates.
+
+Production checks:
+- Use the same position population, valuation date, market-data cut, and aggregation currency as official risk reporting.
+- Version the confidence level, horizon, historical window, weighting scheme, and scenario generation method.
+- Backtest VaR breaches against realized PnL and investigate exception clusters.
+- Compare ES against the worst historical and stress losses; ES should not hide named scenario exposure.
+- Report approximation error when using sensitivities instead of full revaluation, especially for nonlinear books.
+
+Reference note:
+
+![Handwritten VaR and ES note](assets/var-es-reference.jpg)
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
 - Official trade population and positions

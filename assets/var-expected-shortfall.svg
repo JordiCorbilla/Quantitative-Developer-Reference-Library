@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="520" viewBox="0 0 1060 520" role="img" aria-labelledby="title desc">
+  <title id="title">Value at Risk and Expected Shortfall</title>
+  <desc id="desc">Diagram showing loss distribution tail, Value at Risk quantile, and Expected Shortfall average loss beyond the VaR threshold.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.panel{fill:#fff;stroke:#cbd5e1;stroke-width:2}.tail{fill:#fecaca;stroke:#dc2626;stroke-width:1.5}.curve{fill:none;stroke:#334155;stroke-width:3}.axis{stroke:#475569;stroke-width:2}.var{stroke:#2563eb;stroke-width:3;stroke-dasharray:7 5}.es{stroke:#dc2626;stroke-width:3}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.formula{font:bold 17px Arial,sans-serif;fill:#0f172a}.blue{fill:#2563eb}.red{fill:#dc2626}.green{fill:#15803d}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="520"/>
+  <text class="title" x="40" y="48">Value at Risk (VaR) and Expected Shortfall (ES)</text>
+
+  <rect class="panel" x="40" y="80" width="470" height="180" rx="8"/>
+  <text class="h" x="65" y="112">Value at Risk</text>
+  <text class="txt" x="65" y="140">VaR is a loss threshold at confidence level alpha.</text>
+  <text class="txt" x="65" y="162">It answers: how bad can losses get before the tail begins?</text>
+  <text class="formula" x="65" y="202">P(L &gt; VaR_alpha) = 1 - alpha</text>
+  <text class="small" x="65" y="232">Example: 1-day 95% VaR of $10m means losses exceed $10m on about 5% of days.</text>
+
+  <rect class="panel" x="550" y="80" width="470" height="180" rx="8"/>
+  <text class="h" x="575" y="112">Expected Shortfall</text>
+  <text class="txt" x="575" y="140">ES is the average loss conditional on being past the VaR threshold.</text>
+  <text class="txt" x="575" y="162">It answers: when losses are really bad, how bad are they on average?</text>
+  <text class="formula" x="575" y="202">ES_alpha = E[L | L &gt; VaR_alpha]</text>
+  <text class="small" x="575" y="232">ES is tail-sensitive and sub-additive, so it is usually preferred for portfolio tail risk.</text>
+
+  <line class="axis" x1="95" y1="410" x2="965" y2="410" marker-end="url(#arrow)"/>
+  <line class="axis" x1="95" y1="410" x2="95" y2="305" marker-end="url(#arrow)"/>
+  <text class="small" x="930" y="438">Loss</text>
+  <text class="small" x="56" y="312">Probability</text>
+
+  <path class="tail" d="M735 410 C755 385 775 351 800 330 C835 300 875 305 915 340 C938 360 955 389 965 410 Z"/>
+  <path class="curve" d="M115 410 C180 409 218 401 262 378 C306 355 342 324 392 300 C449 273 507 280 555 310 C602 339 634 375 675 397 C697 408 717 411 735 410 C755 385 775 351 800 330 C835 300 875 305 915 340 C938 360 955 389 965 410"/>
+  <line class="var" x1="735" y1="410" x2="735" y2="292"/>
+  <line class="es" x1="850" y1="410" x2="850" y2="312"/>
+  <text class="h blue" x="707" y="435">VaR_alpha</text>
+  <text class="h red" x="825" y="435">ES_alpha</text>
+  <text class="small red" x="782" y="292">tail losses beyond VaR</text>
+  <path d="M785 298 C760 305 745 320 737 340" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect class="panel" x="110" y="455" width="260" height="42" rx="8"/>
+  <text class="txt" x="130" y="481">VaR is simple and limit-friendly, but it ignores loss severity inside the tail.</text>
+
+  <rect class="panel" x="400" y="455" width="290" height="42" rx="8"/>
+  <text class="txt" x="420" y="481">ES captures tail severity and supports coherent portfolio aggregation.</text>
+
+  <rect class="panel" x="720" y="455" width="250" height="42" rx="8"/>
+  <text class="txt" x="740" y="481">Use both with backtests, stress scenarios, and clear model assumptions.</text>
+</svg>
