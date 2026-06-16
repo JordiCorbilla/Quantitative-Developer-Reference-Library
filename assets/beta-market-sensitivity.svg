@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Beta market sensitivity lines</title>
+  <desc id="desc">Illustration of stock return sensitivity to market return for beta values 0.5, 1.0, and 1.5.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.grid{stroke:#e2e8f0;stroke-width:1}.axis{stroke:#334155;stroke-width:2}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.b05{stroke:#15803d;stroke-width:4}.b10{stroke:#2563eb;stroke-width:4}.b15{stroke:#dc2626;stroke-width:4}.dash{stroke-dasharray:6 5}.note{fill:#fff;stroke:#cbd5e1;stroke-width:2}.soft{fill:#f8fafc}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="48">Beta: Sensitivity to the Market Factor</text>
+  <text class="small" x="40" y="72">Approximate relation: stock return = alpha + beta x market return + idiosyncratic residual.</text>
+
+  <rect class="soft" x="70" y="100" width="660" height="330" rx="8"/>
+  <line class="grid" x1="160" y1="115" x2="160" y2="390"/>
+  <line class="grid" x1="280" y1="115" x2="280" y2="390"/>
+  <line class="grid" x1="400" y1="115" x2="400" y2="390"/>
+  <line class="grid" x1="520" y1="115" x2="520" y2="390"/>
+  <line class="grid" x1="640" y1="115" x2="640" y2="390"/>
+  <line class="grid" x1="100" y1="335" x2="700" y2="335"/>
+  <line class="grid" x1="100" y1="280" x2="700" y2="280"/>
+  <line class="grid" x1="100" y1="225" x2="700" y2="225"/>
+  <line class="grid" x1="100" y1="170" x2="700" y2="170"/>
+  <line class="axis" x1="100" y1="390" x2="710" y2="390" marker-end="url(#arrow)"/>
+  <line class="axis" x1="100" y1="390" x2="100" y2="110" marker-end="url(#arrow)"/>
+  <text class="h" x="585" y="420">Market return</text>
+  <text class="h" x="40" y="118">Stock return</text>
+  <text class="small" x="92" y="410">0%</text>
+  <text class="small" x="270" y="410">5%</text>
+  <text class="small" x="388" y="410">10%</text>
+  <text class="small" x="508" y="410">15%</text>
+  <text class="small" x="628" y="410">20%</text>
+  <text class="small" x="73" y="393">0%</text>
+  <text class="small" x="67" y="338">5%</text>
+  <text class="small" x="61" y="283">10%</text>
+  <text class="small" x="61" y="228">15%</text>
+  <text class="small" x="61" y="173">20%</text>
+  <text class="small" x="61" y="118">25%</text>
+
+  <line class="b05" x1="100" y1="390" x2="660" y2="280"/>
+  <line class="b10" x1="100" y1="390" x2="660" y2="170"/>
+  <line class="b15" x1="100" y1="390" x2="660" y2="60"/>
+  <line class="axis dash" x1="660" y1="390" x2="660" y2="60"/>
+  <text class="h" x="675" y="284" fill="#15803d">beta = 0.5</text>
+  <text class="h" x="675" y="174" fill="#2563eb">beta = 1.0</text>
+  <text class="h" x="675" y="70" fill="#dc2626">beta = 1.5</text>
+  <text class="small" x="600" y="410">20% market move</text>
+
+  <rect class="note" x="765" y="115" width="245" height="255" rx="8"/>
+  <text class="h" x="790" y="145">How to read it</text>
+  <text class="txt" x="790" y="176">beta = 1.0: moves roughly</text>
+  <text class="txt" x="790" y="194">one-for-one with the market.</text>
+  <text class="txt" x="790" y="226">beta = 0.5: moves about half</text>
+  <text class="txt" x="790" y="244">as much as the market factor.</text>
+  <text class="txt" x="790" y="276">beta = 1.5: moves about 50%</text>
+  <text class="txt" x="790" y="294">more than the market factor.</text>
+  <line class="grid" x1="790" y1="318" x2="985" y2="318"/>
+  <text class="small" x="790" y="345">In VaR, beta scales the market</text>
+  <text class="small" x="790" y="363">factor contribution, but residual</text>
+  <text class="small" x="790" y="381">stock-specific risk still matters.</text>
+</svg>

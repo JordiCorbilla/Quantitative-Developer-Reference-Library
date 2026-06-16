@@ -43,6 +43,7 @@ A good explain separates start value, market moves, carry, new trades, lifecycle
 - Cross-gammas and correlation risk
 - Scenario loss under historical or hypothetical shocks
 - Value at Risk (VaR) and Expected Shortfall (ES)
+- Beta and factor exposure for equity VaR
 - Carry and roll-down
 - Residual or unexplained PnL
 
@@ -67,6 +68,43 @@ $$
 $$
 
 Expected Shortfall, also called conditional VaR in some systems, is the average loss beyond the VaR threshold. It is more tail-sensitive than VaR and is a coherent risk measure under the usual axioms, including sub-additivity. That makes ES better suited to stress management, capital-style views, and portfolios where diversification can break down in the tail.
+
+### Beta in Equity VaR
+
+Beta was not covered in the earlier VaR section. It belongs here because beta is one practical way to map an equity position to a broad market risk factor.
+
+Beta measures how sensitive a stock or portfolio return is to a benchmark return:
+
+$$
+r_i = \alpha_i + \beta_i r_m + \epsilon_i
+$$
+
+Here $r_i$ is the stock or portfolio return, $r_m$ is the benchmark market return, $\beta_i$ is the market sensitivity, and $\epsilon_i$ is residual stock-specific return. A beta of 1.0 means the position tends to move broadly in line with the benchmark. A beta of 0.5 means it tends to move about half as much. A beta of 1.5 means it tends to move about 50% more than the benchmark.
+
+![Beta market sensitivity](assets/beta-market-sensitivity.svg)
+
+In a simple factor VaR approximation, beta scales the market-factor shock:
+
+$$
+\Delta V_{\text{market}} \approx \text{position value} \times \beta \times \Delta r_m
+$$
+
+Illustrative market-factor VaR example:
+
+| Position value | Market-factor 1-day VaR | Beta | Approximate market-factor loss |
+| ---: | ---: | ---: | ---: |
+| USD 10m | 2% | 0.5 | USD 100k |
+| USD 10m | 2% | 1.0 | USD 200k |
+| USD 10m | 2% | 1.5 | USD 300k |
+
+![Beta factor VaR example](assets/beta-var-factor-example.svg)
+
+Beta is useful, but it is not a complete risk measure:
+- It is estimated from historical returns, so it can change across regimes.
+- It depends on the benchmark, lookback window, return frequency, currency, and regression method.
+- It captures broad-market sensitivity, not company-specific risk such as leverage, earnings events, management decisions, valuation risk, borrow pressure, or liquidity.
+- It is a linear approximation, so it will miss nonlinear payoffs, option-like exposures, and gap risk.
+- A beta-based VaR should be reconciled with full historical simulation, stress scenarios, and realized PnL exceptions.
 
 Common implementation choices:
 - Historical simulation: revalue or approximate the current portfolio under historical market moves.

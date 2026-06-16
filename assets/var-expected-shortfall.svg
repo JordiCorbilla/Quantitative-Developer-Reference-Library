@@ -17,7 +17,7 @@
   <text class="txt" x="65" y="140">VaR is a loss threshold at confidence level alpha.</text>
   <text class="txt" x="65" y="162">It answers: how bad can losses get before the tail begins?</text>
   <text class="formula" x="65" y="202">P(L &gt; VaR_alpha) = 1 - alpha</text>
-  <text class="small" x="65" y="232">Example: 1-day 95% VaR of $10m means losses exceed $10m on about 5% of days.</text>
+  <text class="small" x="65" y="232">Example: 1-day 95% VaR of USD 10m means losses exceed USD 10m on about 5% of days.</text>
 
   <rect class="panel" x="550" y="80" width="470" height="180" rx="8"/>
   <text class="h" x="575" y="112">Expected Shortfall</text>

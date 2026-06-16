@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="470" viewBox="0 0 1060 470" role="img" aria-labelledby="title desc">
+  <title id="title">Beta contribution to factor VaR</title>
+  <desc id="desc">Example showing how beta scales market factor loss and why residual risk must be added for a complete VaR estimate.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.input{fill:#f8fafc}.market{fill:#eff6ff;stroke:#93c5fd}.loss{fill:#fff1f2;stroke:#fda4af}.control{fill:#f0fdf4;stroke:#86efac}.warn{fill:#fff7ed;stroke:#fdba74}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.formula{font:bold 17px Arial,sans-serif;fill:#0f172a}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}.bar1{fill:#93c5fd;stroke:#2563eb;stroke-width:2}.bar2{fill:#fca5a5;stroke:#dc2626;stroke-width:2}.bar3{fill:#fdba74;stroke:#ea580c;stroke-width:2}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="470"/>
+  <text class="title" x="40" y="48">Beta in a Simple Market-Factor VaR Estimate</text>
+  <text class="small" x="40" y="72">Illustrative data only. The point is the mechanics, not a recommendation or forecast.</text>
+
+  <rect class="box input" x="40" y="110" width="220" height="120" rx="8"/>
+  <text class="h" x="65" y="140">Inputs</text>
+  <text class="txt" x="65" y="166">Equity position: USD 10m</text>
+  <text class="txt" x="65" y="188">Market-factor 1-day VaR: 2%</text>
+  <text class="txt" x="65" y="210">Residual 1-day VaR add-on: 1%</text>
+
+  <rect class="box market" x="315" y="110" width="220" height="120" rx="8"/>
+  <text class="h" x="340" y="140">Beta scaling</text>
+  <text class="formula" x="340" y="172">market loss ~=</text>
+  <text class="formula" x="340" y="198">position x beta x factor VaR</text>
+
+  <rect class="box loss" x="590" y="110" width="220" height="120" rx="8"/>
+  <text class="h" x="615" y="140">Example beta = 1.5</text>
+  <text class="txt" x="615" y="166">USD 10m x 1.5 x 2%</text>
+  <text class="txt" x="615" y="188">= USD 300k market-factor loss</text>
+  <text class="txt" x="615" y="210">Plus residual and other factors</text>
+
+  <rect class="box control" x="865" y="110" width="155" height="120" rx="8"/>
+  <text class="h" x="890" y="140">Controls</text>
+  <text class="txt" x="890" y="166">estimate window</text>
+  <text class="txt" x="890" y="188">benchmark choice</text>
+  <text class="txt" x="890" y="210">residual tests</text>
+
+  <path class="arrow" d="M260 170 L315 170"/>
+  <path class="arrow" d="M535 170 L590 170"/>
+  <path class="arrow" d="M810 170 L865 170"/>
+
+  <line x1="80" y1="395" x2="990" y2="395" stroke="#334155" stroke-width="2"/>
+  <text class="h" x="80" y="280">Market-factor loss for the same USD 10m position</text>
+  <rect class="bar1" x="120" y="335" width="170" height="60"/>
+  <text class="txt" x="150" y="323">beta 0.5</text>
+  <text class="h" x="168" y="371">USD 100k</text>
+  <rect class="bar2" x="405" y="275" width="170" height="120"/>
+  <text class="txt" x="435" y="263">beta 1.0</text>
+  <text class="h" x="453" y="341">USD 200k</text>
+  <rect class="bar3" x="690" y="215" width="170" height="180"/>
+  <text class="txt" x="720" y="203">beta 1.5</text>
+  <text class="h" x="738" y="311">USD 300k</text>
+
+  <rect class="box warn" x="80" y="415" width="910" height="38" rx="8"/>
+  <text class="txt" x="105" y="439">Beta captures broad-market sensitivity. Complete VaR also needs residual volatility, sector factors, liquidity, concentration, nonlinear exposures, and stress scenarios.</text>
+</svg>
