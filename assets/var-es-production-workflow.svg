@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="460" viewBox="0 0 1060 460" role="img" aria-labelledby="title desc">
+  <title id="title">VaR and Expected Shortfall production workflow</title>
+  <desc id="desc">Production workflow for VaR and Expected Shortfall from positions and market data through scenario generation, valuation, aggregation, backtesting, and controls.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.input{fill:#f8fafc}.calc{fill:#eff6ff;stroke:#93c5fd}.risk{fill:#fff1f2;stroke:#fda4af}.control{fill:#f0fdf4;stroke:#86efac}.warn{fill:#fff7ed;stroke:#fdba74}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}.loop{stroke:#dc2626;stroke-width:2;fill:none;stroke-dasharray:6 5;marker-end:url(#arrowRed)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="460"/>
+  <text class="title" x="40" y="48">VaR / ES Production Workflow</text>
+  <text class="small" x="40" y="72">A useful tail-risk number is a controlled process, not just a quantile calculation.</text>
+
+  <rect class="box input" x="40" y="110" width="155" height="100" rx="8"/>
+  <text class="h" x="62" y="140">Positions</text>
+  <text class="txt" x="62" y="164">trades, books</text>
+  <text class="txt" x="62" y="182">lifecycle events</text>
+  <text class="txt" x="62" y="200">aggregation rules</text>
+
+  <rect class="box input" x="40" y="260" width="155" height="100" rx="8"/>
+  <text class="h" x="62" y="290">Market Data</text>
+  <text class="txt" x="62" y="314">curves, surfaces</text>
+  <text class="txt" x="62" y="332">history, fixings</text>
+  <text class="txt" x="62" y="350">data quality flags</text>
+
+  <rect class="box calc" x="255" y="185" width="155" height="100" rx="8"/>
+  <text class="h" x="277" y="215">Scenarios</text>
+  <text class="txt" x="277" y="239">historical moves</text>
+  <text class="txt" x="277" y="257">Monte Carlo paths</text>
+  <text class="txt" x="277" y="275">vol scaling</text>
+
+  <rect class="box calc" x="470" y="185" width="155" height="100" rx="8"/>
+  <text class="h" x="492" y="215">Valuation</text>
+  <text class="txt" x="492" y="239">full revaluation</text>
+  <text class="txt" x="492" y="257">or sensitivity PnL</text>
+  <text class="txt" x="492" y="275">model policy</text>
+
+  <rect class="box risk" x="685" y="185" width="155" height="100" rx="8"/>
+  <text class="h" x="707" y="215">Tail Metrics</text>
+  <text class="txt" x="707" y="239">sort scenario PnL</text>
+  <text class="txt" x="707" y="257">VaR threshold</text>
+  <text class="txt" x="707" y="275">ES tail average</text>
+
+  <rect class="box control" x="900" y="110" width="130" height="100" rx="8"/>
+  <text class="h" x="920" y="140">Reporting</text>
+  <text class="txt" x="920" y="164">limits</text>
+  <text class="txt" x="920" y="182">explain</text>
+  <text class="txt" x="920" y="200">sign-off</text>
+
+  <rect class="box warn" x="900" y="260" width="130" height="100" rx="8"/>
+  <text class="h" x="920" y="290">Validation</text>
+  <text class="txt" x="920" y="314">backtesting</text>
+  <text class="txt" x="920" y="332">exceptions</text>
+  <text class="txt" x="920" y="350">stress compare</text>
+
+  <path class="arrow" d="M195 160 L255 215"/>
+  <path class="arrow" d="M195 310 L255 255"/>
+  <path class="arrow" d="M410 235 L470 235"/>
+  <path class="arrow" d="M625 235 L685 235"/>
+  <path class="arrow" d="M840 220 L900 165"/>
+  <path class="arrow" d="M840 250 L900 305"/>
+  <path class="loop" d="M965 360 C890 420 365 420 320 292"/>
+  <text class="small" x="430" y="410">Backtesting and stress exceptions feed scenario design, data controls, and model policy.</text>
+</svg>

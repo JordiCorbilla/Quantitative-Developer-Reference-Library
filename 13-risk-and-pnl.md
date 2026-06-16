@@ -52,6 +52,8 @@ A good explain separates start value, market moves, carry, new trades, lifecycle
 
 VaR and ES summarize the loss tail of a portfolio distribution over a fixed horizon. They are portfolio-level measures: the result depends on the position set, valuation models, market-data history, risk-factor mapping, holding period, confidence level, and aggregation currency.
 
+![VaR and expected shortfall comparison](assets/var-es-comparison-cards.svg)
+
 Let $L$ be portfolio loss over the horizon and let $\alpha$ be the confidence level.
 
 $$
@@ -71,6 +73,8 @@ Common implementation choices:
 - Parametric or variance-covariance: assume a distribution for risk-factor moves and map sensitivities into a portfolio loss distribution.
 - Monte Carlo simulation: generate market scenarios from a calibrated model and value the portfolio under each scenario.
 - Filtered historical simulation: rescale historical returns using current volatility or regime estimates.
+
+![VaR and expected shortfall production workflow](assets/var-es-production-workflow.svg)
 
 Production checks:
 - Use the same position population, valuation date, market-data cut, and aggregation currency as official risk reporting.
