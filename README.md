@@ -19,7 +19,7 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [09-cross-asset.md](09-cross-asset.md) - hybrid payoffs, correlation, funding, collateral, counterparty exposure, xVA, and multi-asset scenario dependencies
 - [10-numerical-methods.md](10-numerical-methods.md) - Monte Carlo, PDE, trees, interpolation, calibration, convergence, and numerical validation
 - [17-inflation-products.md](17-inflation-products.md) - inflation-linked bonds, CPI swaps, indexation lags, seasonality, and real-rate risk
-- [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX products, volatility futures, dispersion, realized variance, and vol-surface risk
+- [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX products, volatility futures, dispersion, GARCH forecasting, realized variance, and vol-surface risk
 - [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) - repo, reverse repo, securities lending, collateral, haircuts, borrow cost, and financing curves
 
 ### Quant Engineering

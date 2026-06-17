@@ -34,6 +34,48 @@ The fair variance strike can be related to a strip of options across strikes und
 
 Volatility products depend on the option surface, but each product extracts a different exposure: realized variance, forward variance, index methodology, or correlation.
 
+## GARCH-Family Volatility Forecasting
+GARCH models are time-series models for conditional volatility. They do not price volatility products directly in the same way an option surface does, but they are widely used to forecast realized volatility, scale risk scenarios, feed VaR and ES models, stress portfolios, and compare realized volatility against implied volatility.
+
+The basic GARCH(1,1) structure models variance as a dynamic process:
+
+$$
+\sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2
+$$
+
+where $\epsilon_{t-1}$ is the previous return shock, $\alpha$ controls the impact of new shocks, and $\beta$ controls volatility persistence. A common stationarity condition is:
+
+$$
+\alpha + \beta < 1
+$$
+
+### Visual GARCH Reference
+
+![GARCH volatility model family](assets/garch-volatility-model-family.svg)
+
+Common variants:
+- GARCH(1,1): the workhorse model for volatility forecasting and risk management.
+- EGARCH: models log variance and captures asymmetric effects without requiring the same non-negativity constraints as standard GARCH.
+- GJR-GARCH: adds a leverage-effect term so negative shocks can increase volatility more than positive shocks.
+- TGARCH: allows positive and negative returns to affect future volatility differently through thresholds.
+- APARCH / PGARCH: introduces a power parameter and flexible asymmetry.
+- FIGARCH: captures long-memory behavior where volatility shocks decay slowly.
+
+Practical uses:
+- Volatility forecasting for trading, hedging, and risk limits.
+- VaR and ES modelling through volatility-scaled return distributions.
+- Stress testing by amplifying volatility regimes after large shocks.
+- Portfolio risk management through conditional covariance or factor-volatility inputs.
+- Option and volatility trading by comparing model-implied realized volatility forecasts against market-implied volatility.
+- Regulatory capital calculations where conditional volatility affects risk estimates or stress calibration.
+
+Implementation cautions:
+- Return frequency, calendar treatment, outlier handling, and missing data materially change fitted parameters.
+- Heavy-tailed residual distributions are often more realistic than normal residuals.
+- Parameter stability should be checked across rolling windows and market regimes.
+- A high $\alpha + \beta$ implies persistent volatility; values too close to 1 can make forecasts slow to mean-revert.
+- GARCH forecasts conditional volatility, not full market risk; jump risk, liquidity, correlation breaks, and nonlinear exposures still need separate treatment.
+
 ## Worked Instrument Example: Variance Swap
 Assume:
 - variance notional: USD 50,000 per variance point,
@@ -61,11 +103,13 @@ This example uses volatility points, a common market shorthand. A production imp
 - Interest-rate, dividend, borrow, and forward inputs.
 - Volatility index methodology inputs.
 - Realized return series with sampling and corporate-action policies.
+- Clean return series for GARCH estimation, including outlier and missing-data policy.
 - Constituent weights and correlation data for dispersion.
 - Surface calibration and no-arbitrage controls.
 
 ## Numerical and Implementation Approaches
 - Keep variance, volatility, and volatility points as distinct units in code.
+- Treat GARCH models as forecasting models with explicit data windows, residual distributions, and refit schedules.
 - Use robust interpolation and extrapolation controls for option surfaces.
 - Validate option-strip replication against listed variance or volatility quotes where available.
 - For VIX-style products, implement the official index methodology as a separate tested component.
@@ -74,6 +118,7 @@ This example uses volatility points, a common market shorthand. A production imp
 - Squaring decimal volatility in one module and percent volatility in another.
 - Treating VIX futures as spot VIX.
 - Ignoring jump and close-to-close sampling effects in realized variance.
+- Using a GARCH forecast as if it captures liquidity, jump, and correlation-break risk.
 - Reporting dispersion risk without exposing correlation sensitivity.
 - Calibrating a smooth surface that violates static no-arbitrage constraints.
 
@@ -81,9 +126,14 @@ This example uses volatility points, a common market shorthand. A production imp
 ```python
 def variance_swap_payoff(var_notional: float, realized_vol_points: float, strike_vol_points: float) -> float:
     return var_notional * (realized_vol_points ** 2 - strike_vol_points ** 2)
+
+
+def garch_11_variance(omega: float, alpha: float, beta: float, prev_shock: float, prev_variance: float) -> float:
+    return omega + alpha * prev_shock ** 2 + beta * prev_variance
 ```
 
 ## References and Further Reading
 - Gatheral. *The Volatility Surface*
 - Demeterfi, Derman, Kamal, and Zou on variance swaps.
+- Bollerslev on generalized autoregressive conditional heteroskedasticity.
 - Exchange methodology documents for volatility indices.

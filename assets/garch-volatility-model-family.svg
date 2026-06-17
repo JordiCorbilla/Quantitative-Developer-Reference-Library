@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">GARCH family for volatility forecasting</title>
+  <desc id="desc">Map of GARCH model variants and their primary use cases in volatility forecasting, VaR, stress testing, portfolio risk, option volatility trading, and regulatory capital.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#93c5fd}.asym{fill:#fff7ed;stroke:#fdba74}.long{fill:#f0fdf4;stroke:#86efac}.use{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="50">GARCH Family: Conditional Volatility Models</text>
+  <text class="small" x="40" y="74">GARCH models forecast tomorrow's variance from recent shocks and recent conditional variance.</text>
+
+  <rect class="core" x="390" y="105" width="280" height="90" rx="8"/>
+  <text class="h" x="430" y="137">GARCH(1,1)</text>
+  <text class="txt" x="430" y="162">workhorse volatility forecast</text>
+  <text class="txt" x="430" y="180">shock persistence + volatility persistence</text>
+
+  <rect class="asym" x="60" y="245" width="180" height="92" rx="8"/>
+  <text class="h" x="92" y="277">EGARCH</text>
+  <text class="txt" x="82" y="302">log variance</text>
+  <text class="txt" x="82" y="320">asymmetric shocks</text>
+
+  <rect class="asym" x="280" y="245" width="180" height="92" rx="8"/>
+  <text class="h" x="310" y="277">GJR-GARCH</text>
+  <text class="txt" x="302" y="302">leverage effect</text>
+  <text class="txt" x="302" y="320">negative-return dummy</text>
+
+  <rect class="asym" x="500" y="245" width="180" height="92" rx="8"/>
+  <text class="h" x="540" y="277">TGARCH</text>
+  <text class="txt" x="522" y="302">threshold response</text>
+  <text class="txt" x="522" y="320">shock sign matters</text>
+
+  <rect class="long" x="720" y="245" width="180" height="92" rx="8"/>
+  <text class="h" x="760" y="277">FIGARCH</text>
+  <text class="txt" x="742" y="302">long-memory volatility</text>
+  <text class="txt" x="742" y="320">slow decay of shocks</text>
+
+  <rect class="long" x="390" y="370" width="280" height="72" rx="8"/>
+  <text class="h" x="430" y="400">APARCH / PGARCH</text>
+  <text class="txt" x="430" y="424">power term + asymmetry flexibility</text>
+
+  <rect class="use" x="790" y="100" width="220" height="120" rx="8"/>
+  <text class="h" x="815" y="132">Used For</text>
+  <text class="txt" x="815" y="156">VaR and ES volatility input</text>
+  <text class="txt" x="815" y="174">stress testing</text>
+  <text class="txt" x="815" y="192">portfolio risk</text>
+  <text class="txt" x="815" y="210">option vol trading and capital</text>
+
+  <path class="arrow" d="M450 195L160 245"/>
+  <path class="arrow" d="M500 195L370 245"/>
+  <path class="arrow" d="M560 195L590 245"/>
+  <path class="arrow" d="M620 195L810 245"/>
+  <path class="arrow" d="M530 195L530 370"/>
+  <path class="arrow" d="M670 150L790 150"/>
+</svg>
