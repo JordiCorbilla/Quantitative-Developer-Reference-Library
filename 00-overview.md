@@ -41,7 +41,7 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 | [17-inflation-products.md](17-inflation-products.md) | Inflation-linked bonds, CPI swaps, lags, seasonality, real-rate risk | Captures the index mechanics that make inflation products implementation-heavy |
 | [18-volatility-products.md](18-volatility-products.md) | Variance swaps, VIX, volatility futures, dispersion, GARCH forecasting, realized variance | Extends option-surface knowledge into traded volatility, volatility forecasting, and correlation exposure |
 | [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) | Repo, reverse repo, securities lending, collateral, haircuts, borrow cost | Makes financing and collateral explicit inputs to pricing and risk |
-| [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) | Execution benchmarks, slippage, impact, implementation shortfall, TCA | Connects portfolio decisions to realized trading cost |
+| [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) | VWAP, TWAP, execution benchmarks, slippage, impact, implementation shortfall, TCA | Connects portfolio decisions to realized trading cost |
 | [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) | Initial margin, variation margin, SIMM, FRTB, stress, capital explain | Links risk analytics to regulatory and collateral requirements |
 | [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) | Model inventory, validation, IPV, reserves, approvals, monitoring | Makes valuation control and model risk management part of the quant stack |
 

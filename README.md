@@ -29,7 +29,7 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [14-testing-and-validation.md](14-testing-and-validation.md) - numerical tests, model validation, and release discipline
 - [15-performance-and-production.md](15-performance-and-production.md) - latency, throughput, observability, and operational resilience
 - [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - factor models, optimizers, turnover, costs, and benchmark-relative workflows
-- [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - execution benchmarks, implementation shortfall, market impact, slippage, and TCA workflows
+- [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - VWAP, TWAP, execution benchmarks, implementation shortfall, market impact, slippage, and TCA workflows
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - variation margin, initial margin, SIMM, FRTB, capital, stress, and margin explain
 - [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - model inventory, documentation, validation, IPV, reserves, approvals, and monitoring
 
