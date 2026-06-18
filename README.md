@@ -4,6 +4,15 @@ Practical reference material for quant developers, engineering-minded quants, an
 
 Start with [00-overview.md](00-overview.md). It defines the shared notation, discounting language, curve and surface glossary, and the overall map of the library.
 
+## Project Navigation
+- [INDEX.md](INDEX.md) - topic index across products, engineering, risk, execution, and governance
+- [READING-PATHS.md](READING-PATHS.md) - guided paths for interviews, pricing, risk, rates, portfolio engineering, and volatility
+- [INTERVIEW-GUIDE.md](INTERVIEW-GUIDE.md) - common interview questions and what strong answers should cover
+- [GLOSSARY.md](GLOSSARY.md) - core terms, acronyms, and working definitions
+- [examples/README.md](examples/README.md) - compact worked examples
+- [CONTRIBUTING.md](CONTRIBUTING.md) - contribution rules, style guidance, and quality checks
+- [CHANGELOG.md](CHANGELOG.md) - notable project changes
+
 ## Library Map
 
 ### Core Instruments
