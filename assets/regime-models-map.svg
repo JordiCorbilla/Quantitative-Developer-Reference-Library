@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Regime models in quantitative finance</title>
+  <desc id="desc">Map of Markov switching models, hidden Markov models, and regime-switching GARCH for market regime detection, volatility forecasting, risk management, and asset allocation.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.state1{fill:#dcfce7;stroke:#16a34a;stroke-width:3}.state2{fill:#fee2e2;stroke:#dc2626;stroke-width:3}.model{fill:#eff6ff;stroke:#93c5fd}.hmm{fill:#fff7ed;stroke:#fdba74}.garch{fill:#fff1f2;stroke:#fda4af}.use{fill:#f8fafc;stroke:#cbd5e1}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.formula{font:bold 15px Arial,sans-serif;fill:#0f172a}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}.loop{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="50">Regime Models: Latent Market States</text>
+  <text class="small" x="40" y="74">Regime models let parameters change across hidden states such as low-volatility and high-volatility markets.</text>
+
+  <circle class="state1" cx="195" cy="185" r="62"/>
+  <text class="h" x="162" y="180">State 1</text>
+  <text class="txt" x="153" y="202">low vol / calm</text>
+  <circle class="state2" cx="395" cy="185" r="62"/>
+  <text class="h" x="362" y="180">State 2</text>
+  <text class="txt" x="351" y="202">high vol / stress</text>
+  <path class="arrow" d="M255 162 C290 130 330 130 365 162"/>
+  <text class="small" x="298" y="128">p12</text>
+  <path class="arrow" d="M365 218 C330 252 290 252 255 218"/>
+  <text class="small" x="298" y="270">p21</text>
+  <path class="loop" d="M165 127 C130 95 96 122 120 160"/>
+  <text class="small" x="105" y="110">p11</text>
+  <path class="loop" d="M425 127 C462 95 496 122 470 160"/>
+  <text class="small" x="472" y="110">p22</text>
+
+  <rect class="box model" x="560" y="95" width="430" height="84" rx="8"/>
+  <text class="h" x="590" y="126">Markov Switching Model</text>
+  <text class="formula" x="590" y="154">r_t = mu_{S_t} + sigma_{S_t} epsilon_t</text>
+
+  <rect class="box hmm" x="560" y="210" width="430" height="84" rx="8"/>
+  <text class="h" x="590" y="241">Hidden Markov Model</text>
+  <text class="formula" x="590" y="269">S_t hidden, observations emitted from f(y_t | S_t)</text>
+
+  <rect class="box garch" x="560" y="325" width="430" height="84" rx="8"/>
+  <text class="h" x="590" y="356">Regime-Switching GARCH</text>
+  <text class="formula" x="590" y="384">h_t^{(k)} = omega_k + alpha_k eps^2 + beta_k h_{t-1}^{(k)}</text>
+
+  <rect class="box use" x="85" y="355" width="390" height="95" rx="8"/>
+  <text class="h" x="115" y="387">Used For</text>
+  <text class="txt" x="115" y="413">regime detection, volatility forecasting, VaR/ES scaling,</text>
+  <text class="txt" x="115" y="431">stress testing, portfolio allocation, and risk dashboards</text>
+</svg>

@@ -76,6 +76,62 @@ Implementation cautions:
 - A high $\alpha + \beta$ implies persistent volatility; values too close to 1 can make forecasts slow to mean-revert.
 - GARCH forecasts conditional volatility, not full market risk; jump risk, liquidity, correlation breaks, and nonlinear exposures still need separate treatment.
 
+## Regime Models and Regime-Switching Volatility
+Regime models are now covered in this chapter because they sit naturally between volatility forecasting, VaR/ES scaling, stress testing, and portfolio allocation. The key idea is that market behavior can switch between latent states such as calm markets, high-volatility markets, crisis markets, or liquidity-stressed markets.
+
+### Markov Switching Model
+A Markov switching model lets return parameters depend on an unobserved state $S_t$:
+
+$$
+r_t = \mu_{S_t} + \sigma_{S_t}\epsilon_t
+$$
+
+The state follows a Markov chain with transition probabilities:
+
+$$
+P(S_t = j \mid S_{t-1} = i) = p_{ij}
+$$
+
+This is useful when mean, volatility, or correlation changes across regimes.
+
+### Hidden Markov Model
+An HMM also treats the state as hidden, but emphasizes the observation model:
+
+$$
+y_t \mid S_t = i \sim f(y_t \mid \theta_i)
+$$
+
+The model estimates state probabilities from observed data. In practice, this is useful for regime classification, time-varying risk estimates, and dashboards that show the probability of being in a stress state rather than forcing a hard label.
+
+### Regime-Switching GARCH
+Regime-switching GARCH combines latent states with regime-specific volatility dynamics:
+
+$$
+h_t^{(k)} = \omega_k + \alpha_k \epsilon_{t-1}^2 + \beta_k h_{t-1}^{(k)}
+$$
+
+Each regime $k$ has its own GARCH parameters. That makes the model more flexible than a single GARCH process when volatility clustering changes across calm and stressed markets.
+
+![Regime models in quant finance](assets/regime-models-map.svg)
+
+![Regime model workflow](assets/regime-model-workflow.svg)
+
+Practical uses:
+- Market regime detection and regime probability dashboards.
+- Volatility forecasting when market dynamics change across states.
+- VaR and ES models that scale risk differently in calm and stressed regimes.
+- Stress testing by conditioning on high-volatility or crisis states.
+- Portfolio allocation and de-risking rules driven by state probabilities.
+- Regulatory capital and clearing risk models where turbulent-market behavior matters.
+
+Implementation cautions:
+- Regime labels are model outputs, not observable truths.
+- State probabilities are often more useful than hard state assignments.
+- More regimes can overfit and become hard to interpret.
+- Transition probabilities should be monitored for stability.
+- Backtests must avoid using smoothed future information in live-style decisions.
+- Regime-switching GARCH can be fragile to initialize and computationally expensive to calibrate.
+
 ## Worked Instrument Example: Variance Swap
 Assume:
 - variance notional: USD 50,000 per variance point,
@@ -104,12 +160,14 @@ This example uses volatility points, a common market shorthand. A production imp
 - Volatility index methodology inputs.
 - Realized return series with sampling and corporate-action policies.
 - Clean return series for GARCH estimation, including outlier and missing-data policy.
+- Regime-model inputs such as return series, state count, transition constraints, and estimation window.
 - Constituent weights and correlation data for dispersion.
 - Surface calibration and no-arbitrage controls.
 
 ## Numerical and Implementation Approaches
 - Keep variance, volatility, and volatility points as distinct units in code.
 - Treat GARCH models as forecasting models with explicit data windows, residual distributions, and refit schedules.
+- Treat regime models as probabilistic classifiers; persist filtered probabilities, transition matrices, and model versions.
 - Use robust interpolation and extrapolation controls for option surfaces.
 - Validate option-strip replication against listed variance or volatility quotes where available.
 - For VIX-style products, implement the official index methodology as a separate tested component.
@@ -119,6 +177,7 @@ This example uses volatility points, a common market shorthand. A production imp
 - Treating VIX futures as spot VIX.
 - Ignoring jump and close-to-close sampling effects in realized variance.
 - Using a GARCH forecast as if it captures liquidity, jump, and correlation-break risk.
+- Using smoothed regime states in a backtest when those states would not have been known at trade time.
 - Reporting dispersion risk without exposing correlation sensitivity.
 - Calibrating a smooth surface that violates static no-arbitrage constraints.
 
@@ -130,10 +189,15 @@ def variance_swap_payoff(var_notional: float, realized_vol_points: float, strike
 
 def garch_11_variance(omega: float, alpha: float, beta: float, prev_shock: float, prev_variance: float) -> float:
     return omega + alpha * prev_shock ** 2 + beta * prev_variance
+
+
+def two_state_next_probability(current_prob_state_1: float, p11: float, p21: float) -> float:
+    return current_prob_state_1 * p11 + (1.0 - current_prob_state_1) * p21
 ```
 
 ## References and Further Reading
 - Gatheral. *The Volatility Surface*
 - Demeterfi, Derman, Kamal, and Zou on variance swaps.
 - Bollerslev on generalized autoregressive conditional heteroskedasticity.
+- Hamilton on regime-switching time-series models.
 - Exchange methodology documents for volatility indices.

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">Regime model workflow</title>
+  <desc id="desc">Workflow for estimating and using regime models from returns to state probabilities, forecasts, allocation, VaR, stress testing, and monitoring.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.input{fill:#f8fafc}.fit{fill:#eff6ff;stroke:#93c5fd}.prob{fill:#fff7ed;stroke:#fdba74}.output{fill:#f0fdf4;stroke:#86efac}.risk{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="430"/>
+  <text class="title" x="40" y="52">Regime Model Production Workflow</text>
+  <text class="small" x="40" y="76">The useful output is not just a label. It is a probability-weighted view of market state and model uncertainty.</text>
+
+  <rect class="box input" x="45" y="160" width="155" height="100" rx="8"/>
+  <text class="h" x="68" y="190">Returns</text>
+  <text class="txt" x="68" y="215">clean history</text>
+  <text class="txt" x="68" y="233">outlier policy</text>
+
+  <rect class="box fit" x="255" y="160" width="155" height="100" rx="8"/>
+  <text class="h" x="278" y="190">Estimate</text>
+  <text class="txt" x="278" y="215">EM / likelihood</text>
+  <text class="txt" x="278" y="233">state parameters</text>
+
+  <rect class="box prob" x="465" y="160" width="155" height="100" rx="8"/>
+  <text class="h" x="488" y="190">State Probabilities</text>
+  <text class="txt" x="488" y="215">filtered</text>
+  <text class="txt" x="488" y="233">smoothed</text>
+
+  <rect class="box output" x="675" y="90" width="155" height="100" rx="8"/>
+  <text class="h" x="698" y="120">Forecast</text>
+  <text class="txt" x="698" y="145">mean / volatility</text>
+  <text class="txt" x="698" y="163">regime weighted</text>
+
+  <rect class="box risk" x="675" y="235" width="155" height="100" rx="8"/>
+  <text class="h" x="698" y="265">Risk</text>
+  <text class="txt" x="698" y="290">VaR / ES scaling</text>
+  <text class="txt" x="698" y="308">stress state</text>
+
+  <rect class="box output" x="885" y="160" width="135" height="100" rx="8"/>
+  <text class="h" x="908" y="190">Decision</text>
+  <text class="txt" x="908" y="215">allocation</text>
+  <text class="txt" x="908" y="233">limits</text>
+
+  <path class="arrow" d="M200 210L255 210"/>
+  <path class="arrow" d="M410 210L465 210"/>
+  <path class="arrow" d="M620 190L675 140"/>
+  <path class="arrow" d="M620 230L675 285"/>
+  <path class="arrow" d="M830 140L885 195"/>
+  <path class="arrow" d="M830 285L885 225"/>
+</svg>

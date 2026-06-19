@@ -13,7 +13,7 @@ This index groups the library by practitioner task rather than file number.
 - [08-commodities.md](08-commodities.md) - storage, convenience yield, seasonality, delivery, curve carry
 - [09-cross-asset.md](09-cross-asset.md) - hybrid payoffs, correlation, collateral, funding, xVA
 - [17-inflation-products.md](17-inflation-products.md) - CPI swaps, indexation lags, seasonality, real-rate risk
-- [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX, GARCH, dispersion, realized variance
+- [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX, GARCH, regime models, dispersion, realized variance
 - [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) - repo, borrow, haircuts, collateral, financing curves
 
 ## Quant Engineering

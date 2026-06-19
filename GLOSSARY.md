@@ -37,6 +37,7 @@
 ## H
 - **Haircut**: Reduction applied to collateral value in financing or margin.
 - **Hazard rate**: Default intensity used in credit modelling.
+- **Hidden Markov Model (HMM)**: Model with unobserved states that generate observed data through a state-dependent emission distribution.
 
 ## I
 - **Implementation shortfall**: Execution cost relative to the decision or arrival price.
@@ -52,6 +53,8 @@
 - **POV**: Percentage-of-volume execution algorithm.
 
 ## R
+- **Regime model**: Model that lets parameters or dynamics change across latent market states.
+- **Regime-switching GARCH**: GARCH model where volatility parameters depend on an unobserved regime.
 - **Repo**: Financing transaction where securities are sold and later repurchased.
 - **Residual PnL**: PnL not explained by known risk factors or lifecycle changes.
 - **Roll-down**: PnL from moving along a curve or surface as time passes.

@@ -64,6 +64,8 @@ Common questions:
 - What is the stationarity condition?
 - Difference between realized and implied volatility.
 - What do EGARCH or GJR-GARCH add?
+- What is a Markov switching model or HMM?
+- How would a regime-switching GARCH model differ from a single-regime GARCH model?
 
 Good answers mention:
 - conditional variance,
@@ -71,6 +73,7 @@ Good answers mention:
 - leverage/asymmetry effects,
 - heavy-tailed residuals and regime stability,
 - use in VaR and volatility forecasting.
+- hidden states, transition probabilities, filtered probabilities, and avoiding look-ahead from smoothed states.
 
 ## Execution: VWAP, TWAP, POV, TCA
 Read: [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)

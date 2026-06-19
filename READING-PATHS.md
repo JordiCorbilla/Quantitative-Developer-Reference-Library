@@ -47,3 +47,4 @@ Use these paths when you want to study the library with a concrete goal.
 3. [13-risk-and-pnl.md](13-risk-and-pnl.md)
 4. [examples/historical-var-es.md](examples/historical-var-es.md)
 5. [examples/garch-forecast.md](examples/garch-forecast.md)
+6. [examples/regime-switching-probability.md](examples/regime-switching-probability.md)
