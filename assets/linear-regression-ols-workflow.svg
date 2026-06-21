@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Linear regression OLS workflow</title>
+  <desc id="desc">Workflow for ordinary least squares regression from data and model specification through coefficient estimation, residuals, diagnostics, prediction, and finance use cases.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.data{fill:#eff6ff;stroke:#93c5fd}.fit{fill:#f0fdf4;stroke:#86efac}.diag{fill:#fff7ed;stroke:#fdba74}.out{fill:#fff1f2;stroke:#fda4af}.axis{stroke:#334155;stroke-width:2}.grid{stroke:#e2e8f0;stroke-width:1}.point{fill:#2563eb}.line{stroke:#dc2626;stroke-width:3}.resid{stroke:#ea580c;stroke-width:2;stroke-dasharray:5 4}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.formula{font:bold 16px Arial,sans-serif;fill:#0f172a}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="52">Linear Regression: OLS Workflow</text>
+
+  <rect class="box data" x="45" y="105" width="155" height="95" rx="8"/>
+  <text class="h" x="68" y="137">Data</text>
+  <text class="txt" x="68" y="162">target y</text>
+  <text class="txt" x="68" y="180">predictors X</text>
+
+  <rect class="box fit" x="250" y="105" width="185" height="95" rx="8"/>
+  <text class="h" x="273" y="137">Specification</text>
+  <text class="formula" x="273" y="165">y = X beta + epsilon</text>
+  <text class="txt" x="273" y="184">linear in parameters</text>
+
+  <rect class="box fit" x="485" y="105" width="170" height="95" rx="8"/>
+  <text class="h" x="508" y="137">Estimate</text>
+  <text class="formula" x="508" y="165">min sum e_i^2</text>
+  <text class="txt" x="508" y="184">OLS coefficients</text>
+
+  <rect class="box diag" x="705" y="105" width="150" height="95" rx="8"/>
+  <text class="h" x="728" y="137">Diagnostics</text>
+  <text class="txt" x="728" y="162">residuals</text>
+  <text class="txt" x="728" y="180">VIF, heterosk.</text>
+
+  <rect class="box out" x="905" y="105" width="120" height="95" rx="8"/>
+  <text class="h" x="928" y="137">Use</text>
+  <text class="txt" x="928" y="162">beta</text>
+  <text class="txt" x="928" y="180">forecast</text>
+
+  <path class="arrow" d="M200 153L250 153"/>
+  <path class="arrow" d="M435 153L485 153"/>
+  <path class="arrow" d="M655 153L705 153"/>
+  <path class="arrow" d="M855 153L905 153"/>
+
+  <rect class="box" x="150" y="250" width="760" height="205" rx="8"/>
+  <line class="axis" x1="205" y1="410" x2="855" y2="410"/>
+  <line class="axis" x1="205" y1="410" x2="205" y2="280"/>
+  <text class="small" x="830" y="435">x</text>
+  <text class="small" x="175" y="288">y</text>
+  <line class="grid" x1="205" y1="370" x2="855" y2="370"/>
+  <line class="grid" x1="205" y1="330" x2="855" y2="330"/>
+  <line class="line" x1="230" y1="392" x2="835" y2="292"/>
+  <circle class="point" cx="255" cy="380" r="5"/><circle class="point" cx="340" cy="365" r="5"/><circle class="point" cx="430" cy="350" r="5"/><circle class="point" cx="520" cy="320" r="5"/><circle class="point" cx="610" cy="335" r="5"/><circle class="point" cx="700" cy="305" r="5"/><circle class="point" cx="790" cy="285" r="5"/>
+  <line class="resid" x1="610" y1="335" x2="610" y2="329"/>
+  <line class="resid" x1="520" y1="320" x2="520" y2="344"/>
+  <text class="small" x="555" y="250">OLS chooses the line that minimizes squared residuals.</text>
+</svg>

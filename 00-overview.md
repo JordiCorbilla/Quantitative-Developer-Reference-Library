@@ -44,6 +44,7 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 | [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) | VWAP, TWAP, execution benchmarks, slippage, impact, implementation shortfall, TCA | Connects portfolio decisions to realized trading cost |
 | [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) | Initial margin, variation margin, SIMM, FRTB, stress, capital explain | Links risk analytics to regulatory and collateral requirements |
 | [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) | Model inventory, validation, IPV, reserves, approvals, monitoring | Makes valuation control and model risk management part of the quant stack |
+| [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) | Probability, statistics, OLS regression, diagnostics, beta estimation | Makes the statistical foundation explicit for risk, factors, signals, and validation |
 
 ## Shared Quantitative Conventions
 
@@ -129,7 +130,7 @@ This matters because production systems should not hard-code "risk-free rate" in
 - Bump sizes must be stable enough to avoid noise but small enough to approximate the intended derivative.
 
 ## Coverage Review And Expansion Areas
-The current library now has broad first-pass coverage across core pricing, traded products, risk infrastructure, market data, production engineering, portfolio workflow, financing, execution, regulatory margin, and model governance.
+The current library now has broad first-pass coverage across probability and statistics, core pricing, traded products, risk infrastructure, market data, production engineering, portfolio workflow, financing, execution, regulatory margin, and model governance.
 
 The clearest next improvements are depth-oriented:
 - worked examples that connect quote inputs, valuation, risk, PnL explain, and validation,
@@ -154,6 +155,7 @@ Every chapter in this repo follows the same top-level structure:
 
 ## Recommended Reading Paths
 - Build the core stack: [01-options.md](01-options.md) -> [10-numerical-methods.md](10-numerical-methods.md) -> [12-pricing-architecture.md](12-pricing-architecture.md)
+- Build the statistics foundation: [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
 - Build rates competency: [05-fixed-income.md](05-fixed-income.md) -> [06-interest-rates.md](06-interest-rates.md) -> [11-market-data.md](11-market-data.md)
 - Build production judgment: [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [14-testing-and-validation.md](14-testing-and-validation.md) -> [15-performance-and-production.md](15-performance-and-production.md)
 - Build portfolio engineering judgment: [03-equities.md](03-equities.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md)

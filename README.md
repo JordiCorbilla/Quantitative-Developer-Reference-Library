@@ -41,9 +41,10 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - VWAP, TWAP, execution benchmarks, implementation shortfall, market impact, slippage, and TCA workflows
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - variation margin, initial margin, SIMM, FRTB, capital, stress, and margin explain
 - [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - model inventory, documentation, validation, IPV, reserves, approvals, and monitoring
+- [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation, and model evaluation
 
 ## Current Coverage Review
-The library now covers the main building blocks a quant developer usually needs first: options, linear derivatives, cash equities, FX, bonds, rates, credit, commodities, inflation, volatility products, financing, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, regulatory margin, and model governance.
+The library now covers the main building blocks a quant developer usually needs first: probability and statistics, regression, options, linear derivatives, cash equities, FX, bonds, rates, credit, commodities, inflation, volatility products, financing, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, regulatory margin, and model governance.
 
 The main future direction is depth rather than first-pass coverage:
 - more worked end-to-end examples that connect market inputs, pricing, risk, and validation,

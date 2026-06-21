@@ -16,6 +16,8 @@
 - **Collateral**: Assets posted to reduce counterparty exposure or support financing.
 - **Convexity**: Second-order sensitivity; for bonds it captures curvature of price-yield relation.
 - **CS01**: Credit spread sensitivity to a one basis point spread move.
+- **Correlation**: Normalized covariance measuring linear association between two variables.
+- **Covariance**: Joint variability of two variables around their means.
 
 ## D
 - **Dirty price**: Bond price including accrued interest.
@@ -38,11 +40,15 @@
 - **Haircut**: Reduction applied to collateral value in financing or margin.
 - **Hazard rate**: Default intensity used in credit modelling.
 - **Hidden Markov Model (HMM)**: Model with unobserved states that generate observed data through a state-dependent emission distribution.
+- **Heteroskedasticity**: Non-constant residual variance, common in financial time series.
 
 ## I
 - **Implementation shortfall**: Execution cost relative to the decision or arrival price.
 - **Implied volatility**: Volatility input that makes an option model match market price.
 - **IPV**: Independent price verification.
+
+## O
+- **OLS**: Ordinary least squares, a regression method that minimizes squared residuals.
 
 ## M
 - **Market data snapshot**: Versioned set of market inputs used for valuation or risk.
@@ -57,6 +63,7 @@
 - **Regime-switching GARCH**: GARCH model where volatility parameters depend on an unobserved regime.
 - **Repo**: Financing transaction where securities are sold and later repurchased.
 - **Residual PnL**: PnL not explained by known risk factors or lifecycle changes.
+- **R-squared**: Share of target variance explained by a regression model in sample.
 - **Roll-down**: PnL from moving along a curve or surface as time passes.
 
 ## S

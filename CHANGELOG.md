@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-06-18
+- Added foundational probability, statistics, and regression documentation with OLS workflow, diagnostics diagrams, and beta example.
 - Added VWAP, TWAP, POV, and implementation shortfall documentation with execution-algorithm diagrams.
 - Added GARCH-family volatility forecasting coverage and a model-family visual.
 - Added Markov switching, HMM, and regime-switching GARCH documentation with regime model diagrams and an example.

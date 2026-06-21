@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="450" viewBox="0 0 1060 450" role="img" aria-labelledby="title desc">
+  <title id="title">Regression diagnostics checklist</title>
+  <desc id="desc">Checklist for validating regression models: linearity, independence, homoskedasticity, normality, multicollinearity, outliers, train test split, and finance interpretation.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.card{fill:#fff;stroke:#cbd5e1;stroke-width:2}.ok{fill:#f0fdf4;stroke:#86efac}.warn{fill:#fff7ed;stroke:#fdba74}.risk{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}
+    </style>
+  </defs>
+  <rect class="bg" width="1060" height="450"/>
+  <text class="title" x="40" y="52">Regression Diagnostics Checklist</text>
+  <text class="small" x="40" y="76">A regression is not production-ready because it has a high R-squared. Check the residuals, data, and use case.</text>
+
+  <rect class="card ok" x="55" y="115" width="285" height="95" rx="8"/>
+  <text class="h" x="82" y="147">1. Specification</text>
+  <text class="txt" x="82" y="173">linear in parameters, right variables</text>
+  <text class="txt" x="82" y="191">no obvious omitted driver</text>
+
+  <rect class="card ok" x="390" y="115" width="285" height="95" rx="8"/>
+  <text class="h" x="417" y="147">2. Residual Shape</text>
+  <text class="txt" x="417" y="173">no pattern vs fitted values</text>
+  <text class="txt" x="417" y="191">constant variance is plausible</text>
+
+  <rect class="card warn" x="725" y="115" width="285" height="95" rx="8"/>
+  <text class="h" x="752" y="147">3. Dependence</text>
+  <text class="txt" x="752" y="173">autocorrelation in time series</text>
+  <text class="txt" x="752" y="191">clustered errors where needed</text>
+
+  <rect class="card warn" x="55" y="245" width="285" height="95" rx="8"/>
+  <text class="h" x="82" y="277">4. Multicollinearity</text>
+  <text class="txt" x="82" y="303">unstable coefficients</text>
+  <text class="txt" x="82" y="321">check correlation and VIF</text>
+
+  <rect class="card risk" x="390" y="245" width="285" height="95" rx="8"/>
+  <text class="h" x="417" y="277">5. Outliers And Leverage</text>
+  <text class="txt" x="417" y="303">one observation can drive slope</text>
+  <text class="txt" x="417" y="321">inspect influential points</text>
+
+  <rect class="card risk" x="725" y="245" width="285" height="95" rx="8"/>
+  <text class="h" x="752" y="277">6. Finance Use Case</text>
+  <text class="txt" x="752" y="303">train/test split by time</text>
+  <text class="txt" x="752" y="321">avoid look-ahead and leakage</text>
+
+  <rect class="card" x="160" y="370" width="740" height="45" rx="8"/>
+  <text class="h" x="190" y="399">Use regression for beta, factor exposure, hedge ratios, signal tests, attribution, and risk models, but validate before trusting it.</text>
+</svg>

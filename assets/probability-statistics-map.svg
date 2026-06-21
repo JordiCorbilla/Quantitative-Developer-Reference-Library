@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Probability and statistics map for quant developers</title>
+  <desc id="desc">Map of foundational probability and statistics concepts used in quant finance: random variables, moments, distributions, estimation, hypothesis testing, regression, and diagnostics.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#93c5fd}.dist{fill:#f0fdf4;stroke:#86efac}.est{fill:#fff7ed;stroke:#fdba74}.reg{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="52">Probability, Statistics, and Regression Foundation</text>
+  <text class="small" x="40" y="76">The same concepts reappear in risk, factor models, volatility forecasting, signal testing, and model validation.</text>
+
+  <rect class="box core" x="70" y="130" width="200" height="110" rx="8"/>
+  <text class="h" x="98" y="162">Random Variables</text>
+  <text class="txt" x="98" y="188">returns, losses, factors</text>
+  <text class="txt" x="98" y="206">expectation and variance</text>
+  <text class="txt" x="98" y="224">covariance and correlation</text>
+
+  <rect class="box dist" x="330" y="90" width="200" height="110" rx="8"/>
+  <text class="h" x="358" y="122">Distributions</text>
+  <text class="txt" x="358" y="148">normal, lognormal</text>
+  <text class="txt" x="358" y="166">binomial, Poisson</text>
+  <text class="txt" x="358" y="184">Student-t, empirical</text>
+
+  <rect class="box est" x="330" y="250" width="200" height="110" rx="8"/>
+  <text class="h" x="358" y="282">Estimation</text>
+  <text class="txt" x="358" y="308">samples, standard errors</text>
+  <text class="txt" x="358" y="326">confidence intervals</text>
+  <text class="txt" x="358" y="344">hypothesis tests</text>
+
+  <rect class="box reg" x="590" y="170" width="210" height="115" rx="8"/>
+  <text class="h" x="620" y="202">Regression</text>
+  <text class="txt" x="620" y="228">OLS coefficients</text>
+  <text class="txt" x="620" y="246">residual diagnostics</text>
+  <text class="txt" x="620" y="264">prediction and inference</text>
+
+  <rect class="box" x="855" y="120" width="160" height="80" rx="8"/>
+  <text class="h" x="885" y="151">Finance Uses</text>
+  <text class="txt" x="885" y="176">beta, factors, VaR</text>
+
+  <rect class="box" x="855" y="250" width="160" height="80" rx="8"/>
+  <text class="h" x="885" y="281">Controls</text>
+  <text class="txt" x="885" y="306">diagnostics, validation</text>
+
+  <path class="arrow" d="M270 180L330 145"/>
+  <path class="arrow" d="M270 205L330 305"/>
+  <path class="arrow" d="M530 145L590 210"/>
+  <path class="arrow" d="M530 305L590 250"/>
+  <path class="arrow" d="M800 210L855 165"/>
+  <path class="arrow" d="M800 250L855 295"/>
+</svg>

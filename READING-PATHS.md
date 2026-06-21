@@ -4,13 +4,21 @@ Use these paths when you want to study the library with a concrete goal.
 
 ## Quant Developer Interview Prep
 1. [00-overview.md](00-overview.md)
-2. [01-options.md](01-options.md)
-3. [05-fixed-income.md](05-fixed-income.md)
-4. [06-interest-rates.md](06-interest-rates.md)
-5. [10-numerical-methods.md](10-numerical-methods.md)
-6. [13-risk-and-pnl.md](13-risk-and-pnl.md)
-7. [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
-8. [INTERVIEW-GUIDE.md](INTERVIEW-GUIDE.md)
+2. [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md)
+3. [01-options.md](01-options.md)
+4. [05-fixed-income.md](05-fixed-income.md)
+5. [06-interest-rates.md](06-interest-rates.md)
+6. [10-numerical-methods.md](10-numerical-methods.md)
+7. [13-risk-and-pnl.md](13-risk-and-pnl.md)
+8. [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
+9. [INTERVIEW-GUIDE.md](INTERVIEW-GUIDE.md)
+
+## Probability, Statistics, And Regression
+1. [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md)
+2. [examples/linear-regression-beta.md](examples/linear-regression-beta.md)
+3. [13-risk-and-pnl.md](13-risk-and-pnl.md)
+4. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+5. [18-volatility-products.md](18-volatility-products.md)
 
 ## Pricing Library Design
 1. [00-overview.md](00-overview.md)

@@ -17,6 +17,7 @@ This index groups the library by practitioner task rather than file number.
 - [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) - repo, borrow, haircuts, collateral, financing curves
 
 ## Quant Engineering
+- [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation
 - [10-numerical-methods.md](10-numerical-methods.md) - Monte Carlo, PDE, trees, interpolation, calibration
 - [11-market-data.md](11-market-data.md) - symbology, curves, surfaces, time series, data quality
 - [12-pricing-architecture.md](12-pricing-architecture.md) - trade models, engines, market state, dependencies

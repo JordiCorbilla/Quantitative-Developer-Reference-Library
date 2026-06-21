@@ -9,6 +9,25 @@ This guide maps common interview topics to the library chapters and highlights w
 - Explain implementation inputs and failure modes.
 - Mention one validation or sanity check.
 
+## Probability, Statistics, And Regression
+Read: [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md)
+
+Common questions:
+- What is covariance versus correlation?
+- What assumptions sit behind OLS regression?
+- What does R-squared measure?
+- What is multicollinearity?
+- How do you estimate beta with regression?
+- Why is statistical significance not enough for a trading signal?
+
+Good answers mention:
+- return definition and sampling frequency,
+- expectation, variance, covariance, and correlation,
+- OLS residuals and squared-error minimization,
+- linearity, independence, heteroskedasticity, normality, and multicollinearity,
+- train/test splits by time and avoiding leakage,
+- economic significance, costs, capacity, and robustness.
+
 ## Options And Greeks
 Read: [01-options.md](01-options.md), [10-numerical-methods.md](10-numerical-methods.md)
 
