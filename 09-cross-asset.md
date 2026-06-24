@@ -32,6 +32,34 @@ Representative adjustments:
 
 Joint dynamics matter when payoff or exposure depends on multiple risk factors. Correlation and wrong-way risk cannot be bolted on casually after the fact.
 
+### CVA And The Wider xVA Stack
+CVA, or Credit Valuation Adjustment, reduces the clean value of a derivative portfolio for expected counterparty default loss. It matters because a trade can be profitable under market risk but still lose value if the counterparty defaults before paying.
+
+At a high level:
+
+$$
+\text{CVA} \approx \sum_t EE_t \times PD_t \times LGD_t \times DF_t
+$$
+
+where:
+- $EE_t$ is expected positive exposure,
+- $PD_t$ is default probability over the period,
+- $LGD_t = 1 - \text{recovery rate}$,
+- $DF_t$ is the discount factor.
+
+![CVA ingredients and xVA stack](assets/cva-ingredients-flow.svg)
+
+The three essential ingredients are exposure, probability of default, and loss given default. Real CVA engines also need netting agreements, collateral terms, close-out rules, wrong-way risk, discounting, market-implied default curves, and exposure simulation.
+
+The wider xVA stack usually includes:
+- CVA: counterparty credit valuation adjustment,
+- DVA: debit valuation adjustment for own default,
+- FVA: funding valuation adjustment,
+- MVA: margin valuation adjustment,
+- KVA: capital valuation adjustment.
+
+Production systems should keep clean price and valuation adjustments separate, then report both the components and the all-in value.
+
 ### Visual Dependency Reference
 
 ![Cross-asset dependency map](assets/cross-asset-dependency-map.svg)
@@ -55,17 +83,39 @@ $$
 
 If the index falls to 3,800, the linked return is -5%, or -$250,000 before any capital-protection feature. The pricing problem is not just an equity calculation. The desk also needs equity volatility, FX volatility, the equity-FX correlation, discounting curves, and the exact rule that says whether FX is fixed, floating, capped, or embedded in the payoff.
 
+## Worked Instrument Example: Simple CVA
+Assume:
+- expected exposure: USD 1,000,000,
+- one-year default probability: 2%,
+- recovery rate: 40%,
+- discount factor: 1.00 for simplicity.
+
+Then:
+
+$$
+LGD = 1 - 40\% = 60\%
+$$
+
+$$
+\text{CVA} = 1{,}000{,}000 \times 2\% \times 60\% = 12{,}000
+$$
+
+The clean derivative value would be reduced by roughly USD 12,000 in this simplified setup. Real portfolios use time-dependent exposure profiles and default curves rather than one scalar exposure and one scalar default probability.
+
 ## Key Risk Measures and Sensitivities
 - Correlation delta or scenario-based dependence risk
 - Funding and collateral sensitivities
 - Counterparty spread or hazard risk
+- CVA, DVA, FVA, MVA, and KVA component sensitivities
 - Cross-gammas across asset classes
 - Exposure profile shifts under market scenarios
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
 - Underlying curves, surfaces, and fixings from all participating asset classes
 - Counterparty credit data and recovery assumptions
+- Default probability or hazard-rate curves
 - CSA terms, netting-set mappings, thresholds, and margin rules
+- Exposure profiles such as expected exposure, PFE, and effective expected exposure
 - Correlation inputs or joint-factor model parameters
 - Exposure simulation configuration and scenario definitions
 
@@ -85,6 +135,10 @@ If the index falls to 3,800, the linked return is -5%, or -$250,000 before any c
 ```python
 def cva(exposures, default_probabilities, loss_given_default, discount_factors):
     return sum(e * dp * lgd * df for e, dp, lgd, df in zip(exposures, default_probabilities, loss_given_default, discount_factors))
+
+
+def loss_given_default(recovery_rate: float) -> float:
+    return 1.0 - recovery_rate
 ```
 
 ## References and Further Reading

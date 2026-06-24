@@ -63,6 +63,23 @@ Model families commonly encountered:
 - SABR for smile interpolation,
 - LMM for term-structure dynamics.
 
+### Interest Rate Model Families
+Interest rate models are used for curve-consistent pricing, risk simulation, derivatives valuation, and scenario generation. The right model depends on whether the goal is short-rate intuition, positivity, exact fit to today's curve, or multi-rate term-structure dynamics.
+
+![Interest rate model family](assets/interest-rate-model-family.svg)
+
+Common families:
+- Vasicek: mean-reverting short-rate model. It is analytically convenient and useful for intuition, but can generate negative rates.
+- CIR: mean-reverting short-rate model with volatility proportional to $\sqrt{r_t}$. It is often used when rate positivity matters.
+- Hull-White: extends Vasicek with a time-dependent drift so the model can fit today's initial yield curve. It is commonly used for callable bonds, Bermudan swaptions, caps/floors, and swaption-style products.
+- Libor Market Model / BGM: models forward rates directly and is used when the joint dynamics of many forward rates matter, especially for complex rates exotics.
+
+Implementation cautions:
+- A model that prices one product class well may be unsuitable for another.
+- Calibration instruments must match the intended pricing use: cap/floor vols, swaption cube, callable bond prices, or historical risk scenarios.
+- Short-rate models and market models expose different state variables, so risk and scenario interfaces differ.
+- Negative-rate regimes require care when choosing Black, normal, shifted-lognormal, or short-rate dynamics.
+
 ## Worked Instrument Example: Fixed-Float Interest Rate Swap
 Assume a company enters a 5-year USD swap with:
 - notional: $10,000,000,
@@ -108,6 +125,7 @@ The diagram separates schedule mechanics from curve dependencies: projection cur
 - Historical fixings and fallback logic for floating coupons
 - Cap/floor vol surfaces and swaption cubes
 - Calibration parameters for Hull-White, SABR, or other desk models
+- Model-family configuration for Vasicek, CIR, Hull-White/GSR, SABR, or LMM/BGM where used
 - CSA or collateral metadata for discounting currency and collateral rate assumptions
 
 ## Numerical and Implementation Approaches
@@ -151,6 +169,10 @@ def par_swap_rate(discount_factors, accrual_fractions):
 def pv01(notional: float, accrual_fractions, discount_factors) -> float:
     annuity = sum(alpha * df for alpha, df in zip(accrual_fractions, discount_factors[1:]))
     return notional * annuity * 1.0e-4
+
+
+def vasicek_short_rate_step(rate: float, mean_reversion: float, long_run_mean: float, dt: float, shock: float, volatility: float) -> float:
+    return rate + mean_reversion * (long_run_mean - rate) * dt + volatility * shock
 ```
 
 ## References and Further Reading

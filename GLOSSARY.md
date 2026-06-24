@@ -18,6 +18,7 @@
 - **CS01**: Credit spread sensitivity to a one basis point spread move.
 - **Correlation**: Normalized covariance measuring linear association between two variables.
 - **Covariance**: Joint variability of two variables around their means.
+- **CVA**: Credit Valuation Adjustment, expected discounted loss from counterparty default.
 
 ## D
 - **Dirty price**: Bond price including accrued interest.
@@ -41,11 +42,15 @@
 - **Hazard rate**: Default intensity used in credit modelling.
 - **Hidden Markov Model (HMM)**: Model with unobserved states that generate observed data through a state-dependent emission distribution.
 - **Heteroskedasticity**: Non-constant residual variance, common in financial time series.
+- **Hull-White model**: Short-rate model with time-dependent drift commonly used for curve-consistent rates derivatives pricing.
 
 ## I
 - **Implementation shortfall**: Execution cost relative to the decision or arrival price.
 - **Implied volatility**: Volatility input that makes an option model match market price.
 - **IPV**: Independent price verification.
+
+## L
+- **LGD**: Loss given default, equal to one minus recovery rate.
 
 ## O
 - **OLS**: Ordinary least squares, a regression method that minimizes squared residuals.
@@ -53,6 +58,7 @@
 ## M
 - **Market data snapshot**: Versioned set of market inputs used for valuation or risk.
 - **Model governance**: Controls around model inventory, approval, validation, limitations, and monitoring.
+- **MVA**: Margin valuation adjustment for the funding cost of initial margin.
 
 ## P
 - **PnL explain**: Decomposition of profit and loss into market moves, carry, trades, lifecycle events, and residual.
@@ -76,5 +82,6 @@
 
 ## V
 - **VaR**: Value at Risk, a loss threshold at a specified confidence level and horizon.
+- **Vasicek model**: Mean-reverting short-rate model with normally distributed rate changes.
 - **Vega**: Sensitivity of value to volatility.
 - **VWAP**: Volume-weighted average price.

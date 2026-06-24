@@ -52,12 +52,32 @@ Common questions:
 - Duration vs convexity.
 - How does a vanilla interest-rate swap price?
 - Why do modern systems use multiple curves?
+- Compare Vasicek, CIR, Hull-White, and LMM.
 
 Good answers mention:
 - schedules, day count, calendars,
 - projection vs discount curves,
 - PV01/key-rate risk,
-- fixing and reset mechanics.
+- fixing and reset mechanics,
+- model purpose: short-rate intuition, positivity, curve fit, or term-structure dynamics.
+
+## Cross-Asset And CVA
+Read: [09-cross-asset.md](09-cross-asset.md)
+
+Common questions:
+- What is CVA?
+- What are exposure, PD, and LGD?
+- Why do netting and collateral matter?
+- What is wrong-way risk?
+- How does CVA fit into xVA?
+
+Good answers mention:
+- expected positive exposure,
+- default probability or hazard curves,
+- recovery rate and LGD,
+- discounting and netting set,
+- collateral and CSA terms,
+- DVA, FVA, MVA, and KVA as related valuation adjustments.
 
 ## Risk, VaR, ES, And Beta
 Read: [13-risk-and-pnl.md](13-risk-and-pnl.md)

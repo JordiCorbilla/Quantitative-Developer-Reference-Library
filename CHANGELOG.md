@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-06-18
+- Added deeper interest-rate model family coverage and CVA/xVA material with diagrams and examples.
 - Added foundational probability, statistics, and regression documentation with OLS workflow, diagnostics diagrams, and beta example.
 - Added VWAP, TWAP, POV, and implementation shortfall documentation with execution-algorithm diagrams.
 - Added GARCH-family volatility forecasting coverage and a model-family visual.
