@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Heston stochastic volatility model</title>
+  <desc id="desc">Heston model equations, parameters, correlation, key features, and implementation cautions for option pricing.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.eq{fill:#eff6ff;stroke:#93c5fd}.param{fill:#f0fdf4;stroke:#86efac}.risk{fill:#fff7ed;stroke:#fdba74}.warn{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.formula{font:bold 17px Arial,sans-serif;fill:#0f172a}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="52">Heston Model: Stochastic Volatility</text>
+  <text class="small" x="40" y="76">Heston lets variance evolve as its own mean-reverting process and links spot/variance shocks through correlation.</text>
+
+  <rect class="box eq" x="55" y="120" width="440" height="135" rx="8"/>
+  <text class="h" x="85" y="152">Risk-Neutral Dynamics</text>
+  <text class="formula" x="85" y="185">dS_t = r S_t dt + sqrt(v_t) S_t dW_1</text>
+  <text class="formula" x="85" y="220">dv_t = kappa(theta-v_t)dt + sigma sqrt(v_t)dW_2</text>
+  <text class="txt" x="85" y="242">dW1 dW2 = rho dt</text>
+
+  <rect class="box param" x="555" y="120" width="440" height="135" rx="8"/>
+  <text class="h" x="585" y="152">Parameters</text>
+  <text class="txt" x="585" y="178">kappa: speed of variance mean reversion</text>
+  <text class="txt" x="585" y="198">theta: long-run variance</text>
+  <text class="txt" x="585" y="218">sigma: volatility of variance</text>
+  <text class="txt" x="585" y="238">rho: spot-variance correlation, often negative in equities</text>
+
+  <rect class="box risk" x="120" y="315" width="355" height="95" rx="8"/>
+  <text class="h" x="150" y="347">Why It Is Used</text>
+  <text class="txt" x="150" y="373">captures volatility clustering, skew, and leverage effect</text>
+  <text class="txt" x="150" y="391">semi-closed European pricing via characteristic functions</text>
+
+  <rect class="box warn" x="585" y="315" width="355" height="95" rx="8"/>
+  <text class="h" x="615" y="347">Implementation Checks</text>
+  <text class="txt" x="615" y="373">Feller condition: 2 kappa theta >= sigma^2</text>
+  <text class="txt" x="615" y="391">calibration stability and numerical integration controls</text>
+  <path class="arrow" d="M495 190L555 190"/>
+  <path class="arrow" d="M495 240C520 300 545 340 585 360"/>
+</svg>

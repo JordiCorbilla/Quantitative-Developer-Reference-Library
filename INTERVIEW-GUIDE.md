@@ -36,13 +36,16 @@ Common questions:
 - What are delta, gamma, vega, theta, and rho?
 - Why does implied volatility have a surface?
 - How would you validate an option pricer?
+- Compare binomial tree, finite difference, Longstaff-Schwartz, and approximation methods for American options.
+- Explain the payoff of a bull call spread, bear put spread, or long straddle.
 
 Good answers mention:
 - payoff and exercise style,
 - discounting and dividend assumptions,
 - volatility surface conventions,
 - finite-difference or bump validation,
-- parity and arbitrage bounds.
+- parity and arbitrage bounds,
+- early-exercise policy and continuation value.
 
 ## Rates And Fixed Income
 Read: [05-fixed-income.md](05-fixed-income.md), [06-interest-rates.md](06-interest-rates.md)
@@ -105,6 +108,7 @@ Common questions:
 - What do EGARCH or GJR-GARCH add?
 - What is a Markov switching model or HMM?
 - How would a regime-switching GARCH model differ from a single-regime GARCH model?
+- What does the Heston model add beyond Black-Scholes?
 
 Good answers mention:
 - conditional variance,
@@ -113,6 +117,7 @@ Good answers mention:
 - heavy-tailed residuals and regime stability,
 - use in VaR and volatility forecasting.
 - hidden states, transition probabilities, filtered probabilities, and avoiding look-ahead from smoothed states.
+- stochastic variance, mean reversion, vol-of-vol, spot-vol correlation, and calibration stability.
 
 ## Execution: VWAP, TWAP, POV, TCA
 Read: [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)

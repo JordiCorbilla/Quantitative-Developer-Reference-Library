@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="520" viewBox="0 0 1060 520" role="img" aria-labelledby="title desc">
+  <title id="title">American option pricing model choices</title>
+  <desc id="desc">Comparison of binomial tree, trinomial tree, finite difference, Longstaff-Schwartz Monte Carlo, Leisen-Reimer tree, and quadratic approximation methods for American option pricing.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.card{fill:#fff;stroke:#cbd5e1;stroke-width:2}.tree{fill:#eff6ff;stroke:#93c5fd}.pde{fill:#f0fdf4;stroke:#86efac}.mc{fill:#fff7ed;stroke:#fdba74}.approx{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.line{stroke:#475569;stroke-width:2}.node{fill:#2563eb}
+    </style>
+  </defs>
+  <rect class="bg" width="1060" height="520"/>
+  <text class="title" x="40" y="52">American Option Pricing: Model Choice</text>
+  <text class="small" x="40" y="76">American pricing is an optimal-stopping problem: value and exercise policy must be solved together.</text>
+
+  <rect class="card tree" x="45" y="110" width="300" height="130" rx="8"/>
+  <text class="h" x="70" y="142">Binomial / Trinomial Trees</text>
+  <text class="txt" x="70" y="168">Backward induction with exercise check at each node.</text>
+  <text class="txt" x="70" y="190">Trinomial trees add middle moves and often improve stability.</text>
+  <line class="line" x1="250" y1="160" x2="305" y2="135"/><line class="line" x1="250" y1="160" x2="305" y2="185"/>
+  <circle class="node" cx="250" cy="160" r="5"/><circle class="node" cx="305" cy="135" r="5"/><circle class="node" cx="305" cy="185" r="5"/>
+
+  <rect class="card pde" x="380" y="110" width="300" height="130" rx="8"/>
+  <text class="h" x="405" y="142">Finite Difference Methods</text>
+  <text class="txt" x="405" y="168">Solve the pricing PDE on a stock-time grid.</text>
+  <text class="txt" x="405" y="190">Early exercise is imposed as a free-boundary constraint.</text>
+  <path d="M595 155H655M595 178H655M615 135V198M638 135V198" stroke="#475569" stroke-width="2"/>
+
+  <rect class="card mc" x="715" y="110" width="300" height="130" rx="8"/>
+  <text class="h" x="740" y="142">Longstaff-Schwartz Monte Carlo</text>
+  <text class="txt" x="740" y="168">Estimate continuation value by regression on simulated paths.</text>
+  <text class="txt" x="740" y="190">Useful for Bermudan and high-dimensional exercise features.</text>
+  <circle class="node" cx="910" cy="155" r="4"/><circle class="node" cx="945" cy="145" r="4"/><circle class="node" cx="970" cy="180" r="4"/><line class="line" x1="900" y1="190" x2="990" y2="130"/>
+
+  <rect class="card tree" x="170" y="290" width="300" height="120" rx="8"/>
+  <text class="h" x="195" y="322">Leisen-Reimer Tree</text>
+  <text class="txt" x="195" y="348">Improved lattice convergence for vanilla options.</text>
+  <text class="txt" x="195" y="370">Useful when step count needs to stay modest.</text>
+
+  <rect class="card approx" x="590" y="290" width="300" height="120" rx="8"/>
+  <text class="h" x="615" y="322">Quadratic Approximation</text>
+  <text class="txt" x="615" y="348">Analytical-style approximations such as Barone-Adesi Whaley.</text>
+  <text class="txt" x="615" y="370">Fast, but must be benchmarked against trees or PDEs.</text>
+
+  <rect class="card" x="115" y="445" width="830" height="45" rx="8"/>
+  <text class="h" x="145" y="473">Choose by exercise style, dimensionality, dividend/carry treatment, accuracy target, and runtime budget.</text>
+</svg>

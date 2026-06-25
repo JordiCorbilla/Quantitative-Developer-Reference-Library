@@ -40,6 +40,7 @@
 ## H
 - **Haircut**: Reduction applied to collateral value in financing or margin.
 - **Hazard rate**: Default intensity used in credit modelling.
+- **Heston model**: Stochastic-volatility option model with mean-reverting variance and correlated spot/variance shocks.
 - **Hidden Markov Model (HMM)**: Model with unobserved states that generate observed data through a state-dependent emission distribution.
 - **Heteroskedasticity**: Non-constant residual variance, common in financial time series.
 - **Hull-White model**: Short-rate model with time-dependent drift commonly used for curve-consistent rates derivatives pricing.
@@ -51,6 +52,7 @@
 
 ## L
 - **LGD**: Loss given default, equal to one minus recovery rate.
+- **Longstaff-Schwartz**: Monte Carlo regression method for estimating continuation values in Bermudan-style exercise problems.
 
 ## O
 - **OLS**: Ordinary least squares, a regression method that minimizes squared residuals.

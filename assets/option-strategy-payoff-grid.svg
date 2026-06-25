@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Common option strategy payoff structures</title>
+  <desc id="desc">Reference grid for long call, long put, bull call spread, bear put spread, and long straddle payoff intuition.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.row{fill:#fff;stroke:#cbd5e1;stroke-width:2}.head{fill:#eff6ff;stroke:#93c5fd}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 13px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.axis{stroke:#475569;stroke-width:1.5}.pay{stroke:#dc2626;stroke-width:2.5;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="48">Common Option Strategy Payoffs</text>
+  <rect class="head" x="35" y="75" width="990" height="45" rx="6"/>
+  <text class="h" x="55" y="103">Strategy</text><text class="h" x="190" y="103">Construction</text><text class="h" x="420" y="103">View</text><text class="h" x="575" y="103">Max Profit / Loss</text><text class="h" x="815" y="103">Payoff Shape</text>
+
+  <rect class="row" x="35" y="120" width="990" height="70"/><text class="h" x="55" y="150">Long Call</text><text class="txt" x="190" y="145">Buy call at K</text><text class="txt" x="420" y="145">Bullish upside</text><text class="txt" x="575" y="145">Profit unlimited; loss premium</text><line class="axis" x1="800" y1="165" x2="980" y2="165"/><path class="pay" d="M805 165L880 165L980 125"/>
+  <rect class="row" x="35" y="190" width="990" height="70"/><text class="h" x="55" y="220">Long Put</text><text class="txt" x="190" y="215">Buy put at K</text><text class="txt" x="420" y="215">Bearish downside</text><text class="txt" x="575" y="215">Profit high; loss premium</text><line class="axis" x1="800" y1="235" x2="980" y2="235"/><path class="pay" d="M805 195L900 235L980 235"/>
+  <rect class="row" x="35" y="260" width="990" height="70"/><text class="h" x="55" y="290">Bull Call Spread</text><text class="txt" x="190" y="285">Buy K1 call, sell K2 call</text><text class="txt" x="420" y="285">Moderately bullish</text><text class="txt" x="575" y="285">Capped profit; limited loss</text><line class="axis" x1="800" y1="305" x2="980" y2="305"/><path class="pay" d="M805 320L865 320L925 275L980 275"/>
+  <rect class="row" x="35" y="330" width="990" height="70"/><text class="h" x="55" y="360">Bear Put Spread</text><text class="txt" x="190" y="355">Buy K2 put, sell K1 put</text><text class="txt" x="420" y="355">Moderately bearish</text><text class="txt" x="575" y="355">Capped profit; limited loss</text><line class="axis" x1="800" y1="375" x2="980" y2="375"/><path class="pay" d="M805 345L865 345L925 390L980 390"/>
+  <rect class="row" x="35" y="400" width="990" height="70"/><text class="h" x="55" y="430">Long Straddle</text><text class="txt" x="190" y="425">Buy call and put at K</text><text class="txt" x="420" y="425">Volatile either way</text><text class="txt" x="575" y="425">Profit large moves; loss premiums</text><line class="axis" x1="800" y1="445" x2="980" y2="445"/><path class="pay" d="M805 405L890 465L980 405"/>
+</svg>

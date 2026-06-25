@@ -219,6 +219,44 @@ European replication logic gives bounds and intuition, but not exercise policy. 
 
 Early exercise is usually only rational when carrying the option is worse than exercising it. For equity calls on non-dividend-paying stocks, early exercise is typically suboptimal. For puts, dividend-paying underlyings, and some commodity structures, it can matter materially.
 
+### American Pricing Model Choice
+American exercise adds a free-boundary problem: at each exercise opportunity, the model must compare immediate exercise value against continuation value. There is no single best numerical method; the correct choice depends on exercise dates, dimensionality, accuracy target, runtime, and product complexity.
+
+![American option pricing model choices](assets/american-option-pricing-models.svg)
+
+Common choices:
+- Binomial tree: widely used for vanilla American options; simple backward induction and direct exercise checks at every node.
+- Trinomial tree: extends the tree with up, middle, and down moves; often improves convergence and numerical stability.
+- Finite difference methods: solve the option PDE on a grid and impose the early-exercise constraint; useful for one- or two-factor problems where boundary behavior matters.
+- Longstaff-Schwartz Monte Carlo: estimates continuation value by regression; useful for Bermudan or high-dimensional optionality.
+- Leisen-Reimer tree: lattice variant designed to improve convergence for vanilla options with fewer steps.
+- Quadratic approximations: fast analytical-style approximations such as Barone-Adesi Whaley; useful for speed, but should be benchmarked against trees or PDEs.
+
+Practical model-selection checklist:
+- Accuracy requirements and benchmark method.
+- Early-exercise dates and dividend/carry treatment.
+- Number of risk factors and path-dependent state variables.
+- Runtime target for pricing, risk, and calibration.
+- Stability of Greeks near the exercise boundary.
+
+### Common Option Strategy Payoffs
+Vanilla options combine into standard strategy payoffs. A quant developer should know the construction, market view, maximum loss, and payoff shape because these structures often appear in listed-option analytics, risk reports, payoff explain, and interviews.
+
+![Common option strategy payoff structures](assets/option-strategy-payoff-grid.svg)
+
+| Strategy | Construction | Market View | Max Profit | Max Loss |
+| --- | --- | --- | --- | --- |
+| Long call | Buy call at strike $K$ | Bullish | Unlimited upside | Premium paid |
+| Long put | Buy put at strike $K$ | Bearish | High, capped by strike less premium | Premium paid |
+| Bull call spread | Buy lower-strike call, sell higher-strike call | Moderately bullish | Strike width less net premium | Net premium paid |
+| Bear put spread | Buy higher-strike put, sell lower-strike put | Moderately bearish | Strike width less net premium | Net premium paid |
+| Long straddle | Buy call and put at same strike | Volatility / large move | Large moves in either direction | Total premium paid |
+
+Implementation cautions:
+- Strategy PnL must include premiums, multipliers, fees, and assignment/exercise effects.
+- Multi-leg strategies need consistent expiry, exercise style, settlement, and corporate-action handling.
+- Max profit/loss statements are usually expiry-only; before expiry, volatility, rates, dividends, and early exercise can change mark-to-market behavior.
+
 ### Exotics Overview
 - Digitals emphasize discontinuity risk and numerical smoothing issues.
 - Barriers add path dependence and monitoring conventions.
@@ -370,6 +408,7 @@ Strong dependency pattern:
 - Finite-difference methods handle early exercise and local state constraints well but need stable grids and boundary conditions.
 - Monte Carlo is flexible for path-dependent structures, especially with variance reduction and regression for optionality.
 - Adjoint algorithmic differentiation is attractive once the book is large and risk throughput matters.
+- Approximation methods for American options should be benchmarked regularly against a slower but trusted tree or PDE implementation.
 
 Implementation guidance:
 - Keep payoff definitions separate from model dynamics.

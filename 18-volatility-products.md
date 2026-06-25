@@ -132,6 +132,44 @@ Implementation cautions:
 - Backtests must avoid using smoothed future information in live-style decisions.
 - Regime-switching GARCH can be fragile to initialize and computationally expensive to calibrate.
 
+## Heston Stochastic Volatility Model
+The Heston model is a stochastic-volatility model used for option pricing and volatility-surface calibration. Unlike Black-Scholes, it lets variance move through time as its own mean-reverting process. This helps represent volatility clustering, skew, and the equity leverage effect.
+
+Under a risk-neutral measure, a common Heston specification is:
+
+$$
+dS_t = rS_tdt + \sqrt{v_t}S_tdW_{1,t}
+$$
+
+$$
+dv_t = \kappa(\theta - v_t)dt + \sigma\sqrt{v_t}dW_{2,t}
+$$
+
+$$
+dW_{1,t}dW_{2,t} = \rho dt
+$$
+
+where:
+- $v_t$ is instantaneous variance,
+- $\kappa$ is the speed of mean reversion,
+- $\theta$ is long-run variance,
+- $\sigma$ is volatility of variance, often called vol-of-vol,
+- $\rho$ is correlation between spot and variance shocks.
+
+![Heston stochastic volatility model](assets/heston-model-reference.svg)
+
+Key features:
+- Captures volatility clustering through a persistent variance process.
+- Allows negative spot-volatility correlation, which helps fit equity skew.
+- Has semi-closed European option pricing through characteristic functions and Fourier integration.
+- Requires careful calibration controls because parameters can be unstable across sparse or noisy option surfaces.
+
+Implementation cautions:
+- The Feller condition $2\kappa\theta \geq \sigma^2$ helps keep variance positive in the continuous-time process, but calibration may violate it in practice.
+- Numerical integration, branch handling, and parameter bounds can materially affect prices.
+- Heston is a model for volatility dynamics, not a guarantee of correct smile extrapolation or jump behavior.
+- For American options, Heston usually needs numerical methods such as PDEs, trees with extra state variables, or simulation/regression approaches.
+
 ## Worked Instrument Example: Variance Swap
 Assume:
 - variance notional: USD 50,000 per variance point,
@@ -161,6 +199,7 @@ This example uses volatility points, a common market shorthand. A production imp
 - Realized return series with sampling and corporate-action policies.
 - Clean return series for GARCH estimation, including outlier and missing-data policy.
 - Regime-model inputs such as return series, state count, transition constraints, and estimation window.
+- Stochastic-volatility calibration inputs such as option surfaces, parameter bounds, correlation assumptions, and numerical integration settings.
 - Constituent weights and correlation data for dispersion.
 - Surface calibration and no-arbitrage controls.
 
@@ -168,6 +207,7 @@ This example uses volatility points, a common market shorthand. A production imp
 - Keep variance, volatility, and volatility points as distinct units in code.
 - Treat GARCH models as forecasting models with explicit data windows, residual distributions, and refit schedules.
 - Treat regime models as probabilistic classifiers; persist filtered probabilities, transition matrices, and model versions.
+- Treat Heston and other stochastic-volatility models as calibrated models with explicit parameter constraints, objective functions, and fallback rules.
 - Use robust interpolation and extrapolation controls for option surfaces.
 - Validate option-strip replication against listed variance or volatility quotes where available.
 - For VIX-style products, implement the official index methodology as a separate tested component.
@@ -178,6 +218,7 @@ This example uses volatility points, a common market shorthand. A production imp
 - Ignoring jump and close-to-close sampling effects in realized variance.
 - Using a GARCH forecast as if it captures liquidity, jump, and correlation-break risk.
 - Using smoothed regime states in a backtest when those states would not have been known at trade time.
+- Over-interpreting Heston parameters when the calibration surface is sparse, stale, or arbitrage-inconsistent.
 - Reporting dispersion risk without exposing correlation sensitivity.
 - Calibrating a smooth surface that violates static no-arbitrage constraints.
 
