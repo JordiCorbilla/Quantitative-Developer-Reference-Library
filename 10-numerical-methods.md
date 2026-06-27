@@ -68,6 +68,20 @@ and improves with:
 - regression for early exercise,
 - pathwise or adjoint sensitivities.
 
+Monte Carlo is used when analytical solutions are unavailable or too restrictive. In finance it is common for:
+- path-dependent options,
+- multi-asset or high-dimensional payoffs,
+- VaR, Expected Shortfall, and stress simulations,
+- counterparty exposure and CVA,
+- portfolio risk and scenario analysis.
+
+Key interview points:
+- It uses random sampling to estimate an expectation.
+- Accuracy improves slowly at roughly $1/\sqrt{N}$, so variance reduction matters.
+- More paths reduce sampling error but increase runtime.
+- Results should include confidence intervals or standard errors, not only point estimates.
+- Random seeds, path count, time grid, model dynamics, and discounting assumptions are part of the reproducibility contract.
+
 ### Calibration
 Calibration turns observed quotes into model parameters by minimizing error:
 
@@ -106,6 +120,7 @@ Quant developers should think about risk method choice as a throughput and stabi
 - Finite-difference bumps too small to overcome floating-point noise.
 - Interpolation that is smooth but financially nonsensical.
 - Monte Carlo runs that appear stable because the random seed accidentally hides variance.
+- Monte Carlo estimates reported without standard error, confidence interval, path count, seed, or convergence diagnostics.
 - Calibration overfitting sparse quotes and producing unstable out-of-sample risk.
 - PDE boundaries chosen for convenience rather than asymptotic correctness.
 - Invisible solver failures swallowed and replaced with stale cached results.

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="500" viewBox="0 0 1060 500" role="img" aria-labelledby="title desc">
+  <title id="title">Probability of default model workflow</title>
+  <desc id="desc">Credit risk probability of default model workflow from borrower variables through scorecard or logistic regression, PD calibration, validation, and applications.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.input{fill:#eff6ff;stroke:#93c5fd}.model{fill:#f0fdf4;stroke:#86efac}.valid{fill:#fff7ed;stroke:#fdba74}.app{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.small{font:11px Arial,sans-serif;fill:#475569}.formula{font:bold 15px Arial,sans-serif;fill:#0f172a}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+  </defs>
+  <rect class="bg" width="1060" height="500"/>
+  <text class="title" x="40" y="52">PD Model For Credit Risk</text>
+  <text class="small" x="40" y="76">Probability of Default estimates the likelihood that an obligor defaults over a chosen horizon, often one year.</text>
+
+  <rect class="box input" x="55" y="135" width="210" height="125" rx="8"/>
+  <text class="h" x="82" y="168">Borrower Variables</text>
+  <text class="txt" x="82" y="194">leverage, liquidity</text>
+  <text class="txt" x="82" y="212">payment history</text>
+  <text class="txt" x="82" y="230">sector, macro data</text>
+
+  <rect class="box model" x="315" y="135" width="235" height="125" rx="8"/>
+  <text class="h" x="342" y="168">Scorecard / Logit</text>
+  <text class="formula" x="342" y="198">logit(PD) = beta X</text>
+  <text class="txt" x="342" y="225">rank obligors by risk</text>
+
+  <rect class="box model" x="600" y="135" width="185" height="125" rx="8"/>
+  <text class="h" x="627" y="168">Calibrate PD</text>
+  <text class="txt" x="627" y="194">PIT / TTC / forward</text>
+  <text class="txt" x="627" y="212">match observed rates</text>
+
+  <rect class="box valid" x="835" y="135" width="170" height="125" rx="8"/>
+  <text class="h" x="862" y="168">Validate</text>
+  <text class="txt" x="862" y="194">AUC, Gini, KS</text>
+  <text class="txt" x="862" y="212">Brier, calibration</text>
+
+  <path class="arrow" d="M265 198L315 198"/>
+  <path class="arrow" d="M550 198L600 198"/>
+  <path class="arrow" d="M785 198L835 198"/>
+
+  <rect class="box app" x="140" y="330" width="780" height="95" rx="8"/>
+  <text class="h" x="170" y="362">Applications</text>
+  <text class="txt" x="170" y="388">credit pricing, risk-based lending, capital calculation, portfolio monitoring, early warning, stress testing, and scenario analysis</text>
+  <text class="small" x="170" y="410">Important control: PD is horizon- and definition-specific; default definition, observation window, and calibration target must be explicit.</text>
+</svg>

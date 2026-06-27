@@ -27,6 +27,54 @@ $$
 
 CDS pricing balances premium leg and protection leg under a recovery assumption. Bond pricing adds default-adjusted expected cashflows and, often, liquidity premia not captured by a simple hazard-rate model.
 
+### Probability Of Default Models
+Probability of Default (PD) is the probability that an obligor defaults over a defined horizon, often one year. It is a core input to credit pricing, expected loss, regulatory capital, portfolio monitoring, and stress testing.
+
+$$
+PD = P(\text{default within horizon} \mid \text{information available today})
+$$
+
+Common PD types:
+- Point-in-time (PIT) PD: captures current borrower and macro conditions at a specific point in time.
+- Through-the-cycle (TTC) PD: averages through the economic cycle and is often used for long-run capital views.
+- Forward PD: conditional on future macroeconomic or scenario assumptions.
+
+Common modelling approaches:
+- Statistical default-rate approach: defaults divided by total exposures in a segment.
+- Scorecard or regression approach: borrower and macro variables mapped to PD.
+- Market-implied approach: default probabilities inferred from CDS spreads or bond spreads.
+- Structural approach: default linked to firm value relative to liabilities.
+
+For logistic regression scorecards:
+
+$$
+\log\left(\frac{PD_i}{1-PD_i}\right) = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_k x_{i,k}
+$$
+
+or:
+
+$$
+PD_i = \frac{1}{1 + e^{-z_i}}
+$$
+
+where $z_i$ is the borrower score. Higher scores should map consistently to higher or lower risk depending on score orientation.
+
+![PD model workflow](assets/pd-credit-risk-model-workflow.svg)
+
+Typical variables include:
+- financial ratios: leverage, liquidity, profitability, coverage,
+- behavioral data: payment history, delinquency, utilization, tenure,
+- demographic or firmographic data: sector, region, firm size,
+- macro variables: unemployment, rates, GDP, house prices, commodity prices.
+
+Model validation focuses on:
+- discrimination: ability to rank good and bad borrowers,
+- calibration: predicted PDs match observed default rates,
+- stability: performance and score distributions remain consistent over time,
+- backtesting: realized defaults are consistent with predicted PD bands.
+
+![PD model validation metrics](assets/pd-validation-metrics.svg)
+
 ## Worked Instrument Example: Single-Name CDS Protection
 Assume an investor buys 5-year CDS protection on $10,000,000 notional with:
 - annual running spread: 100 bps,
@@ -57,6 +105,7 @@ CDS pricing is easiest to reason about as two legs: expected premium payments wh
 - CS01 by name and bucket
 - Jump-to-default exposure
 - Recovery sensitivity
+- PD, hazard-rate, and scorecard sensitivity
 - Index tranche correlation and base-correlation exposures
 - Basis risk between bond and CDS positions
 
@@ -65,10 +114,14 @@ CDS pricing is easiest to reason about as two legs: expected premium payments wh
 - Bond prices and spread measures
 - Recovery assumptions and possibly stochastic-recovery model parameters
 - Credit curves by issuer and seniority
+- Borrower financial, behavioral, demographic, and macro variables for PD models
+- PD model calibration, validation, override, and monitoring outputs
 - Correlation surfaces for tranche analytics where relevant
 
 ## Numerical and Implementation Approaches
 - Bootstrap hazard curves from liquid CDS points.
+- Keep PIT, TTC, and forward PD definitions separate; mixing them creates capital, pricing, and monitoring errors.
+- Validate PD models for discrimination, calibration, stability, and backtesting before using them in pricing or capital.
 - Align bond analytics with fixed-income schedule generation and accrued-interest logic.
 - Keep default event handling explicit in trade representation and scenario engines.
 - Use scenario tools for wrong-way risk and spread gap moves even when the pricing model is simple.
@@ -78,6 +131,8 @@ CDS pricing is easiest to reason about as two legs: expected premium payments wh
 - Mixing spread measures across bonds and CDS without a documented mapping.
 - Missing accrued premium logic in CDS settlement.
 - Recoveries hard-coded globally when books actually use name- or sector-specific assumptions.
+- Logistic scorecard outputs used without calibration to observed default rates.
+- High AUC accepted as sufficient even when predicted PD levels are miscalibrated.
 
 ## Illustrative Code
 ```python
@@ -90,6 +145,10 @@ def survival_probability(hazard_rate: float, expiry: float) -> float:
 
 def expected_loss(notional: float, default_probability: float, recovery: float) -> float:
     return notional * default_probability * (1.0 - recovery)
+
+
+def logistic_pd(score: float) -> float:
+    return 1.0 / (1.0 + math.exp(-score))
 ```
 
 ## References and Further Reading

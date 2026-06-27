@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-06-18
+- Added PD model documentation with PIT/TTC/forward PD, logistic scorecards, validation metrics, and Monte Carlo interview notes.
 - Added deeper American option pricing model, option strategy payoff, and Heston stochastic-volatility documentation with diagrams and examples.
 - Added deeper interest-rate model family coverage and CVA/xVA material with diagrams and examples.
 - Added foundational probability, statistics, and regression documentation with OLS workflow, diagnostics diagrams, and beta example.

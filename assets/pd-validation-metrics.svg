@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="470" viewBox="0 0 1060 470" role="img" aria-labelledby="title desc">
+  <title id="title">PD model validation metrics</title>
+  <desc id="desc">Credit PD model validation metrics covering discrimination, calibration, stability, and backtesting.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfcff}.panel{fill:#fff;stroke:#cbd5e1;stroke-width:2}.disc{fill:#eff6ff;stroke:#93c5fd}.cal{fill:#f0fdf4;stroke:#86efac}.stab{fill:#fff7ed;stroke:#fdba74}.back{fill:#fff1f2;stroke:#fda4af}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 15px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.axis{stroke:#475569;stroke-width:2}.line{fill:none;stroke:#2563eb;stroke-width:3}.dash{fill:none;stroke:#dc2626;stroke-width:2;stroke-dasharray:5 4}.small{font:11px Arial,sans-serif;fill:#475569}
+    </style>
+  </defs>
+  <rect class="bg" width="1060" height="470"/>
+  <text class="title" x="40" y="52">PD Model Validation</text>
+  <text class="small" x="40" y="76">A PD model must rank risk, match observed default rates, stay stable, and backtest against realized defaults.</text>
+
+  <rect class="panel disc" x="55" y="115" width="455" height="145" rx="8"/>
+  <text class="h" x="85" y="147">Discrimination</text>
+  <text class="txt" x="85" y="173">Can the model separate good and bad obligors?</text>
+  <text class="txt" x="85" y="195">Metrics: AUC / ROC, Gini, KS statistic.</text>
+  <line class="axis" x1="330" y1="230" x2="470" y2="230"/><line class="axis" x1="330" y1="230" x2="330" y2="130"/>
+  <path class="line" d="M330 230 C350 170 405 135 470 128"/>
+  <path class="dash" d="M330 230L470 130"/>
+
+  <rect class="panel cal" x="550" y="115" width="455" height="145" rx="8"/>
+  <text class="h" x="580" y="147">Calibration</text>
+  <text class="txt" x="580" y="173">Do predicted PDs match observed default rates?</text>
+  <text class="txt" x="580" y="195">Metrics: calibration plot, Brier score, bin default rates.</text>
+  <line class="axis" x1="825" y1="230" x2="965" y2="230"/><line class="axis" x1="825" y1="230" x2="825" y2="130"/>
+  <path class="dash" d="M825 230L965 130"/>
+  <path class="line" d="M825 225 C865 220 900 175 965 150"/>
+
+  <rect class="panel stab" x="55" y="300" width="455" height="95" rx="8"/>
+  <text class="h" x="85" y="332">Stability</text>
+  <text class="txt" x="85" y="358">Does the score distribution drift over time?</text>
+  <text class="txt" x="85" y="376">Metrics: PSI, characteristic drift, override monitoring.</text>
+
+  <rect class="panel back" x="550" y="300" width="455" height="95" rx="8"/>
+  <text class="h" x="580" y="332">Backtesting</text>
+  <text class="txt" x="580" y="358">Do realized defaults align with predicted PD bands?</text>
+  <text class="txt" x="580" y="376">Metrics: hit rates, binomial tests, likelihood-ratio tests.</text>
+</svg>

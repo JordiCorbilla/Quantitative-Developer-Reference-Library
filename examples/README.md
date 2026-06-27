@@ -9,6 +9,7 @@ These examples are small by design. They are meant to connect formulas to implem
 - [linear-regression-beta.md](linear-regression-beta.md) - estimate beta as an OLS regression slope.
 - [option-strategy-payoffs.md](option-strategy-payoffs.md) - compute a bull call spread payoff at expiry.
 - [heston-variance-step.md](heston-variance-step.md) - one-step Heston variance process update.
+- [pd-logistic-score.md](pd-logistic-score.md) - map borrower variables to a toy logistic PD estimate.
 - [simple-cva.md](simple-cva.md) - compute a one-period simplified CVA from exposure, default probability, and LGD.
 - [vasicek-rate-step.md](vasicek-rate-step.md) - one-step short-rate update under a Vasicek-style model.
 - [swap-pv.md](swap-pv.md) - simple fixed-vs-floating swap PV decomposition.

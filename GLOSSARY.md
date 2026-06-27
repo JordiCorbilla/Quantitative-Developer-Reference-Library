@@ -9,6 +9,7 @@
 - **Basis**: Difference between related instruments or curves that should not be collapsed without explanation.
 - **Beta**: Sensitivity of an asset or portfolio return to a benchmark return.
 - **Borrow cost**: Cost of borrowing securities, important for shorts and equity forwards.
+- **Brier score**: Mean squared error of probabilistic predictions such as PD forecasts.
 
 ## C
 - **Calibration**: Choosing model parameters to fit market-observable prices or quotes.
@@ -63,8 +64,10 @@
 - **MVA**: Margin valuation adjustment for the funding cost of initial margin.
 
 ## P
+- **PD**: Probability of Default over a specified horizon and default definition.
 - **PnL explain**: Decomposition of profit and loss into market moves, carry, trades, lifecycle events, and residual.
 - **POV**: Percentage-of-volume execution algorithm.
+- **Point-in-time PD**: PD estimate reflecting current borrower and macro conditions.
 
 ## R
 - **Regime model**: Model that lets parameters or dynamics change across latent market states.
@@ -80,6 +83,7 @@
 - **Stress test**: Scenario designed to measure loss under severe market conditions.
 
 ## T
+- **Through-the-cycle PD**: PD estimate smoothed across the economic cycle for long-run risk views.
 - **TWAP**: Time-weighted average price.
 
 ## V

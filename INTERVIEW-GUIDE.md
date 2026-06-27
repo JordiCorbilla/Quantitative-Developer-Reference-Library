@@ -82,6 +82,22 @@ Good answers mention:
 - collateral and CSA terms,
 - DVA, FVA, MVA, and KVA as related valuation adjustments.
 
+## Credit PD Models
+Read: [07-credit.md](07-credit.md)
+
+Common questions:
+- What is Probability of Default?
+- Difference between PIT, TTC, and forward PD?
+- How does logistic regression map borrower variables to PD?
+- What are AUC, Gini, calibration, Brier score, and PSI used for?
+
+Good answers mention:
+- default horizon and default definition,
+- borrower financial, behavioral, demographic, and macro variables,
+- scorecards and log-odds,
+- discrimination versus calibration,
+- backtesting realized defaults against predicted PD bands.
+
 ## Risk, VaR, ES, And Beta
 Read: [13-risk-and-pnl.md](13-risk-and-pnl.md)
 
@@ -118,6 +134,24 @@ Good answers mention:
 - use in VaR and volatility forecasting.
 - hidden states, transition probabilities, filtered probabilities, and avoiding look-ahead from smoothed states.
 - stochastic variance, mean reversion, vol-of-vol, spot-vol correlation, and calibration stability.
+
+## Monte Carlo Simulation
+Read: [10-numerical-methods.md](10-numerical-methods.md)
+
+Common questions:
+- What is Monte Carlo simulation?
+- Why use Monte Carlo instead of Black-Scholes?
+- What is a path-dependent option?
+- What is variance reduction?
+- What does convergence mean?
+- What are Monte Carlo limitations?
+
+Good answers mention:
+- random sampling to estimate expectations,
+- path dependence and high dimensionality,
+- antithetic variates, control variates, stratification, and quasi-random sequences,
+- convergence rate and standard error,
+- path count, seed, time grid, model assumptions, and runtime cost.
 
 ## Execution: VWAP, TWAP, POV, TCA
 Read: [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
