@@ -42,7 +42,7 @@
 - **Haircut**: Reduction applied to collateral value in financing or margin.
 - **Hazard rate**: Default intensity used in credit modelling.
 - **Heston model**: Stochastic-volatility option model with mean-reverting variance and correlated spot/variance shocks.
-- **Hidden Markov Model (HMM)**: Model with unobserved states that generate observed data through a state-dependent emission distribution.
+- **Hidden Markov Model (HMM)**: Probabilistic sequence model with hidden states, initial probabilities, transition probabilities, and a state-dependent emission distribution. In markets, HMMs are often used to estimate regime probabilities from returns, volatility, volume, or spread data.
 - **Heteroskedasticity**: Non-constant residual variance, common in financial time series.
 - **Hull-White model**: Short-rate model with time-dependent drift commonly used for curve-consistent rates derivatives pricing.
 

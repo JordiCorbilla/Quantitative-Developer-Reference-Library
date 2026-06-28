@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
+  <title id="title">Hidden Markov model regime filtering map</title>
+  <desc id="desc">Hidden market regimes transition over time and emit observable returns, volatility, volume, or spread data used to update filtered state probabilities.</desc>
+  <rect width="900" height="420" fill="#f8fafc"/>
+  <text x="450" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">Hidden Markov Model For Market Regimes</text>
+  <text x="450" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#475569">Transitions move hidden states forward; emissions connect hidden regimes to observed market data.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#047857"/>
+    </marker>
+  </defs>
+  <rect x="40" y="98" width="230" height="260" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="155" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Model Inputs</text>
+  <text x="62" y="162" font-family="Arial, sans-serif" font-size="14" fill="#334155">Initial probabilities</text>
+  <text x="62" y="184" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">π = [P(calm), P(stress)]</text>
+  <text x="62" y="222" font-family="Arial, sans-serif" font-size="14" fill="#334155">Transition matrix</text>
+  <text x="62" y="245" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">A = [p_ij]</text>
+  <text x="62" y="283" font-family="Arial, sans-serif" font-size="14" fill="#334155">Emission model</text>
+  <text x="62" y="306" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">f(y_t | S_t = j)</text>
+  <circle cx="440" cy="165" r="62" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="440" y="158" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1e3a8a">Calm</text>
+  <text x="440" y="181" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#1e40af">low vol / normal liquidity</text>
+  <circle cx="440" cy="290" r="62" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <text x="440" y="283" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#7f1d1d">Stress</text>
+  <text x="440" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#991b1b">high vol / fragile liquidity</text>
+  <path d="M488 125 C575 92 575 238 488 205" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <text x="592" y="168" font-family="Arial, sans-serif" font-size="13" fill="#334155">p(calm to stress)</text>
+  <path d="M392 250 C305 220 305 360 392 330" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <text x="221" y="300" font-family="Arial, sans-serif" font-size="13" fill="#334155">p(stress to calm)</text>
+  <path d="M425 103 C370 82 370 122 425 110" fill="none" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <text x="330" y="98" font-family="Arial, sans-serif" font-size="13" fill="#2563eb">p(calm to calm)</text>
+  <path d="M455 352 C510 376 510 332 455 345" fill="none" stroke="#dc2626" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <text x="522" y="366" font-family="Arial, sans-serif" font-size="13" fill="#dc2626">p(stress to stress)</text>
+  <rect x="655" y="98" width="205" height="260" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="758" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Observed Data</text>
+  <circle cx="708" cy="172" r="30" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="708" y="177" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#065f46">return</text>
+  <circle cx="806" cy="172" r="30" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="806" y="177" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#065f46">vol</text>
+  <circle cx="708" cy="250" r="30" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="708" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#065f46">volume</text>
+  <circle cx="806" cy="250" r="30" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="806" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#065f46">spread</text>
+  <text x="758" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#475569">Filtering updates:</text>
+  <text x="758" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">P(S_t | y_1:t)</text>
+  <path d="M502 165 C555 145 604 140 672 163" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#greenArrow)"/>
+  <path d="M502 290 C568 310 612 296 672 260" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#greenArrow)"/>
+  <text x="552" y="210" font-family="Arial, sans-serif" font-size="13" fill="#047857">emissions</text>
+</svg>

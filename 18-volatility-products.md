@@ -103,6 +103,33 @@ $$
 
 The model estimates state probabilities from observed data. In practice, this is useful for regime classification, time-varying risk estimates, and dashboards that show the probability of being in a stress state rather than forcing a hard label.
 
+An HMM is usually specified by:
+- hidden states $S = \{s_1,\ldots,s_N\}$, such as calm, trend, high-volatility, or stress regimes,
+- initial state probabilities $\pi_i = P(S_0 = s_i)$,
+- transition matrix $A = [a_{ij}]$, where $a_{ij} = P(S_t=s_j \mid S_{t-1}=s_i)$,
+- emission or observation model $B$, such as $f(y_t \mid S_t=s_j)$ for returns, realized volatility, volume, bid-ask spreads, or factor moves.
+
+![Hidden Markov model regime filtering map](assets/hmm-regime-filtering-map.svg)
+
+Common HMM tasks:
+- Filtering estimates $P(S_t \mid y_1,\ldots,y_t)$ using only information available at time $t$.
+- Smoothing estimates $P(S_t \mid y_1,\ldots,y_T)$ using the full sample; it is useful for research diagnostics but not live trading decisions.
+- Decoding infers the most likely state path, often with the Viterbi algorithm.
+- Estimation fits transition and emission parameters, often with expectation-maximization / Baum-Welch.
+
+Trading and risk uses:
+- regime probability dashboards for market state awareness,
+- volatility and correlation scaling by filtered regime probability,
+- de-risking or exposure caps when stress-regime probability rises,
+- feature engineering for portfolio construction and execution models.
+
+Implementation cautions:
+- The model does not discover "bull" or "bear" states by name; humans label states after inspecting emissions and behavior.
+- Gaussian emissions are convenient but can understate tail risk; heavy-tailed or multivariate emissions may be more realistic.
+- More hidden states can improve in-sample fit while making the model unstable and hard to interpret.
+- Filtered probabilities are live-usable; smoothed probabilities use future data and can create look-ahead bias.
+- Regime signals should be tested after transaction costs, turnover, capacity, and delayed execution.
+
 ### Regime-Switching GARCH
 Regime-switching GARCH combines latent states with regime-specific volatility dynamics:
 

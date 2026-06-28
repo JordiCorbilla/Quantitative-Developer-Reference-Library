@@ -132,7 +132,8 @@ Good answers mention:
 - leverage/asymmetry effects,
 - heavy-tailed residuals and regime stability,
 - use in VaR and volatility forecasting.
-- hidden states, transition probabilities, filtered probabilities, and avoiding look-ahead from smoothed states.
+- HMM components: hidden states, initial probabilities, transition matrix, emissions, filtering, smoothing, and decoding.
+- avoiding look-ahead from smoothed states in backtests.
 - stochastic variance, mean reversion, vol-of-vol, spot-vol correlation, and calibration stability.
 
 ## Monte Carlo Simulation
