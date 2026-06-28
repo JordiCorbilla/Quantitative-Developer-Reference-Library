@@ -40,7 +40,7 @@ Common PD types:
 - Forward PD: conditional on future macroeconomic or scenario assumptions.
 
 Common modelling approaches:
-- Statistical default-rate approach: defaults divided by total exposures in a segment.
+- Statistical default-rate approach: defaulted obligors divided by total obligors in a segment, or exposure-weighted default rates when the model explicitly targets exposure loss behavior.
 - Scorecard or regression approach: borrower and macro variables mapped to PD.
 - Market-implied approach: default probabilities inferred from CDS spreads or bond spreads.
 - Structural approach: default linked to firm value relative to liabilities.
@@ -69,7 +69,7 @@ Typical variables include:
 
 Model validation focuses on:
 - discrimination: ability to rank good and bad borrowers,
-- calibration: predicted PDs match observed default rates,
+- calibration: predicted PD bands match observed default rates over the same horizon and population,
 - stability: performance and score distributions remain consistent over time,
 - backtesting: realized defaults are consistent with predicted PD bands.
 

@@ -139,19 +139,25 @@ import random
 
 
 def monte_carlo_call(spot: float, strike: float, expiry: float, rate: float, vol: float, paths: int, seed: int = 0) -> float:
+    if paths <= 0:
+        raise ValueError("paths must be positive")
     rng = random.Random(seed)
     discount = math.exp(-rate * expiry)
     drift = (rate - 0.5 * vol * vol) * expiry
     diffusion = vol * math.sqrt(expiry)
     payoff_sum = 0.0
+    simulated_paths = 0
 
-    for _ in range(paths // 2):
+    for _ in range((paths + 1) // 2):
         z = rng.gauss(0.0, 1.0)
         for shock in (z, -z):
+            if simulated_paths == paths:
+                break
             terminal = spot * math.exp(drift + diffusion * shock)
             payoff_sum += max(terminal - strike, 0.0)
+            simulated_paths += 1
 
-    return discount * payoff_sum / max(paths, 1)
+    return discount * payoff_sum / simulated_paths
 ```
 
 ## References and Further Reading

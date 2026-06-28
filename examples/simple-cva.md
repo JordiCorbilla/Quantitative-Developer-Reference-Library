@@ -4,7 +4,7 @@ Related chapter: [../09-cross-asset.md](../09-cross-asset.md).
 
 Assume:
 - expected exposure: USD 1,000,000
-- one-year default probability: 2%
+- one-year marginal default probability: 2%
 - recovery rate: 40%
 - discount factor: 1.00
 
@@ -22,11 +22,11 @@ $$
 
 ```python
 exposure = 1_000_000
-default_probability = 0.02
+marginal_default_probability = 0.02
 lgd = 0.60
 discount_factor = 1.00
 
-cva = exposure * default_probability * lgd * discount_factor
+cva = exposure * marginal_default_probability * lgd * discount_factor
 ```
 
 Interpretation:

@@ -18,7 +18,7 @@ For a quant developer, this means more than a payoff formula. You need surface c
 Replication logic is central. A large part of options infrastructure is built around relationships between payoffs, not just direct valuation. Vanilla calls and puts span a basis for many structured payoffs, and risk reports often reduce exotic books back to vanilla hedges and benchmark Greeks.
 
 ## Worked Instrument Example: Equity Calls And Puts
-Assume, hypothetically, Apple stock is trading at $277 today. A trader buys a 30-day listed call option with:
+Assume, hypothetically, a stock is trading at $277. A trader buys a 30-day listed call option with:
 - strike: $300,
 - quoted premium: $5.00 per share,
 - equity option multiplier: 100 shares per contract,
@@ -48,7 +48,7 @@ $$
 \left[\max(S_T - 300, 0) - 5\right] \times 10{,}000
 $$
 
-| Apple price at expiry | Call intrinsic value | Net PnL after $50,000 premium | Interpretation |
+| Stock price at expiry | Call intrinsic value | Net PnL after $50,000 premium | Interpretation |
 | --- | ---: | ---: | --- |
 | $260 | $0 | -$50,000 | The call expires worthless; the stock moved down. |
 | $277 | $0 | -$50,000 | The stock stayed below the strike; the right to buy at $300 has no value. |
@@ -68,7 +68,7 @@ $$
 \left[\max(250 - S_T, 0) - 4\right] \times 10{,}000
 $$
 
-| Apple price at expiry | Put intrinsic value | Net PnL after $40,000 premium | Interpretation |
+| Stock price at expiry | Put intrinsic value | Net PnL after $40,000 premium | Interpretation |
 | --- | ---: | ---: | --- |
 | $220 | $300,000 | $260,000 | The put pays because selling at $250 is better than market at $220. |
 | $246 | $40,000 | $0 | Break-even: $250 strike minus $4 premium. |
