@@ -3,9 +3,15 @@
 Related chapters: [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Credit products transfer exposure to whether a borrower or reference entity defaults, when that default happens, and how much value is recovered after default. They combine fixed-income cashflow mechanics with default timing and recovery assumptions. The asset class is implementation-heavy because the same issuer can trade through bonds, CDS, indices, and structured credit products with different conventions.
+Credit is the market's way of pricing the possibility that someone does not pay.
+
+The key questions are human before they are mathematical: who can default, when might default happen, what is recovered, and which contract absorbs the loss? A bond, a CDS, a loan, and a credit index can all reference similar default risk but express it through different cashflows and conventions.
+
+That is why credit analytics combine fixed-income scheduling with default timing, recovery assumptions, legal definitions, and market-implied spreads. The same issuer can trade through bonds, CDS, indices, and tranches, and the numbers will not line up unless the conventions are explicit.
 
 ## Product Taxonomy and Market Structure
+Start by identifying the form of default-risk transfer.
+
 - Single-name CDS
 - CDS indices and tranches
 - Corporate and sovereign credit bonds
@@ -19,6 +25,8 @@ Credit products transfer exposure to whether a borrower or reference entity defa
 - Bond spread measures are not interchangeable with CDS spread.
 
 ## Core Pricing Framework
+Credit pricing is built around survival: the probability that the reference entity has not defaulted by a future date.
+
 Reduced-form credit models use hazard rates or survival probabilities:
 
 $$

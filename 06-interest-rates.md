@@ -3,9 +3,15 @@
 Related chapters: [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), and [12-pricing-architecture.md](12-pricing-architecture.md).
 
 ## What This Domain Covers
-Interest-rate products transfer exposure to the level, shape, and volatility of rate curves. A vanilla swap exchanges fixed interest payments for floating payments; caps, floors, and swaptions add option-like exposure to future rates. Rates is where a large amount of quant infrastructure complexity becomes unavoidable. Instruments are schedule-heavy, conventions vary by currency and tenor, and modern pricing uses multiple curves. This chapter focuses on the objects and relationships a quant developer needs to build reliably.
+Rates products trade the cost of money through time.
+
+A vanilla swap is a clean story: one side pays fixed coupons, the other pays floating coupons. Caps, floors, and swaptions add optionality on future rates. Cross-currency and basis products add another layer of curve relationships.
+
+Rates is where a lot of quant infrastructure complexity becomes unavoidable. The products are schedule-heavy, conventions vary by currency and tenor, and modern pricing separates discount curves from projection curves. This chapter builds the story from cashflow schedules to curve dependencies to model choice.
 
 ## Product Taxonomy and Market Structure
+The product type tells you which part of the rates stack you are touching: cash, forwards, swaps, options, or callable structures.
+
 - Deposits and short-end instruments
 - FRAs and futures on short rates
 - OIS swaps and vanilla fixed-float swaps
@@ -32,6 +38,8 @@ for a simple single-curve setup with accrual fractions $\alpha_i$. Multi-curve s
 ## Core Pricing Framework
 
 ### Single-Curve Intuition
+Start with the old one-curve world because it gives the right intuition.
+
 Before the financial crisis, many systems projected and discounted off one curve. That is still useful for intuition:
 - discount factors define present value,
 - forward rates are implied by adjacent discount factors,

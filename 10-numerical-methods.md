@@ -3,7 +3,11 @@
 Related chapters: [01-options.md](01-options.md), [05-fixed-income.md](05-fixed-income.md), [06-interest-rates.md](06-interest-rates.md), [12-pricing-architecture.md](12-pricing-architecture.md), and [14-testing-and-validation.md](14-testing-and-validation.md).
 
 ## What This Domain Covers
-Numerical methods are the bridge between models and production numbers. Most pricing libraries are not limited by whether the math is known; they are limited by whether interpolation, simulation, solvers, and sensitivity calculations are stable enough to support trading and risk.
+Numerical methods are where a financial model becomes an actual number.
+
+The formula may be known, but production still has to solve roots, interpolate curves, simulate paths, calibrate parameters, approximate sensitivities, and return diagnostics. A model that is correct on paper can still be unusable if the solver is unstable, the grid is too coarse, the random seed hides variance, or the interpolation creates impossible shapes.
+
+This chapter is the toolkit behind the product chapters. It explains how quant developers turn pricing ideas into stable, testable calculations.
 
 ## Product Taxonomy and Market Structure
 This is a methods chapter rather than an asset-class chapter, but the same patterns recur:
@@ -24,7 +28,7 @@ This is a methods chapter rather than an asset-class chapter, but the same patte
 
 ![Numerical method selection map](assets/numerical-method-selection.svg)
 
-The method choice should follow the payoff and workflow: closed form for benchmarks, trees or PDEs for low-dimensional exercise and boundary behavior, Monte Carlo for path dependence and many factors, and AAD when risk throughput dominates.
+The method choice should follow the shape of the problem, not personal preference: closed form for benchmarks, trees or PDEs for low-dimensional exercise and boundary behavior, Monte Carlo for path dependence and many factors, and AAD when risk throughput dominates.
 
 ### Root-Finding
 Used for implied volatility, yield, spread, and calibration problems. Good practice:

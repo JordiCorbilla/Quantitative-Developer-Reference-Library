@@ -3,9 +3,15 @@
 Related chapters: [01-options.md](01-options.md), [06-interest-rates.md](06-interest-rates.md), [09-cross-asset.md](09-cross-asset.md), [12-pricing-architecture.md](12-pricing-architecture.md), [14-testing-and-validation.md](14-testing-and-validation.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
-Pricing tells you what a position is worth. Risk and PnL tell you what can change, why it changed, and whether the explanation is trustworthy. This is where quantitative analytics meet daily trading workflow and control infrastructure.
+Pricing tells you where the book stands. Risk and PnL explain how that position can move and why it actually moved.
+
+This is the daily conversation between a trading desk, risk team, finance, and control functions. A price without risk is not actionable. A PnL number without explain is not trustworthy. A risk report that cannot be reconciled to market moves is just a spreadsheet with authority.
+
+This chapter follows the desk workflow: define risk factors, measure sensitivities, run scenarios, estimate tail loss, explain PnL, and investigate residuals.
 
 ## Product Taxonomy and Market Structure
+The workflow moves from local changes to portfolio-level stories.
+
 - Sensitivity-based risk
 - Scenario and stress risk
 - VaR and expected shortfall style portfolio views
@@ -19,6 +25,8 @@ Pricing tells you what a position is worth. Risk and PnL tell you what can chang
 - Bucket definitions, scenario definitions, and aggregation currencies are part of the product contract for risk systems.
 
 ## Core Pricing Framework
+PnL explain starts by asking which market factors moved and how the portfolio was exposed to them.
+
 Common decomposition:
 
 $$

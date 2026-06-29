@@ -3,9 +3,15 @@
 Related chapters: [00-overview.md](00-overview.md), [06-interest-rates.md](06-interest-rates.md), [10-numerical-methods.md](10-numerical-methods.md), and [12-pricing-architecture.md](12-pricing-architecture.md).
 
 ## What This Domain Covers
-Market data is not a support function around pricing. It is part of the pricing model. Quant systems are only as good as their identifiers, timestamps, quote conventions, cleaning rules, and transformation pipelines.
+Market data is the raw material of every pricing and risk number.
+
+It is tempting to treat data as a plumbing problem around the model. In practice, the data is part of the model. A curve, surface, fixing, close price, or corporate action only means something if the system knows its source, timestamp, units, quote convention, cleaning rule, and transformation history.
+
+Most bad analytics do not announce themselves as bad formulas. They arrive as stale quotes, wrong identifiers, inverted units, broken calendars, missing fixings, or silent fallbacks. This chapter tells the story of how raw observations become trusted market state.
 
 ## Product Taxonomy and Market Structure
+The first split is between data that defines the instrument and data that marks the market.
+
 - Reference data: instrument definitions, calendars, identifiers, contract specs
 - Real-time prices and end-of-day closes
 - Curves, surfaces, cubes, and fixings
@@ -19,6 +25,8 @@ Market data is not a support function around pricing. It is part of the pricing 
 - Time zones, market close definitions, and fixing windows matter.
 
 ## Core Pricing Framework
+The market-data workflow is a controlled transformation pipeline.
+
 The key market-data problem is transformation:
 - raw observations,
 - validation and outlier handling,

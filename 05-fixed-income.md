@@ -3,9 +3,15 @@
 Related chapters: [06-interest-rates.md](06-interest-rates.md), [07-credit.md](07-credit.md), [10-numerical-methods.md](10-numerical-methods.md), and [11-market-data.md](11-market-data.md).
 
 ## What This Domain Covers
-Fixed-income instruments are contracts built from dated cashflows: principal repayment, coupons, floating coupons, amortization, or inflation-linked payments. A bond price is the present value of those cashflows under the relevant discount and spread assumptions. Fixed-income analytics begin with cashflows, calendars, and discounting. They scale into curve construction, spread analysis, callable structures, and credit decomposition. Quant developers need to understand both the instrument math and the mechanics that make bond systems hard to reproduce exactly.
+Fixed income starts with a simple promise: cashflows on dates.
+
+A bond pays coupons, principal, floating coupons, amortization, or inflation-linked amounts according to a schedule. Pricing is the act of turning those dated cashflows into present value. The idea is simple; the implementation is not.
+
+Every detail matters: settlement date, clean price, dirty price, accrued interest, day count, calendars, compounding, curve choice, spread measure, call schedule, and static data history. Fixed-income systems are hard to reproduce because two systems can agree on the finance and still disagree on one date or convention. This chapter keeps the cashflow schedule as the center of the story.
 
 ## Product Taxonomy and Market Structure
+Before modelling a bond, first identify what kind of cashflow promise it makes.
+
 - Treasury and sovereign bonds
 - Corporate bonds and credit-sensitive cash instruments
 - Bills, notes, and zero-coupon instruments
@@ -36,6 +42,8 @@ Yields compress the entire curve into one scalar and should be treated with caut
 ## Core Pricing Framework
 
 ### Cashflow Discounting
+The safest mental model is to generate the cashflows first and price them second.
+
 The most robust fixed-income implementation values a bond by generated cashflows and discount factors:
 
 $$

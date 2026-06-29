@@ -3,9 +3,15 @@
 Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
-Cash equities are direct ownership interests in companies, quoted as a price per share. A long position gains when the share price rises and loses when it falls; a short position has the opposite exposure and usually pays borrow or financing costs. Cash equities look simple compared with derivatives, but equity analytics sit at the center of portfolio construction, execution, financing, and hedging workflows. This chapter focuses on what a quant developer needs to support cash books and equity-linked products correctly.
+Cash equities are ownership claims in companies, quoted one share at a time.
+
+A long position is the cleanest story in finance: buy shares, benefit if the price rises, lose if it falls, and receive the economics that belong to the owner. A short position flips the exposure but adds another layer: borrow availability, borrow cost, dividend payments, and financing.
+
+Equities look simpler than derivatives because there is no payoff formula to solve. In practice, equity systems are hard because the economics live in the ledger: trades, dividends, splits, rights, spin-offs, borrow, financing, benchmark membership, and execution costs all have to line up. This chapter follows that ledger view.
 
 ## Product Taxonomy and Market Structure
+Start by asking what kind of equity exposure the system is holding.
+
 - Common and preferred shares
 - ETFs and index trackers
 - ADRs and cross-listed instruments
@@ -21,6 +27,8 @@ The market structure layer matters: auctions, fragmented venues, dark pools, mar
 - Benchmark-relative language is common: beta, active weight, tracking error, sector neutrality.
 
 ## Core Pricing Framework
+For cash equities, the "model" is usually not a stochastic pricing equation. It is an economic ledger that must not lose or double-count anything.
+
 For many applications, the "pricing model" is simply marked market value plus corporate actions and financing:
 
 $$

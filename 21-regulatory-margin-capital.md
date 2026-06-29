@@ -3,9 +3,15 @@
 Related chapters: [09-cross-asset.md](09-cross-asset.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [14-testing-and-validation.md](14-testing-and-validation.md), [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md), and [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md).
 
 ## What This Domain Covers
-Regulatory margin and capital analytics turn trade populations, risk factors, legal terms, and model rules into required collateral, margin, capital, and explain reports. The output is sensitive to netting, eligibility, legal entity, model version, and reporting date.
+Margin and capital are the institutional cost of risk.
+
+A trade does not only consume market risk limits. It can require collateral, initial margin, regulatory capital, liquidity add-ons, and explain reports. Those requirements depend on legal terms, netting sets, eligible collateral, product class, sensitivities, model rules, and reporting date.
+
+This chapter treats margin and capital as controlled calculations. The problem is not just computing a number; it is proving why the number changed.
 
 ## Product Taxonomy and Market Structure
+The first split is between collateral exchanged today, margin held against future exposure, and capital held against regulatory risk.
+
 - Variation margin and initial margin.
 - ISDA SIMM and schedule-based margin.
 - CCP margin models.
@@ -21,6 +27,8 @@ Regulatory margin and capital analytics turn trade populations, risk factors, le
 - Model approvals and regulatory versions are part of the calculation input.
 
 ## Core Pricing Framework
+Most margin and capital models are rule engines wrapped around risk analytics.
+
 Many margin and capital models reduce to:
 
 $$

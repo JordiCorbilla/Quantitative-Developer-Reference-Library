@@ -3,9 +3,15 @@
 Related chapters: [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [14-testing-and-validation.md](14-testing-and-validation.md), and [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md).
 
 ## What This Domain Covers
-Model governance and independent price verification (IPV) make pricing and risk outputs defensible. They define what models are approved for, how limitations are documented, how independent marks are sourced, and how valuation uncertainty is escalated.
+Model governance is how an institution decides whether a number is allowed to be used.
+
+A pricing model can produce a value, but that does not automatically make the value acceptable for trading, risk, finance, or regulatory reporting. Governance defines the approved scope, limitations, controls, independent checks, reserves, and escalation paths.
+
+Independent price verification adds the second voice: an independent mark challenges the front-office valuation so uncertainty is visible rather than hidden. This chapter follows that control cycle.
 
 ## Product Taxonomy and Market Structure
+The governance process is a lifecycle, not a one-time approval.
+
 - Model inventory and ownership.
 - Model documentation and validation.
 - Approval conditions and model limitations.
@@ -21,7 +27,7 @@ Model governance and independent price verification (IPV) make pricing and risk 
 - Governance artifacts need version control just like code and market data.
 
 ## Core Pricing Framework
-Governance wraps the pricing stack:
+Governance wraps the pricing stack with approval, evidence, and challenge:
 
 $$
 \text{official value} = \text{model value} + \text{valuation adjustments} + \text{approved reserves}

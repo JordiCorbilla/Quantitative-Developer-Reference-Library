@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-06-18
+- Reworked the remaining numbered chapters with more narrative, story-driven openings and clearer practitioner transitions.
 - Expanded Hidden Markov Model coverage with transition/emission parameters, filtering/smoothing/decoding concepts, an original regime-filtering diagram, and a worked filtering example.
 - Added PD model documentation with PIT/TTC/forward PD, logistic scorecards, validation metrics, and Monte Carlo interview notes.
 - Added deeper American option pricing model, option strategy payoff, and Heston stochastic-volatility documentation with diagrams and examples.

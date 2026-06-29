@@ -3,9 +3,15 @@
 Related chapters: [05-fixed-income.md](05-fixed-income.md), [06-interest-rates.md](06-interest-rates.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md).
 
 ## What This Domain Covers
-Inflation products transfer exposure to changes in a published price index such as CPI, RPI, or HICP. The implementation challenge is not only modelling inflation. It is handling index publication lags, interpolation, seasonality, base index levels, real yields, and instrument-specific floor conventions.
+Inflation products turn the cost of living into a tradable risk factor.
+
+The payoff depends on a published index such as CPI, RPI, or HICP. That sounds simple until the implementation details appear: publication lags, index interpolation, seasonality, base index levels, real yields, deflation floors, and accrued inflation rules.
+
+The central story is that inflation is not observed continuously like a stock price. It is published with delays and conventions. A good inflation system therefore treats the reference-index calculation as a first-class model component.
 
 ## Product Taxonomy and Market Structure
+The product type tells you whether inflation changes principal, coupons, swap legs, or option payoffs.
+
 - Inflation-linked bonds with principal or coupon indexation.
 - Zero-coupon inflation swaps exchanging fixed inflation for realized index growth.
 - Year-on-year inflation swaps and caps/floors.
@@ -20,6 +26,8 @@ Inflation products transfer exposure to changes in a published price index such 
 - Seasonality matters because monthly inflation is not uniform through the year.
 
 ## Core Pricing Framework
+Inflation pricing starts by comparing an index level at the beginning with an index level used at payment.
+
 For a simple zero-coupon inflation swap with start index $I_0$ and maturity reference index $I_T$, the realized inflation leg is:
 
 $$

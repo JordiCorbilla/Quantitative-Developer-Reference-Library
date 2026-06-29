@@ -3,11 +3,15 @@
 Related chapters: [03-equities.md](03-equities.md), [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [14-testing-and-validation.md](14-testing-and-validation.md).
 
 ## What This Domain Covers
-Portfolio construction and backtesting sit between analytics and trading workflow. This is where expected returns, factor models, benchmark definitions, transaction costs, and rebalancing rules become an executable process rather than a research note.
+Portfolio construction is where a view becomes a set of positions.
 
-For a quant developer, the hard part is rarely writing one optimizer call. The hard part is making the whole workflow consistent: adjusted data, benchmark-relative risk, constraint handling, turnover accounting, and reproducible backtests.
+Backtesting is where that process is replayed against history to ask whether the idea might have worked. Both are easy to do badly. A signal can look strong before costs, a portfolio can hide factor bets, and a backtest can accidentally use information that was not available at the time.
+
+For a quant developer, the hard part is rarely one optimizer call. The hard part is making the full workflow consistent: adjusted data, benchmark definitions, factor risk, constraints, turnover, transaction costs, rebalance timing, and reproducible research.
 
 ## Product Taxonomy and Market Structure
+Start with the mandate: what kind of portfolio is being built and what is it measured against?
+
 - Long-only and long-short portfolios
 - Benchmark-relative and absolute-return mandates
 - Mean-variance and risk-budgeting style optimizers
@@ -37,6 +41,8 @@ $$
 If a report says "active risk" without specifying benchmark, covariance horizon, and annualization convention, the number is not a stable interface.
 
 ## Core Pricing Framework
+The optimizer is only one step in a larger investment process.
+
 The canonical portfolio-construction problem is an optimization under risk and implementation constraints:
 
 $$

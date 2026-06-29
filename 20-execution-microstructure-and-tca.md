@@ -3,9 +3,15 @@
 Related chapters: [03-equities.md](03-equities.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [15-performance-and-production.md](15-performance-and-production.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
-Execution analytics connect portfolio decisions to realized trades. A strategy can look profitable before costs and fail after spread, impact, delay, borrow, fees, and incomplete fills. Transaction-cost analysis makes those costs measurable and reproducible.
+Execution is where a portfolio decision meets the market.
+
+Before execution, a strategy can look clean: buy this, sell that, rebalance here. After execution, the real result includes spread, market impact, delay, partial fills, fees, taxes, borrow costs, and opportunity cost. Transaction-cost analysis turns that messy reality into something measurable.
+
+This chapter follows the trade from decision price to order instructions to fills to post-trade analysis.
 
 ## Product Taxonomy and Market Structure
+Start by asking how the order is intended to interact with liquidity.
+
 - Lit venues, dark pools, auctions, RFQ, and OTC execution.
 - Market, limit, stop, VWAP, TWAP, participation, and implementation-shortfall algorithms.
 - Pre-trade cost models and post-trade TCA.
@@ -20,6 +26,8 @@ Execution analytics connect portfolio decisions to realized trades. A strategy c
 - Corporate actions and symbol changes must not break historical execution analysis.
 
 ## Core Pricing Framework
+The central execution question is simple: how much did trading cost relative to the benchmark that mattered?
+
 Implementation shortfall compares executed value to the decision-time benchmark:
 
 $$

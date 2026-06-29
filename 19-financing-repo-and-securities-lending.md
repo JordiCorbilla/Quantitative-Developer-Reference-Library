@@ -3,9 +3,15 @@
 Related chapters: [02-futures.md](02-futures.md), [03-equities.md](03-equities.md), [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), and [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md).
 
 ## What This Domain Covers
-Financing analytics explain the cost and availability of balance sheet, collateral, cash, and securities. Repo and securities lending are not back-office details for quant systems: they affect forward prices, shorting costs, bond futures, collateral valuation, margin, and PnL.
+Financing is the cost of holding the trade.
+
+A strategy may look attractive before funding, borrow, collateral, margin, and balance-sheet constraints. After those costs, the economics can change completely. Repo and securities lending are therefore not back-office details for quant systems; they feed forward prices, shorting costs, bond futures, collateral valuation, margin, and PnL.
+
+This chapter follows the financing loop: cash against collateral, securities borrowed or lent, haircuts, margin calls, specials, fails, and the cost of balance sheet.
 
 ## Product Taxonomy and Market Structure
+The first distinction is whether cash is being financed, securities are being borrowed, or collateral is being transformed.
+
 - Repo and reverse repo.
 - Securities lending and stock borrow.
 - Total return swaps and synthetic financing.
@@ -21,6 +27,8 @@ Financing analytics explain the cost and availability of balance sheet, collater
 - Settlement calendars, collateral eligibility, substitution rights, and margin frequency are part of the trade economics.
 
 ## Core Pricing Framework
+The simplest repo story is cash today in exchange for collateral, then cash repaid later with repo interest.
+
 For a simple repo:
 
 $$

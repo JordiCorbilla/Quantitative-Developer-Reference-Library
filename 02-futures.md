@@ -3,9 +3,15 @@
 Related chapters: [04-fx.md](04-fx.md), [05-fixed-income.md](05-fixed-income.md), [08-commodities.md](08-commodities.md), and [11-market-data.md](11-market-data.md).
 
 ## What This Domain Covers
-Futures and forwards are agreements to buy or sell an underlying asset at a future date for a price agreed today. They are linear contracts: if the underlying reference price moves up by one unit, the long position gains roughly one contract multiplier of value, and the short position loses the same amount. The implementation details are still not trivial. Contract specification, settlement mechanics, carry inputs, and rolling behavior all affect pricing, hedging, and PnL explain.
+Futures and forwards are the simplest way to make a promise about a future price.
+
+One side agrees to buy later at a price fixed today. The other side agrees to sell. There is no optionality: if the reference price moves up, the long benefits and the short loses; if it moves down, the opposite happens.
+
+That linear payoff makes the product look simple, but the implementation story is richer. A listed future has a contract multiplier, expiry cycle, margin process, roll behavior, and sometimes delivery logic. An OTC forward has settlement terms, collateral terms, carry assumptions, and counterparty exposure. The quant developer's job is to keep the clean linear intuition while still modelling the operational details that drive PnL.
 
 ## Product Taxonomy and Market Structure
+The first question is where the promise trades and how it settles.
+
 - OTC forwards: customized notional, maturity, settlement, and collateral terms.
 - Exchange-traded futures: standardized contract size, expiry cycle, margining, and daily variation settlement.
 - Equity index futures, commodity futures, bond futures, short-rate futures, and FX futures all share linear payoffs but differ materially in carry and delivery logic.
@@ -19,6 +25,8 @@ Futures and forwards are agreements to buy or sell an underlying asset at a futu
 - Rolling a futures position changes contract, liquidity point, and often the relevant carry assumptions.
 
 ## Core Pricing Framework
+The pricing story starts with carry: what does it cost or earn to hold the underlying until the future date?
+
 In a simple carry model:
 
 $$

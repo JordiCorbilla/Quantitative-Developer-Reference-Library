@@ -3,9 +3,15 @@
 Related chapters: [02-futures.md](02-futures.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Commodity products reference physical goods such as crude oil, natural gas, power, metals, crops, or freight. The economics often depend on delivery month, location, grade, storage, and transport rather than only on a generic spot price. Commodity analytics look familiar if you come from equities or FX, but physical constraints and storage economics change the modeling problem. Inventory, transport, seasonality, and quality differentials can matter as much as volatility.
+Commodities are financial contracts tied to physical reality.
+
+A crude oil future, a gas forward, a power option, or a grain contract is not just a price on a screen. It is tied to delivery month, location, grade, storage, transportation, weather, seasonality, and sometimes physical constraints that cannot be arbitraged away.
+
+That is why commodity analytics feel familiar at first and then quickly become different. The same forward-pricing language appears, but inventory, scarcity, storage optionality, and local basis can matter as much as volatility. This chapter keeps the physical story visible behind the financial contract.
 
 ## Product Taxonomy and Market Structure
+The first question is what physical exposure the contract is really referencing.
+
 - Energy, metals, agricultural, and freight-linked products
 - Spot, forwards, and listed futures
 - Swing options, storage options, spread options, and transportation optionality
@@ -18,6 +24,8 @@ Commodity products reference physical goods such as crude oil, natural gas, powe
 - Storage and transport optionality can dominate simple financial carry relationships.
 
 ## Core Pricing Framework
+The carry formula is a useful starting point, but commodities often teach you why a simple formula is not the whole story.
+
 Commodity forward curves are often described through cost of carry:
 
 $$

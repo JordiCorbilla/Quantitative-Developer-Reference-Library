@@ -3,9 +3,15 @@
 Related chapters: [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [14-testing-and-validation.md](14-testing-and-validation.md).
 
 ## What This Domain Covers
-Quant systems are judged in production, not in notebooks. Performance, determinism, observability, and operational resilience are part of quantitative correctness because slow, flaky, or irreproducible analytics are not usable analytics.
+Quant systems are judged when the market is open, the book is large, and someone needs the number now.
+
+A model that works in a notebook is not finished. It has to run fast enough, reproduce yesterday's result, expose its diagnostics, handle bad inputs, fail clearly, and recover under load. Performance and production quality are therefore part of quantitative correctness, not an afterthought.
+
+This chapter tells the production story: latency, throughput, caching, observability, determinism, scaling, and operational resilience.
 
 ## Product Taxonomy and Market Structure
+Different workflows ask for different production qualities.
+
 - Low-latency pricing services
 - Intraday risk engines
 - End-of-day batch and overnight valuation
@@ -18,6 +24,8 @@ Quant systems are judged in production, not in notebooks. Performance, determini
 - Cache invalidation must respect market-data version and convention changes, not only timestamps.
 
 ## Core Pricing Framework
+Performance work begins by naming the bottleneck.
+
 Performance work usually targets one or more of:
 - lower latency per trade,
 - higher throughput per portfolio,

@@ -3,9 +3,15 @@
 Related chapters: [01-options.md](01-options.md), [09-cross-asset.md](09-cross-asset.md), [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Volatility products trade realized variance, implied variance, volatility indices, forward volatility, skew, and correlation. They sit between option-surface analytics and portfolio risk because their value depends on the whole distribution, not only spot direction.
+Volatility products trade the size and shape of uncertainty.
+
+An equity position mainly cares whether spot goes up or down. A volatility position cares how violently the market moves, how the option surface is shaped, how realized variance is measured, and how correlation behaves under stress.
+
+This chapter connects option-surface intuition to traded volatility: variance swaps, volatility indices, dispersion, GARCH forecasts, regime models, and stochastic volatility. The thread is distributional risk, not simple direction.
 
 ## Product Taxonomy and Market Structure
+Start by asking which part of volatility the product is isolating.
+
 - Variance swaps and volatility swaps.
 - VIX futures, VIX options, and volatility-index linked notes.
 - Forward-starting variance and options.
@@ -20,6 +26,8 @@ Volatility products trade realized variance, implied variance, volatility indice
 - Realized variance definitions depend on sampling frequency, close source, holidays, and corporate-action handling.
 
 ## Core Pricing Framework
+Variance products make the unit problem explicit: volatility and variance are not the same object.
+
 A simplified variance swap payoff is:
 
 $$

@@ -3,9 +3,15 @@
 Related chapters: [04-fx.md](04-fx.md), [06-interest-rates.md](06-interest-rates.md), [07-credit.md](07-credit.md), [12-pricing-architecture.md](12-pricing-architecture.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Cross-asset products depend on more than one market stack or require valuation layers such as collateral, funding, counterparty credit, and correlation. A trade might reference equity and FX together, rates and credit together, or a whole portfolio under one netting set. The challenge is often architectural before it is mathematical.
+Cross-asset work begins when one clean product silo is no longer enough.
+
+A trade may depend on equity and FX together, rates and credit together, or many trades under one counterparty netting set. Even a simple derivative can become cross-asset once collateral, funding, counterparty credit, and reporting currency enter the valuation.
+
+The challenge is often architectural before it is mathematical. The model needs the right joint risk factors, but the system also needs to know which desk owns which input, which curve discounts which cashflow, which netting set changes exposure, and which valuation adjustment belongs on top of the clean price.
 
 ## Product Taxonomy and Market Structure
+Start by asking what makes the trade leave a single-asset stack.
+
 - Quanto and hybrid options
 - Cross-currency products
 - Structured products with equity-rate, FX-rate, or credit-rate interaction
@@ -19,6 +25,8 @@ Cross-asset products depend on more than one market stack or require valuation l
 - Netting set, CSA terms, and counterparty hierarchy affect practical valuation adjustments.
 
 ## Core Pricing Framework
+The clean price is only the first layer. Cross-asset valuation often adds exposure, collateral, funding, and counterparty layers on top.
+
 The cross-asset layer typically combines:
 - a base trade valuation under the relevant product model,
 - exposure modeling through time,

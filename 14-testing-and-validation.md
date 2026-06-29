@@ -3,9 +3,15 @@
 Related chapters: [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
 
 ## What This Domain Covers
-Testing protects correctness at the code level. Validation protects correctness at the model and workflow level. Quant platforms need both. A system can have full unit-test coverage and still be wrong in production because conventions, data lineage, or model assumptions are mis-specified.
+Testing and validation are how a quant team earns the right to trust its numbers.
+
+Testing asks whether the code behaves as intended. Validation asks whether the model, assumptions, data, and workflow are appropriate for the use case. A platform can have strong unit tests and still produce bad valuations if conventions, calibration inputs, or model scope are wrong.
+
+This chapter connects those layers. The aim is not just to catch bugs; it is to build evidence that prices, Greeks, scenarios, and reports remain reliable as the system changes.
 
 ## Product Taxonomy and Market Structure
+Each test layer answers a different kind of question.
+
 - Unit tests for formulas and utilities
 - Regression tests for products and portfolios
 - Numerical convergence tests
@@ -19,6 +25,8 @@ Testing protects correctness at the code level. Validation protects correctness 
 - Tolerance policy should reflect business materiality and method noise.
 
 ## Core Pricing Framework
+Good validation is layered: small deterministic checks at the bottom, model-risk evidence at the top.
+
 Testing layers should answer different questions:
 - unit tests: does this function obey its local contract?
 - integration tests: does the full pricing path work with realistic objects?

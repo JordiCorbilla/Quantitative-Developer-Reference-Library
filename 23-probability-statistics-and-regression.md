@@ -3,11 +3,15 @@
 Related chapters: [10-numerical-methods.md](10-numerical-methods.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [18-volatility-products.md](18-volatility-products.md), and [14-testing-and-validation.md](14-testing-and-validation.md).
 
 ## What This Domain Covers
-Probability, statistics, and regression are the foundation under most quant development work. They show up in beta estimation, factor models, VaR and Expected Shortfall, volatility forecasting, signal testing, backtesting, model validation, and execution analytics.
+Probability, statistics, and regression are the language quant developers use when the future is uncertain and the data is noisy.
 
-The goal is not to replace a statistics textbook. The goal is to make the concepts explicit enough that a quant developer can implement, diagnose, and explain statistical models safely.
+They show up everywhere: beta estimation, factor models, VaR and Expected Shortfall, volatility forecasting, signal testing, backtesting, model validation, execution analytics, and PD scorecards. The point is not to replace a statistics textbook. The point is to make the concepts explicit enough that a quant developer can implement, diagnose, and explain statistical models safely.
+
+The story to keep in mind is simple: define the random variable, estimate something from data, measure uncertainty around that estimate, and avoid fooling yourself with leakage, unstable relationships, or economically meaningless significance.
 
 ## Product Taxonomy and Market Structure
+Think of this chapter as the foundation under the rest of the library.
+
 - Probability objects: random variables, distributions, expectations, variance, covariance, and correlation.
 - Statistical inference: samples, estimators, standard errors, confidence intervals, and hypothesis tests.
 - Linear models: simple regression, multiple regression, OLS, residual diagnostics, and prediction.
@@ -21,6 +25,8 @@ The goal is not to replace a statistics textbook. The goal is to make the concep
 - Statistical significance is not the same as economic significance.
 
 ## Core Pricing Framework
+The basic objects are small, but they appear everywhere in portfolio and risk systems.
+
 The basic probability objects are expectation, variance, covariance, and correlation:
 
 $$

@@ -3,9 +3,15 @@
 Related chapters: [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [15-performance-and-production.md](15-performance-and-production.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
-Pricing architecture is the translation layer between financial models and maintainable systems. Most analytics platforms fail not because the formulas are unknown, but because product representation, market-state access, model dependency management, and risk workflows are tangled together.
+Pricing architecture is where financial ideas become maintainable software.
+
+The formula is rarely the hardest part of a production analytics platform. The harder problem is keeping trade representation, schedules, market state, model configuration, pricing engines, risk workflows, and diagnostics from becoming tangled together.
+
+Good architecture lets the same product be priced, explained, tested, stressed, and audited without rewriting the logic every time. This chapter is about that separation of responsibilities.
 
 ## Product Taxonomy and Market Structure
+Think of the pricing stack as a chain of responsibilities.
+
 - Trade capture and trade normalization
 - Static data and schedule generation
 - Market-state representation
@@ -19,6 +25,8 @@ Pricing architecture is the translation layer between financial models and maint
 - Market-state objects should expose normalized views, but lineage back to raw quote context must remain available.
 
 ## Core Pricing Framework
+A clean pricing stack makes each dependency visible before any model runs.
+
 A clean pricing stack usually separates:
 - instrument definition,
 - resolved trade with schedules and conventions,
