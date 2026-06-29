@@ -43,6 +43,8 @@ Good answers mention:
 - payoff and exercise style,
 - discounting and dividend assumptions,
 - volatility surface conventions,
+- what delta, gamma, theta, vega, and rho each measure,
+- why delta-neutral does not mean risk-free,
 - finite-difference or bump validation,
 - parity and arbitrage bounds,
 - early-exercise policy and continuation value.

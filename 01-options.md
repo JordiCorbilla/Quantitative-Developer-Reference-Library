@@ -317,6 +317,18 @@ Reference behavior for long vanilla options:
 | Theta | $\partial V / \partial t$ or calendar decay | Usually negative | Usually negative | Sign and roll convention must be explicit |
 | Rho | $\partial V / \partial r$ | Usually positive | Usually negative | Long-dated and rates-heavy books need curve buckets |
 
+Quick practitioner summary:
+
+| Greek | Measures | Primary risk | When it matters most | Common use |
+| --- | --- | --- | --- | --- |
+| Delta | Price sensitivity to the underlying | Directional exposure | All market conditions | Delta hedging and directional risk reporting |
+| Gamma | Change in delta as the underlying moves | Curvature / rebalance risk | ATM options and near expiry | Hedge frequency and nonlinear risk control |
+| Theta | Value change as time passes | Time decay / carry | Short-dated options and income strategies | Carry explain and option-income monitoring |
+| Vega | Price sensitivity to implied volatility | Volatility exposure | Long-dated options and high-vol regimes | Vol trading, vol hedging, and surface risk |
+| Rho | Price sensitivity to rates | Interest-rate exposure | Long-dated, rates-sensitive products | Rate-risk management and curve-bucket checks |
+
+The trading intuition is useful but incomplete. A book can be delta-neutral and still lose money through gamma, vega, theta, skew, or jump risk. Greeks should therefore be read together, under a stated shock convention, rather than treated as isolated facts.
+
 ### Black-Scholes Greek Formula Reference
 For a European vanilla option with continuous dividend yield $q$:
 

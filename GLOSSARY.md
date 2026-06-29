@@ -22,6 +22,7 @@
 - **CVA**: Credit Valuation Adjustment, expected discounted loss from counterparty default.
 
 ## D
+- **Delta**: First-order sensitivity of option value to the underlying price or chosen forward proxy.
 - **Dirty price**: Bond price including accrued interest.
 - **Discount factor**: Present value of one unit of currency paid at a future date.
 - **DV01 / PV01**: Present-value change for a one basis point rate move.
@@ -74,6 +75,7 @@
 - **Regime-switching GARCH**: GARCH model where volatility parameters depend on an unobserved regime.
 - **Repo**: Financing transaction where securities are sold and later repurchased.
 - **Residual PnL**: PnL not explained by known risk factors or lifecycle changes.
+- **Rho**: Sensitivity of option value to interest rates, often replaced by curve-bucket risk for rates-heavy books.
 - **R-squared**: Share of target variance explained by a regression model in sample.
 - **Roll-down**: PnL from moving along a curve or surface as time passes.
 
@@ -83,6 +85,7 @@
 - **Stress test**: Scenario designed to measure loss under severe market conditions.
 
 ## T
+- **Theta**: Sensitivity of option value to time passage under a specified model or market-data roll convention.
 - **Through-the-cycle PD**: PD estimate smoothed across the economic cycle for long-run risk views.
 - **TWAP**: Time-weighted average price.
 
