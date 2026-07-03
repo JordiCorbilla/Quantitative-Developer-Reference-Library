@@ -66,6 +66,22 @@ Good answers mention:
 - fixing and reset mechanics,
 - model purpose: short-rate intuition, positivity, curve fit, or term-structure dynamics.
 
+## FX Forwards And Swaps
+Read: [04-fx.md](04-fx.md)
+
+Common questions:
+- What is an FX forward?
+- What is an FX swap?
+- How are forward points related to spot and forward rates?
+- Why can FX swap roll risk matter even when the near and far legs are locked?
+
+Good answers mention:
+- pair orientation and settlement dates,
+- near leg and far leg cashflows,
+- covered interest parity as the clean baseline,
+- cross-currency basis, liquidity, collateral, and counterparty limits,
+- roll risk when short-tenor swaps are repeatedly renewed.
+
 ## Cross-Asset And CVA
 Read: [09-cross-asset.md](09-cross-asset.md)
 

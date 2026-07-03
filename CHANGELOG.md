@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-06-18
+- Added FX swap coverage with near/far leg mechanics, forward points, roll risk, collateral/counterparty considerations, an original diagram, and a worked example.
 - Added a practitioner quick-reference table for option Greeks and expanded glossary/interview coverage for delta, theta, gamma, vega, and rho.
 - Reworked the remaining numbered chapters with more narrative, story-driven openings and clearer practitioner transitions.
 - Expanded Hidden Markov Model coverage with transition/emission parameters, filtering/smoothing/decoding concepts, an original regime-filtering diagram, and a worked filtering example.

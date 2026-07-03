@@ -33,7 +33,9 @@
 
 ## F
 - **Forward price**: Price agreed today for future delivery or settlement.
+- **Forward points**: Difference between an FX outright forward rate and spot rate, usually quoted in scaled points for the currency pair.
 - **FRTB**: Fundamental Review of the Trading Book, a market-risk capital framework.
+- **FX swap**: Transaction with a near-leg exchange of two currencies and a far-leg reversal at a pre-agreed forward rate.
 
 ## G
 - **GARCH**: Generalized autoregressive conditional heteroskedasticity, a family of conditional volatility models.

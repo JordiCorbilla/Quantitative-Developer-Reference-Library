@@ -14,6 +14,7 @@ These examples are small by design. They are meant to connect formulas to implem
 - [simple-cva.md](simple-cva.md) - compute a one-period simplified CVA from exposure, default probability, and LGD.
 - [vasicek-rate-step.md](vasicek-rate-step.md) - one-step short-rate update under a Vasicek-style model.
 - [swap-pv.md](swap-pv.md) - simple fixed-vs-floating swap PV decomposition.
+- [fx-swap-forward-points.md](fx-swap-forward-points.md) - compute FX swap forward points and explain near/far leg cashflows.
 - [vwap-twap-comparison.md](vwap-twap-comparison.md) - compare VWAP and TWAP benchmarks on intraday prints.
 
 ## How To Use
