@@ -27,6 +27,7 @@ Use these paths when you want to study the library with a concrete goal.
 4. [10-numerical-methods.md](10-numerical-methods.md)
 5. [14-testing-and-validation.md](14-testing-and-validation.md)
 6. [15-performance-and-production.md](15-performance-and-production.md)
+7. [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md)
 
 ## Market Risk And PnL Explain
 1. [13-risk-and-pnl.md](13-risk-and-pnl.md)
@@ -47,7 +48,8 @@ Use these paths when you want to study the library with a concrete goal.
 2. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
 3. [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
 4. [13-risk-and-pnl.md](13-risk-and-pnl.md)
-5. [examples/vwap-twap-comparison.md](examples/vwap-twap-comparison.md)
+5. [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md)
+6. [examples/vwap-twap-comparison.md](examples/vwap-twap-comparison.md)
 
 ## Volatility And Tail Risk
 1. [01-options.md](01-options.md)

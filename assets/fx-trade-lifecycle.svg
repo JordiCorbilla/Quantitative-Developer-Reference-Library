@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">FX trade lifecycle from quote to settlement</title>
+  <desc id="desc">Original diagram showing the lifecycle of an FX trade from execution through confirmation, settlement, CLS payment-versus-payment, and post-trade control.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f5f8f"/>
+    </marker>
+    <style>
+      .bg { fill: #f7fafc; }
+      .title { font: 700 30px Arial, sans-serif; fill: #17324d; }
+      .subtitle { font: 15px Arial, sans-serif; fill: #4b6175; }
+      .box { fill: #ffffff; stroke: #9db6cc; stroke-width: 2; rx: 14; }
+      .stage { font: 700 16px Arial, sans-serif; fill: #17324d; }
+      .body { font: 13px Arial, sans-serif; fill: #2d3e50; }
+      .small { font: 12px Arial, sans-serif; fill: #50697f; }
+      .pill { fill: #e9f2f8; stroke: #9db6cc; stroke-width: 1.5; rx: 10; }
+      .risk { fill: #fff4e5; stroke: #d99b3d; stroke-width: 1.5; rx: 10; }
+      .control { fill: #edf7ef; stroke: #71a579; stroke-width: 1.5; rx: 10; }
+      .line { stroke: #2f5f8f; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .softline { stroke: #9db6cc; stroke-width: 2; fill: none; stroke-dasharray: 7 6; }
+      .money { fill: #2e7d6f; }
+      .warn { fill: #b4612b; }
+    </style>
+  </defs>
+  <rect class="bg" width="1100" height="620"/>
+  <text class="title" x="550" y="42" text-anchor="middle">Life Of An FX Trade: From Quote To Cash</text>
+  <text class="subtitle" x="550" y="68" text-anchor="middle">A trade is not finished at execution. It still has to be captured, confirmed, funded, settled, reconciled, and explained.</text>
+  <rect class="box" x="45" y="110" width="165" height="138"/>
+  <text class="stage" x="128" y="136" text-anchor="middle">1. Execution</text>
+  <text class="body" x="64" y="166">Trader or client accepts</text>
+  <text class="body" x="64" y="186">bid/ask quote.</text>
+  <text class="body" x="64" y="213">Trade defines pair, side,</text>
+  <text class="body" x="64" y="233">notional, price, value date.</text>
+  <rect class="box" x="260" y="110" width="165" height="138"/>
+  <text class="stage" x="343" y="136" text-anchor="middle">2. Capture</text>
+  <text class="body" x="279" y="166">Front-office booking</text>
+  <text class="body" x="279" y="186">creates the system trade.</text>
+  <text class="body" x="279" y="213">Controls check limits,</text>
+  <text class="body" x="279" y="233">currency, and calendars.</text>
+  <rect class="box" x="475" y="110" width="165" height="138"/>
+  <text class="stage" x="558" y="136" text-anchor="middle">3. Confirmation</text>
+  <text class="body" x="494" y="166">Counterparties agree</text>
+  <text class="body" x="494" y="186">economic terms.</text>
+  <text class="body" x="494" y="213">Breaks must be fixed</text>
+  <text class="body" x="494" y="233">before settlement risk rises.</text>
+  <rect class="box" x="690" y="110" width="165" height="138"/>
+  <text class="stage" x="773" y="136" text-anchor="middle">4. Settlement</text>
+  <text class="body" x="709" y="166">Cash instructions, funding,</text>
+  <text class="body" x="709" y="186">and nostro balances are set.</text>
+  <text class="body" x="709" y="213">CLS/PvP can reduce</text>
+  <text class="body" x="709" y="233">principal settlement risk.</text>
+  <rect class="box" x="905" y="110" width="150" height="138"/>
+  <text class="stage" x="980" y="136" text-anchor="middle">5. Post-Trade</text>
+  <text class="body" x="923" y="166">Reconcile cash, report,</text>
+  <text class="body" x="923" y="186">explain PnL, archive.</text>
+  <text class="body" x="923" y="213">Lifecycle events feed</text>
+  <text class="body" x="923" y="233">risk and controls.</text>
+  <path class="line" d="M 210 179 L 255 179"/>
+  <path class="line" d="M 425 179 L 470 179"/>
+  <path class="line" d="M 640 179 L 685 179"/>
+  <path class="line" d="M 855 179 L 900 179"/>
+  <rect class="pill" x="70" y="300" width="250" height="96"/>
+  <text class="stage" x="195" y="326" text-anchor="middle">Bid, Ask, And Spread</text>
+  <text class="body" x="91" y="356">Buyer usually pays the ask.</text>
+  <text class="body" x="91" y="378">Seller usually hits the bid.</text>
+  <text class="small" x="91" y="400">Spread is an execution cost and a liquidity signal.</text>
+  <rect class="pill" x="425" y="300" width="250" height="96"/>
+  <text class="stage" x="550" y="326" text-anchor="middle">Market Structure</text>
+  <text class="body" x="446" y="356">Client, dealer, venue, broker,</text>
+  <text class="body" x="446" y="378">prime broker, custodian, and CLS</text>
+  <text class="small" x="446" y="400">may all touch the same economic trade.</text>
+  <rect class="pill" x="780" y="300" width="250" height="96"/>
+  <text class="stage" x="905" y="326" text-anchor="middle">Cash Movement</text>
+  <text class="body" x="801" y="356">One currency is paid and another</text>
+  <text class="body" x="801" y="378">is received on the value date.</text>
+  <text class="small" x="801" y="400">Settlement fails become operational and credit risk.</text>
+  <path class="softline" d="M 195 300 C 210 260, 345 260, 343 248"/>
+  <path class="softline" d="M 550 300 C 570 270, 760 270, 773 248"/>
+  <path class="softline" d="M 905 300 C 920 270, 975 270, 980 248"/>
+  <rect class="risk" x="80" y="455" width="290" height="98"/>
+  <text class="stage" x="225" y="481" text-anchor="middle">Where The Trade Can Break</text>
+  <text class="body" x="101" y="512">Wrong pair orientation, stale quote,</text>
+  <text class="body" x="101" y="532">bad value date, failed confirmation,</text>
+  <text class="body" x="101" y="552">insufficient funding, settlement fail.</text>
+  <rect class="control" x="405" y="455" width="290" height="98"/>
+  <text class="stage" x="550" y="481" text-anchor="middle">Controls That Matter</text>
+  <text class="body" x="426" y="512">Trade validation, limits, confirmations,</text>
+  <text class="body" x="426" y="532">payment matching, nostro reconciliation,</text>
+  <text class="body" x="426" y="552">PnL explain and exception workflow.</text>
+  <rect class="risk" x="730" y="455" width="290" height="98"/>
+  <text class="stage" x="875" y="481" text-anchor="middle">Quant Developer Takeaway</text>
+  <text class="body" x="751" y="512">A pricing object without lifecycle state</text>
+  <text class="body" x="751" y="532">is incomplete. Dates, cashflows, booking</text>
+  <text class="body" x="751" y="552">status, and settlement status affect risk.</text>
+  <circle class="money" cx="736" cy="190" r="12"/>
+  <text class="body" x="732" y="195" text-anchor="middle" fill="#ffffff">$</text>
+  <circle class="warn" cx="522" cy="215" r="10"/>
+  <text class="body" x="522" y="219" text-anchor="middle" fill="#ffffff">!</text>
+</svg>

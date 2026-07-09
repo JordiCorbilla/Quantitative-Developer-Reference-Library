@@ -15,6 +15,12 @@ This index groups the library by practitioner task rather than file number.
 - [17-inflation-products.md](17-inflation-products.md) - CPI swaps, indexation lags, seasonality, real-rate risk
 - [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX, GARCH, regime models, dispersion, realized variance
 - [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) - repo, borrow, haircuts, collateral, financing curves
+- [24-structured-credit-and-securitization.md](24-structured-credit-and-securitization.md) - ABS, MBS, CLOs, tranches, waterfalls, securitized credit
+- [25-convertibles-and-equity-linked-notes.md](25-convertibles-and-equity-linked-notes.md) - convertibles, bond floor, parity, equity-linked notes
+- [26-equity-swaps-and-total-return-swaps.md](26-equity-swaps-and-total-return-swaps.md) - equity swaps, TRS, synthetic exposure, financing legs
+- [27-cross-currency-swaps.md](27-cross-currency-swaps.md) - cross-currency swaps, basis, notional exchanges, collateral currency
+- [28-rates-options-caps-floors-swaptions.md](28-rates-options-caps-floors-swaptions.md) - caps, floors, swaptions, rates volatility
+- [29-etfs-index-products-and-rebalances.md](29-etfs-index-products-and-rebalances.md) - ETFs, index products, NAV, rebalances, tracking error
 
 ## Quant Engineering
 - [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation
@@ -30,6 +36,7 @@ This index groups the library by practitioner task rather than file number.
 - [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - factor models, optimization, turnover, backtests
 - [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - VWAP, TWAP, POV, TCA, market impact
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - SIMM, FRTB, margin, stress capital, explain
+- [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - execution, capture, confirmation, settlement, lifecycle events, reconciliation
 
 ## Project Resources
 - [README.md](README.md) - project overview and library map

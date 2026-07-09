@@ -41,10 +41,17 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 | [17-inflation-products.md](17-inflation-products.md) | Inflation-linked bonds, CPI swaps, lags, seasonality, real-rate risk | Captures the index mechanics that make inflation products implementation-heavy |
 | [18-volatility-products.md](18-volatility-products.md) | Variance swaps, VIX, volatility futures, dispersion, GARCH, regime models, realized variance | Extends option-surface knowledge into traded volatility, volatility forecasting, and correlation exposure |
 | [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) | Repo, reverse repo, securities lending, collateral, haircuts, borrow cost | Makes financing and collateral explicit inputs to pricing and risk |
+| [24-structured-credit-and-securitization.md](24-structured-credit-and-securitization.md) | ABS, MBS, CLOs, tranches, waterfalls, collateral performance | Extends credit into securitized pools and loss-priority structures |
+| [25-convertibles-and-equity-linked-notes.md](25-convertibles-and-equity-linked-notes.md) | Convertible bonds, bond floor, parity, equity-linked notes | Connects equity optionality, credit, rates, and issuer features |
+| [26-equity-swaps-and-total-return-swaps.md](26-equity-swaps-and-total-return-swaps.md) | Equity swaps, TRS, synthetic exposure, financing legs | Captures synthetic equity ownership and prime-brokerage style financing |
+| [27-cross-currency-swaps.md](27-cross-currency-swaps.md) | Cross-currency swaps, basis, notional exchanges, collateral currency | Deepens multi-currency funding and curve dependency coverage |
+| [28-rates-options-caps-floors-swaptions.md](28-rates-options-caps-floors-swaptions.md) | Caps, floors, swaptions, normal/Black vols, rates optionality | Adds deeper rates-volatility instrument coverage |
+| [29-etfs-index-products-and-rebalances.md](29-etfs-index-products-and-rebalances.md) | ETFs, index products, NAV, creation/redemption, rebalances | Makes benchmark and basket mechanics explicit |
 | [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) | VWAP, TWAP, execution benchmarks, slippage, impact, implementation shortfall, TCA | Connects portfolio decisions to realized trading cost |
 | [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) | Initial margin, variation margin, SIMM, FRTB, stress, capital explain | Links risk analytics to regulatory and collateral requirements |
 | [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) | Model inventory, validation, IPV, reserves, approvals, monitoring | Makes valuation control and model risk management part of the quant stack |
 | [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) | Probability, statistics, OLS regression, diagnostics, beta estimation | Makes the statistical foundation explicit for risk, factors, signals, and validation |
+| [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) | Execution, capture, confirmation, settlement, lifecycle events, reconciliations | Connects pricing and risk to the operational state of real trades |
 
 ## Shared Quantitative Conventions
 
@@ -130,7 +137,7 @@ This matters because production systems should not hard-code "risk-free rate" in
 - Bump sizes must be stable enough to avoid noise but small enough to approximate the intended derivative.
 
 ## Coverage Review And Expansion Areas
-The current library now has broad first-pass coverage across probability and statistics, core pricing, traded products, risk infrastructure, market data, production engineering, portfolio workflow, financing, execution, regulatory margin, and model governance.
+The current library now has broad first-pass coverage across probability and statistics, core pricing, traded products, securitized credit, convertibles, swaps, ETFs/index products, risk infrastructure, market data, production engineering, portfolio workflow, financing, execution, trade lifecycle, regulatory margin, and model governance.
 
 The clearest next improvements are depth-oriented:
 - worked examples that connect quote inputs, valuation, risk, PnL explain, and validation,

@@ -12,7 +12,11 @@ These examples are small by design. They are meant to connect formulas to implem
 - [heston-variance-step.md](heston-variance-step.md) - one-step Heston variance process update.
 - [pd-logistic-score.md](pd-logistic-score.md) - map borrower variables to a toy logistic PD estimate.
 - [simple-cva.md](simple-cva.md) - compute a one-period simplified CVA from exposure, default probability, and LGD.
+- [tranche-loss.md](tranche-loss.md) - compute loss allocation for an attachment/detachment tranche.
+- [convertible-parity.md](convertible-parity.md) - compute convertible bond parity and conversion price.
+- [trs-one-period.md](trs-one-period.md) - compute a one-period total return swap net payoff.
 - [vasicek-rate-step.md](vasicek-rate-step.md) - one-step short-rate update under a Vasicek-style model.
+- [swaption-intrinsic.md](swaption-intrinsic.md) - compute payer swaption intrinsic value from annuity, swap rate, and strike.
 - [swap-pv.md](swap-pv.md) - simple fixed-vs-floating swap PV decomposition.
 - [fx-swap-forward-points.md](fx-swap-forward-points.md) - compute FX swap forward points and explain near/far leg cashflows.
 - [vwap-twap-comparison.md](vwap-twap-comparison.md) - compare VWAP and TWAP benchmarks on intraday prints.

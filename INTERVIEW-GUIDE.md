@@ -100,6 +100,25 @@ Good answers mention:
 - collateral and CSA terms,
 - DVA, FVA, MVA, and KVA as related valuation adjustments.
 
+## Structured And Hybrid Instruments
+Read: [24-structured-credit-and-securitization.md](24-structured-credit-and-securitization.md), [25-convertibles-and-equity-linked-notes.md](25-convertibles-and-equity-linked-notes.md), [26-equity-swaps-and-total-return-swaps.md](26-equity-swaps-and-total-return-swaps.md), [27-cross-currency-swaps.md](27-cross-currency-swaps.md), [28-rates-options-caps-floors-swaptions.md](28-rates-options-caps-floors-swaptions.md), [29-etfs-index-products-and-rebalances.md](29-etfs-index-products-and-rebalances.md)
+
+Common questions:
+- How does a structured-credit tranche absorb losses?
+- What is convertible bond parity?
+- How does a total return swap differ from direct ownership?
+- What makes a cross-currency swap more complex than two single-currency swaps?
+- How do caps, floors, and swaptions quote volatility?
+- Why can ETF price differ from NAV?
+
+Good answers mention:
+- attachment/detachment and waterfall priority,
+- bond floor, conversion ratio, credit spread, and equity optionality,
+- equity return leg versus financing leg,
+- basis spreads, notional exchanges, collateral currency, and reset rules,
+- Black versus Bachelier vol conventions,
+- creation/redemption, tracking error, and point-in-time index membership.
+
 ## Credit PD Models
 Read: [07-credit.md](07-credit.md)
 
@@ -187,6 +206,22 @@ Good answers mention:
 - participation rate,
 - spread, fees, impact, and opportunity cost,
 - partial fills and side-aware slippage.
+
+## Trade Lifecycle And Operations
+Read: [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md), [04-fx.md](04-fx.md)
+
+Common questions:
+- What happens after an FX trade is executed?
+- Why does confirmation matter?
+- What is settlement risk?
+- How can lifecycle state affect PnL explain?
+
+Good answers mention:
+- execution, capture, validation, confirmation, settlement, reconciliation,
+- pair orientation, side, value date, settlement instructions, and counterparty,
+- payment-versus-payment and CLS as settlement-risk mitigants,
+- fixings, exercises, resets, rolls, margin, and terminations as lifecycle events,
+- separating market PnL from trade events and operational breaks.
 
 ## Architecture And Production
 Read: [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [15-performance-and-production.md](15-performance-and-production.md)

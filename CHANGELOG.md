@@ -1,6 +1,8 @@
 # Changelog
 
 ## 2026-06-18
+- Added trade lifecycle and operations coverage, including an original FX trade lifecycle diagram from quote through confirmation, settlement, and post-trade controls.
+- Added first-class chapters for structured credit/securitization, convertibles/equity-linked notes, equity swaps/TRS, cross-currency swaps, rates options, and ETFs/index products, plus worked examples.
 - Added FX swap coverage with near/far leg mechanics, forward points, roll risk, collateral/counterparty considerations, an original diagram, and a worked example.
 - Added a practitioner quick-reference table for option Greeks and expanded glossary/interview coverage for delta, theta, gamma, vega, and rho.
 - Reworked the remaining numbered chapters with more narrative, story-driven openings and clearer practitioner transitions.

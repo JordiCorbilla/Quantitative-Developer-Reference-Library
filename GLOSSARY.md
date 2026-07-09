@@ -4,6 +4,7 @@
 - **Active risk**: Tracking error of a portfolio relative to its benchmark.
 - **Alpha**: Expected return not explained by the chosen benchmark or factor model.
 - **American option**: Option that can be exercised before expiry.
+- **Attachment point**: Portfolio loss level where a structured-credit tranche begins absorbing losses.
 
 ## B
 - **Basis**: Difference between related instruments or curves that should not be collapsed without explanation.
@@ -14,8 +15,11 @@
 ## C
 - **Calibration**: Choosing model parameters to fit market-observable prices or quotes.
 - **Clean price**: Bond price excluding accrued interest.
+- **CLS**: Continuous Linked Settlement, a settlement system that reduces FX principal settlement risk through payment-versus-payment for eligible currencies and participants.
 - **Collateral**: Assets posted to reduce counterparty exposure or support financing.
+- **Confirmation**: Counterparty agreement of trade economics after execution.
 - **Convexity**: Second-order sensitivity; for bonds it captures curvature of price-yield relation.
+- **Convertible bond**: Bond with an embedded right to convert into equity under specified terms.
 - **CS01**: Credit spread sensitivity to a one basis point spread move.
 - **Correlation**: Normalized covariance measuring linear association between two variables.
 - **Covariance**: Joint variability of two variables around their means.
@@ -23,6 +27,7 @@
 
 ## D
 - **Delta**: First-order sensitivity of option value to the underlying price or chosen forward proxy.
+- **Detachment point**: Portfolio loss level where a structured-credit tranche is fully exhausted.
 - **Dirty price**: Bond price including accrued interest.
 - **Discount factor**: Present value of one unit of currency paid at a future date.
 - **DV01 / PV01**: Present-value change for a one basis point rate move.
@@ -30,6 +35,7 @@
 ## E
 - **Expected Shortfall (ES)**: Average loss conditional on loss exceeding the VaR threshold.
 - **Exposure**: Value at risk to a counterparty or risk factor.
+- **ETF premium/discount**: Difference between ETF market price and NAV, usually expressed as a percentage of NAV.
 
 ## F
 - **Forward price**: Price agreed today for future delivery or settlement.
@@ -67,6 +73,7 @@
 - **MVA**: Margin valuation adjustment for the funding cost of initial margin.
 
 ## P
+- **Payment-versus-payment (PvP)**: Settlement mechanism in which one currency payment is final only if the other currency payment is also final.
 - **PD**: Probability of Default over a specified horizon and default definition.
 - **PnL explain**: Decomposition of profit and loss into market moves, carry, trades, lifecycle events, and residual.
 - **POV**: Percentage-of-volume execution algorithm.
@@ -82,6 +89,7 @@
 - **Roll-down**: PnL from moving along a curve or surface as time passes.
 
 ## S
+- **Settlement risk**: Risk that one side of a trade pays or delivers but does not receive the expected cash or asset.
 - **SIMM**: Standard Initial Margin Model.
 - **Skew**: Variation of implied volatility across strike or delta.
 - **Stress test**: Scenario designed to measure loss under severe market conditions.
@@ -89,6 +97,9 @@
 ## T
 - **Theta**: Sensitivity of option value to time passage under a specified model or market-data roll convention.
 - **Through-the-cycle PD**: PD estimate smoothed across the economic cycle for long-run risk views.
+- **Trade lifecycle**: Sequence of trade states from pre-trade and execution through booking, confirmation, settlement, lifecycle events, reconciliation, and close-out.
+- **Total return swap (TRS)**: Swap where one leg pays the total return of an asset and the other leg usually pays financing.
+- **Tranche**: Structured-finance layer that absorbs losses between attachment and detachment points.
 - **TWAP**: Time-weighted average price.
 
 ## V

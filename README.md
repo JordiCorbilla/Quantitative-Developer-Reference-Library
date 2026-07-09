@@ -30,6 +30,12 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [17-inflation-products.md](17-inflation-products.md) - inflation-linked bonds, CPI swaps, indexation lags, seasonality, and real-rate risk
 - [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX products, volatility futures, dispersion, GARCH, regime models, realized variance, and vol-surface risk
 - [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) - repo, reverse repo, securities lending, collateral, haircuts, borrow cost, and financing curves
+- [24-structured-credit-and-securitization.md](24-structured-credit-and-securitization.md) - ABS, MBS, CLOs, tranche waterfalls, attachment/detachment, and securitized-credit risk
+- [25-convertibles-and-equity-linked-notes.md](25-convertibles-and-equity-linked-notes.md) - convertible bonds, parity, bond floor, conversion features, and equity-linked notes
+- [26-equity-swaps-and-total-return-swaps.md](26-equity-swaps-and-total-return-swaps.md) - equity swaps, TRS, synthetic financing, resets, dividends, and funding legs
+- [27-cross-currency-swaps.md](27-cross-currency-swaps.md) - cross-currency swaps, basis, notional exchanges, resettable notionals, and collateral currency
+- [28-rates-options-caps-floors-swaptions.md](28-rates-options-caps-floors-swaptions.md) - caps, floors, swaptions, normal/Black vols, annuity measure, and rates optionality
+- [29-etfs-index-products-and-rebalances.md](29-etfs-index-products-and-rebalances.md) - ETFs, index products, NAV, creation/redemption, tracking error, and rebalances
 
 ### Quant Engineering
 - [11-market-data.md](11-market-data.md) - identifiers, symbology, time series, curves, surfaces, and data quality
@@ -42,9 +48,10 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - variation margin, initial margin, SIMM, FRTB, capital, stress, and margin explain
 - [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - model inventory, documentation, validation, IPV, reserves, approvals, and monitoring
 - [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation, and model evaluation
+- [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - trade initiation, capture, confirmation, settlement, lifecycle events, reconciliation, and operational controls
 
 ## Current Coverage Review
-The library now covers the main building blocks a quant developer usually needs first: probability and statistics, regression, options, linear derivatives, cash equities, FX, bonds, rates, credit, commodities, inflation, volatility products, financing, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, regulatory margin, and model governance.
+The library now covers the main building blocks a quant developer usually needs first: probability and statistics, regression, options, linear derivatives, cash equities, FX, bonds, rates, credit, structured credit, convertibles, equity swaps, commodities, inflation, volatility products, financing, cross-currency swaps, ETFs/index products, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, trade lifecycle, regulatory margin, and model governance.
 
 The main future direction is depth rather than first-pass coverage:
 - more worked end-to-end examples that connect market inputs, pricing, risk, and validation,
@@ -56,7 +63,7 @@ The main future direction is depth rather than first-pass coverage:
 ## How To Use This Repo
 - Read the overview once, then use chapters as standalone references.
 - Treat each chapter as a practitioner checklist: what gets quoted, what gets built, what breaks.
-- Use the embedded SVG diagrams as quick mental models for payoff shapes, cashflow timing, curve dependencies, volatility products, financing, market-data pipelines, pricing architecture, risk explain, margin, governance, and validation workflows.
+- Use the embedded SVG diagrams as quick mental models for payoff shapes, cashflow timing, curve dependencies, volatility products, financing, trade lifecycle, market-data pipelines, pricing architecture, risk explain, margin, governance, and validation workflows.
 - Follow the cross-links. Options, fixed income, rates, numerical methods, and pricing architecture are intentionally tightly connected.
 - Use the code snippets as sanity-check scaffolding, not as production-ready libraries.
 
