@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">CDS credit event lifecycle</title>
+  <desc id="desc">CDS lifecycle showing trade, premiums, credit event, determination committee, auction, recovery, protection settlement, and contract closeout.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.red{fill:#fef2f2;stroke:#fca5a5}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1080" height="460"/>
+  <text class="title" x="40" y="48">CDS Lifecycle: From Premiums to Credit Event Settlement</text>
+  <rect class="blue" x="50" y="120" width="125" height="80" rx="9"/><text class="h" x="82" y="150">Trade</text><text class="txt" x="74" y="172">coupon/upfront</text>
+  <rect class="green" x="225" y="120" width="125" height="80" rx="9"/><text class="h" x="250" y="150">Premiums</text><text class="txt" x="248" y="172">running spread</text>
+  <rect class="red" x="400" y="120" width="125" height="80" rx="9"/><text class="h" x="428" y="150">Credit Event</text><text class="txt" x="426" y="172">default trigger</text>
+  <rect class="amber" x="575" y="120" width="125" height="80" rx="9"/><text class="h" x="598" y="150">Decision</text><text class="txt" x="596" y="172">DC / terms</text>
+  <rect class="amber" x="750" y="120" width="125" height="80" rx="9"/><text class="h" x="782" y="150">Auction</text><text class="txt" x="778" y="172">recovery price</text>
+  <rect class="green" x="925" y="120" width="105" height="80" rx="9"/><text class="h" x="948" y="150">Settle</text><text class="txt" x="944" y="172">protection</text>
+  <path class="arrow" d="M175 160H225"/><path class="arrow" d="M350 160H400"/><path class="arrow" d="M525 160H575"/><path class="arrow" d="M700 160H750"/><path class="arrow" d="M875 160H925"/>
+  <rect class="box" x="155" y="290" width="770" height="90" rx="9"/>
+  <text class="h" x="185" y="322">Control points</text>
+  <text class="txt" x="185" y="346">Accrued premium on default, deliverable obligations, auction settlement terms, recovery assumptions, and closeout state all change valuation and PnL explain.</text>
+</svg>

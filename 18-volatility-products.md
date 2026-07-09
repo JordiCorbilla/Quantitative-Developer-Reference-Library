@@ -173,11 +173,11 @@ The Heston model is a stochastic-volatility model used for option pricing and vo
 Under a risk-neutral measure, a common Heston specification is:
 
 $$
-dS_t = rS_tdt + \sqrt{v_t}S_tdW_{1,t}
+dS_t = r S_t\,dt + \sqrt{v_t} S_t\,dW_{1,t}
 $$
 
 $$
-dv_t = \kappa(\theta - v_t)dt + \sigma\sqrt{v_t}dW_{2,t}
+dv_t = \kappa(\theta - v_t)\,dt + \sigma\sqrt{v_t}\,dW_{2,t}
 $$
 
 $$
@@ -207,17 +207,17 @@ Implementation cautions:
 
 ## Worked Instrument Example: Variance Swap
 Assume:
-- variance notional: USD 50,000 per variance point,
-- realized volatility: 24%,
-- strike volatility: 20%.
+- variance notional: USD 50,000 per unit of **decimal variance**,
+- realized volatility: 24% = 0.24,
+- strike volatility: 20% = 0.20.
 
-The payoff uses squared volatility:
+The payoff uses squared decimal volatility:
 
 $$
-50{,}000 \times (24^2 - 20^2) = 8{,}800{,}000
+50{,}000 \times (0.24^2 - 0.20^2) = 880
 $$
 
-This example uses volatility points, a common market shorthand. A production implementation must be explicit about whether volatility is represented as percent points or decimals.
+This deliberately uses decimal variance. Market systems may instead quote a variance notional per variance point; the conversion must be stored explicitly. A production implementation must never combine decimal inputs with percentage-point notionals silently.
 
 ## Key Risk Measures and Sensitivities
 - Vega and variance vega.

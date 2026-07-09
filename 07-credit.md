@@ -109,6 +109,12 @@ The protection buyer pays periodic spread and receives a large payment if defaul
 
 CDS pricing is easiest to reason about as two legs: expected premium payments while the name survives, and expected protection payments if default occurs.
 
+### Visual Lifecycle Reference
+
+![CDS credit event lifecycle](assets/cds-credit-event-lifecycle.svg)
+
+Credit-event handling is a lifecycle workflow: determination, deliverable obligations, auction recovery, accrued premium, protection settlement, and closeout must update valuation and PnL explain.
+
 ## Key Risk Measures and Sensitivities
 - CS01 by name and bucket
 - Jump-to-default exposure

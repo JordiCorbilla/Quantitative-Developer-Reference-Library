@@ -118,6 +118,12 @@ The payer swap benefits when floating rates rise relative to the fixed rate. A r
 
 The diagram separates schedule mechanics from curve dependencies: projection curves create future floating coupons, while the discount curve turns both legs into present value.
 
+### Visual Lifecycle Reference
+
+![Swap lifecycle reset and payment dates](assets/swap-lifecycle-reset-payment.svg)
+
+Swap lifecycle state controls whether a floating coupon is projected or already fixed, whether a payment is forecast or paid, and whether collateral, compression, novation, or termination events should be reflected.
+
 ## Key Risk Measures and Sensitivities
 - PV01 by curve and by tenor bucket
 - Key-rate duration or bucketed zero-rate sensitivities

@@ -104,6 +104,12 @@ This is only the expiry story. Before expiry, even an out-of-the-money option ca
 
 Read the payoff diagram as the expiry endpoint. It tells you the final shape, but it does not explain the full price before expiry. Before expiry, volatility, time, rates, dividends, and early-exercise features all matter.
 
+### Visual Lifecycle Reference
+
+![Option lifecycle with exercise and assignment](assets/options-lifecycle-exercise-assignment.svg)
+
+The option lifecycle matters because premium settlement, margin, expiry, exercise, assignment, corporate-action adjustments, and final settlement can change the live position before a pricing model is even called.
+
 ## Quoting and Market Conventions
 Once the payoff is clear, the next question is how the market quotes and stores the instrument.
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">Commodity delivery lifecycle</title>
+  <desc id="desc">Commodity futures lifecycle showing trade, margin, roll window, first notice, delivery nomination, storage and transport, final settlement, and physical receipt or cash settlement.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.red{fill:#fef2f2;stroke:#fca5a5}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1080" height="460"/>
+  <text class="title" x="40" y="48">Commodity Futures Lifecycle: Roll or Delivery</text>
+  <rect class="blue" x="55" y="120" width="130" height="80" rx="9"/><text class="h" x="86" y="150">Trade</text><text class="txt" x="82" y="172">contract month</text>
+  <rect class="green" x="235" y="120" width="130" height="80" rx="9"/><text class="h" x="262" y="150">Margin</text><text class="txt" x="258" y="172">daily settlement</text>
+  <rect class="amber" x="415" y="120" width="130" height="80" rx="9"/><text class="h" x="448" y="150">Roll</text><text class="txt" x="442" y="172">close/open month</text>
+  <rect class="red" x="595" y="120" width="130" height="80" rx="9"/><text class="h" x="622" y="150">Notice</text><text class="txt" x="618" y="172">delivery risk</text>
+  <rect class="box" x="775" y="120" width="130" height="80" rx="9"/><text class="h" x="798" y="150">Logistics</text><text class="txt" x="796" y="172">location/grade</text>
+  <rect class="green" x="955" y="120" width="90" height="80" rx="9"/><text class="h" x="976" y="150">Settle</text><text class="txt" x="974" y="172">cash/phys</text>
+  <path class="arrow" d="M185 160H235"/><path class="arrow" d="M365 160H415"/><path class="arrow" d="M545 160H595"/><path class="arrow" d="M725 160H775"/><path class="arrow" d="M905 160H955"/>
+  <rect class="box" x="170" y="290" width="740" height="90" rx="9"/>
+  <text class="h" x="200" y="322">Implementation warning</text>
+  <text class="txt" x="200" y="346">First notice date, last trade date, delivery grade, storage capacity, transport, and cash settlement index are economic terms, not reference-data decoration.</text>
+</svg>

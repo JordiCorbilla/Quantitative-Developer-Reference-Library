@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Quant developer learning path</title>
+  <desc id="desc">Learning path through foundations, products, models, risk, engineering, and production controls.</desc>
+  <defs><style>.bg{fill:#fbfcff}.title{font:bold 38px Arial,sans-serif;fill:#0f172a}.step{fill:#fff;stroke:#2563eb;stroke-width:3}.h{font:bold 18px Arial,sans-serif;fill:#0f172a}.txt{font:14px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:4;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1200" height="630"/>
+  <text class="title" x="70" y="80">From Formula Knowledge To Production Judgment</text>
+  <rect class="step" x="70" y="160" width="180" height="120" rx="12"/><text class="h" x="100" y="205">1. Foundations</text><text class="txt" x="100" y="232">probability, stats,</text><text class="txt" x="100" y="252">regression</text>
+  <rect class="step" x="300" y="160" width="180" height="120" rx="12"/><text class="h" x="330" y="205">2. Products</text><text class="txt" x="330" y="232">options, rates,</text><text class="txt" x="330" y="252">credit, FX</text>
+  <rect class="step" x="530" y="160" width="180" height="120" rx="12"/><text class="h" x="560" y="205">3. Models</text><text class="txt" x="560" y="232">trees, PDE, MC,</text><text class="txt" x="560" y="252">Heston, GARCH</text>
+  <rect class="step" x="760" y="160" width="180" height="120" rx="12"/><text class="h" x="790" y="205">4. Risk</text><text class="txt" x="790" y="232">Greeks, VaR, ES,</text><text class="txt" x="790" y="252">CVA, margin</text>
+  <rect class="step" x="990" y="160" width="150" height="120" rx="12"/><text class="h" x="1015" y="205">5. Systems</text><text class="txt" x="1015" y="232">data, tests,</text><text class="txt" x="1015" y="252">production</text>
+  <path class="arrow" d="M250 220L300 220"/><path class="arrow" d="M480 220L530 220"/><path class="arrow" d="M710 220L760 220"/><path class="arrow" d="M940 220L990 220"/>
+  <rect class="step" x="210" y="400" width="780" height="90" rx="12"/><text class="h" x="245" y="438">The library is designed as a reference, interview map, and implementation checklist.</text><text class="txt" x="245" y="466">Each topic connects theory, market convention, required data, risk, numerical method, production pitfall, and validation check.</text>
+</svg>

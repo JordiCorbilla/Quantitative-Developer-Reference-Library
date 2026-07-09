@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">Bond lifecycle events</title>
+  <desc id="desc">Bond lifecycle from issuance through secondary trading, settlement, accrual, coupon dates, ex-dividend dates, call notices, amortization, default, and maturity.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.red{fill:#fef2f2;stroke:#fca5a5}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.axis{stroke:#334155;stroke-width:2}.tick{stroke:#475569;stroke-width:2}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1080" height="460"/>
+  <text class="title" x="40" y="48">Bond Lifecycle: Dates Drive Valuation</text>
+  <line class="axis" x1="90" y1="230" x2="970" y2="230"/>
+  <rect class="blue" x="70" y="120" width="120" height="70" rx="9"/><text class="h" x="102" y="148">Issue</text><text class="txt" x="92" y="170">coupon schedule</text><line class="tick" x1="130" y1="190" x2="130" y2="230"/>
+  <rect class="box" x="235" y="275" width="120" height="70" rx="9"/><text class="h" x="262" y="303">Settle</text><text class="txt" x="252" y="325">clean + accrued</text><line class="tick" x1="295" y1="230" x2="295" y2="275"/>
+  <rect class="green" x="400" y="120" width="120" height="70" rx="9"/><text class="h" x="432" y="148">Coupon</text><text class="txt" x="422" y="170">cashflow paid</text><line class="tick" x1="460" y1="190" x2="460" y2="230"/>
+  <rect class="amber" x="565" y="275" width="120" height="70" rx="9"/><text class="h" x="590" y="303">Call Notice</text><text class="txt" x="588" y="325">optional event</text><line class="tick" x1="625" y1="230" x2="625" y2="275"/>
+  <rect class="red" x="730" y="120" width="120" height="70" rx="9"/><text class="h" x="758" y="148">Default</text><text class="txt" x="752" y="170">recovery path</text><line class="tick" x1="790" y1="190" x2="790" y2="230"/>
+  <rect class="green" x="895" y="275" width="120" height="70" rx="9"/><text class="h" x="925" y="303">Maturity</text><text class="txt" x="918" y="325">principal repaid</text><line class="tick" x1="955" y1="230" x2="955" y2="275"/>
+  <path class="arrow" d="M130 230H955"/>
+  <text class="txt" x="150" y="400">Accrued interest, ex-dividend dates, stubs, calls, amortization, and default state are lifecycle inputs, not valuation afterthoughts.</text>
+</svg>

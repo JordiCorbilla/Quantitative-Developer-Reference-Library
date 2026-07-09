@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">Option lifecycle with exercise and assignment</title>
+  <desc id="desc">Option lifecycle from quote and trade through premium, margin, daily Greeks, corporate actions, exercise, assignment, expiry, and settlement.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.red{fill:#fef2f2;stroke:#fca5a5}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}.dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:6 5;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1080" height="460"/>
+  <text class="title" x="40" y="48">Listed / OTC Option Lifecycle</text>
+  <rect class="blue" x="50" y="110" width="130" height="80" rx="9"/><text class="h" x="75" y="140">Quote</text><text class="txt" x="72" y="162">premium or vol</text>
+  <rect class="box" x="230" y="110" width="130" height="80" rx="9"/><text class="h" x="258" y="140">Trade</text><text class="txt" x="252" y="162">side, strike, expiry</text>
+  <rect class="green" x="410" y="110" width="130" height="80" rx="9"/><text class="h" x="438" y="140">Premium</text><text class="txt" x="432" y="162">cash / margin</text>
+  <rect class="box" x="590" y="110" width="130" height="80" rx="9"/><text class="h" x="618" y="140">Live Risk</text><text class="txt" x="612" y="162">Greeks, scenarios</text>
+  <rect class="amber" x="770" y="110" width="130" height="80" rx="9"/><text class="h" x="798" y="140">Lifecycle</text><text class="txt" x="792" y="162">corporate actions</text>
+  <rect class="green" x="950" y="110" width="90" height="80" rx="9"/><text class="h" x="970" y="140">Expiry</text><text class="txt" x="968" y="162">settle</text>
+  <path class="arrow" d="M180 150H230"/><path class="arrow" d="M360 150H410"/><path class="arrow" d="M540 150H590"/><path class="arrow" d="M720 150H770"/><path class="arrow" d="M900 150H950"/>
+  <rect class="red" x="210" y="285" width="160" height="90" rx="9"/><text class="h" x="248" y="315">Exercise</text><text class="txt" x="238" y="337">holder chooses</text><text class="txt" x="238" y="357">or auto-exercise</text>
+  <rect class="red" x="460" y="285" width="160" height="90" rx="9"/><text class="h" x="498" y="315">Assignment</text><text class="txt" x="488" y="337">short option allocated</text><text class="txt" x="488" y="357">stock/cash delivery</text>
+  <rect class="box" x="710" y="285" width="170" height="90" rx="9"/><text class="h" x="746" y="315">Post-Trade</text><text class="txt" x="738" y="337">position update</text><text class="txt" x="738" y="357">PnL and settlement</text>
+  <path class="dash" d="M835 190C790 245,630 265,540 285"/><path class="dash" d="M995 190C910 270,760 292,620 330"/><path class="arrow" d="M370 330H460"/><path class="arrow" d="M620 330H710"/>
+</svg>

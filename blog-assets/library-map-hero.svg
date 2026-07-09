@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Quantitative Developer Reference Library map</title>
+  <desc id="desc">Hero visual showing the main pillars of the Quantitative Developer Reference Library.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <style>
+      .title{font:bold 44px Arial,sans-serif;fill:#fff}.sub{font:20px Arial,sans-serif;fill:#dbeafe}.card{fill:#fff;stroke:#93c5fd;stroke-width:2}.h{font:bold 18px Arial,sans-serif;fill:#0f172a}.txt{font:14px Arial,sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text class="title" x="70" y="90">Quantitative Developer Reference Library</text>
+  <text class="sub" x="70" y="128">A practical map from pricing theory to production analytics</text>
+  <rect class="card" x="70" y="190" width="300" height="120" rx="10"/><text class="h" x="100" y="230">Products</text><text class="txt" x="100" y="258">Options, rates, credit, FX, commodities,</text><text class="txt" x="100" y="280">volatility, inflation, financing</text>
+  <rect class="card" x="450" y="190" width="300" height="120" rx="10"/><text class="h" x="480" y="230">Models</text><text class="txt" x="480" y="258">Black-Scholes, trees, PDE, Heston,</text><text class="txt" x="480" y="280">GARCH, regimes, regression</text>
+  <rect class="card" x="830" y="190" width="300" height="120" rx="10"/><text class="h" x="860" y="230">Risk</text><text class="txt" x="860" y="258">Greeks, VaR, ES, beta, CVA,</text><text class="txt" x="860" y="280">margin, stress, PnL explain</text>
+  <rect class="card" x="260" y="380" width="300" height="120" rx="10"/><text class="h" x="290" y="420">Engineering</text><text class="txt" x="290" y="448">Market data, pricing architecture,</text><text class="txt" x="290" y="470">testing, production, observability</text>
+  <rect class="card" x="640" y="380" width="300" height="120" rx="10"/><text class="h" x="670" y="420">Workflow</text><text class="txt" x="670" y="448">Portfolio construction, backtesting,</text><text class="txt" x="670" y="470">execution, TCA, model governance</text>
+</svg>

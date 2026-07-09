@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">Swap lifecycle reset and payment dates</title>
+  <desc id="desc">Interest-rate swap lifecycle showing trade date, effective date, floating resets, fixing dates, accrual periods, payment dates, collateral, compression, and maturity.</desc>
+  <defs><style>.bg{fill:#fbfcff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#f0fdf4;stroke:#86efac}.amber{fill:#fffbeb;stroke:#fcd34d}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.axis{stroke:#334155;stroke-width:2}.tick{stroke:#475569;stroke-width:2}.float{stroke:#16a34a;stroke-width:4}.fixed{stroke:#2563eb;stroke-width:4}.arrow{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}</style><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect class="bg" width="1080" height="460"/>
+  <text class="title" x="40" y="48">Interest-Rate Swap Lifecycle: Reset, Fixing, Payment</text>
+  <rect class="blue" x="70" y="110" width="125" height="75" rx="9"/><text class="h" x="98" y="140">Trade</text><text class="txt" x="92" y="162">book and confirm</text>
+  <rect class="box" x="260" y="110" width="125" height="75" rx="9"/><text class="h" x="285" y="140">Effective</text><text class="txt" x="282" y="162">accrual starts</text>
+  <rect class="amber" x="450" y="110" width="125" height="75" rx="9"/><text class="h" x="478" y="140">Fixing</text><text class="txt" x="468" y="162">known coupon</text>
+  <rect class="green" x="640" y="110" width="125" height="75" rx="9"/><text class="h" x="668" y="140">Payment</text><text class="txt" x="662" y="162">cashflow due</text>
+  <rect class="box" x="830" y="110" width="125" height="75" rx="9"/><text class="h" x="858" y="140">Maturity</text><text class="txt" x="854" y="162">final coupon</text>
+  <path class="arrow" d="M195 148H260"/><path class="arrow" d="M385 148H450"/><path class="arrow" d="M575 148H640"/><path class="arrow" d="M765 148H830"/>
+  <line class="fixed" x1="260" y1="280" x2="900" y2="280"/><line class="float" x1="260" y1="335" x2="900" y2="335"/>
+  <text class="txt" x="265" y="260">fixed leg cashflows: known from schedule</text>
+  <text class="txt" x="265" y="320">floating leg cashflows: projected until fixing, then locked</text>
+  <text class="txt" x="140" y="405">Lifecycle controls: historical fixings, collateral state, compression, novation, termination, and payment status must feed valuation.</text>
+</svg>

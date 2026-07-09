@@ -104,6 +104,12 @@ The price falls when yield rises because the fixed cashflows are discounted more
 
 Fixed-income systems should start from dated cashflows and discount factors. Yield, duration, and convexity are useful summaries, but they should not replace the cashflow schedule as the source of valuation truth.
 
+### Visual Lifecycle Reference
+
+![Bond lifecycle events](assets/bond-lifecycle-events.svg)
+
+Bond valuation is lifecycle-sensitive: settlement, accrued interest, ex-dividend dates, coupon payments, calls, amortization, default state, and maturity all change the cashflows that should be priced.
+
 ## Key Risk Measures and Sensitivities
 - DV01 / PVBP: price sensitivity to a one-basis-point shift.
 - Key-rate duration: sensitivity to localized curve moves.

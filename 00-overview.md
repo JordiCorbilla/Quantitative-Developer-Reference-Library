@@ -18,6 +18,12 @@ This repo is a practitioner-oriented reference for building, validating, and ope
 - Read [01-options.md](01-options.md), [05-fixed-income.md](05-fixed-income.md), [06-interest-rates.md](06-interest-rates.md), and [10-numerical-methods.md](10-numerical-methods.md) together if you want the deepest first pass through implementation-heavy material.
 - Read [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [14-testing-and-validation.md](14-testing-and-validation.md) as the engineering layer around the analytics.
 
+## Lifecycle View
+
+![Generic trade lifecycle state machine](assets/trade-lifecycle-state-machine.svg)
+
+Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecycle lens asks whether the trade is quoted, executed, booked, confirmed, settled, amended, exercised, fixed, paid, defaulted, matured, or disputed. A model can be correct and still produce the wrong result if it is run against the wrong lifecycle state.
+
 ## Library Map
 
 | File | Focus | Why It Matters |

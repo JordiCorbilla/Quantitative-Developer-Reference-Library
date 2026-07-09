@@ -45,6 +45,8 @@ The basic state machine is:
 7. **Settlement and cash movement**: cash, securities, or variation margin move.
 8. **Post-trade control**: reconciliation, PnL explain, risk explain, accounting, reporting, and exception handling.
 
+![Generic trade lifecycle state machine](assets/trade-lifecycle-state-machine.svg)
+
 ![FX trade lifecycle from quote to settlement](assets/fx-trade-lifecycle.svg)
 
 The key point is that pricing and lifecycle state are connected. A trade that is pending confirmation, disputed, partially settled, novated, compressed, assigned, terminated, or exercised is not the same operational object as a clean live trade.

@@ -61,6 +61,12 @@ The same price move can have different meaning across delivery months. A front-m
 
 Commodity risk is usually delivery-month, location, and grade specific. The curve shape carries information about storage, scarcity, convenience yield, seasonality, and basis.
 
+### Visual Lifecycle Reference
+
+![Commodity delivery lifecycle](assets/commodity-delivery-lifecycle.svg)
+
+Commodity lifecycle controls decide whether a position is rolled, cash-settled, or exposed to physical delivery, notice periods, logistics, grade, storage, and transport constraints.
+
 ## Key Risk Measures and Sensitivities
 - Delta to nearby and deferred curve points
 - Calendar-spread and crack/spread risk
