@@ -38,6 +38,16 @@ The basis spread is the spread that makes the two legs balance under market quot
 
 In practice, pricing requires a curve stack: domestic discount curve, foreign projection curve, collateral discounting assumptions, FX spot, FX forwards or basis curve, and fixing data.
 
+### What The Hedge Removes, And What It Leaves Behind
+
+When the swap's notional exchanges and coupon schedule match a foreign-currency asset or liability, it can hedge the contractual FX cashflows. That is useful, but it is not the same as removing every source of economic volatility.
+
+![Cross-currency swap risk layers](assets/cross-currency-swap-risk-layers.svg)
+
+The cross-currency basis is a market spread embedded in the quoted swap. Once a trade is executed, its contractual basis spread is fixed. Subsequent moves in market basis change the trade's mark-to-market and therefore its unwind, replacement, and hedge-roll cost; they do not rewrite the spread in the signed confirmation. A hedge can therefore be effective against the underlying cashflows while still producing material balance-sheet and collateral volatility before maturity.
+
+Collateral is part of this distinction. Under a margining agreement, variation margin can turn a mark-to-market move into a real funding requirement. The collateral currency, thresholds, minimum transfer amount, eligible collateral, independent amount, and settlement timing all affect the liquidity profile. Posting collateral in a currency different from the entity's functional or funding currency can introduce an additional FX funding exposure.
+
 ## Worked Instrument Example: Notional Exchange
 Assume:
 - EUR notional: EUR 10m,
@@ -53,6 +63,8 @@ If the swap is resettable, the USD notional may be updated using FX fixings so F
 - Domestic and foreign curve PV01.
 - Cross-currency basis sensitivity.
 - Collateral currency and funding sensitivity.
+- Mark-to-market, unwind, and replacement-cost sensitivity to basis moves.
+- Variation-margin and liquidity stress under rates, FX, and basis scenarios.
 - Reset and settlement risk.
 - Counterparty and wrong-way risk.
 
@@ -69,11 +81,14 @@ If the swap is resettable, the USD notional may be updated using FX fixings so F
 - Build basis curves with clear collateral assumptions.
 - Reconcile FX forwards implied by curves against market FX swap and basis quotes.
 - Treat resettable notionals as lifecycle events.
+- Report contractual cashflows separately from current exit value and collateral requirements.
+- Stress basis widening, counterparty limits, and collateral-currency funding together for long-dated hedges.
 
 ## Production Pitfalls and Sanity Checks
 - Discounting both legs with the wrong collateral curve.
 - Missing final exchange of notionals.
 - Treating resettable notional as eliminating all FX risk.
+- Treating a live contractual basis spread as if it reprices with the market, or ignoring the separate risk of an unwind or future roll.
 - Mixing FX spot date and trade date.
 - Applying one calendar to both currency legs.
 - Reporting PV without currency decomposition.

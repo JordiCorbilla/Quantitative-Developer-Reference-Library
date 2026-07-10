@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Cross-currency swap risk layers</title>
+  <desc id="desc">An original diagram separating contractual cashflow hedge, market value and basis risk, and collateral liquidity risk in a cross-currency swap.</desc>
+  <style>
+    .title { font: 700 28px Arial, sans-serif; fill: #172033; }
+    .subtitle { font: 400 16px Arial, sans-serif; fill: #46566f; }
+    .label { font: 700 19px Arial, sans-serif; fill: #172033; }
+    .body { font: 400 16px Arial, sans-serif; fill: #27364c; }
+    .small { font: 400 14px Arial, sans-serif; fill: #46566f; }
+    .chip { font: 700 14px Arial, sans-serif; fill: #ffffff; }
+  </style>
+  <rect width="1200" height="650" fill="#f7f9fc"/>
+  <text x="70" y="65" class="title">Cross-Currency Swap: Hedge, Valuation, and Liquidity Are Different Layers</text>
+  <text x="70" y="95" class="subtitle">A matching swap can hedge contractual foreign-currency cashflows while basis and collateral still create economic risk before maturity.</text>
+
+  <rect x="70" y="145" width="1060" height="126" rx="8" fill="#e7f1ff" stroke="#4d7caf" stroke-width="2"/>
+  <rect x="70" y="145" width="178" height="126" rx="8" fill="#28649c"/>
+  <text x="95" y="192" class="chip">1. CONTRACTUAL</text>
+  <text x="95" y="215" class="chip">CASHFLOWS</text>
+  <text x="280" y="190" class="label">What the structure can hedge</text>
+  <text x="280" y="219" class="body">Initial and final notional exchanges plus dated coupons can match a foreign-currency asset or liability.</text>
+  <text x="280" y="246" class="small">The agreed cashflows and contractual basis spread do not change after execution.</text>
+
+  <path d="M600 286 L600 316" stroke="#7f8ba0" stroke-width="3"/>
+  <path d="M590 306 L600 316 L610 306" fill="none" stroke="#7f8ba0" stroke-width="3"/>
+
+  <rect x="70" y="331" width="1060" height="126" rx="8" fill="#fff2df" stroke="#bd7627" stroke-width="2"/>
+  <rect x="70" y="331" width="178" height="126" rx="8" fill="#a96116"/>
+  <text x="96" y="377" class="chip">2. MARKET VALUE</text>
+  <text x="96" y="400" class="chip">AND EXIT COST</text>
+  <text x="280" y="376" class="label">What moves while the trade is live</text>
+  <text x="280" y="405" class="body">FX, domestic and foreign rates, and cross-currency basis revalue the swap every day.</text>
+  <text x="280" y="432" class="small">Market basis affects mark-to-market, unwind cost, replacement cost, and the economics of future rolls.</text>
+
+  <path d="M600 472 L600 502" stroke="#7f8ba0" stroke-width="3"/>
+  <path d="M590 492 L600 502 L610 492" fill="none" stroke="#7f8ba0" stroke-width="3"/>
+
+  <rect x="70" y="517" width="1060" height="95" rx="8" fill="#e9f7ef" stroke="#36865b" stroke-width="2"/>
+  <rect x="70" y="517" width="178" height="95" rx="8" fill="#277a4d"/>
+  <text x="94" y="558" class="chip">3. COLLATERAL</text>
+  <text x="94" y="581" class="chip">AND FUNDING</text>
+  <text x="280" y="557" class="label">When valuation becomes liquidity pressure</text>
+  <text x="280" y="586" class="body">CSA terms determine variation margin, collateral currency, eligible assets, timing, and funding needs.</text>
+</svg>
