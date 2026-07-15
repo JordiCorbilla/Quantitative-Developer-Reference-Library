@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-07-15
+- Added a statistical-arbitrage and pairs-trading chapter covering point-in-time research, cointegration, residual signals, hedge construction, costs, borrow, execution, and model-break controls, with an original workflow diagram and worked signal example.
+
 ## 2026-06-18
 - Added trade lifecycle and operations coverage, including an original FX trade lifecycle diagram from quote through confirmation, settlement, and post-trade controls.
 - Added first-class chapters for structured credit/securitization, convertibles/equity-linked notes, equity swaps/TRS, cross-currency swaps, rates options, and ETFs/index products, plus worked examples.

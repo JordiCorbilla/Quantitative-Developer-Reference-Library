@@ -49,9 +49,10 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - model inventory, documentation, validation, IPV, reserves, approvals, and monitoring
 - [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation, and model evaluation
 - [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - trade initiation, capture, confirmation, settlement, lifecycle events, reconciliation, and operational controls
+- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pairs trading, cointegration, residual signals, hedge ratios, execution, and model-break risk
 
 ## Current Coverage Review
-The library now covers the main building blocks a quant developer usually needs first: probability and statistics, regression, options, linear derivatives, cash equities, FX, bonds, rates, credit, structured credit, convertibles, equity swaps, commodities, inflation, volatility products, financing, cross-currency swaps, ETFs/index products, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, trade lifecycle, regulatory margin, and model governance.
+The library now covers the main building blocks a quant developer usually needs first: probability and statistics, regression, statistical arbitrage, options, linear derivatives, cash equities, FX, bonds, rates, credit, structured credit, convertibles, equity swaps, commodities, inflation, volatility products, financing, cross-currency swaps, ETFs/index products, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, trade lifecycle, regulatory margin, and model governance.
 
 The main future direction is depth rather than first-pass coverage:
 - more worked end-to-end examples that connect market inputs, pricing, risk, and validation,

@@ -58,6 +58,7 @@ Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecyc
 | [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) | Model inventory, validation, IPV, reserves, approvals, monitoring | Makes valuation control and model risk management part of the quant stack |
 | [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) | Probability, statistics, OLS regression, diagnostics, beta estimation | Makes the statistical foundation explicit for risk, factors, signals, and validation |
 | [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) | Execution, capture, confirmation, settlement, lifecycle events, reconciliations | Connects pricing and risk to the operational state of real trades |
+| [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) | Pairs, cointegration, residual signals, hedge ratios, execution, model breaks | Connects statistical relationships to realistic long-short portfolio workflows |
 
 ## Shared Quantitative Conventions
 

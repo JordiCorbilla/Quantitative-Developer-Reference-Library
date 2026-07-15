@@ -37,6 +37,7 @@ This index groups the library by practitioner task rather than file number.
 - [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - VWAP, TWAP, POV, TCA, market impact
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - SIMM, FRTB, margin, stress capital, explain
 - [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - execution, capture, confirmation, settlement, lifecycle events, reconciliation
+- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pairs trading, cointegration, residual signals, execution, model-break risk
 
 ## Project Resources
 - [README.md](README.md) - project overview and library map

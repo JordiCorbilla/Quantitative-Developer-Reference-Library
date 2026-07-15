@@ -20,6 +20,7 @@ These examples are small by design. They are meant to connect formulas to implem
 - [swap-pv.md](swap-pv.md) - simple fixed-vs-floating swap PV decomposition.
 - [fx-swap-forward-points.md](fx-swap-forward-points.md) - compute FX swap forward points and explain near/far leg cashflows.
 - [vwap-twap-comparison.md](vwap-twap-comparison.md) - compare VWAP and TWAP benchmarks on intraday prints.
+- [pairs-trading-spread-signal.md](pairs-trading-spread-signal.md) - calculate a standardized residual signal for a pairs-trading workflow.
 
 ## How To Use
 - Treat the numbers as sanity-check scaffolding.
