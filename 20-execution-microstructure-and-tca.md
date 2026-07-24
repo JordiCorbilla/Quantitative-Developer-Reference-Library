@@ -84,6 +84,56 @@ Common mistakes:
 - Ignoring partial fills, fees, spread, and market impact when comparing algorithms.
 - Treating a broker's algo label as enough; the actual schedule, constraints, and venue behavior still matter.
 
+## Executing A Large Parent Order
+A large order cannot be made invisible merely by dividing it into smaller tickets. The objective is to minimize expected trading cost while controlling the risk that the market moves away before the order is complete. The right choice depends on order size relative to liquidity, urgency, benchmark, volatility, spread, expected intraday volume, and information leakage risk.
+
+![Large order execution decision guide](assets/large-order-execution-decision-guide.svg)
+
+The usual implementation is a **parent order** with controlled **child orders**. A parent order might buy 400,000 shares; the execution algorithm decides how much to send, where, and when. A round lot is the exchange-defined standard trading unit for a market and is not a measure of safe order size. What matters is the parent order's participation in available volume and displayed or hidden liquidity.
+
+### Choosing The Objective
+
+- **VWAP**: appropriate when the mandate is to perform near the session's volume-weighted benchmark and there is time to follow a volume forecast.
+- **TWAP**: appropriate when the order should be distributed evenly through a defined time window and a reliable volume forecast is unavailable or unnecessary.
+- **POV**: appropriate when trading should scale with observed market activity. The trader sets a maximum participation rate, then the algorithm slows down when the market is quiet.
+- **Implementation shortfall (IS)**: appropriate when the decision or arrival price matters and delaying the trade risks losing alpha or increasing portfolio risk. It trades the impact-versus-timing trade-off directly.
+- **Passive limit / liquidity seeking**: appropriate when price control matters more than certainty of completion. It reduces crossing cost but accepts adverse selection and opportunity cost.
+- **Open or close auction**: appropriate when the benchmark, index event, or available liquidity is concentrated in that auction. Auction participation still carries imbalance and price uncertainty.
+
+No algorithm guarantees that a large trade will not move the price. A good execution plan chooses an explicit trade-off, sets participation and price limits, watches live conditions, and is willing to pause or change course when conditions diverge from the pre-trade model.
+
+### Market Impact And Order Size
+
+For a buy order, implementation shortfall can be separated conceptually into spread, temporary impact, permanent information component, delay, fees, and opportunity cost. The decomposition is model-dependent, but it prevents one number from hiding several causes.
+
+If $Q$ shares were intended, $q_i$ shares were executed at prices $p_i$, and $q_u$ shares remain unfilled and are valued at an end-of-window price $p_T$, a simple buy-side implementation-shortfall representation is:
+
+$$
+\text{IS} = \sum_i q_i(p_i-p_0) + q_u(p_T-p_0) + \text{fees},
+\qquad Q = \sum_i q_i + q_u
+$$
+
+The first term captures executed slippage. The second makes the opportunity cost of the unfilled residual visible. A production TCA must state the chosen end-of-window price and sign convention.
+
+Order size is often normalized by average daily volume:
+
+$$
+\text{ADV participation} = \frac{\text{parent order quantity}}{\text{average daily volume}}
+$$
+
+This is only a first screen. A 10% ADV order may be manageable in a deep, stable name over a full day, yet highly disruptive if concentrated in a short interval, during a news event, or in a stock with a wide spread and little displayed depth. Pre-trade analysis should use intraday volume curves, volatility, spread, event calendar, borrow status for sells, and a capacity limit by venue.
+
+## Worked Instrument Example: A Buy Program With A Participation Limit
+Assume a manager must buy 400,000 shares. Historical ADV is 4,000,000 shares, so the parent order is 10% of ADV. The manager has no immediate alpha-decay concern and chooses a VWAP-style schedule with a maximum 10% participation rate.
+
+If the first two hours are forecast to contain 25% of daily volume, the forecast volume is 1,000,000 shares. The schedule may target no more than:
+
+$$
+10\% \times 1{,}000{,}000 = 100{,}000\text{ shares}
+$$
+
+in that window, subject to spread, volatility, price, and real-time volume checks. If actual volume is lower than forecast, the algorithm reduces child-order quantity rather than forcing the schedule. If the trade is not complete, the residual is a real decision: continue, increase urgency, use an auction, cross liquidity, or leave the position partly unfilled. It should never be hidden inside a single average fill price.
+
 ## Worked Instrument Example: Buy Order Shortfall
 Assume:
 - decision price: USD 50.00,
@@ -106,12 +156,14 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Opportunity cost from unfilled quantity.
 - Venue fill quality and adverse selection.
 - Capacity and liquidity limits.
+- Parent-order participation, residual quantity, and completion risk.
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
 - Order and execution ledgers with timestamps.
 - Market data around decision, route, fill, and close times.
 - Venue, broker, fee, rebate, and tax schedules.
 - Volume curves, spread history, volatility, ADV, and intraday participation constraints.
+- Order-book or liquidity proxies, auction schedules, corporate-event calendar, and parent-order urgency constraints.
 - Corporate-action adjusted identifiers.
 - Strategy signal timestamps to detect look-ahead and delay.
 
@@ -122,6 +174,7 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Decompose costs before aggregating so model errors are visible.
 - Calibrate impact models by liquidity bucket, volatility, urgency, and participation rate.
 - Feed post-trade results back into pre-trade cost estimates.
+- Record the parent-order objective, constraints, schedule changes, and residual-order decisions so TCA can explain them.
 
 ## Production Pitfalls and Sanity Checks
 - Measuring slippage to close when the execution objective was arrival price.
@@ -129,6 +182,7 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Using post-trade market data in pre-trade models.
 - Aggregating buys and sells with inconsistent sign conventions.
 - Reporting backtests without realistic turnover, spread, and impact assumptions.
+- Treating a fixed participation rate or a round-lot size as proof that an order will be non-disruptive.
 
 ## Illustrative Code
 ```python

@@ -21,6 +21,8 @@ These examples are small by design. They are meant to connect formulas to implem
 - [fx-swap-forward-points.md](fx-swap-forward-points.md) - compute FX swap forward points and explain near/far leg cashflows.
 - [vwap-twap-comparison.md](vwap-twap-comparison.md) - compare VWAP and TWAP benchmarks on intraday prints.
 - [pairs-trading-spread-signal.md](pairs-trading-spread-signal.md) - calculate a standardized residual signal for a pairs-trading workflow.
+- [equity-snapshot-metrics.md](equity-snapshot-metrics.md) - calculate market cap, P/E ratios, and dividend yield from a fictional equity snapshot.
+- [large-order-participation.md](large-order-participation.md) - calculate a participation-limited child-order quantity from a parent order and volume forecast.
 
 ## How To Use
 - Treat the numbers as sanity-check scaffolding.

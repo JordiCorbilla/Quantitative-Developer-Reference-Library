@@ -30,7 +30,8 @@ The repo now has broad first-pass coverage across the main areas a quant develop
 - linear regression,
 - OLS diagnostics,
 - beta estimation,
-- model evaluation.
+- model evaluation,
+- statistical arbitrage, pairs trading, cointegration, and model-break controls.
 
 ### Core Products
 - options,
@@ -64,7 +65,8 @@ The repo now has broad first-pass coverage across the main areas a quant develop
 - regulatory margin and capital,
 - portfolio construction,
 - backtesting,
-- VWAP, TWAP, POV, and transaction-cost analysis.
+- VWAP, TWAP, POV, implementation shortfall, and transaction-cost analysis,
+- large parent-order execution, participation limits, auctions, residual-order risk, and market impact.
 
 ### Engineering And Controls
 - market data,
@@ -160,6 +162,18 @@ For example, the Heston section does not just list equations. It explains varian
 The CVA section does not just define the acronym. It breaks the calculation into exposure, default probability, loss given default, discounting, netting, collateral, wrong-way risk, and the wider xVA stack.
 
 The VWAP/TWAP section does not just give definitions. It explains benchmark choice, schedule shape, volume curves, participation, alpha decay, and implementation shortfall.
+
+The equities chapter now also answers a more basic but surprisingly important question: how do you read a stock screen without mistaking a ratio for a conclusion? It connects share price, market capitalization, free float, EPS, trailing and forward P/E, dividend yield, liquidity, and the 52-week range into one sequence of questions.
+
+![How to read an equity snapshot](assets/equity-snapshot-reading-guide.svg)
+
+The discussion is deliberately careful about interpretation. A zero dividend yield does not automatically mean that every dollar is being reinvested for growth. Cash may be retained for investment, debt reduction, acquisitions, buybacks, or balance-sheet protection, and a company may simply lack the cash or policy to distribute it. Likewise, a high or low P/E is a prompt to examine earnings quality, growth, cyclicality, and risk rather than an automatic buy or sell signal.
+
+The execution chapter follows the same principle. A large order cannot be made harmless just by splitting it into small child orders. The execution objective has to be explicit: follow volume with VWAP, distribute through time with TWAP, cap participation with POV, balance urgency against impact with implementation shortfall, seek passive liquidity, or use an auction when the benchmark and liquidity are concentrated there.
+
+![Large-order execution decision guide](assets/large-order-execution-decision-guide.svg)
+
+The worked example carries a 400,000-share parent order through an ADV and intraday-volume calculation, then keeps the unfilled residual visible. That matters because an average fill price can look acceptable while hiding opportunity cost or completion risk.
 
 That is the level of practical connection I want the repo to maintain.
 

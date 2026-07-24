@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Large order execution decision guide</title>
+  <desc id="desc">An original decision diagram for executing a large parent order, moving from objective and constraints to VWAP, participation, implementation shortfall, passive, or auction methods with monitoring and residual-order decisions.</desc>
+  <style>.title{font:700 28px Arial,sans-serif;fill:#172033}.sub{font:400 16px Arial,sans-serif;fill:#46566f}.head{font:700 18px Arial,sans-serif;fill:#172033}.body{font:400 14px Arial,sans-serif;fill:#334155}.note{font:700 14px Arial,sans-serif;fill:#fff}</style>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#64748b"/></marker></defs>
+  <rect width="1200" height="560" fill="#f8fafc"/><text x="60" y="58" class="title">Large Parent Order: Choose the Objective Before the Algorithm</text><text x="60" y="88" class="sub">The target is controlled expected cost and completion risk, not the impossible promise of zero market impact.</text>
+  <rect x="435" y="125" width="330" height="75" rx="8" fill="#e7f0fb" stroke="#4c78a8" stroke-width="2"/><text x="460" y="157" class="head">Parent order and constraints</text><text x="460" y="182" class="body">size / ADV, urgency, benchmark, limits, events</text>
+  <path d="M600 205 L600 245" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="435" y="255" width="330" height="65" rx="8" fill="#eef2f7" stroke="#64748b" stroke-width="2"/><text x="470" y="293" class="head">What must the order optimize?</text>
+  <path d="M435 287 L180 287 L180 350" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/><path d="M520 320 L520 350" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/><path d="M680 320 L680 350" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/><path d="M765 287 L1020 287 L1020 350" fill="none" stroke="#64748b" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="60" y="360" width="240" height="110" rx="8" fill="#eaf7f2" stroke="#3c8c68" stroke-width="2"/><text x="84" y="395" class="head">Schedule / benchmark</text><text x="84" y="420" class="body">VWAP, TWAP, or auction</text><text x="84" y="444" class="body">when the objective matches</text>
+  <rect x="365" y="360" width="240" height="110" rx="8" fill="#fff3df" stroke="#bd7627" stroke-width="2"/><text x="389" y="395" class="head">POV</text><text x="389" y="420" class="body">Scale with observed volume</text><text x="389" y="444" class="body">under a participation cap</text>
+  <rect x="665" y="360" width="240" height="110" rx="8" fill="#fbeaf0" stroke="#ad4f6c" stroke-width="2"/><text x="689" y="395" class="head">Implementation shortfall</text><text x="689" y="420" class="body">Urgency versus impact</text><text x="689" y="444" class="body">relative to arrival price</text>
+  <rect x="960" y="360" width="180" height="110" rx="8" fill="#f2ecfa" stroke="#7651a3" stroke-width="2"/><text x="984" y="395" class="head">Passive / limit</text><text x="984" y="420" class="body">Price control, but</text><text x="984" y="444" class="body">completion uncertain</text>
+  <rect x="260" y="492" width="680" height="60" rx="8" fill="#ad4f6c"/>
+  <text x="285" y="518" class="note">Monitor volume, spread, volatility, fill quality, and residual quantity.</text>
+  <text x="285" y="539" class="note">Pause or re-decide when conditions change.</text>
+</svg>

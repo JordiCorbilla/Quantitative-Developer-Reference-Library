@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="550" viewBox="0 0 1200 550" role="img" aria-labelledby="title desc">
+  <title id="title">How to read an equity snapshot</title>
+  <desc id="desc">An original equity snapshot diagram linking price, market capitalization, EPS, P/E, dividend yield, liquidity, and 52-week range to the questions each metric can and cannot answer.</desc>
+  <style>.title{font:700 28px Arial,sans-serif;fill:#172033}.sub{font:400 16px Arial,sans-serif;fill:#46566f}.head{font:700 18px Arial,sans-serif;fill:#172033}.body{font:400 14px Arial,sans-serif;fill:#334155}.tag{font:700 14px Arial,sans-serif;fill:#fff}</style>
+  <rect width="1200" height="550" fill="#f8fafc"/>
+  <text x="60" y="58" class="title">Reading an Equity Snapshot: Metrics Are Questions, Not Answers</text>
+  <text x="60" y="88" class="sub">Use a consistent source date and compare like with like: price-return versus total-return, basic versus diluted EPS, trailing versus forecast earnings.</text>
+  <rect x="60" y="130" width="245" height="150" rx="8" fill="#e7f0fb" stroke="#4c78a8" stroke-width="2"/><text x="84" y="168" class="head">Share price</text><text x="84" y="196" class="body">Cost of one share.</text><text x="84" y="220" class="body">Ask: what is the share count?</text><text x="84" y="244" class="body">Price alone says little about size.</text>
+  <rect x="330" y="130" width="245" height="150" rx="8" fill="#eaf7f2" stroke="#3c8c68" stroke-width="2"/><text x="354" y="168" class="head">Market cap</text><text x="354" y="196" class="body">Price x shares outstanding.</text><text x="354" y="220" class="body">Ask: float, debt, and enterprise</text><text x="354" y="244" class="body">value? Size labels are relative.</text>
+  <rect x="600" y="130" width="245" height="150" rx="8" fill="#fff3df" stroke="#bd7627" stroke-width="2"/><text x="624" y="168" class="head">EPS and P/E</text><text x="624" y="196" class="body">Price relative to earnings.</text><text x="624" y="220" class="body">Ask: trailing or forecast?</text><text x="624" y="244" class="body">Sustainable, cyclic, or diluted?</text>
+  <rect x="870" y="130" width="270" height="150" rx="8" fill="#fbeaf0" stroke="#ad4f6c" stroke-width="2"/><text x="894" y="168" class="head">Dividend yield</text><text x="894" y="196" class="body">Cash dividend / share price.</text><text x="894" y="220" class="body">Ask: payout sustainability and</text><text x="894" y="244" class="body">alternative uses of cash?</text>
+  <path d="M600 302 L600 340" stroke="#64748b" stroke-width="3"/><path d="M590 330 L600 340 L610 330" fill="none" stroke="#64748b" stroke-width="3"/>
+  <rect x="210" y="355" width="780" height="165" rx="8" fill="#eef2f7" stroke="#64748b" stroke-width="2"/>
+  <text x="238" y="396" class="head">Context that turns a screen into analysis</text>
+  <text x="238" y="425" class="body">Revenue and free cash flow | debt and cash | margins and competition | buybacks and dilution</text>
+  <text x="238" y="449" class="body">Sector peers | ADV and free float | event calendar</text>
+  <text x="238" y="480" class="body">A 52-week range describes recent trading. It is not a valuation range, price target,</text>
+  <text x="238" y="504" class="body">or guarantee of support.</text>
+</svg>

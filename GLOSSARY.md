@@ -27,12 +27,14 @@
 
 ## D
 - **Delta**: First-order sensitivity of option value to the underlying price or chosen forward proxy.
+- **Dividend yield**: Annual cash dividends per share divided by current share price; it does not measure total shareholder return or prove how retained cash is used.
 - **Detachment point**: Portfolio loss level where a structured-credit tranche is fully exhausted.
 - **Dirty price**: Bond price including accrued interest.
 - **Discount factor**: Present value of one unit of currency paid at a future date.
 - **DV01 / PV01**: Present-value change for a one basis point rate move.
 
 ## E
+- **Earnings per share (EPS)**: Profit attributable to common shareholders divided by weighted average common shares; diluted EPS reflects potential share-count dilution.
 - **Expected Shortfall (ES)**: Average loss conditional on loss exceeding the VaR threshold.
 - **Exposure**: Value at risk to a counterparty or risk factor.
 - **ETF premium/discount**: Difference between ETF market price and NAV, usually expressed as a percentage of NAV.
@@ -69,10 +71,12 @@
 
 ## M
 - **Market data snapshot**: Versioned set of market inputs used for valuation or risk.
+- **Market capitalization**: Current share price multiplied by shares outstanding; it measures equity value and differs from enterprise value and free-float market cap.
 - **Model governance**: Controls around model inventory, approval, validation, limitations, and monitoring.
 - **MVA**: Margin valuation adjustment for the funding cost of initial margin.
 
 ## P
+- **P/E ratio**: Current share price divided by EPS. Trailing P/E uses reported earnings; forward P/E uses forecasts and is undefined or uninformative when EPS is non-positive.
 - **Payment-versus-payment (PvP)**: Settlement mechanism in which one currency payment is final only if the other currency payment is also final.
 - **PD**: Probability of Default over a specified horizon and default definition.
 - **PnL explain**: Decomposition of profit and loss into market moves, carry, trades, lifecycle events, and residual.
