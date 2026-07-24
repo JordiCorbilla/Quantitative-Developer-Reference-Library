@@ -32,6 +32,7 @@ The repo now has broad first-pass coverage across the main areas a quant develop
 - beta estimation,
 - model evaluation,
 - statistical arbitrage, pairs trading, cointegration, and model-break controls.
+- copulas, tail dependence, and joint-risk simulation beyond linear correlation.
 
 ### Core Products
 - options,
@@ -162,6 +163,10 @@ For example, the Heston section does not just list equations. It explains varian
 The CVA section does not just define the acronym. It breaks the calculation into exposure, default probability, loss given default, discounting, netting, collateral, wrong-way risk, and the wider xVA stack.
 
 The VWAP/TWAP section does not just give definitions. It explains benchmark choice, schedule shape, volume curves, participation, alpha decay, and implementation shortfall.
+
+The dependence-modelling chapter explains why one correlation number cannot describe every joint loss distribution. It separates marginal models from the copula, compares Gaussian and Student-t dependence with asymmetric Clayton and Gumbel families, and keeps tail fit, regime instability, and family risk visible throughout calibration and stress testing.
+
+![Copula dependence and tail map](assets/copula-dependence-tail-map.svg)
 
 The equities chapter now also answers a more basic but surprisingly important question: how do you read a stock screen without mistaking a ratio for a conclusion? It connects share price, market capitalization, free float, EPS, trailing and forward P/E, dividend yield, liquidity, and the 52-week range into one sequence of questions.
 

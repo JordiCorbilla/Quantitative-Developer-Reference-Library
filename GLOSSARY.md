@@ -14,6 +14,7 @@
 
 ## C
 - **Calibration**: Choosing model parameters to fit market-observable prices or quotes.
+- **Copula**: Multivariate distribution on uniform margins that represents dependence separately from the marginal distributions.
 - **Clean price**: Bond price excluding accrued interest.
 - **CLS**: Continuous Linked Settlement, a settlement system that reduces FX principal settlement risk through payment-versus-payment for eligible currencies and participants.
 - **Collateral**: Assets posted to reduce counterparty exposure or support financing.
@@ -99,6 +100,7 @@
 - **Stress test**: Scenario designed to measure loss under severe market conditions.
 
 ## T
+- **Tail dependence**: Limiting tendency for variables to experience joint extreme quantile events; upper and lower tails may differ.
 - **Theta**: Sensitivity of option value to time passage under a specified model or market-data roll convention.
 - **Through-the-cycle PD**: PD estimate smoothed across the economic cycle for long-run risk views.
 - **Trade lifecycle**: Sequence of trade states from pre-trade and execution through booking, confirmation, settlement, lifecycle events, reconciliation, and close-out.

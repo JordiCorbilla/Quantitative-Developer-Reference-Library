@@ -3,6 +3,7 @@
 ## 2026-07-24
 - Expanded equity documentation with a practical stock-reading guide for market capitalization, EPS, trailing and forward P/E, dividend yield, free float, liquidity, and 52-week ranges, including an original visual and worked example.
 - Expanded execution documentation with a large-parent-order framework for VWAP, POV, implementation shortfall, passive orders, auctions, participation limits, market impact, residual risk, and a worked example with an original decision diagram.
+- Added dependence-modelling and copula coverage with Sklar's theorem, Gaussian and Student-t copulas, asymmetric Archimedean families, tail dependence, calibration, simulation, validation, an original visual, and a worked example.
 
 ## 2026-07-15
 - Added a statistical-arbitrage and pairs-trading chapter covering point-in-time research, cointegration, residual signals, hedge construction, costs, borrow, execution, and model-break controls, with an original workflow diagram and worked signal example.

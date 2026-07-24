@@ -59,6 +59,7 @@ Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecyc
 | [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) | Probability, statistics, OLS regression, diagnostics, beta estimation | Makes the statistical foundation explicit for risk, factors, signals, and validation |
 | [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) | Execution, capture, confirmation, settlement, lifecycle events, reconciliations | Connects pricing and risk to the operational state of real trades |
 | [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) | Pairs, cointegration, residual signals, hedge ratios, execution, model breaks | Connects statistical relationships to realistic long-short portfolio workflows |
+| [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md) | Copulas, tail dependence, joint simulation, calibration, dependence stress | Separates marginal risk from the dependence structure that creates joint losses |
 
 ## Shared Quantitative Conventions
 
@@ -169,7 +170,7 @@ Every chapter in this repo follows the same top-level structure:
 
 ## Recommended Reading Paths
 - Build the core stack: [01-options.md](01-options.md) -> [10-numerical-methods.md](10-numerical-methods.md) -> [12-pricing-architecture.md](12-pricing-architecture.md)
-- Build the statistics foundation: [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+- Build the statistics foundation: [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) -> [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
 - Build rates competency: [05-fixed-income.md](05-fixed-income.md) -> [06-interest-rates.md](06-interest-rates.md) -> [11-market-data.md](11-market-data.md)
 - Build production judgment: [13-risk-and-pnl.md](13-risk-and-pnl.md) -> [14-testing-and-validation.md](14-testing-and-validation.md) -> [15-performance-and-production.md](15-performance-and-production.md)
 - Build portfolio engineering judgment: [03-equities.md](03-equities.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md)

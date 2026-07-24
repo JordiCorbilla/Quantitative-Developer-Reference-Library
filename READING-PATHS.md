@@ -16,9 +16,10 @@ Use these paths when you want to study the library with a concrete goal.
 ## Probability, Statistics, And Regression
 1. [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md)
 2. [examples/linear-regression-beta.md](examples/linear-regression-beta.md)
-3. [13-risk-and-pnl.md](13-risk-and-pnl.md)
-4. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
-5. [18-volatility-products.md](18-volatility-products.md)
+3. [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md)
+4. [13-risk-and-pnl.md](13-risk-and-pnl.md)
+5. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+6. [18-volatility-products.md](18-volatility-products.md)
 
 ## Pricing Library Design
 1. [00-overview.md](00-overview.md)
@@ -54,7 +55,8 @@ Use these paths when you want to study the library with a concrete goal.
 ## Volatility And Tail Risk
 1. [01-options.md](01-options.md)
 2. [18-volatility-products.md](18-volatility-products.md)
-3. [13-risk-and-pnl.md](13-risk-and-pnl.md)
-4. [examples/historical-var-es.md](examples/historical-var-es.md)
-5. [examples/garch-forecast.md](examples/garch-forecast.md)
-6. [examples/regime-switching-probability.md](examples/regime-switching-probability.md)
+3. [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md)
+4. [13-risk-and-pnl.md](13-risk-and-pnl.md)
+5. [examples/historical-var-es.md](examples/historical-var-es.md)
+6. [examples/garch-forecast.md](examples/garch-forecast.md)
+7. [examples/regime-switching-probability.md](examples/regime-switching-probability.md)

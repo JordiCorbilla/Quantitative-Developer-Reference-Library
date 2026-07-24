@@ -23,6 +23,7 @@ These examples are small by design. They are meant to connect formulas to implem
 - [pairs-trading-spread-signal.md](pairs-trading-spread-signal.md) - calculate a standardized residual signal for a pairs-trading workflow.
 - [equity-snapshot-metrics.md](equity-snapshot-metrics.md) - calculate market cap, P/E ratios, and dividend yield from a fictional equity snapshot.
 - [large-order-participation.md](large-order-participation.md) - calculate a participation-limited child-order quantity from a parent order and volume forecast.
+- [copula-tail-dependence.md](copula-tail-dependence.md) - calculate the lower-tail dependence coefficient of a Clayton copula and interpret it carefully.
 
 ## How To Use
 - Treat the numbers as sanity-check scaffolding.

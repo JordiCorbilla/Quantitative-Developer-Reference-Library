@@ -28,6 +28,24 @@ Good answers mention:
 - train/test splits by time and avoiding leakage,
 - economic significance, costs, capacity, and robustness.
 
+## Dependence Modelling And Copulas
+Read: [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md)
+
+Common questions:
+- Why is correlation not a complete dependence model?
+- What does Sklar's theorem provide?
+- How do Gaussian and Student-t copulas differ in the tails?
+- What are lower- and upper-tail dependence?
+- How would you calibrate and validate a copula model?
+
+Good answers mention:
+- separation of marginal distributions from the copula,
+- probability-integral transforms or rank-based pseudo-observations,
+- finite-quantile co-exceedance as well as asymptotic tail coefficients,
+- symmetric versus asymmetric dependence,
+- time variation, regime instability, parameter uncertainty, and family risk,
+- out-of-sample validation and stress testing of economic outputs.
+
 ## Options And Greeks
 Read: [01-options.md](01-options.md), [10-numerical-methods.md](10-numerical-methods.md)
 

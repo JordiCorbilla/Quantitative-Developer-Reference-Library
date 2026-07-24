@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Copula dependence and tail map</title>
+  <desc id="desc">An original diagram showing marginal transformation to uniform scores, copula dependence choices, tail behaviour, and transformation back to joint financial scenarios.</desc>
+  <style>.title{font:700 28px Arial,sans-serif;fill:#172033}.sub{font:400 16px Arial,sans-serif;fill:#46566f}.head{font:700 18px Arial,sans-serif;fill:#172033}.body{font:400 14px Arial,sans-serif;fill:#334155}.small{font:400 13px Arial,sans-serif;fill:#46566f}.tag{font:700 14px Arial,sans-serif;fill:#fff}</style>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#64748b"/></marker></defs>
+  <rect width="1200" height="620" fill="#f8fafc"/>
+  <text x="60" y="58" class="title">Copulas: Keep Marginals and Dependence as Separate Decisions</text>
+  <text x="60" y="88" class="sub">The same marginal distributions can produce very different joint losses when their tail dependence changes.</text>
+
+  <rect x="60" y="135" width="230" height="120" rx="8" fill="#e7f0fb" stroke="#4c78a8" stroke-width="2"/>
+  <text x="84" y="173" class="head">1. Model marginals</text><text x="84" y="202" class="body">Returns, defaults, exposure</text><text x="84" y="226" class="body">CDFs F1, F2, ..., Fd</text>
+  <path d="M300 195L370 195" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="380" y="135" width="240" height="120" rx="8" fill="#eaf7f2" stroke="#3c8c68" stroke-width="2"/>
+  <text x="404" y="173" class="head">2. Uniform scores</text><text x="404" y="202" class="body">Uj = Fj(Xj)</text><text x="404" y="226" class="body">Check PIT and ranks</text>
+  <path d="M630 195L700 195" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="710" y="135" width="430" height="120" rx="8" fill="#fff3df" stroke="#bd7627" stroke-width="2"/>
+  <text x="734" y="173" class="head">3. Fit and challenge dependence</text><text x="734" y="202" class="body">Family, parameters, tails, regimes, dimension</text><text x="734" y="226" class="body">Validate finite-quantile joint exceedance</text>
+
+  <rect x="60" y="320" width="250" height="155" rx="8" fill="#eef2f7" stroke="#64748b" stroke-width="2"/>
+  <text x="84" y="356" class="head">Gaussian</text><text x="84" y="384" class="body">Symmetric body dependence</text><text x="84" y="408" class="body">No asymptotic tail dependence</text>
+  <ellipse cx="185" cy="445" rx="66" ry="18" transform="rotate(24 185 445)" fill="none" stroke="#4c78a8" stroke-width="3"/>
+
+  <rect x="335" y="320" width="250" height="155" rx="8" fill="#f2ecfa" stroke="#7651a3" stroke-width="2"/>
+  <text x="359" y="356" class="head">Student-t</text><text x="359" y="384" class="body">Symmetric joint extremes</text><text x="359" y="408" class="body">Upper and lower tail dependence</text>
+  <circle cx="395" cy="449" r="7" fill="#7651a3"/><circle cx="414" cy="441" r="6" fill="#7651a3"/><circle cx="505" cy="367" r="7" fill="#7651a3"/><circle cx="523" cy="360" r="6" fill="#7651a3"/><path d="M398 448L521 361" stroke="#7651a3" stroke-width="2" stroke-dasharray="5 5"/>
+
+  <rect x="610" y="320" width="250" height="155" rx="8" fill="#fbeaf0" stroke="#ad4f6c" stroke-width="2"/>
+  <text x="634" y="356" class="head">Clayton</text><text x="634" y="384" class="body">Asymmetric dependence</text><text x="634" y="408" class="body">Lower-tail clustering</text>
+  <circle cx="660" cy="449" r="8" fill="#ad4f6c"/><circle cx="680" cy="443" r="7" fill="#ad4f6c"/><circle cx="700" cy="432" r="6" fill="#ad4f6c"/><path d="M660 449Q740 390 815 370" fill="none" stroke="#ad4f6c" stroke-width="2"/>
+
+  <rect x="885" y="320" width="255" height="155" rx="8" fill="#eaf7f2" stroke="#3c8c68" stroke-width="2"/>
+  <text x="909" y="356" class="head">Gumbel</text><text x="909" y="384" class="body">Asymmetric dependence</text><text x="909" y="408" class="body">Upper-tail clustering</text>
+  <path d="M930 450Q1000 430 1075 365" fill="none" stroke="#3c8c68" stroke-width="2"/><circle cx="1075" cy="365" r="8" fill="#3c8c68"/><circle cx="1057" cy="376" r="7" fill="#3c8c68"/><circle cx="1039" cy="389" r="6" fill="#3c8c68"/>
+
+  <path d="M600 493L600 530" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="285" y="532" width="630" height="70" rx="8" fill="#172033"/>
+  <text x="315" y="560" class="tag">4. Transform back to market scenarios and revalue the portfolio.</text>
+  <text x="315" y="582" class="tag">Stress both dependence parameters and the selected copula family.</text>
+</svg>
