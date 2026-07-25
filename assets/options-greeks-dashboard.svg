@@ -8,7 +8,8 @@
   </defs>
   <rect class="bg" width="1180" height="860"/>
   <text class="title" x="40" y="48">The Greeks: Key Option Price Sensitivities</text>
-  <text class="subtitle" x="40" y="76">Greeks measure how option value changes when spot, volatility, time, or rates change. Shapes below are typical Black-Scholes long-vanilla intuition.</text>
+  <text class="subtitle" x="40" y="72">Greeks measure how option value changes when spot, volatility, time, or rates change.</text>
+  <text class="subtitle" x="40" y="94">Shapes below are typical Black-Scholes long-vanilla intuition.</text>
   <rect class="note" x="880" y="28" width="250" height="62" rx="8"/>
   <text class="txt" x="898" y="54">Always state the shock convention:</text>
   <text class="small" x="898" y="74">sticky strike, sticky delta, unit scaling</text>
@@ -22,7 +23,7 @@
   <path class="blue" d="M95 360 C140 360,155 342,178 315 C194 295,210 276,235 258 C260 241,292 238,330 238"/>
   <path class="red" d="M95 238 C135 238,165 242,188 260 C210 278,225 306,245 330 C267 356,292 366,330 366"/>
   <text class="small" x="205" y="404">K</text><text class="small" x="318" y="388">S</text>
-  <text class="small" x="248" y="252">call</text><text class="small" x="250" y="350">put</text>
+  <text class="small" x="275" y="270">call</text><text class="small" x="275" y="345">put</text>
 
   <rect class="card" x="420" y="115" width="340" height="315" rx="10"/>
   <text class="h" x="442" y="148">2. Gamma</text>
@@ -52,7 +53,7 @@
   <line class="grid" x1="260" y1="650" x2="495" y2="650"/><line class="mark" x1="380" y1="590" x2="380" y2="740"/>
   <path class="amber" d="M260 675 C300 676,324 694,350 715 C374 735,405 735,430 715 C455 694,474 676,495 675"/>
   <text class="small" x="370" y="759">K</text><text class="small" x="483" y="743">S</text>
-  <text class="small" x="292" y="612">long ATM theta often most negative</text>
+  <text class="small" x="292" y="578">long ATM theta often most negative</text>
 
   <rect class="card" x="635" y="470" width="340" height="315" rx="10"/>
   <text class="h" x="657" y="503">5. Rho</text>

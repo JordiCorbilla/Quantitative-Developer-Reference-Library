@@ -11,7 +11,8 @@
   <rect class="amber" x="750" y="120" width="125" height="80" rx="9"/><text class="h" x="782" y="150">Auction</text><text class="txt" x="778" y="172">recovery price</text>
   <rect class="green" x="925" y="120" width="105" height="80" rx="9"/><text class="h" x="948" y="150">Settle</text><text class="txt" x="944" y="172">protection</text>
   <path class="arrow" d="M175 160H225"/><path class="arrow" d="M350 160H400"/><path class="arrow" d="M525 160H575"/><path class="arrow" d="M700 160H750"/><path class="arrow" d="M875 160H925"/>
-  <rect class="box" x="155" y="290" width="770" height="90" rx="9"/>
+  <rect class="box" x="155" y="290" width="770" height="105" rx="9"/>
   <text class="h" x="185" y="322">Control points</text>
-  <text class="txt" x="185" y="346">Accrued premium on default, deliverable obligations, auction settlement terms, recovery assumptions, and closeout state all change valuation and PnL explain.</text>
+  <text class="txt" x="185" y="346">Accrued premium on default, deliverable obligations, auction settlement terms, recovery assumptions,</text>
+  <text class="txt" x="185" y="366">and closeout state all change valuation and PnL explain.</text>
 </svg>

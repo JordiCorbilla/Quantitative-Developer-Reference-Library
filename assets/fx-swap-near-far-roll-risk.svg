@@ -22,17 +22,17 @@
   <text x="790" y="136" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#7c2d12">Party B</text>
   <text x="790" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#9a3412">has USD today</text>
 
-  <text x="460" y="112" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">Near leg: spot date</text>
-  <path d="M225 132 H690" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <text x="460" y="106" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">Near leg: spot date</text>
+  <path d="M225 136 H690" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
   <text x="458" y="124" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#1e40af">sell EUR / buy USD at spot</text>
-  <path d="M690 160 H225" stroke="#c2410c" stroke-width="3" marker-end="url(#arrowOrange)"/>
-  <text x="458" y="177" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#9a3412">buy EUR / sell USD at spot</text>
+  <path d="M690 164 H225" stroke="#c2410c" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <text x="458" y="181" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#9a3412">buy EUR / sell USD at spot</text>
 
-  <text x="460" y="222" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">Far leg: maturity date</text>
-  <path d="M225 242 H690" stroke="#c2410c" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#arrowOrange)"/>
-  <text x="458" y="234" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#9a3412">buy EUR / sell USD at forward</text>
-  <path d="M690 270 H225" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#arrowBlue)"/>
-  <text x="458" y="287" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#1e40af">sell EUR / buy USD at forward</text>
+  <text x="460" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">Far leg: maturity date</text>
+  <path d="M225 248 H690" stroke="#c2410c" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#arrowOrange)"/>
+  <text x="458" y="236" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#9a3412">buy EUR / sell USD at forward</text>
+  <path d="M690 276 H225" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#arrowBlue)"/>
+  <text x="458" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#1e40af">sell EUR / buy USD at forward</text>
 
   <rect x="70" y="320" width="210" height="58" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
   <text x="175" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#0f172a">Forward points</text>

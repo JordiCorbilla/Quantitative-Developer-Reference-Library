@@ -44,7 +44,7 @@
   <text x="880" y="414" class="step">6. Monitor or retire</text>
   <text x="880" y="441" class="body">Model break, factor drift,</text>
   <text x="880" y="464" class="body">liquidity, borrow, capacity</text>
-  <path d="M855 502 L745 502 L745 525 L180 525 L180 285" fill="none" stroke="#ad4f6c" stroke-width="3" marker-end="url(#arrow)"/>
-  <rect x="245" y="492" width="390" height="48" rx="8" fill="#ad4f6c"/>
+  <path d="M998 480 L998 525 L180 525 L180 265" fill="none" stroke="#ad4f6c" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="245" y="492" width="500" height="48" rx="8" fill="#ad4f6c"/>
   <text x="268" y="522" class="note">Invalidation is a valid outcome: do not force mean reversion.</text>
 </svg>

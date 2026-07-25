@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="470" viewBox="0 0 1060 470" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="540" viewBox="0 0 1060 540" role="img" aria-labelledby="title desc">
   <title id="title">Beta contribution to factor VaR</title>
   <desc id="desc">Example showing how beta scales market factor loss and why residual risk must be added for a complete VaR estimate.</desc>
   <defs>
@@ -9,7 +9,7 @@
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
     </marker>
   </defs>
-  <rect class="bg" width="1060" height="470"/>
+  <rect class="bg" width="1060" height="540"/>
   <text class="title" x="40" y="48">Beta in a Simple Market-Factor VaR Estimate</text>
   <text class="small" x="40" y="72">Illustrative data only. The point is the mechanics, not a recommendation or forecast.</text>
 
@@ -22,7 +22,8 @@
   <rect class="box market" x="315" y="110" width="220" height="120" rx="8"/>
   <text class="h" x="340" y="140">Beta scaling</text>
   <text class="formula" x="340" y="172">market loss ~=</text>
-  <text class="formula" x="340" y="198">position x beta x factor VaR</text>
+  <text class="formula" x="340" y="194">position x beta x</text>
+  <text class="formula" x="340" y="216">factor VaR</text>
 
   <rect class="box loss" x="590" y="110" width="220" height="120" rx="8"/>
   <text class="h" x="615" y="140">Example beta = 1.5</text>
@@ -40,18 +41,18 @@
   <path class="arrow" d="M535 170 L590 170"/>
   <path class="arrow" d="M810 170 L865 170"/>
 
-  <line x1="80" y1="395" x2="990" y2="395" stroke="#334155" stroke-width="2"/>
+  <line x1="80" y1="460" x2="990" y2="460" stroke="#334155" stroke-width="2"/>
   <text class="h" x="80" y="280">Market-factor loss for the same USD 10m position</text>
-  <rect class="bar1" x="120" y="335" width="170" height="60"/>
-  <text class="txt" x="150" y="323">beta 0.5</text>
-  <text class="h" x="168" y="371">USD 100k</text>
-  <rect class="bar2" x="405" y="275" width="170" height="120"/>
-  <text class="txt" x="435" y="263">beta 1.0</text>
-  <text class="h" x="453" y="341">USD 200k</text>
-  <rect class="bar3" x="690" y="215" width="170" height="180"/>
-  <text class="txt" x="720" y="203">beta 1.5</text>
-  <text class="h" x="738" y="311">USD 300k</text>
+  <rect class="bar1" x="120" y="400" width="170" height="60"/>
+  <text class="txt" x="150" y="388">beta 0.5</text>
+  <text class="h" x="168" y="436">USD 100k</text>
+  <rect class="bar2" x="405" y="340" width="170" height="120"/>
+  <text class="txt" x="435" y="328">beta 1.0</text>
+  <text class="h" x="453" y="406">USD 200k</text>
+  <rect class="bar3" x="690" y="280" width="170" height="180"/>
+  <text class="txt" x="720" y="268">beta 1.5</text>
+  <text class="h" x="738" y="376">USD 300k</text>
 
-  <rect class="box warn" x="80" y="415" width="910" height="38" rx="8"/>
-  <text class="txt" x="105" y="439">Beta captures broad-market sensitivity. Complete VaR also needs residual volatility, sector factors, liquidity, concentration, nonlinear exposures, and stress scenarios.</text>
+  <rect class="box warn" x="80" y="480" width="910" height="42" rx="8"/>
+  <text class="txt" x="105" y="506">Beta captures broad-market sensitivity. Complete VaR also needs residual volatility, sector factors, liquidity, concentration, nonlinear exposures, and stress scenarios.</text>
 </svg>

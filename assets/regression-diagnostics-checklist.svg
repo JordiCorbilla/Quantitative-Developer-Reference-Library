@@ -40,6 +40,7 @@
   <text class="txt" x="752" y="303">train/test split by time</text>
   <text class="txt" x="752" y="321">avoid look-ahead and leakage</text>
 
-  <rect class="card" x="160" y="370" width="740" height="45" rx="8"/>
-  <text class="h" x="190" y="399">Use regression for beta, factor exposure, hedge ratios, signal tests, attribution, and risk models, but validate before trusting it.</text>
+  <rect class="card" x="160" y="360" width="740" height="65" rx="8"/>
+  <text class="h" x="190" y="388">Use regression for beta, factor exposure, hedge ratios, and signal tests.</text>
+  <text class="h" x="190" y="408">Use it for attribution and risk models, but validate before trusting it.</text>
 </svg>

@@ -24,9 +24,9 @@
   <text class="txt" x="278" y="233">state parameters</text>
 
   <rect class="box prob" x="465" y="160" width="155" height="100" rx="8"/>
-  <text class="h" x="488" y="190">State Probabilities</text>
-  <text class="txt" x="488" y="215">filtered</text>
-  <text class="txt" x="488" y="233">smoothed</text>
+  <text class="h" x="480" y="190" style="font-size:14px">State Probabilities</text>
+  <text class="txt" x="480" y="215">filtered</text>
+  <text class="txt" x="480" y="233">smoothed</text>
 
   <rect class="box output" x="675" y="90" width="155" height="100" rx="8"/>
   <text class="h" x="698" y="120">Forecast</text>

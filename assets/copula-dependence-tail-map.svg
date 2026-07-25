@@ -22,15 +22,15 @@
 
   <rect x="335" y="320" width="250" height="155" rx="8" fill="#f2ecfa" stroke="#7651a3" stroke-width="2"/>
   <text x="359" y="356" class="head">Student-t</text><text x="359" y="384" class="body">Symmetric joint extremes</text><text x="359" y="408" class="body">Upper and lower tail dependence</text>
-  <circle cx="395" cy="449" r="7" fill="#7651a3"/><circle cx="414" cy="441" r="6" fill="#7651a3"/><circle cx="505" cy="367" r="7" fill="#7651a3"/><circle cx="523" cy="360" r="6" fill="#7651a3"/><path d="M398 448L521 361" stroke="#7651a3" stroke-width="2" stroke-dasharray="5 5"/>
+  <circle cx="395" cy="454" r="7" fill="#7651a3"/><circle cx="414" cy="446" r="6" fill="#7651a3"/><circle cx="495" cy="427" r="7" fill="#7651a3"/><circle cx="516" cy="420" r="6" fill="#7651a3"/><path d="M398 453L514 421" stroke="#7651a3" stroke-width="2" stroke-dasharray="5 5"/>
 
   <rect x="610" y="320" width="250" height="155" rx="8" fill="#fbeaf0" stroke="#ad4f6c" stroke-width="2"/>
   <text x="634" y="356" class="head">Clayton</text><text x="634" y="384" class="body">Asymmetric dependence</text><text x="634" y="408" class="body">Lower-tail clustering</text>
-  <circle cx="660" cy="449" r="8" fill="#ad4f6c"/><circle cx="680" cy="443" r="7" fill="#ad4f6c"/><circle cx="700" cy="432" r="6" fill="#ad4f6c"/><path d="M660 449Q740 390 815 370" fill="none" stroke="#ad4f6c" stroke-width="2"/>
+  <circle cx="660" cy="452" r="8" fill="#ad4f6c"/><circle cx="680" cy="447" r="7" fill="#ad4f6c"/><circle cx="700" cy="440" r="6" fill="#ad4f6c"/><path d="M660 452Q740 440 815 420" fill="none" stroke="#ad4f6c" stroke-width="2"/>
 
   <rect x="885" y="320" width="255" height="155" rx="8" fill="#eaf7f2" stroke="#3c8c68" stroke-width="2"/>
   <text x="909" y="356" class="head">Gumbel</text><text x="909" y="384" class="body">Asymmetric dependence</text><text x="909" y="408" class="body">Upper-tail clustering</text>
-  <path d="M930 450Q1000 430 1075 365" fill="none" stroke="#3c8c68" stroke-width="2"/><circle cx="1075" cy="365" r="8" fill="#3c8c68"/><circle cx="1057" cy="376" r="7" fill="#3c8c68"/><circle cx="1039" cy="389" r="6" fill="#3c8c68"/>
+  <path d="M930 452Q1000 440 1075 425" fill="none" stroke="#3c8c68" stroke-width="2"/><circle cx="1075" cy="425" r="8" fill="#3c8c68"/><circle cx="1057" cy="436" r="7" fill="#3c8c68"/><circle cx="1039" cy="444" r="6" fill="#3c8c68"/>
 
   <path d="M600 493L600 530" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
   <rect x="285" y="532" width="630" height="70" rx="8" fill="#172033"/>

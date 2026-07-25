@@ -1,16 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
   <title id="title">PnL explain waterfall</title>
   <desc id="desc">PnL explain waterfall from start PV to market move, carry and theta, new trades, lifecycle events, model changes, residual, and end PV.</desc>
-  <defs><style>.bg{fill:#fbfcff}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 14px Arial,sans-serif;fill:#0f172a}.txt{font:12px Arial,sans-serif;fill:#334155}.bar{fill:#93c5fd;stroke:#2563eb;stroke-width:2}.pos{fill:#86efac;stroke:#16a34a;stroke-width:2}.neg{fill:#fca5a5;stroke:#dc2626;stroke-width:2}.res{fill:#fde68a;stroke:#d97706;stroke-width:2}.axis{stroke:#334155;stroke-width:2}</style></defs>
+  <defs><style>.bg{fill:#fbfcff}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 12px Arial,sans-serif;fill:#0f172a}.txt{font:11px Arial,sans-serif;fill:#334155}.bar{fill:#93c5fd;stroke:#2563eb;stroke-width:2}.pos{fill:#86efac;stroke:#16a34a;stroke-width:2}.neg{fill:#fca5a5;stroke:#dc2626;stroke-width:2}.res{fill:#fde68a;stroke:#d97706;stroke-width:2}.axis{stroke:#334155;stroke-width:2}.connector{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:4 3}</style></defs>
   <rect class="bg" width="1060" height="430"/>
   <text class="title" x="40" y="48">PnL Explain Waterfall</text>
   <line class="axis" x1="70" y1="330" x2="1000" y2="330"/>
-  <rect class="bar" x="90" y="170" width="90" height="160"/><text class="h" x="105" y="355">Start PV</text>
-  <rect class="pos" x="220" y="125" width="90" height="205"/><text class="h" x="224" y="355">Market</text><text class="txt" x="228" y="375">delta/vega</text>
-  <rect class="neg" x="350" y="230" width="90" height="100"/><text class="h" x="360" y="355">Carry</text><text class="txt" x="356" y="375">theta/roll</text>
-  <rect class="pos" x="480" y="205" width="90" height="125"/><text class="h" x="484" y="355">New Trades</text>
-  <rect class="neg" x="610" y="260" width="90" height="70"/><text class="h" x="614" y="355">Lifecycle</text>
-  <rect class="res" x="740" y="245" width="90" height="85"/><text class="h" x="755" y="355">Residual</text>
-  <rect class="bar" x="870" y="145" width="90" height="185"/><text class="h" x="890" y="355">End PV</text>
+  <rect class="bar" x="70" y="200" width="80" height="130"/>
+  <line class="connector" x1="150" y1="200" x2="190" y2="200"/>
+  <rect class="pos" x="190" y="145" width="80" height="55"/>
+  <line class="connector" x1="270" y1="145" x2="310" y2="145"/>
+  <rect class="neg" x="310" y="145" width="80" height="35"/>
+  <line class="connector" x1="390" y1="180" x2="430" y2="180"/>
+  <rect class="pos" x="430" y="140" width="80" height="40"/>
+  <line class="connector" x1="510" y1="140" x2="550" y2="140"/>
+  <rect class="neg" x="550" y="140" width="80" height="25"/>
+  <line class="connector" x1="630" y1="165" x2="670" y2="165"/>
+  <rect class="neg" x="670" y="165" width="80" height="30"/>
+  <line class="connector" x1="750" y1="195" x2="790" y2="195"/>
+  <rect class="res" x="790" y="185" width="80" height="10"/>
+  <line class="connector" x1="870" y1="185" x2="910" y2="185"/>
+  <rect class="bar" x="910" y="185" width="80" height="145"/>
+
+  <text class="h" x="85" y="355">Start PV</text>
+  <text class="h" x="207" y="355">Market</text><text class="txt" x="207" y="375">delta/vega</text>
+  <text class="h" x="327" y="355">Carry</text><text class="txt" x="324" y="375">theta/roll</text>
+  <text class="h" x="437" y="355">New Trades</text>
+  <text class="h" x="560" y="355">Lifecycle</text>
+  <text class="h" x="674" y="355">Model/Data</text>
+  <text class="h" x="803" y="355">Residual</text>
+  <text class="h" x="928" y="355">End PV</text>
   <text class="txt" x="150" y="92">A useful explain separates market moves, time, trades, lifecycle events, model/data changes, and unexplained residual.</text>
 </svg>

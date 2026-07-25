@@ -45,11 +45,29 @@ def validate_local_links(errors: list[str]) -> None:
 
 
 def validate_svgs(errors: list[str]) -> None:
-    for path in sorted((ROOT / "assets").glob("*.svg")):
+    svg_paths = [
+        path
+        for directory in (ROOT / "assets", ROOT / "blog-assets")
+        for path in directory.glob("*.svg")
+    ]
+    for path in sorted(svg_paths):
         try:
-            ET.parse(path)
+            root = ET.parse(path).getroot()
         except ET.ParseError as exc:
             errors.append(f"Invalid SVG XML: {path.relative_to(ROOT)}: {exc}")
+            continue
+
+        required_attributes = ("width", "height", "viewBox", "role", "aria-labelledby")
+        missing = [attribute for attribute in required_attributes if not root.get(attribute)]
+        namespace = {"svg": "http://www.w3.org/2000/svg"}
+        if root.find("svg:title", namespace) is None:
+            missing.append("title")
+        if root.find("svg:desc", namespace) is None:
+            missing.append("desc")
+        if missing:
+            errors.append(
+                f"Incomplete SVG metadata: {path.relative_to(ROOT)}: {', '.join(missing)}"
+            )
 
 
 def validate_chapter_sections(errors: list[str]) -> None:

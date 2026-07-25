@@ -53,6 +53,6 @@
   <path class="arrow" d="M500 195L370 245"/>
   <path class="arrow" d="M560 195L590 245"/>
   <path class="arrow" d="M620 195L810 245"/>
-  <path class="arrow" d="M530 195L530 370"/>
+  <path class="arrow" d="M530 195L480 220L480 352L530 352L530 370"/>
   <path class="arrow" d="M670 150L790 150"/>
 </svg>

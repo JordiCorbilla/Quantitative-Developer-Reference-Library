@@ -12,8 +12,8 @@
   <path class="arrow" d="M205 148H260"/><path class="arrow" d="M430 148H485"/><path class="arrow" d="M655 148H710"/><path class="arrow" d="M860 148H915"/>
   <rect class="box" x="90" y="255" width="860" height="105" rx="9"/>
   <text class="h" x="115" y="286">Linear PnL and Margin Cashflow</text>
-  <line class="axis" x1="130" y1="330" x2="460" y2="330"/><line class="axis" x1="180" y1="345" x2="180" y2="285"/>
-  <path class="line" d="M140 342L440 292"/><text class="small" x="465" y="333">futures price</text><text class="small" x="145" y="282">long PnL</text>
+  <line class="axis" x1="130" y1="330" x2="460" y2="330"/><line class="axis" x1="180" y1="345" x2="180" y2="300"/>
+  <path class="line" d="M140 342L440 292"/><text class="small" x="465" y="333">futures price</text><text class="small" x="190" y="307">long PnL</text>
   <text class="txt" x="560" y="305">Daily settlement means PnL is transferred through margin,</text>
   <text class="txt" x="560" y="328">not merely accumulated until final maturity.</text>
 </svg>

@@ -53,5 +53,5 @@
   <circle class="point" cx="255" cy="380" r="5"/><circle class="point" cx="340" cy="365" r="5"/><circle class="point" cx="430" cy="350" r="5"/><circle class="point" cx="520" cy="320" r="5"/><circle class="point" cx="610" cy="335" r="5"/><circle class="point" cx="700" cy="305" r="5"/><circle class="point" cx="790" cy="285" r="5"/>
   <line class="resid" x1="610" y1="335" x2="610" y2="329"/>
   <line class="resid" x1="520" y1="320" x2="520" y2="344"/>
-  <text class="small" x="555" y="250">OLS chooses the line that minimizes squared residuals.</text>
+  <text class="small" x="530" y="270" text-anchor="middle">OLS chooses the line that minimizes squared residuals.</text>
 </svg>

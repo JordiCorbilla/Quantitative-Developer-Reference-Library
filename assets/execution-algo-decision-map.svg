@@ -43,21 +43,21 @@
   <text class="txt" x="590" y="322">participate in real volume</text>
   <text class="txt" x="590" y="340">adaptive to liquidity</text>
 
-  <rect class="box risk" x="805" y="110" width="200" height="95" rx="8"/>
-  <text class="h" x="835" y="142">Implementation Shortfall</text>
-  <text class="txt" x="830" y="167">front-load if alpha decay</text>
-  <text class="txt" x="830" y="185">beats impact cost</text>
+  <rect class="box risk" x="795" y="110" width="220" height="95" rx="8"/>
+  <text class="h" x="905" y="142" text-anchor="middle">Implementation Shortfall</text>
+  <text class="txt" x="820" y="167">front-load if alpha decay</text>
+  <text class="txt" x="820" y="185">beats impact cost</text>
 
-  <rect class="box warn" x="805" y="250" width="200" height="95" rx="8"/>
-  <text class="h" x="850" y="282">Limit / Passive</text>
-  <text class="txt" x="830" y="307">when price control matters</text>
-  <text class="txt" x="830" y="325">accept fill uncertainty</text>
+  <rect class="box warn" x="795" y="250" width="220" height="95" rx="8"/>
+  <text class="h" x="905" y="282" text-anchor="middle">Limit / Passive</text>
+  <text class="txt" x="820" y="307">when price control matters</text>
+  <text class="txt" x="820" y="325">accept fill uncertainty</text>
 
   <path class="arrow" d="M245 180L310 125"/>
   <path class="arrow" d="M245 225L310 280"/>
   <path class="arrow" d="M500 120L565 98"/>
   <path class="arrow" d="M500 150L565 202"/>
   <path class="arrow" d="M500 280L565 308"/>
-  <path class="arrow" d="M740 98L805 150"/>
-  <path class="arrow" d="M740 308L805 298"/>
+  <path class="arrow" d="M740 98L795 150"/>
+  <path class="arrow" d="M740 308L795 298"/>
 </svg>

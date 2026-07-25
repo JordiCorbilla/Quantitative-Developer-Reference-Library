@@ -11,7 +11,8 @@
   <rect class="box" x="775" y="120" width="130" height="80" rx="9"/><text class="h" x="798" y="150">Logistics</text><text class="txt" x="796" y="172">location/grade</text>
   <rect class="green" x="955" y="120" width="90" height="80" rx="9"/><text class="h" x="976" y="150">Settle</text><text class="txt" x="974" y="172">cash/phys</text>
   <path class="arrow" d="M185 160H235"/><path class="arrow" d="M365 160H415"/><path class="arrow" d="M545 160H595"/><path class="arrow" d="M725 160H775"/><path class="arrow" d="M905 160H955"/>
-  <rect class="box" x="170" y="290" width="740" height="90" rx="9"/>
+  <rect class="box" x="170" y="290" width="740" height="105" rx="9"/>
   <text class="h" x="200" y="322">Implementation warning</text>
-  <text class="txt" x="200" y="346">First notice date, last trade date, delivery grade, storage capacity, transport, and cash settlement index are economic terms, not reference-data decoration.</text>
+  <text class="txt" x="200" y="346">First notice date, last trade date, delivery grade, storage capacity, transport, and cash settlement index</text>
+  <text class="txt" x="200" y="366">are economic terms, not reference-data decoration.</text>
 </svg>

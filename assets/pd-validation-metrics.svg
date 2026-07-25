@@ -12,16 +12,19 @@
 
   <rect class="panel disc" x="55" y="115" width="455" height="145" rx="8"/>
   <text class="h" x="85" y="147">Discrimination</text>
-  <text class="txt" x="85" y="173">Can the model separate good and bad obligors?</text>
-  <text class="txt" x="85" y="195">Metrics: AUC / ROC, Gini, KS statistic.</text>
+  <text class="txt" x="85" y="171">Can the model separate good and</text>
+  <text class="txt" x="85" y="188">bad obligors?</text>
+  <text class="txt" x="85" y="211">Metrics: AUC / ROC, Gini, KS statistic.</text>
   <line class="axis" x1="330" y1="230" x2="470" y2="230"/><line class="axis" x1="330" y1="230" x2="330" y2="130"/>
   <path class="line" d="M330 230 C350 170 405 135 470 128"/>
   <path class="dash" d="M330 230L470 130"/>
 
   <rect class="panel cal" x="550" y="115" width="455" height="145" rx="8"/>
   <text class="h" x="580" y="147">Calibration</text>
-  <text class="txt" x="580" y="173">Do predicted PDs match observed default rates?</text>
-  <text class="txt" x="580" y="195">Metrics: calibration plot, Brier score, bin default rates.</text>
+  <text class="txt" x="580" y="171">Do predicted PDs match observed</text>
+  <text class="txt" x="580" y="188">default rates?</text>
+  <text class="txt" x="580" y="211">Metrics: calibration plot, Brier score,</text>
+  <text class="txt" x="580" y="228">bin default rates.</text>
   <line class="axis" x1="825" y1="230" x2="965" y2="230"/><line class="axis" x1="825" y1="230" x2="825" y2="130"/>
   <path class="dash" d="M825 230L965 130"/>
   <path class="line" d="M825 225 C865 220 900 175 965 150"/>

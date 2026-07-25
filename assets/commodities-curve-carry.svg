@@ -8,8 +8,8 @@
   <text class="h" x="80" y="128">Forward Curve Shapes</text>
   <line class="axis" x1="105" y1="315" x2="565" y2="315"/><line class="axis" x1="135" y1="335" x2="135" y2="150"/>
   <path class="up" d="M145 285 C260 260,390 220,555 175"/><path class="down" d="M145 180 C265 205,390 250,555 292"/>
-  <text class="small" x="565" y="333">delivery month</text><text class="small" x="95" y="150">price</text>
-  <text class="txt" x="405" y="184">contango</text><text class="txt" x="400" y="286">backwardation</text>
+  <text class="small" x="565" y="333" text-anchor="end">delivery month</text><text class="small" x="95" y="150">price</text>
+  <text class="txt" x="405" y="184">contango</text><text class="txt" x="400" y="300">backwardation</text>
   <rect class="note" x="675" y="105" width="300" height="230" rx="9"/>
   <text class="h" x="700" y="138">Drivers</text>
   <text class="txt" x="700" y="166">storage cost and financing</text>
