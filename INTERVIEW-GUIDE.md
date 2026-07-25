@@ -272,3 +272,159 @@ Good answers mention:
 - factor covariance decomposition,
 - target vs executed holdings,
 - slippage and capacity.
+
+## Event-Driven And Merger Arbitrage
+Read: [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md), [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md)
+
+Common questions:
+- How do you convert a merger spread into an expected return?
+- How would you estimate downside if a transaction breaks?
+- How do cash, stock, collar, election, and CVR consideration differ?
+- Why is a wide spread not necessarily an attractive trade?
+- How would you aggregate risk across deals with common regulatory or financing exposure?
+
+Good answers mention:
+- exact consideration, timing, dividends, borrow, financing, and annualization,
+- scenario probabilities and conditional values rather than spread alone,
+- break-price uncertainty, path-dependent hedge ratios, and document-defined terms,
+- catalyst calendars, position liquidity, correlation under stress, and loss budgets,
+- lifecycle-aware PnL separating spread convergence, market hedge, carry, terms changes, and residual.
+
+## Capital Structure And Convertible Arbitrage
+Read: [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md), [35-convertible-arbitrage.md](35-convertible-arbitrage.md), [25-convertibles-and-equity-linked-notes.md](25-convertibles-and-equity-linked-notes.md)
+
+Common questions:
+- How can two securities from the same issuer imply inconsistent default or recovery assumptions?
+- What are a convertible's bond floor, parity, conversion premium, and implied volatility?
+- Why must a convertible hedge be rebalanced?
+- What can make an apparently hedged capital-structure trade lose money?
+
+Good answers mention:
+- legal entity, seniority, guarantees, collateral, maturity, covenants, and recovery waterfall,
+- separating rates, credit, equity, volatility, borrow, and optionality,
+- model delta versus executable hedge, gamma scalping, financing, coupons, and borrow cost,
+- jump-to-default, gap risk, liquidity, call features, corporate actions, and basis convergence uncertainty.
+
+## Warrants, Rights, PIPEs, And SPACs
+Read: [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md)
+
+Common questions:
+- How does a warrant differ from a listed call option?
+- How do you value a separable unit containing a share and warrant?
+- What are the important economic mechanics of a rights offering or PIPE?
+- What makes a redemption election operationally important?
+
+Good answers mention:
+- issuer dilution, anti-dilution adjustments, redemption clauses, cashless exercise, and expiry,
+- trust value, unit separation, business-combination timing, votes, redemption, and warrant terms,
+- subscription ratio, oversubscription, registration, lockups, dilution, and settlement,
+- authoritative document parsing, eligibility cutoffs, deadlines, financing, liquidity, and scenario risk.
+
+## Volatility Relative Value And Event Volatility
+Read: [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md), [18-volatility-products.md](18-volatility-products.md)
+
+Common questions:
+- How do you infer an event move from option prices?
+- What is a calendar, skew, or dispersion relative-value trade?
+- Why is an implied-volatility spread not the same as expected PnL?
+- How would you attribute a delta-hedged option strategy?
+
+Good answers mention:
+- variance-time decomposition and explicit pre-event, event, and post-event assumptions,
+- strike, maturity, forward, dividends, surface convention, and comparable liquidity,
+- carry, theta, realized hedge PnL, vega, gamma, skew, vol-of-vol, jumps, and transaction costs,
+- discrete hedging, pin and gap risk, surface marking, capacity, and scenario-based loss limits.
+
+## Private, Distressed, And Real-Estate Credit
+Read: [39-private-credit-distressed-and-real-estate-credit.md](39-private-credit-distressed-and-real-estate-credit.md), [07-credit.md](07-credit.md)
+
+Common questions:
+- How do you construct a debt waterfall and estimate recovery?
+- What are covenant headroom, DSCR, and LTV?
+- How do delayed draws, payment-in-kind interest, and amendment fees affect returns?
+- Why can the marked yield of an illiquid loan be misleading?
+
+Good answers mention:
+- borrower and guarantor perimeter, priority, collateral, intercreditor terms, and claim amount,
+- base, downside, and liquidation cash flows with timing and enforcement costs,
+- document-defined covenant calculations, add-backs, baskets, cure rights, and reporting lag,
+- non-accrual, stale marks, optionality, funding commitments, liquidity, concentration, and workout duration.
+
+## Point-In-Time Data And Event Systems
+Read: [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [11-market-data.md](11-market-data.md)
+
+Common questions:
+- What is the difference between valid time and system or knowledge time?
+- How would you reproduce the data visible to a strategy on a historical date?
+- How should corrections, restatements, and late events be represented?
+- What identifiers are needed to follow a security through corporate actions?
+
+Good answers mention:
+- bitemporal intervals, source timestamps, receipt timestamps, and immutable raw events,
+- as-of joins that filter on both effective and knowledge time,
+- append-only versions, deterministic reducers, replay, lineage, and snapshot identifiers,
+- issuer, legal-entity, listing, and instrument identifiers with effective-dated mappings,
+- tests for overlaps, gaps, duplicate events, future knowledge, and replay equivalence.
+
+## Production Quant Engineering
+Read: [41-production-quant-engineering.md](41-production-quant-engineering.md), [12-pricing-architecture.md](12-pricing-architecture.md), [15-performance-and-production.md](15-performance-and-production.md)
+
+Common questions:
+- How would you distribute a large portfolio risk calculation?
+- What makes a valuation result reproducible?
+- How do you retry safely after a partial failure?
+- Which tests belong around a pricing or research platform?
+
+Good answers mention:
+- deterministic partitioning, stable aggregation, bounded payloads, and workload-aware scheduling,
+- versioned trade, market, model, scenario, configuration, and code inputs,
+- idempotency keys, checkpointing, atomic publication, and quarantine of failed work,
+- unit, property, golden, integration, replay, performance, and failure-injection tests,
+- profiling before optimization plus latency, throughput, data-freshness, residual, and error observability.
+
+## Prime Brokerage, Counterparty, And Funding
+Read: [43-prime-brokerage-counterparty-and-funding.md](43-prime-brokerage-counterparty-and-funding.md), [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md)
+
+Common questions:
+- What drives the financing PnL of a long/short book?
+- What are locate, borrow fee, rebate, recall, and buy-in risk?
+- How do margin and netting differ across cash and synthetic positions?
+- Why should counterparty exposure and funding be allocated before trade entry?
+
+Good answers mention:
+- long debit rate, short-credit rebate, stock-loan fee, spreads, balances, and day count,
+- availability tiers, utilization, term versus open borrow, recalls, and forced close-outs,
+- legal netting sets, collateral eligibility, haircuts, initial and variation margin, and wrong-way risk,
+- current exposure, PFE, liquidity, concentration, counterparty limits, and stress funding needs.
+
+## Fundamental Catalyst Equity Analysis
+Read: [42-fundamental-catalyst-equity-analysis.md](42-fundamental-catalyst-equity-analysis.md)
+
+Common questions:
+- How do you translate an earnings view into a scenario-weighted valuation?
+- What should an earnings bridge reconcile?
+- How do you distinguish thesis error from timing error?
+- How would you hedge a catalyst-driven equity position?
+
+Good answers mention:
+- unit volumes, price, mix, margins, working capital, capital expenditure, share count, and guidance,
+- reported-to-adjusted reconciliations and estimate-revision history with knowledge timestamps,
+- base, bull, bear, and event scenarios with explicit probabilities and invalidation criteria,
+- factor, sector, beta, option, and pair hedges with basis, borrow, and liquidity risk,
+- post-event attribution separating estimate change, multiple change, market move, hedge, and costs.
+
+## Robust Research And Portfolio Validation
+Read: [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+
+Common questions:
+- How do you distinguish a robust signal from a backtest artifact?
+- Why can an estimated covariance matrix destabilize optimization?
+- What are purging and embargo in cross-validation?
+- When might a thresholded co-movement estimator be useful?
+
+Good answers mention:
+- a frozen decision protocol, time-aware splits, multiple-testing control, and untouched holdouts,
+- shrinkage, conditioning, estimation error, turnover penalties, constraints, and scenario stability,
+- eliminating label overlap and information leakage around adjacent observations,
+- explicit threshold and estimator definitions, sensitivity analysis, positive-semidefinite handling, and economic interpretation,
+- net performance after costs, borrow, financing, capacity, and implementation delay.

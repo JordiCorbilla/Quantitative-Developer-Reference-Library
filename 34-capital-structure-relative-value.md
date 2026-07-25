@@ -48,7 +48,7 @@ $$
 A_k = \max(EV_k - C_k, 0).
 $$
 
-For claim \(i\), ordered from most senior to most junior, with allowed amount \(F_i\), a simple absolute-priority waterfall gives:
+For claim \(i\) in priority order, with allowed amount \(F_i\), a simple waterfall gives:
 
 $$
 R_{i,k} = \min\left(F_i,\max\left(A_k-\sum_{j<i}R_{j,k},0\right)\right).
@@ -133,7 +133,7 @@ A reproducible waterfall for this example is in [examples/capital-structure-reco
 - Hedge slippage when CS01, beta, conversion delta, or deliverability changes.
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
-Static and legal data must be effective-dated and document-sourced:
+Legal data must be effective-dated and document-sourced:
 
 - Issuer and legal-entity hierarchy; domicile; entity identifiers; guarantor relationships.
 - Security, facility, and tranche identifiers; borrower; currency; face; maturity; coupon; call/put terms.

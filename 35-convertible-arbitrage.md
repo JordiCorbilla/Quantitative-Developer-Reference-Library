@@ -33,7 +33,7 @@ The bond normally trades over the counter; its hedge may trade on exchange or th
 Terms should be modelled as dated rules, not prose flags. Conversion windows, call tests, puts, dividend adjustments, anti-dilution provisions, merger consideration, cash settlement elections, share caps, and notice periods can all alter the payoff.
 
 ## Core Pricing Framework
-A useful conceptual decomposition is:
+A conceptual decomposition is:
 
 $$
 V_{\text{CB}} \approx V_{\text{debt}}

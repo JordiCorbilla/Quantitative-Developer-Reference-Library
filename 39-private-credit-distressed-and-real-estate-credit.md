@@ -27,7 +27,7 @@ Loans may be bilateral, clubbed, or syndicated; an agent maintains lender record
 - Real-estate metrics require defined numerators and denominators. Net operating income (NOI), net cash flow, appraised value, stabilized value, debt service, and loan balance are not interchangeable.
 - Commitments, funded principal, face owned, settlement receivable, and unfunded obligations must be tracked separately.
 
-Common underwriting measures are:
+Underwriting measures are:
 
 $$
 \text{net leverage}=\frac{\text{debt}-\text{eligible cash}}{\text{adjusted EBITDA}},
@@ -127,7 +127,7 @@ $$
 5.25\times50-(225-15)=USD\ 52.5m.
 $$
 
-If EBITDA falls 25% to USD 37.5m with debt and cash unchanged, leverage becomes 5.60x and breaches the covenant by 0.35x. This does not by itself predict immediate acceleration: the system must check cure rights, equity-cure mechanics, test dates, grace periods, waivers, and whether add-backs change under stress. A reusable calculator appears in [examples/private-credit-covenant-headroom.md](examples/private-credit-covenant-headroom.md).
+If EBITDA falls 25% to USD 37.5m with debt and cash unchanged, leverage becomes 5.60x and breaches by 0.35x. Before assuming acceleration, check cures, test dates, grace periods, waivers, and add-backs. A reusable calculator appears in [examples/private-credit-covenant-headroom.md](examples/private-credit-covenant-headroom.md).
 
 ### Real-Estate Refinance Stress
 
@@ -154,11 +154,11 @@ Now reduce NOI by 15% to USD 10.2m and increase the capitalization rate to 9%. I
 Scenario reporting should show cash needs as well as present-value loss. A delayed-draw facility can require additional funding precisely when borrower credit and market liquidity deteriorate.
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
-Corporate data includes legal-entity and guarantor maps; facility and tranche terms; commitment, funded amount, amortization, benchmark, floor, spread, fees, PIK, call protection, collateral, lien, covenants, baskets, amendments, and notices. Financial data should preserve reported statements, agreement-defined adjustments, management forecasts, lender cases, and source lineage.
+Corporate data includes entity and guarantor maps; tranche terms; commitment, funding, amortization, benchmark, floor, spread, fees, PIK, calls, collateral, liens, covenants, amendments, and notices. Preserve reported financials, agreement adjustments, forecasts, lender cases, and lineage.
 
-Real-estate data includes property and ownership hierarchy, address and type, unit or square footage, rent roll, lease dates, tenant credit, occupancy, concessions, operating statements, capital expenditure, appraisal assumptions, environmental and engineering reports, reserve accounts, construction budget, draw status, and mortgage/mezzanine intercreditor terms.
+Real-estate data includes ownership, property attributes, rent rolls, leases, tenants, occupancy, concessions, operating statements, capital expenditure, appraisals, reports, reserves, construction budgets and draws, and intercreditor terms.
 
-Market and calibration objects include rate and funding curves, comparable loan/bond/CDS marks, sector default and recovery data, enterprise-value multiples, cap rates, rent and vacancy assumptions, sale costs, recovery timing, and scenario probabilities.
+Calibration includes rate and funding curves, comparable marks, default and recovery data, valuation multiples, cap rates, rent and vacancy, sale costs, recovery timing, and scenario probabilities.
 
 A practical schema separates:
 
@@ -168,10 +168,10 @@ A practical schema separates:
 - `property`, `lease`, `tenant`, `rent_roll_snapshot`, `operating_statement`, `appraisal`, `reserve`, and `construction_draw`.
 - `valuation_case`, `cashflow`, `recovery_waterfall`, `plan_security`, and `scenario_result`.
 
-Every item needs effective dates, knowledge timestamps, currency, units, source document, and approval status. Financial revisions and amendments must create new versions rather than overwrite history.
+Items need effective dates, knowledge timestamps, currency, units, source, and approval. Revisions and amendments create versions rather than overwrite history.
 
 ## Numerical and Implementation Approaches
-- Build a deterministic contractual cashflow engine before adding default models. Test benchmark floors, rate resets, PIK compounding, amortization, fees, draws, and prepayments independently.
+- Build contractual cashflows before default models. Test floors, resets, PIK, amortization, fees, draws, and prepayments independently.
 - Implement covenant formulas as versioned expression graphs with named components and a trace showing every source value and adjustment.
 - Maintain base, downside, and severe borrower models with linked income statement, balance sheet, cash flow, debt schedule, and liquidity runway.
 - Use scenario trees for amendments, prepayment, default, recovery form, and resolution timing. Use Monte Carlo only when the added distributional detail can be calibrated and explained.

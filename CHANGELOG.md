@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-07-25
+- Added event-driven and merger-arbitrage material covering transaction terms, probability-weighted valuation, break prices, catalyst calendars, hedging, and deal-level PnL.
+- Added capital-structure and convertible-arbitrage material covering recovery waterfalls, related-security mapping, bond floors, equity and credit hedges, financing, and jump risk.
+- Added warrants, rights, PIPE, SPAC, volatility-relative-value, event-volatility, and fundamental catalyst-equity workflows.
+- Added private, distressed, and real-estate credit coverage with covenants, DSCR, LTV, funding commitments, document extraction, workouts, and scenario recoveries.
+- Added point-in-time data, event replay, production quant engineering, deal-level risk, prime-brokerage funding, counterparty exposure, and robust research-validation chapters.
+- Added twelve worked examples spanning merger scenarios, capital-structure recoveries, convertible hedging, SPAC securities, event volatility, loss budgets, covenant headroom, bitemporal replay, distributed risk, catalyst earnings, prime-broker financing, and robust co-movement.
+- Added five end-to-end capstone projects and integrated the new material into the index, reading paths, glossary, examples catalog, and interview guide.
+
 ## 2026-07-24
 - Expanded equity documentation with a practical stock-reading guide for market capitalization, EPS, trailing and forward P/E, dividend yield, free float, liquidity, and 52-week ranges, including an original visual and worked example.
 - Expanded execution documentation with a large-parent-order framework for VWAP, POV, implementation shortfall, passive orders, auctions, participation limits, market impact, residual risk, and a worked example with an original decision diagram.
