@@ -227,3 +227,4 @@ The production implementation should use database-native range types or carefull
 - Exchange and vendor corporate-action specifications used by the production platform.
 - Kleppmann. *Designing Data-Intensive Applications*.
 - Related chapter: [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md).
+- Worked example: [examples/bitemporal-asof-replay.md](examples/bitemporal-asof-replay.md).

@@ -262,3 +262,4 @@ Stable partitioning helps retries find the same work, while stable aggregation o
 - PostgreSQL, [Numeric Types](https://www.postgresql.org/docs/current/datatype-numeric.html).
 - OpenTelemetry, [Documentation](https://opentelemetry.io/docs/).
 - Related chapters: [14-testing-and-validation.md](14-testing-and-validation.md) and [15-performance-and-production.md](15-performance-and-production.md).
+- Worked example: [examples/distributed-risk-partition.md](examples/distributed-risk-partition.md).

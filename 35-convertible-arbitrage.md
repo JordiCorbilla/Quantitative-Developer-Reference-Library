@@ -37,10 +37,10 @@ A conceptual decomposition is:
 
 $$
 V_{\text{CB}} \approx V_{\text{debt}}
-V_{\text{conversion option}}
-V_{\text{investor puts}}
++V_{\text{conversion option}}
++V_{\text{investor puts}}
 -V_{\text{issuer calls}}
-V_{\text{other terms}}.
++V_{\text{other terms}}.
 $$
 
 The components are not independent. Default can terminate equity optionality; conversion removes credit exposure; an issuer call changes exercise timing. The Tsiveriotis-Fernandes framework separates a cash-only component exposed to credit from an equity component treated as credit-risk-free:
@@ -62,11 +62,11 @@ After hedging first-order equity exposure, a one-period PnL approximation is:
 $$
 \Delta\Pi \approx
 \frac{1}{2}\Gamma(\Delta S)^2
-\text{Vega}\,\Delta\sigma
-\text{CS01}\,\Delta s
-\text{DV01}\,\Delta r
-\Theta\Delta t
-\text{coupon}
++\text{Vega}\,\Delta\sigma
++\text{CS01}\,\Delta s
++\text{DV01}\,\Delta r
++\Theta\Delta t
++\text{coupon}
 -\text{borrow}
 -\text{funding}
 -\text{costs}

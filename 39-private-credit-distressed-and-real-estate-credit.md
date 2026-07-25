@@ -63,7 +63,7 @@ V=\sum_k p_k\left[
 \right],
 $$
 
-where \(CF_{t,k}\) includes cash interest, PIK, amortization, fees, draws, and prepayments; \(\tau_k\) is a resolution time; and \(R_k\) is recovery or exit consideration. Scenario probabilities and discount rates should not both absorb the same risk premium without a documented convention.
+where \(CF_{t,k}\) includes signed cash flows such as cash interest, fees, funded draws, amortization, and prepayments; \(\tau_k\) is a resolution time; and \(R_k\) is recovery or exit consideration. PIK does not enter \(CF_{t,k}\) when accrued: it increases outstanding principal and therefore a later repayment or recovery claim. This separation prevents PIK from being counted twice. Scenario probabilities and discount rates should not both absorb the same risk premium without a documented convention.
 
 Triangulate illiquid marks from contractual cashflows, comparable spreads, default/recovery scenarios, transactions, and enterprise or collateral value. Report valuation uncertainty and independent-price-verification controls.
 

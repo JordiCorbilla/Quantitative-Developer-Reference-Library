@@ -123,7 +123,7 @@ Consider a market-neutral cash equity trade:
 - special borrow fee on USD 5m of the short book: 9.00%;
 - the remaining USD 15m is general collateral with no additional borrow fee.
 
-Assume short proceeds offset the long debit for financing purposes. The long debit cost is:
+Assume a gross debit-and-rebate convention: the broker charges the full long debit balance and separately pays a rebate on the short collateral balance. The long debit cost is:
 
 $$
 20{,}000{,}000 \times 5.75\% \times \frac{30}{360}
@@ -136,6 +136,8 @@ $$
 20{,}000{,}000 \times 4.25\% \times \frac{30}{360}
 = \text{USD }70{,}833.
 $$
+
+This convention does not assume that the two USD 20m balances net to zero financing. Actual availability of short-sale proceeds, balance netting, and spreads depends on the account and legal agreement.
 
 The special borrow fee is:
 
@@ -283,3 +285,4 @@ Production code should source effective-dated rates, settled balances, agreement
 - Federal Reserve, Regulation T.
 - SIFMA, securities-lending and repo market resources.
 - Related chapters: [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) and [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md).
+- Worked example: [examples/prime-broker-financing-comparison.md](examples/prime-broker-financing-comparison.md).

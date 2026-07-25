@@ -71,13 +71,19 @@ $$
 
 where \(B\) is the estimated unaffected or break price. This is an inversion of assumptions, not an observable probability. If \(B\) is wrong or embeds a changed market, \(p_{\text{implied}}\) is wrong.
 
-For a fixed-ratio stock merger, buying one target share and shorting \(r\) acquirer shares creates the initial package value:
+For a fixed-ratio stock merger with cash consideration \(c\), buying one target share and shorting \(r\) acquirer shares creates a net entry cash outlay:
 
 $$
-\Pi_0=P_T-rP_A-c
+C_0=P_T-rP_A.
 $$
 
-On clean completion the received acquirer shares cover the short, locking the convergence amount before dividends, borrow, funding, and execution costs. On failure, both legs remain exposed and may gap in opposite directions. Scenario valuation must therefore forecast both security prices in every branch rather than assume the hedge survives a break.
+On clean completion the received acquirer shares cover the short and the locked convergence amount is
+
+$$
+G_{\text{close}}=rP_A+c-P_T=c-C_0.
+$$
+
+This is before dividends, borrow, funding, and execution costs; whether short-sale proceeds are available to fund the purchase is an agreement-specific financing question. On failure, both legs remain exposed and may gap in opposite directions. Scenario valuation must therefore forecast both security prices in every branch rather than assume the hedge survives a break.
 
 ## Worked Instrument Example
 Consider a cash offer of USD 50 per target share. The target trades at USD 46.20, an estimated break value is USD 35.40, expected closing is in 120 days, and expected all-in carry and trading costs are USD 0.20 per share.
@@ -190,4 +196,3 @@ def implied_completion_probability(
 - Gaughan. *Mergers, Acquisitions, and Corporate Restructurings*.
 - Primary merger agreements, tender documents, proxy statements, court opinions, and regulator decisions for the transaction being modelled.
 - [Trade Lifecycle and Operations](30-trade-lifecycle-and-operations.md) for event-state controls and [Financing, Repo, and Securities Lending](19-financing-repo-and-securities-lending.md) for short-stock economics.
-
