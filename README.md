@@ -10,6 +10,7 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [INTERVIEW-GUIDE.md](INTERVIEW-GUIDE.md) - common interview questions and what strong answers should cover
 - [GLOSSARY.md](GLOSSARY.md) - core terms, acronyms, and working definitions
 - [examples/README.md](examples/README.md) - compact worked examples
+- [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md) - runnable project specifications that connect data, valuation, hedging, risk, PnL, and controls
 - [CONTRIBUTING.md](CONTRIBUTING.md) - contribution rules, style guidance, and quality checks
 - [CHANGELOG.md](CHANGELOG.md) - notable project changes
 
@@ -37,6 +38,17 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [28-rates-options-caps-floors-swaptions.md](28-rates-options-caps-floors-swaptions.md) - caps, floors, swaptions, normal/Black vols, annuity measure, and rates optionality
 - [29-etfs-index-products-and-rebalances.md](29-etfs-index-products-and-rebalances.md) - ETFs, index products, NAV, creation/redemption, tracking error, and rebalances
 
+### Strategy And Special-Situation Workflows
+- [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md) - cash and stock deals, collars, tenders, spreads, completion/break scenarios, event states, and hedging
+- [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md) - issuer-level relationships across loans, bonds, CDS, converts, preferreds, and equity
+- [35-convertible-arbitrage.md](35-convertible-arbitrage.md) - convertible term analysis, valuation, stock and credit hedges, financing, and strategy PnL
+- [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md) - warrants, rights, private placements, PIPEs, SPAC units, redemptions, dilution, and lifecycle risk
+- [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md) - surface relative value, forward variance, event volatility, gamma scalping, dispersion, and correlation
+- [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md) - idea-level loss budgets, related hedges, scenario PnL, financing, liquidity, and live controls
+- [39-private-credit-distressed-and-real-estate-credit.md](39-private-credit-distressed-and-real-estate-credit.md) - loan underwriting, covenant headroom, restructuring, recoveries, CRE credit, and distressed scenarios
+- [42-fundamental-catalyst-equity-analysis.md](42-fundamental-catalyst-equity-analysis.md) - financial statements, valuation bridges, estimates, catalysts, dilution, and point-in-time fundamentals
+- [43-prime-brokerage-counterparty-and-funding.md](43-prime-brokerage-counterparty-and-funding.md) - stock loan, financing, margin, collateral, counterparty exposure, and liquidity
+
 ### Quant Engineering
 - [11-market-data.md](11-market-data.md) - identifiers, symbology, time series, curves, surfaces, and data quality
 - [12-pricing-architecture.md](12-pricing-architecture.md) - trade models, market state, pricing engines, and library design
@@ -51,16 +63,19 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - trade initiation, capture, confirmation, settlement, lifecycle events, reconciliation, and operational controls
 - [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pairs trading, cointegration, residual signals, hedge ratios, execution, and model-break risk
 - [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md) - copulas, tail dependence, joint simulation, calibration, and dependence-model risk
+- [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md) - bitemporal data, immutable events, as-of queries, security masters, corrections, and deterministic replay
+- [41-production-quant-engineering.md](41-production-quant-engineering.md) - typed model libraries, SQL, distributed risk, testing, CI, profiling, deployment, and observability
+- [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md) - robust dependence, downside-aware optimization, multiple testing, and point-in-time research validation
 
 ## Current Coverage Review
-The library now covers the main building blocks a quant developer usually needs first: probability and statistics, regression, dependence modelling and copulas, statistical arbitrage, options, linear derivatives, cash equities, FX, bonds, rates, credit, structured credit, convertibles, equity swaps, commodities, inflation, volatility products, financing, cross-currency swaps, ETFs/index products, cross-asset valuation, numerical methods, market data, pricing architecture, risk, validation, production, portfolio construction, execution analytics, trade lifecycle, regulatory margin, and model governance.
+The library now covers the main building blocks a quant developer usually needs first: probability and statistics, robust research validation, regression, dependence modelling and copulas, statistical arbitrage, options, linear derivatives, cash equities, fundamental catalyst analysis, FX, bonds, rates, credit, capital-structure relative value, structured credit, convertibles and convertible arbitrage, event and merger arbitrage, warrants/rights/PIPEs/SPACs, equity swaps, commodities, inflation, volatility products and volatility relative value, private and distressed credit, financing and prime brokerage, cross-currency swaps, ETFs/index products, cross-asset valuation, numerical methods, point-in-time data, pricing architecture, distributed production engineering, deal-level risk and PnL, portfolio construction, execution analytics, trade lifecycle, regulatory margin, and model governance.
 
-The main future direction is depth rather than first-pass coverage:
+The main future direction remains executable depth:
 - more worked end-to-end examples that connect market inputs, pricing, risk, and validation,
 - deeper calibration case studies for curves, volatility surfaces, and credit curves,
 - broader stress-testing examples across market, liquidity, and counterparty risk,
 - crypto and digital-asset market structure if the library scope expands into that asset class,
-- more code-oriented examples once the documentation layer is stable.
+- runnable implementations of the specifications in [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md).
 
 ## How To Use This Repo
 - Read the overview once, then use chapters as standalone references.
@@ -68,6 +83,7 @@ The main future direction is depth rather than first-pass coverage:
 - Use the embedded SVG diagrams as quick mental models for payoff shapes, cashflow timing, curve dependencies, volatility products, financing, trade lifecycle, market-data pipelines, pricing architecture, risk explain, margin, governance, and validation workflows.
 - Follow the cross-links. Options, fixed income, rates, numerical methods, and pricing architecture are intentionally tightly connected.
 - Use the code snippets as sanity-check scaffolding, not as production-ready libraries.
+- Use [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md) to turn the chapters into package, data, test, and review deliverables.
 
 ## Design Principles
 - Markdown-first, no docs toolchain required.

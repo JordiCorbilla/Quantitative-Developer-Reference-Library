@@ -3,14 +3,14 @@
 Related chapters: [03-equities.md](03-equities.md), [05-fixed-income.md](05-fixed-income.md), [07-credit.md](07-credit.md), [09-cross-asset.md](09-cross-asset.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md), and [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md).
 
 ## What This Domain Covers
-Capital-structure relative value asks whether securities issued by the same economic enterprise imply consistent views of asset value, default probability, recovery, volatility, and control rights. The opportunity may sit between a loan and a bond, cash bonds and CDS, debt and equity, an operating company and its holding company, or adjacent maturities and seniorities.
+Capital-structure relative value asks whether securities issued by the same enterprise imply consistent asset value, default probability, recovery, volatility, and control rights. The opportunity may sit between loans, bonds, CDS, equity, legal entities, maturities, or seniorities.
 
-This is not simply a screen for the widest spread. A valid comparison must identify the exact borrower, guarantors, collateral, priority, currency, maturity, covenants, deliverability, liquidity, and financing of every leg. Two instruments bearing the same issuer name can have materially different claims.
+This is not a screen for the widest spread. A valid comparison must identify the borrower, guarantors, collateral, priority, currency, maturity, covenants, deliverability, liquidity, and financing of every leg. Two instruments bearing the same issuer name can have different claims.
 
-For a quant developer, the domain joins reference-data modelling, credit curves, equity and option risk, legal-document extraction, financing, multi-leg position management, recovery waterfalls, scenario PnL, and historical replay. The system must preserve both the economic thesis and the contractual facts that can invalidate it.
+The implementation joins reference data, credit curves, equity and option risk, legal terms, financing, multi-leg positions, recovery waterfalls, scenario PnL, and historical replay. It must preserve the thesis and contractual facts that can invalidate it.
 
 ## Product Taxonomy and Market Structure
-An issuer stack commonly contains:
+An issuer stack contains:
 
 - Revolvers, first-lien term loans, second-lien loans, and other secured facilities.
 - Senior unsecured, subordinated, and structurally subordinated bonds.
@@ -18,7 +18,7 @@ An issuer stack commonly contains:
 - Single-name CDS, credit indices, equity options, and total return swaps used as hedges.
 - Claims at different legal entities, including operating-company and holding-company debt.
 
-Common trade families include:
+Trade families include:
 
 - **Bond-CDS basis:** compare a cash bond's credit spread with protection on a contractually eligible reference entity and seniority.
 - **Loan-CDS or loan-bond relative value:** express a view on collateral, covenant protection, liquidity, or recovery.
@@ -27,7 +27,7 @@ Common trade families include:
 - **Holding-company/operating-company trades:** isolate structural subordination and upstreaming risk.
 - **Recovery trades:** position for the distribution of enterprise value following restructuring rather than for small spread convergence.
 
-The relevant market is fragmented. Loans may settle by assignment or participation, bonds through dealer markets, CDS under standardized definitions, and equities or listed options on exchanges. Liquidity, margin, settlement timing, and close-out rights differ across legs.
+Markets are fragmented. Loans may settle by assignment or participation, bonds through dealers, CDS under standardized definitions, and equities or listed options on exchanges. Liquidity, margin, settlement, and close-out rights differ.
 
 ## Quoting and Market Conventions
 - Bonds normally quote clean price as a percentage of par; settlement cash includes accrued interest. Spread may mean government spread, interpolated spread, Z-spread, asset-swap spread, or option-adjusted spread.
@@ -87,16 +87,16 @@ $$
 -c_{\text{funding}}-c_{\text{borrow}}-c_{\text{delivery}}-c_{\text{liquidity}}.
 $$
 
-The bond spread must be option- and curve-consistent, and the adjustment terms cannot be treated as universal constants. Positive carry is not arbitrage if default settlement, cheapest-to-deliver optionality, funding, or legal basis can overwhelm it.
+The bond spread must be option- and curve-consistent. Positive carry is not arbitrage when default settlement, delivery optionality, funding, or legal basis can overwhelm it.
 
 ### Trade Construction Checklist
 
-1. Map every security to its borrower, reference entity, guarantors, collateral, and claim priority.
-2. State the catalyst and what observable relationship should converge.
-3. Value each leg from a common market snapshot, with separate credit, rate, volatility, liquidity, and financing inputs.
-4. Neutralize only the intended local risks; preserve the exposure named in the thesis.
-5. Run recovery waterfalls, rating migration, spread gaps, equity gaps, rate moves, FX moves, and liquidity/financing stresses.
-6. Size to a documented loss limit and record hedge ratios, rebalance rules, exit criteria, and invalidation conditions.
+1. Map each security to its borrower, reference entity, guarantors, collateral, and priority.
+2. State the catalyst and observable convergence relationship.
+3. Value all legs from one snapshot with separate credit, rate, volatility, liquidity, and financing inputs.
+4. Neutralize unwanted local risks while preserving the thesis exposure.
+5. Run recovery, migration, spread, equity, rate, FX, liquidity, and financing stresses.
+6. Size to a loss limit; record hedges, rebalancing, exit criteria, and invalidation conditions.
 
 ## Worked Instrument Example
 Consider an issuer with USD 300m first-lien debt, USD 400m senior unsecured debt, and USD 250m subordinated debt. A downside case assumes enterprise value of USD 570m and USD 20m of administrative and restructuring costs.
@@ -109,7 +109,7 @@ $$
 10m\times(1-62.5\%)=3.75m.
 $$
 
-The two default settlements total USD 10m before premium, funding, settlement, and delivery effects. The apparent USD 1.8m uplift over purchase price compensates for CDS premium and the many ways the assumptions can fail.
+Default settlements total USD 10m before premium, funding, settlement, and delivery effects. The USD 1.8m difference over purchase price compensates for these risks.
 
 If the bond's comparable spread is 760 bps, CDS costs 620 bps, annualized bond funding consumes 65 bps, and liquidity/delivery reserves consume 25 bps, estimated net carry is:
 
@@ -117,7 +117,7 @@ $$
 760-620-65-25=50\text{ bps},
 $$
 
-or about USD 50,000 per year on USD 10m face before convexity, accrual, and trading costs. The trade is not risk-free: the CDS may reference a different entity, an obligation may be non-deliverable, the auction price may differ from the owned bond's value, or the bond may be called before convergence.
+or about USD 50,000 per year before convexity, accrual, and trading costs. Entity mismatch, non-deliverability, auction basis, or an early call can erase it.
 
 A reproducible waterfall for this example is in [examples/capital-structure-recovery-waterfall.md](examples/capital-structure-recovery-waterfall.md).
 
@@ -133,7 +133,7 @@ A reproducible waterfall for this example is in [examples/capital-structure-reco
 - Hedge slippage when CS01, beta, conversion delta, or deliverability changes.
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
-Static and legal data should be effective-dated and sourced to documents:
+Static and legal data must be effective-dated and document-sourced:
 
 - Issuer and legal-entity hierarchy; domicile; entity identifiers; guarantor relationships.
 - Security, facility, and tranche identifiers; borrower; currency; face; maturity; coupon; call/put terms.
@@ -147,7 +147,7 @@ Market and model state includes:
 - CDS curves, recovery assumptions, discount curves, repo/funding curves, stock borrow, equity prices, dividends, and volatility surfaces.
 - Hazard curves by entity and seniority, rate curves, equity-credit dependency assumptions, liquidity adjustments, and recovery scenarios.
 
-A useful schema separates `legal_entity`, `security`, `claim`, `guarantee`, `collateral_link`, `covenant_version`, `market_quote`, `position_leg`, `hedge_link`, and `scenario_result`. Each legal fact should carry `effective_from`, `effective_to`, `known_at`, `source_document_id`, and clause/page provenance. This prevents a later amendment or entity remap from leaking into an earlier backtest.
+A useful schema separates `legal_entity`, `security`, `claim`, `guarantee`, `collateral_link`, `covenant_version`, `market_quote`, `position_leg`, `hedge_link`, and `scenario_result`. Legal facts need `effective_from`, `effective_to`, `known_at`, source document, and clause/page provenance so amendments cannot leak into earlier backtests.
 
 ## Numerical and Implementation Approaches
 - Build a security master around legal entities and claims, not ticker strings.
@@ -171,7 +171,7 @@ A useful schema separates `legal_entity`, `security`, `claim`, `guarantee`, `col
 - Backtesting with today's entity hierarchy, covenants, or amended terms.
 - Ignoring loan settlement delays, short-bond availability, CDS margin, and close-out basis.
 
-Sanity checks should enforce that waterfall allocations never exceed distributable value or allowed claims, junior recoveries do not appear before senior claims are satisfied unless an explicit rule permits it, hedge risk signs are consistent, and scenario PnL reconciles leg-by-leg to portfolio PnL.
+Sanity checks should enforce waterfall conservation and priority, consistent hedge-risk signs, and leg-to-portfolio scenario-PnL reconciliation.
 
 ## Illustrative Code
 ```python

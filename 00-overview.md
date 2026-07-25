@@ -60,6 +60,18 @@ Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecyc
 | [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) | Execution, capture, confirmation, settlement, lifecycle events, reconciliations | Connects pricing and risk to the operational state of real trades |
 | [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) | Pairs, cointegration, residual signals, hedge ratios, execution, model breaks | Connects statistical relationships to realistic long-short portfolio workflows |
 | [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md) | Copulas, tail dependence, joint simulation, calibration, dependence stress | Separates marginal risk from the dependence structure that creates joint losses |
+| [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md) | Cash and stock deals, spreads, collars, tenders, close/break scenarios, event states | Connects legal deal terms and catalysts to hedging, expected value, and lifecycle PnL |
+| [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md) | Issuer relationships across loans, bonds, CDS, converts, preferreds, and equity | Turns separate product analytics into one claims, recovery, basis, and hedge framework |
+| [35-convertible-arbitrage.md](35-convertible-arbitrage.md) | Convertible terms, valuation, stock/credit hedges, borrow, financing, and PnL | Develops the complete strategy workflow behind hybrid equity-credit instruments |
+| [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md) | Warrants, rights, PIPEs, SPAC units, redemptions, dilution, and lifecycle events | Covers equity-linked financing instruments whose legal terms drive executable economics |
+| [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md) | Surface relative value, event variance, gamma scalping, dispersion, and correlation | Moves from volatility-product taxonomy to trade construction and daily PnL |
+| [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md) | Related hedges, reasonable-loss budgets, scenarios, liquidity, and PnL attribution | Organizes multi-leg positions around the economic idea rather than isolated security rows |
+| [39-private-credit-distressed-and-real-estate-credit.md](39-private-credit-distressed-and-real-estate-credit.md) | Underwriting, covenants, workouts, recoveries, distressed debt, and real-estate credit | Adds illiquid credit, legal priority, and cashflow downside analysis |
+| [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md) | Bitemporal data, immutable events, as-of queries, corrections, lineage, and replay | Prevents future information and mutable history from corrupting research and risk |
+| [41-production-quant-engineering.md](41-production-quant-engineering.md) | Typed models, SQL, distributed risk, testing, CI, deployment, and observability | Turns quantitative formulas into reproducible and operable systems |
+| [42-fundamental-catalyst-equity-analysis.md](42-fundamental-catalyst-equity-analysis.md) | Statements, valuation bridges, estimates, catalysts, dilution, and point-in-time fundamentals | Connects company analysis to event-aware quantitative workflows |
+| [43-prime-brokerage-counterparty-and-funding.md](43-prime-brokerage-counterparty-and-funding.md) | Stock loan, financing, margin, collateral, counterparty exposure, and liquidity | Makes executable carry, margin cash, and close-out risk explicit |
+| [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md) | Robust dependence, downside-aware optimization, multiple testing, and research controls | Reduces false discoveries and unstable portfolio conclusions |
 
 ## Shared Quantitative Conventions
 
@@ -134,6 +146,8 @@ This matters because production systems should not hard-code "risk-free rate" in
 | Calibration | Choosing model parameters to fit observable market prices or vol quotes |
 | Explain | Decomposing realized or hypothetical PnL into risk-factor contributions |
 | No-arbitrage | A set of constraints that prevent obviously inconsistent prices, such as negative densities or broken parity relationships |
+| Point-in-time | Restricted to information that was actually available at a declared historical cutoff |
+| Related hedge | Position included with a core trade to neutralize or bound a named risk while preserving the intended thesis |
 | Sticky strike / sticky delta | Rules for how implied vol is assumed to move when spot moves, used for risk calculations and surface shocks |
 
 ## Common Sanity Checks
@@ -145,14 +159,14 @@ This matters because production systems should not hard-code "risk-free rate" in
 - Bump sizes must be stable enough to avoid noise but small enough to approximate the intended derivative.
 
 ## Coverage Review And Expansion Areas
-The current library now has broad first-pass coverage across probability and statistics, core pricing, traded products, securitized credit, convertibles, swaps, ETFs/index products, risk infrastructure, market data, production engineering, portfolio workflow, financing, execution, trade lifecycle, regulatory margin, and model governance.
+The library has broad first-pass coverage across probability and statistics, robust research validation, core pricing, traded products, event-driven and relative-value strategies, securitized/private/distressed credit, convertibles and convertible arbitrage, warrants/rights/PIPEs/SPACs, swaps, ETFs/index products, volatility relative value, fundamental catalyst analysis, deal-level risk, point-in-time data, distributed production engineering, portfolio workflow, prime-broker financing, execution, trade lifecycle, regulatory margin, and model governance.
 
-The clearest next improvements are depth-oriented:
-- worked examples that connect quote inputs, valuation, risk, PnL explain, and validation,
-- calibration case studies for curves, volatility surfaces, inflation curves, and credit curves,
-- stress-testing examples across market, liquidity, counterparty, and funding risk,
-- deeper product-specific implementation patterns where market conventions are especially fragile,
-- crypto and digital-asset market structure if the library is intended to cover that asset class.
+The clearest next improvements are implementation-oriented:
+- complete the runnable specifications in [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md),
+- add calibration case studies for curves, volatility surfaces, inflation curves, and credit curves,
+- expand multi-asset stress exercises across market, liquidity, counterparty, borrow, and funding risk,
+- add licensed or reproducibly generated data fixtures for each capstone,
+- add crypto and digital-asset market structure only if the library scope expands into that asset class.
 
 ## Chapter Contract
 Every chapter in this repo follows the same top-level structure:
@@ -176,3 +190,7 @@ Every chapter in this repo follows the same top-level structure:
 - Build portfolio engineering judgment: [03-equities.md](03-equities.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) -> [13-risk-and-pnl.md](13-risk-and-pnl.md)
 - Build valuation-control judgment: [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) -> [14-testing-and-validation.md](14-testing-and-validation.md) -> [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md)
 - Build execution and financing judgment: [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md) -> [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) -> [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+- Build event and special-situations judgment: [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md) -> [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md) -> [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md)
+- Build capital-structure and convertible judgment: [07-credit.md](07-credit.md) -> [25-convertibles-and-equity-linked-notes.md](25-convertibles-and-equity-linked-notes.md) -> [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md) -> [35-convertible-arbitrage.md](35-convertible-arbitrage.md)
+- Build point-in-time production judgment: [11-market-data.md](11-market-data.md) -> [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md) -> [41-production-quant-engineering.md](41-production-quant-engineering.md) -> [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md)
+- Build robust research judgment: [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) -> [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md) -> [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)

@@ -21,6 +21,16 @@ This index groups the library by practitioner task rather than file number.
 - [27-cross-currency-swaps.md](27-cross-currency-swaps.md) - cross-currency swaps, basis, notional exchanges, collateral currency
 - [28-rates-options-caps-floors-swaptions.md](28-rates-options-caps-floors-swaptions.md) - caps, floors, swaptions, rates volatility
 - [29-etfs-index-products-and-rebalances.md](29-etfs-index-products-and-rebalances.md) - ETFs, index products, NAV, rebalances, tracking error
+- [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md) - warrants, rights, PIPEs, SPAC units, redemptions, dilution, lifecycle events
+
+## Strategy And Special Situations
+- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pairs trading, cointegration, residual signals, execution, model-break risk
+- [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md) - deal terms, spreads, close/break scenarios, event states, and hedging
+- [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md) - cross-instrument issuer mapping, basis, recovery, hedging, and scenario PnL
+- [35-convertible-arbitrage.md](35-convertible-arbitrage.md) - convertible valuation, stock and credit hedges, borrow, financing, and PnL
+- [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md) - surface relative value, event variance, gamma scalping, dispersion, and correlation
+- [39-private-credit-distressed-and-real-estate-credit.md](39-private-credit-distressed-and-real-estate-credit.md) - loan underwriting, covenants, workouts, recovery, and real-estate credit
+- [42-fundamental-catalyst-equity-analysis.md](42-fundamental-catalyst-equity-analysis.md) - financial statements, valuation, estimate revisions, catalysts, and dilution
 
 ## Quant Engineering
 - [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation
@@ -31,6 +41,9 @@ This index groups the library by practitioner task rather than file number.
 - [14-testing-and-validation.md](14-testing-and-validation.md) - unit tests, model validation, regression, release discipline
 - [15-performance-and-production.md](15-performance-and-production.md) - latency, throughput, observability, scaling
 - [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - validation, IPV, reserves, monitoring
+- [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md) - bitemporal/as-of data, immutable event state, lineage, and replay
+- [41-production-quant-engineering.md](41-production-quant-engineering.md) - typed model libraries, SQL, distributed workflows, testing, CI, deployment, and observability
+- [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md) - robust covariance, downside risk, multiple testing, and research validation
 
 ## Risk, Execution, And Portfolio Workflow
 - [13-risk-and-pnl.md](13-risk-and-pnl.md) - Greeks, VaR, ES, beta, PnL explain, controls
@@ -38,7 +51,8 @@ This index groups the library by practitioner task rather than file number.
 - [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - VWAP, TWAP, POV, TCA, market impact
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - SIMM, FRTB, margin, stress capital, explain
 - [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - execution, capture, confirmation, settlement, lifecycle events, reconciliation
-- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pairs trading, cointegration, residual signals, execution, model-break risk
+- [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md) - related hedges, loss budgets, scenarios, liquidity, financing, and PnL attribution
+- [43-prime-brokerage-counterparty-and-funding.md](43-prime-brokerage-counterparty-and-funding.md) - stock loan, financing, margin, collateral, counterparty exposure, and liquidity
 
 ## Project Resources
 - [README.md](README.md) - project overview and library map
@@ -47,4 +61,5 @@ This index groups the library by practitioner task rather than file number.
 - [INTERVIEW-GUIDE.md](INTERVIEW-GUIDE.md) - common interview topics and answer structure
 - [GLOSSARY.md](GLOSSARY.md) - core terms and acronyms
 - [examples/README.md](examples/README.md) - worked examples
+- [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md) - end-to-end implementation and review specifications
 - [CONTRIBUTING.md](CONTRIBUTING.md) - contribution and quality rules

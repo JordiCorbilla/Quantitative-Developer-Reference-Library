@@ -24,6 +24,18 @@ These examples are small by design. They are meant to connect formulas to implem
 - [equity-snapshot-metrics.md](equity-snapshot-metrics.md) - calculate market cap, P/E ratios, and dividend yield from a fictional equity snapshot.
 - [large-order-participation.md](large-order-participation.md) - calculate a participation-limited child-order quantity from a parent order and volume forecast.
 - [copula-tail-dependence.md](copula-tail-dependence.md) - calculate the lower-tail dependence coefficient of a Clayton copula and interpret it carefully.
+- [merger-arbitrage-scenario.md](merger-arbitrage-scenario.md) - calculate deal spread, implied completion probability, and expected value across close and break scenarios.
+- [capital-structure-recovery-waterfall.md](capital-structure-recovery-waterfall.md) - allocate enterprise value through a claims hierarchy and inspect cross-security recovery.
+- [convertible-arbitrage-hedge-pnl.md](convertible-arbitrage-hedge-pnl.md) - size a stock hedge and decompose simplified convertible-arbitrage PnL.
+- [spac-unit-and-warrant.md](spac-unit-and-warrant.md) - separate SPAC unit components and examine redemption and warrant dilution mechanics.
+- [event-volatility-implied-move.md](event-volatility-implied-move.md) - estimate an option-implied event move and isolate event variance.
+- [deal-level-loss-budget.md](deal-level-loss-budget.md) - aggregate core and hedge legs under named scenarios and enforce an idea-level loss budget.
+- [private-credit-covenant-headroom.md](private-credit-covenant-headroom.md) - calculate leverage and coverage covenant headroom under base and downside cases.
+- [bitemporal-asof-replay.md](bitemporal-asof-replay.md) - retrieve the data version that was knowable at a historical decision cutoff.
+- [distributed-risk-partition.md](distributed-risk-partition.md) - partition heterogeneous risk work while checking complete, non-duplicate assignment.
+- [catalyst-equity-earnings-bridge.md](catalyst-equity-earnings-bridge.md) - bridge revenue, margins, share count, EPS, and valuation under catalyst scenarios.
+- [prime-broker-financing-comparison.md](prime-broker-financing-comparison.md) - compare financing, borrow, margin-liquidity, and allocation costs.
+- [gerber-co-movement.md](gerber-co-movement.md) - compute thresholded robust co-movement while separating signal-sized moves from noise.
 
 ## How To Use
 - Treat the numbers as sanity-check scaffolding.
