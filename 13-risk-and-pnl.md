@@ -1,6 +1,6 @@
 # Risk and PnL
 
-Related chapters: [01-options.md](01-options.md), [06-interest-rates.md](06-interest-rates.md), [09-cross-asset.md](09-cross-asset.md), [12-pricing-architecture.md](12-pricing-architecture.md), [14-testing-and-validation.md](14-testing-and-validation.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
+Related chapters: [01-options.md](01-options.md), [06-interest-rates.md](06-interest-rates.md), [09-cross-asset.md](09-cross-asset.md), [12-pricing-architecture.md](12-pricing-architecture.md), [14-testing-and-validation.md](14-testing-and-validation.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [18-volatility-products.md](18-volatility-products.md), and [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md).
 
 ## What This Domain Covers
 Pricing tells you where the book stands. Risk and PnL explain how that position can move and why it actually moved.
@@ -120,6 +120,64 @@ Common implementation choices:
 - Monte Carlo simulation: generate market scenarios from a calibrated model and value the portfolio under each scenario.
 - Filtered historical simulation: rescale historical returns using current volatility or regime estimates.
 
+### Historical, Parametric, And Monte Carlo Method Contracts
+
+**Historical simulation** applies observed historical risk-factor changes to today's positions. It preserves empirical co-movement and tails present in the selected window, but it cannot contain a state that never occurred, and old scenarios may be economically inconsistent with today's levels, instruments, or market structure. Full revaluation is preferable for nonlinear books; sensitivity approximation should report its error.
+
+For a linear portfolio with factor exposure vector \(b\), factor covariance \(\Sigma\), zero mean, and normally distributed PnL, portfolio standard deviation is:
+
+$$
+\sigma_P=\sqrt{b^\top\Sigma b}.
+$$
+
+If \(z_\alpha=\Phi^{-1}(\alpha)\), normal parametric loss measures are:
+
+$$
+\operatorname{VaR}_\alpha=z_\alpha\sigma_P,
+\qquad
+\operatorname{ES}_\alpha
+=
+\sigma_P\frac{\phi(z_\alpha)}{1-\alpha}.
+$$
+
+The normal approximation is transparent and fast, but linear mapping misses gamma and optionality, while a thin-tailed distribution can materially understate skew, jumps, volatility clustering, and dependence changes. Delta-gamma or full-revaluation parametric approaches require an explicit approximation and distributional contract.
+
+**Monte Carlo VaR** draws joint risk-factor scenarios from a calibrated model, maps them to market states, reprices the current portfolio, converts scenario PnL to loss, and takes empirical quantiles and tail means. Monte Carlo permits nonlinear revaluation and hypothetical dynamics, but results inherit every model, calibration, dependence, discretization, variance-reduction, and random-number choice. A fixed seed makes a run reproducible; it does not make the estimate accurate.
+
+**Filtered historical simulation** rescales historical shocks using a volatility or regime estimate. It can make the scenario distribution more responsive to current conditions, but adds model and procyclicality risk. Persist the original shock, scale factor, filter state, and resulting scenario.
+
+**Stress testing and scenario analysis** ask a different question. A named scenario combines coherent moves in spot, curves, volatility, correlation, liquidity, basis, funding, and market access. It need not have an estimated probability. VaR and ES should be compared with historical and hypothetical stress losses, not used to replace them.
+
+### Worked Method Example: Normal Parametric VaR And ES
+
+Assume a portfolio has zero expected daily PnL and estimated daily standard deviation USD \(1.5\) million. At \(99\%\) confidence:
+
+$$
+z_{0.99}\approx2.326,
+\qquad
+\phi(z_{0.99})\approx0.02665.
+$$
+
+Therefore:
+
+$$
+\operatorname{VaR}_{0.99}
+\approx
+2.326\times1.5
+=
+USD\ 3.49\text{ million},
+$$
+
+$$
+\operatorname{ES}_{0.99}
+\approx
+1.5\times\frac{0.02665}{0.01}
+=
+USD\ 4.00\text{ million}.
+$$
+
+The result is conditional on the normal, zero-mean, one-day model. A historical or Monte Carlo estimate should not be forced to match it: differences may reveal skew, fat tails, nonlinear revaluation, sampling error, or inconsistent positions and horizons. The calculation and a compact simulation comparison are reproduced in [examples/parametric-monte-carlo-var.md](examples/parametric-monte-carlo-var.md).
+
 ![VaR and expected shortfall production workflow](assets/var-es-production-workflow.svg)
 
 Production checks:
@@ -136,12 +194,21 @@ Production checks:
 - Scenario libraries and shock rules
 - Historical fixings and prior-day marks for explain
 - Calibration policies that determine which parameters move with the market
+- VaR method specification: confidence, horizon, window, weighting, decay, return definition, missing-data policy, and PnL mapping
+- Historical shock set, filtered-shock scales, scenario provenance, and current-to-history risk-factor mapping
+- Monte Carlo model family, parameters, dependence, discretization, random-number generator, seed policy, path count, and convergence diagnostics
+- Named stress library with shock units, cross-factor coherence, liquidity overlays, governance owner, version, and effective date
 
 ## Numerical and Implementation Approaches
 - Keep risk-factor definitions stable and versioned.
 - Distinguish between market moves, time roll, trade activity, and model changes in explain.
 - Run both local sensitivities and scenario tools; each catches different failure modes.
 - Align explain calculations with the same pricing engines used for official marks, or document the approximation explicitly.
+- Treat scenario generation and portfolio valuation as separate stages connected by a versioned scenario schema.
+- For empirical VaR and ES, define quantile interpolation and tail inclusion at finite sample sizes. Report the number of tail observations supporting ES.
+- For Monte Carlo, monitor quantile and ES convergence across path batches, seeds, time steps, and variance-reduction choices.
+- Reconcile sensitivity-based, full-revaluation, and official risk results on representative linear and nonlinear portfolios.
+- Backtest with a PnL definition consistent with the risk forecast, separating clean/hypothetical PnL from fees, new trades, and intraday activity where required.
 
 ## Production Pitfalls and Sanity Checks
 - Reporting Greeks that cannot reproduce observed PnL because the shock convention is different.
@@ -149,14 +216,47 @@ Production checks:
 - Aggregation currency conversions applied inconsistently.
 - Residual PnL accepted as normal when it actually signals missing risk factors or stale data.
 - New trades and lifecycle events mixed into market-move explain.
+- Mixing PnL and loss signs or reporting a quantile without defining interpolation.
+- Applying square-root-of-time scaling through jumps, serial dependence, options, or changing positions without validation.
+- Using today's constituents with historical returns or applying historical percentage shocks to factors whose economics require absolute moves.
+- Reporting parametric precision while omitting skew, fat tails, nonlinear mapping, or covariance uncertainty.
+- Using too few Monte Carlo paths for stable ES or treating repeated pseudorandom paths as independent model evidence.
+- Backtesting against an inconsistent PnL series and explaining clustered breaches as chance.
+- Allowing VaR diversification to hide a named stress, liquidity, basis, or market-closure risk.
 
 ## Illustrative Code
 ```python
 def first_order_explain(sensitivities: dict[str, float], market_moves: dict[str, float]) -> float:
     return sum(sensitivities.get(name, 0.0) * move for name, move in market_moves.items())
+
+
+def normal_var_es(
+    pnl_standard_deviation: float,
+    confidence: float,
+    expected_pnl: float = 0.0,
+) -> tuple[float, float]:
+    from math import exp, pi, sqrt
+    from statistics import NormalDist
+
+    if pnl_standard_deviation <= 0:
+        raise ValueError("PnL standard deviation must be positive")
+    if not 0.5 < confidence < 1.0:
+        raise ValueError("confidence must be between 0.5 and 1")
+
+    z_score = NormalDist().inv_cdf(confidence)
+    density = exp(-0.5 * z_score**2) / sqrt(2.0 * pi)
+    value_at_risk = -expected_pnl + z_score * pnl_standard_deviation
+    expected_shortfall = (
+        -expected_pnl
+        + pnl_standard_deviation * density / (1.0 - confidence)
+    )
+    return value_at_risk, expected_shortfall
 ```
 
 ## References and Further Reading
 - PnL explain and market-risk methodology documents used by trading and risk teams
-- Glasserman on risk estimation and simulation methods
+- Jorion. *Value at Risk*.
+- McNeil, Frey, and Embrechts. *Quantitative Risk Management*.
+- Glasserman. *Monte Carlo Methods in Financial Engineering*.
+- Basel market-risk standards and applicable local implementation rules.
 - Links: [12-pricing-architecture.md](12-pricing-architecture.md), [14-testing-and-validation.md](14-testing-and-validation.md)

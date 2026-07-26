@@ -376,6 +376,117 @@ $$
 
 Theta is especially easy to misunderstand. The formula above is model theta. Many desks report one-day theta as the PnL from rolling valuation date forward while applying a defined market-data roll. Those numbers can differ because forwards, dividends, fixings, curves, and surface anchors also roll.
 
+### Theta, Gamma, and the Rent for Convexity
+For a European vanilla under Black-Scholes, the pricing PDE gives the exact model identity:
+
+$$
+\Theta + (r-q)S\Delta-rV
+=-\frac{1}{2}\Gamma S^2\sigma_{\text{imp}}^2
+$$
+
+When rates and carry are ignored, this becomes the desk shorthand:
+
+$$
+-\Theta \approx \frac{1}{2}\Gamma S^2\sigma_{\text{imp}}^2
+$$
+
+This is why theta is often described as the rent paid to own gamma. The identity is conditional, not a promise of trading profit. It assumes the same model, volatility, time clock, carry treatment, and Greek units on both sides. Real PnL also contains discrete-hedging error, jumps, surface moves, vanna and volga, financing, dividends, transaction costs, and model residual.
+
+For a small interval $\Delta\tau$ measured on the same annualization clock as volatility, a locally delta-hedged long option has the approximation:
+
+$$
+\Delta\Pi_{\Delta\text{-hedged}}
+\approx
+\frac{1}{2}\Gamma
+\left[(\Delta S)^2-S^2\sigma_{\text{imp}}^2\Delta\tau\right]
+$$
+
+or, defining the one-step annualized move
+
+$$
+\widehat\sigma_{\text{step}}
+=\frac{|\Delta S|}{S\sqrt{\Delta\tau}},
+$$
+
+$$
+\Delta\Pi_{\Delta\text{-hedged}}
+\approx
+\frac{1}{2}\Gamma S^2\Delta\tau
+\left(\widehat\sigma_{\text{step}}^2-\sigma_{\text{imp}}^2\right).
+$$
+
+The local daily break-even absolute move is therefore:
+
+$$
+|\Delta S|_{\text{BE}}
+\approx S\sigma_{\text{imp}}\sqrt{\Delta\tau}
+\approx \sqrt{\frac{-2\Theta_{\Delta\tau}}{\Gamma}},
+$$
+
+where the second equality is the zero-carry shorthand and $\Theta_{\Delta\tau}<0$ is the long option's decay over that exact interval. The first expression is an implied one-standard-deviation move under the model clock. It is not the same as an expiry premium break-even, an expected absolute move, or a guarantee that a path with that close-to-close move breaks even after hedging.
+
+For $S=100$, $\sigma_{\text{imp}}=25\%$, and one trading-variance day $\Delta\tau=1/252$:
+
+$$
+|\Delta S|_{\text{BE}}
+=100(0.25)\sqrt{\frac{1}{252}}
+=1.575.
+$$
+
+If gamma is $0.035$ option-value units per $1^2$ move, the matching zero-carry theta is about $-0.0434$ per share for that variance day. A $1 move gives approximately $0.5(0.035)(1)^2-0.0434=-0.0259$ per share; a $2 move gives approximately $0.0266$. Apply quantity, multiplier, and currency conversion only after the per-unit convention is verified. See [examples/theta-gamma-daily-breakeven.md](examples/theta-gamma-daily-breakeven.md) for executable checks.
+
+### How Gamma Is Monetized by Rehedging
+A delta hedge turns changes in option delta into trades in the underlying:
+
+- A **long-gamma** position becomes more positively delta-exposed after spot rises, so the hedge sells underlying after the rise. After spot falls, its delta decreases, so the hedge buys underlying after the fall. Repeated oscillations can therefore realize a sell-higher, buy-lower hedge PnL.
+- A **short-gamma** position requires the opposite response: buy underlying after rises and sell after falls. The hedge chases the market and can lose heavily when a move is large, one-directional, gapped, or impossible to execute.
+
+The phrase "gamma scalping" does not mean that every long-gamma position earns money. The realized hedge gains must exceed theta, spread, fees, market impact, slippage, and surface effects. Hedge frequency is itself a control: more frequent hedging tracks local gamma more closely but incurs more cost, while less frequent hedging leaves larger gap and path exposure.
+
+Short-gamma carry has a structurally asymmetric distribution. Quiet intervals can produce repeated small theta gains, while a single discontinuous move produces a convex loss that grows roughly with $(\Delta S)^2$ locally and cannot be repaired by a hedge executed after the gap. Position limits should therefore be set from full-revaluation stress losses and executable liquidity, not from average daily theta or a historical win rate.
+
+### Decay by Moneyness, Tenor, and Clock
+Time decay is nonlinear. For a near-ATM, zero-rate Black-Scholes option, time value is approximately proportional to $\sqrt{T}$ for small $\sigma\sqrt{T}$, so the currency decay per unit of time accelerates as expiry approaches. Fixed-strike options away from the forward behave differently:
+
+- Near-ATM short-dated options concentrate gamma and lose remaining time value rapidly as expiry approaches.
+- Far out-of-the-money options can lose most economically relevant time value earlier if the probability of reaching the strike collapses.
+- Deep in-the-money options are dominated by intrinsic value and carry; their remaining time value can be small.
+- Moneyness is not static. A spot or forward move can pull a strike into the gamma peak or push it out of it, changing decay abruptly.
+
+At comparable forward moneyness, Black-Scholes gives the useful scaling:
+
+$$
+\Gamma_{\text{ATM}}\propto \frac{1}{S\sigma\sqrt{T}},
+\qquad
+\text{Vega}_{\text{ATM}}\propto S\sqrt{T}.
+$$
+
+Front expiries therefore tend to carry more gamma per option and more expiry/pin risk, while back expiries tend to carry more vega and surface-model exposure. "Gamma is highest ATM and near expiry" is a local statement, not a complete book comparison: notionals, multipliers, forwards, skew, event variance, and strike grids must first be normalized.
+
+There is also no universal rule that a weekend equals exactly three ordinary theta days. Systems may use calendar time, business time, exchange-session time, or a calibrated variance clock. A Friday-to-Monday roll can include:
+
+- closed-market time decay and residual weekend jump risk;
+- a different forward, curve, dividend, borrow, or fixing state;
+- scheduled-event time entering or leaving an expiry;
+- an implied-volatility re-mark under sticky-strike, sticky-delta, total-variance, or another desk convention.
+
+Markets may mark some implied volatilities down before a weekend, leave them firm for event risk, or reprice them on Monday; none is universal. A premium held approximately constant while the model time-to-expiry falls will mechanically imply a higher volatility, so "vol was up" need not mean the option became more expensive. Reports should show premium PnL, clock decay, surface re-mark, and event-variance roll separately.
+
+Distinguish the two quantities explicitly:
+
+$$
+\Theta_{\text{model}}
+=\left.\frac{\partial V}{\partial t}\right|_{\text{stated market state and coordinates}},
+$$
+
+$$
+\text{One-day roll PnL}
+=V(t+\Delta t;\mathcal{M}_{\text{rolled}})
+-V(t;\mathcal{M}_t).
+$$
+
+The second is a revaluation policy, not merely a derivative. Its result depends on what $\mathcal{M}_{\text{rolled}}$ holds fixed, ages, rebuilds, or removes. Store the theta sign, unit, day-count basis, valuation timestamps, surface coordinates, and roll recipe with the risk number.
+
 ### Second-Order And Cross Greeks
 After delta, gamma, vega, theta, and rho, desks often track higher-order effects:
 
@@ -479,6 +590,9 @@ Common pitfalls:
 - Barrier monitoring convention missing or wrong.
 - Greeks aggregated across mixed units.
 - Near-expiry gamma and theta accepted without special testing.
+- Analytic theta compared with a one-day market-data roll without documenting what rolled.
+- Trading-day implied moves compared with calendar-day theta or a differently annualized realized-volatility series.
+- Short-gamma limits sized from collected premium or average carry instead of gap loss and hedge liquidity.
 
 Minimum sanity-check set:
 
@@ -489,6 +603,9 @@ Minimum sanity-check set:
 - mostly positive gamma for vanilla long options,
 - stable implied-vol inversion across liquid quotes,
 - bumped Greeks close to analytic Greeks for representative cases.
+- theta-gamma PDE reconciliation after rates, carry, units, and the variance clock are aligned,
+- explicit Friday-to-Monday and holiday-roll tests with event/no-event cases,
+- full-revaluation spot-gap tests whose losses remain within limits even when the first post-gap hedge is delayed or unavailable.
 
 ## Illustrative Code
 ```python

@@ -1,6 +1,6 @@
 # Portfolio Construction and Backtesting
 
-Related chapters: [03-equities.md](03-equities.md), [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [14-testing-and-validation.md](14-testing-and-validation.md).
+Related chapters: [03-equities.md](03-equities.md), [11-market-data.md](11-market-data.md), [12-pricing-architecture.md](12-pricing-architecture.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [14-testing-and-validation.md](14-testing-and-validation.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), and [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md).
 
 ## What This Domain Covers
 Portfolio construction is where a view becomes a set of positions.
@@ -14,7 +14,11 @@ Start with the mandate: what kind of portfolio is being built and what is it mea
 
 - Long-only and long-short portfolios
 - Benchmark-relative and absolute-return mandates
-- Mean-variance and risk-budgeting style optimizers
+- Markowitz mean-variance, minimum-variance, and benchmark-relative optimizers
+- Black-Litterman allocation and view blending
+- Risk parity and general risk-budgeting portfolios
+- Kelly and fractional-Kelly growth allocation
+- Hierarchical Risk Parity (HRP) and cluster-aware allocation
 - Factor-aware and sector-neutral portfolios
 - Signal-driven rebalancing strategies
 - Event-driven and schedule-driven backtests
@@ -69,6 +73,107 @@ where:
 
 This matters because portfolio tools are usually built around exposures, active bets, and risk budgets rather than pairwise asset covariances alone.
 
+### Markowitz Mean-Variance Optimization
+
+Markowitz optimization makes the expected-return/risk trade-off explicit. Equivalent formulations maximize expected return for a risk budget, minimize risk for a return target, or maximize a quadratic utility:
+
+$$
+\max_w\ 
+\mu^\top w-\frac{\delta}{2}w^\top\Sigma w-C(w,w_{\text{prev}}).
+$$
+
+The mathematical optimum is highly sensitive to \(\mu\). A stable production process normally shrinks expected returns and covariance, limits leverage and concentration, and reports how much each constraint changes the unconstrained answer.
+
+### Black-Litterman
+
+Black-Litterman starts from equilibrium excess returns rather than treating a noisy alpha estimate as certain. A common reverse-optimization prior is:
+
+$$
+\Pi=\delta\Sigma w_{\text{mkt}},
+$$
+
+where \(w_{\text{mkt}}\) is a reference market portfolio and \(\delta\) is risk aversion. Views are represented by \(P\), view returns \(q\), and view-error covariance \(\Omega\). With prior uncertainty scale \(\tau\), a common posterior mean is:
+
+$$
+\mu_{\text{BL}}
+=
+\left[(\tau\Sigma)^{-1}+P^\top\Omega^{-1}P\right]^{-1}
+\left[(\tau\Sigma)^{-1}\Pi+P^\top\Omega^{-1}q\right].
+$$
+
+The formula does not remove judgment. Portfolio definition, risk aversion, \(\tau\), view units, relative-versus-absolute view rows, and \(\Omega\) determine the result. Confidence must be encoded as uncertainty, not as an informal label disconnected from the calculation.
+
+### Risk Parity And Risk Budgets
+
+For portfolio volatility \(\sigma_p=\sqrt{w^\top\Sigma w}\), asset \(i\)'s contribution to volatility is:
+
+$$
+RC_i
+=
+w_i\frac{(\Sigma w)_i}{\sigma_p}.
+$$
+
+Equal-risk-contribution risk parity targets the same \(RC_i\) for each included asset. General risk budgeting targets fractions \(b_i\) that sum to one. Inverse-volatility weights are a useful heuristic, but they are not generally risk parity because they ignore correlation. Risk parity also does not mean equal tail risk, equal scenario loss, or economic diversification.
+
+### Kelly And Fractional Kelly
+
+Kelly allocation maximizes expected logarithmic wealth:
+
+$$
+\max_w\ E[\log(1+w^\top r)].
+$$
+
+For small returns under a quadratic approximation, the unconstrained solution resembles:
+
+$$
+w_{\text{Kelly}}\approx\Sigma^{-1}\mu.
+$$
+
+That answer can be dangerously levered when \(\mu\) is noisy, returns are non-normal, losses are discontinuous, or trading is constrained. Fractional Kelly scales the estimate, but the fraction is not a substitute for scenario limits, liquidity controls, or uncertainty analysis.
+
+### Hierarchical Risk Parity
+
+HRP converts correlation to a distance such as:
+
+$$
+d_{ij}=\sqrt{\frac{1-\rho_{ij}}{2}},
+$$
+
+then clusters assets, orders them by the hierarchy, and recursively allocates between clusters using their estimated variances. It avoids directly inverting the full covariance matrix and can produce more stable weights in ill-conditioned problems. It is still sensitive to the return window, distance definition, linkage method, cluster ordering, and covariance estimator.
+
+No method dominates in every mandate:
+
+| Method | Primary input | Main benefit | Main failure mode |
+| --- | --- | --- | --- |
+| Markowitz | Expected return and covariance | Explicit return/risk trade-off | Noisy means create extreme weights |
+| Black-Litterman | Equilibrium prior and uncertain views | Disciplined view blending | Hidden confidence and unit choices |
+| Risk parity | Covariance and risk budgets | Diversifies local volatility contribution | Can lever low-volatility assets and miss tails |
+| Kelly | Full return opportunity or mean/covariance approximation | Long-run growth objective | Estimation error and drawdown |
+| HRP | Dependence and volatility | Cluster-aware, no full inverse | Unstable hierarchy or false diversification |
+
+### Worked Allocation Example: Two-Asset Risk Parity
+
+Assume two uncorrelated assets have annualized volatility \(10\%\) and \(20\%\). With no shorting and weights summing to one, inverse-volatility weights are:
+
+$$
+w_1
+=
+\frac{1/0.10}{1/0.10+1/0.20}
+=
+\frac{2}{3},
+\qquad
+w_2=\frac{1}{3}.
+$$
+
+Each standalone weighted volatility is \(6.67\%\), so the two assets contribute equally in this simple diagonal-covariance case. Portfolio volatility is:
+
+$$
+\sqrt{(2/3)^2(0.10)^2+(1/3)^2(0.20)^2}
+\approx9.43\%.
+$$
+
+With more assets or nontrivial correlation, solve the risk-budget equations using the full covariance matrix rather than assuming inverse-volatility weights are sufficient. The arithmetic is reproduced in [examples/portfolio-risk-budgeting.md](examples/portfolio-risk-budgeting.md).
+
 ### Visual Backtesting Reference
 
 ![Portfolio construction and backtesting loop](assets/backtesting-research-loop.svg)
@@ -79,6 +184,10 @@ The research loop is only credible when universe membership, signal timing, opti
 - Portfolio volatility and marginal risk contribution
 - Tracking error and active share
 - Factor exposures and factor contribution to risk
+- Marginal and component risk contributions versus declared risk budgets
+- Posterior-return and weight sensitivity to Black-Litterman view confidence
+- Kelly leverage and expected growth under parameter and tail perturbations
+- Cluster and weight stability across HRP distance, linkage, and window choices
 - Beta to benchmark or market factor
 - VaR / expected shortfall for portfolio loss views
 - Drawdown, downside deviation, and tail metrics
@@ -94,6 +203,8 @@ The important distinction is between pre-trade and post-trade risk:
 - Benchmark histories, constituent mappings, and classification data
 - Factor return series and exposure inputs
 - Covariance estimates, shrinkage policies, and annualization conventions
+- Equilibrium portfolio, risk-aversion estimate, Black-Litterman view matrix, view returns, and view uncertainty
+- Risk-budget vector, leverage policy, Kelly fraction, and HRP clustering specification
 - Volume, ADV, spread, and liquidity proxies for cost estimation
 - Corporate actions, borrow costs, and financing assumptions
 - Rebalance calendars, holiday calendars, and market-close definitions
@@ -106,6 +217,9 @@ The important distinction is between pre-trade and post-trade risk:
 - Store both target weights and realized holdings; drift between them is analytically meaningful.
 - Make turnover and cost calculations deterministic and visible in the output schema.
 - Use rolling-window estimation carefully; estimation horizon, lagging, and overlapping windows can change results materially.
+- Treat optimization configuration as versioned data: objective, solver, tolerances, bounds, constraints, covariance, forecasts, and fallback.
+- Compare several defensible input perturbations rather than trusting one point estimate. Report weight instability and binding constraints.
+- Keep local covariance allocation separate from named stress and liquidity limits; a covariance optimizer does not see a locked market or discontinuous gap unless those controls are added.
 
 Useful workflow split:
 - research inputs,
@@ -123,6 +237,10 @@ Useful workflow split:
 - Silent weight renormalization masking missing assets or failed constraints.
 - Ignoring turnover and slippage until after optimization, then discovering the strategy is untradeable.
 - Reporting realized performance from target weights rather than executed positions.
+- Presenting inverse-volatility weights as exact risk parity without calculating contributions from the full covariance matrix.
+- Encoding Black-Litterman confidence inconsistently across views or mixing percent and decimal return units.
+- Running full Kelly on unstable expected returns or treating a Kelly fraction as a drawdown guarantee.
+- Calling HRP robust without checking cluster stability across windows and linkage rules.
 
 Minimum checks:
 - weights satisfy funding and exposure constraints within tolerance,
@@ -158,12 +276,37 @@ def turnover(prev_weights: pd.Series, new_weights: pd.Series) -> float:
     aligned_prev = prev_weights.reindex(new_weights.index.union(prev_weights.index), fill_value=0.0)
     aligned_new = new_weights.reindex(aligned_prev.index, fill_value=0.0)
     return float((aligned_new - aligned_prev).abs().sum())
+
+
+def inverse_volatility_weights(volatility: pd.Series) -> pd.Series:
+    if (volatility <= 0).any():
+        raise ValueError("volatility inputs must be positive")
+    inverse = 1.0 / volatility
+    return inverse / inverse.sum()
+
+
+def volatility_risk_contributions(weights: pd.Series, covariance: pd.DataFrame) -> pd.Series:
+    aligned_covariance = covariance.loc[weights.index, weights.index]
+    marginal_variance = aligned_covariance.values @ weights.values
+    portfolio_variance = float(weights.values @ marginal_variance)
+    if portfolio_variance <= 0:
+        raise ValueError("portfolio variance must be positive")
+    portfolio_volatility = portfolio_variance**0.5
+    return pd.Series(
+        weights.values * marginal_variance / portfolio_volatility,
+        index=weights.index,
+    )
 ```
 
 This is deliberately small. A production implementation would also version data snapshots, account for trading calendars and execution timing, and distinguish target weights from executed holdings.
 
 ## References and Further Reading
 - Grinold and Kahn. *Active Portfolio Management*
+- Markowitz. *Portfolio Selection*.
+- Black and Litterman on global portfolio optimization and view blending.
+- Kelly. *A New Interpretation of Information Rate*.
+- Maillard, Roncalli, and Teiletche on equal-risk-contribution portfolios.
+- López de Prado on Hierarchical Risk Parity.
 - Meucci. *Risk and Asset Allocation*
 - Kissell. *The Science of Algorithmic Trading and Portfolio Management*
 - Practitioner material on factor models, benchmark-relative risk, and transaction-cost modelling

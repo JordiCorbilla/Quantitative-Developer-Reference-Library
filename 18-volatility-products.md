@@ -1,6 +1,6 @@
 # Volatility Products
 
-Related chapters: [01-options.md](01-options.md), [09-cross-asset.md](09-cross-asset.md), [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
+Related chapters: [01-options.md](01-options.md), [09-cross-asset.md](09-cross-asset.md), [10-numerical-methods.md](10-numerical-methods.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md).
 
 ## What This Domain Covers
 Volatility products trade the size and shape of uncertainty.
@@ -84,6 +84,46 @@ Implementation cautions:
 - A high $\alpha + \beta$ implies persistent volatility; values too close to 1 can make forecasts slow to mean-revert.
 - GARCH forecasts conditional volatility, not full market risk; jump risk, liquidity, correlation breaks, and nonlinear exposures still need separate treatment.
 
+## EWMA and Realized-Volatility Forecasting
+GARCH is not the only defensible volatility baseline. An exponentially weighted moving average (EWMA) updates conditional variance as:
+
+$$
+h_t=\lambda h_{t-1}+(1-\lambda)r_{t-1}^2,\qquad 0<\lambda<1.
+$$
+
+The weight on an observation $k$ periods old is $(1-\lambda)\lambda^{k-1}$. Its variance-weight half-life is:
+
+$$
+\text{half-life}=\frac{\log(0.5)}{\log(\lambda)}.
+$$
+
+EWMA is transparent, fast, and often a useful benchmark. In its basic form it has no separate long-run variance, so a multi-step forecast remains at the current variance rather than mean-reverting. A value of $\lambda$ is inseparable from sampling frequency: a daily decay parameter cannot be moved to intraday bars without conversion and validation.
+
+When reliable high-frequency observations are available, daily realized variance can be estimated from intraday returns:
+
+$$
+RV_t=\sum_{j=1}^{M_t}r_{t,j}^2.
+$$
+
+The heterogeneous autoregressive realized-volatility model (HAR-RV) uses daily, weekly, and monthly components:
+
+$$
+RV_{t+1}
+=\beta_0+\beta_d RV_t
++\beta_w\overline{RV}_{t,5}
++\beta_m\overline{RV}_{t,22}
++\epsilon_{t+1}.
+$$
+
+In practice, modelling $\log RV$ can keep forecasts positive and reduce skew, but retransformation requires care because $\exp(\mathbb E[\log RV])\neq\mathbb E[RV]$. Robust realized measures such as realized kernels, subsampled variance, or pre-averaging can reduce microstructure-noise bias. Overnight returns, market closures, and changing numbers of intraday observations need an explicit policy.
+
+Implementation contract:
+- identify whether the target is next-period variance, volatility, or annualized volatility;
+- persist the bar definition, sampling grid, timezone, and overnight treatment;
+- fit decay parameters and HAR coefficients using training data only;
+- publish the forecast origin, target date, horizon, units, and forecast interval;
+- compare against rolling standard deviation, constant variance, and other simple baselines on identical forecast origins.
+
 ## Regime Models and Regime-Switching Volatility
 Regime models are now covered in this chapter because they sit naturally between volatility forecasting, VaR/ES scaling, stress testing, and portfolio allocation. The key idea is that market behavior can switch between latent states such as calm markets, high-volatility markets, crisis markets, or liquidity-stressed markets.
 
@@ -138,6 +178,35 @@ Implementation cautions:
 - Filtered probabilities are live-usable; smoothed probabilities use future data and can create look-ahead bias.
 - Regime signals should be tested after transaction costs, turnover, capacity, and delayed execution.
 
+### Gaussian-Mixture Regimes
+A finite Gaussian mixture represents an unconditional return or feature distribution as:
+
+$$
+f(y_t)=\sum_{k=1}^{K}\pi_k
+\mathcal N(y_t\mid\mu_k,\Sigma_k),
+\qquad \sum_{k=1}^{K}\pi_k=1.
+$$
+
+Mixtures can separate low-variance and high-variance clusters without imposing Markov transitions. That makes them a useful descriptive baseline, but an ordinary mixture is not a temporal regime model: conditional on its parameters, each observation's component assignment does not depend on the previous assignment. An HMM adds that persistence through a transition matrix.
+
+Mixture fitting is sensitive to scaling, initialization, outliers, covariance regularization, and the selected number of components. Likelihood can become unbounded when a component collapses around an observation, so minimum covariance floors and fit diagnostics are required. Component numbers have no intrinsic economic label and can permute between refits; production mapping should sort or match components using documented emission characteristics rather than raw component IDs.
+
+### Bayesian Change-Point Detection
+Change-point methods ask whether the data-generating parameters have shifted rather than assuming a fixed transition matrix. In Bayesian online change-point detection, the run length $r_t$ is the number of observations since the most recent change. The algorithm recursively updates:
+
+$$
+P(r_t,y_{1:t})
+=
+\sum_{r_{t-1}}
+P(y_t\mid r_{t-1},y_{1:t-1})
+P(r_t\mid r_{t-1})
+P(r_{t-1},y_{1:t-1}),
+$$
+
+where the transition term includes a hazard rate governing prior change probability. Useful outputs are the posterior change probability and the distribution of run length, not a guaranteed crisis call.
+
+The hazard, predictive distribution, prior, and treatment of outliers materially affect detections. A fat-tailed observation model is often necessary to avoid declaring every large return a permanent structural break. Online posteriors use information through $t$; retrospective segmentation conditions on later data and must not be substituted into a live-style backtest.
+
 ### Regime-Switching GARCH
 Regime-switching GARCH combines latent states with regime-specific volatility dynamics:
 
@@ -166,6 +235,20 @@ Implementation cautions:
 - Transition probabilities should be monitored for stability.
 - Backtests must avoid using smoothed future information in live-style decisions.
 - Regime-switching GARCH can be fragile to initialize and computationally expensive to calibrate.
+
+### Fitting and Live-State Discipline
+Regime models are particularly vulnerable to hindsight. Keep these objects distinct:
+
+- **Fitted parameters:** estimated from a documented window and information set.
+- **Predicted state probability:** propagated from the previous filtered probability before seeing the new observation.
+- **Filtered probability:** updated using observations available through the current decision time.
+- **Smoothed probability:** recomputed using observations after the historical date.
+- **Decoded path:** a most-likely joint state sequence, often produced retrospectively.
+
+Expectation-maximization can converge to local optima, so multiple deterministic starts, likelihood checks, covariance floors, and state-occupancy checks are normal controls. A state containing only a few crisis observations may be economically interesting but statistically fragile. Live refits can also relabel or split states; archive the model version and state-mapping rule with every signal.
+
+For fair validation, refit or update the model at each scheduled historical origin, use only the filtered state available then, and charge the trading delay and turnover caused by probability revisions. A full-sample fit followed by full-sample smoothing is useful for explaining history, not for estimating a deployable strategy's performance.
+
 
 ## Heston Stochastic Volatility Model
 The Heston model is a stochastic-volatility model used for option pricing and volatility-surface calibration. Unlike Black-Scholes, it lets variance move through time as its own mean-reverting process. This helps represent volatility clustering, skew, and the equity leverage effect.
@@ -226,22 +309,30 @@ This deliberately uses decimal variance. Market systems may instead quote a vari
 - Vol-of-vol and convexity.
 - Correlation exposure for dispersion.
 - Forward variance and roll-down exposure.
+- Forecast error and interval coverage by horizon.
+- Sensitivity to EWMA decay, HAR window definitions, model refit date, and realized-measure construction.
+- Regime probability, change probability, state occupancy, and transition-parameter stability.
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
 - Option chains across strikes and maturities.
 - Interest-rate, dividend, borrow, and forward inputs.
 - Volatility index methodology inputs.
 - Realized return series with sampling and corporate-action policies.
+- Intraday prices or returns with timestamp, timezone, auction, bad-tick, sampling-grid, and overnight policies for realized measures.
 - Clean return series for GARCH estimation, including outlier and missing-data policy.
-- Regime-model inputs such as return series, state count, transition constraints, and estimation window.
+- EWMA decay or half-life and HAR-RV daily, weekly, and monthly window definitions.
+- Regime-model inputs such as return series, state count, transition constraints, change-point hazard, priors, and estimation window.
+- Point-in-time fitted parameters, filtered state probabilities, model versions, and forecast-origin snapshots.
 - Stochastic-volatility calibration inputs such as option surfaces, parameter bounds, correlation assumptions, and numerical integration settings.
 - Constituent weights and correlation data for dispersion.
 - Surface calibration and no-arbitrage controls.
 
 ## Numerical and Implementation Approaches
 - Keep variance, volatility, and volatility points as distinct units in code.
-- Treat GARCH models as forecasting models with explicit data windows, residual distributions, and refit schedules.
-- Treat regime models as probabilistic classifiers; persist filtered probabilities, transition matrices, and model versions.
+- Treat EWMA, HAR-RV, and GARCH models as forecasting models with explicit targets, data windows, residual distributions, forecast horizons, and refit schedules.
+- Validate volatility forecasts with rolling origins; fit parameters and any realized-measure transformations inside each training window.
+- Treat regime models as probabilistic classifiers; persist predicted and filtered probabilities, transition matrices, component-mapping rules, and model versions.
+- Use smoothed probabilities and retrospective change points only for labelled research diagnostics, never as live historical features.
 - Treat Heston and other stochastic-volatility models as calibrated models with explicit parameter constraints, objective functions, and fallback rules.
 - Use robust interpolation and extrapolation controls for option surfaces.
 - Validate option-strip replication against listed variance or volatility quotes where available.
@@ -251,11 +342,23 @@ This deliberately uses decimal variance. Market systems may instead quote a vari
 - Squaring decimal volatility in one module and percent volatility in another.
 - Treating VIX futures as spot VIX.
 - Ignoring jump and close-to-close sampling effects in realized variance.
+- Comparing a close-to-close forecast with an intraday-only realized target.
+- Applying a daily EWMA decay to a different sampling frequency without conversion and revalidation.
+- Building HAR-RV regressors from overlapping windows that cross a validation boundary.
 - Using a GARCH forecast as if it captures liquidity, jump, and correlation-break risk.
 - Using smoothed regime states in a backtest when those states would not have been known at trade time.
+- Treating Gaussian-mixture component IDs as stable economic labels across refits.
+- Calling an offline, retrospectively located change point an online warning.
 - Over-interpreting Heston parameters when the calibration surface is sparse, stale, or arbitrage-inconsistent.
 - Reporting dispersion risk without exposing correlation sensitivity.
 - Calibrating a smooth surface that violates static no-arbitrage constraints.
+
+Minimum forecast checks:
+- the realized target and every model output share units, annualization, and sampling coverage;
+- the same forecast origins and missing-value policy are used for every benchmark;
+- adding observations after a historical forecast origin does not alter its stored inputs or filtered state;
+- empirical prediction-interval coverage is reported by horizon and regime;
+- state occupancy, transition probabilities, covariance floors, and parameter boundaries are monitored after each refit.
 
 ## Illustrative Code
 ```python
@@ -269,11 +372,43 @@ def garch_11_variance(omega: float, alpha: float, beta: float, prev_shock: float
 
 def two_state_next_probability(current_prob_state_1: float, p11: float, p21: float) -> float:
     return current_prob_state_1 * p11 + (1.0 - current_prob_state_1) * p21
+
+
+def ewma_variance(previous_variance: float, previous_return: float, decay: float) -> float:
+    if previous_variance < 0:
+        raise ValueError("variance cannot be negative")
+    if not 0.0 < decay < 1.0:
+        raise ValueError("decay must be between zero and one")
+    return decay * previous_variance + (1.0 - decay) * previous_return ** 2
+
+
+def har_rv_forecast(
+    intercept: float,
+    beta_daily: float,
+    beta_weekly: float,
+    beta_monthly: float,
+    daily_rv: float,
+    weekly_rv: float,
+    monthly_rv: float,
+) -> float:
+    forecast = (
+        intercept
+        + beta_daily * daily_rv
+        + beta_weekly * weekly_rv
+        + beta_monthly * monthly_rv
+    )
+    if forecast < 0:
+        raise ValueError("linear HAR-RV forecast is negative; define a floor or log specification")
+    return forecast
 ```
 
 ## References and Further Reading
 - Gatheral. *The Volatility Surface*
 - Demeterfi, Derman, Kamal, and Zou on variance swaps.
+- RiskMetrics technical documentation on EWMA volatility.
+- Corsi on the HAR model of realized volatility.
+- Adams and MacKay on Bayesian online change-point detection.
 - Bollerslev on generalized autoregressive conditional heteroskedasticity.
 - Hamilton on regime-switching time-series models.
 - Exchange methodology documents for volatility indices.
+- Links: [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md) and [examples/ewma-har-rv-forecast.md](examples/ewma-har-rv-forecast.md).

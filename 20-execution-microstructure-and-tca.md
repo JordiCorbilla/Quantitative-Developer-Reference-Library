@@ -1,6 +1,6 @@
 # Execution Microstructure and Transaction-Cost Analysis
 
-Related chapters: [03-equities.md](03-equities.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [15-performance-and-production.md](15-performance-and-production.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
+Related chapters: [03-equities.md](03-equities.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [15-performance-and-production.md](15-performance-and-production.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), and [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md).
 
 ## What This Domain Covers
 Execution is where a portfolio decision meets the market.
@@ -41,6 +41,58 @@ for a buy order, where $p_0$ is the decision or arrival price. A complete TCA de
 ![Execution and TCA workflow](assets/execution-tca-workflow.svg)
 
 TCA is useful when it connects decisions, order instructions, market conditions, realized fills, and model feedback.
+
+### Kyle Lambda And Signed Order Flow
+
+A simple Kyle-style price-impact relationship is:
+
+$$
+\Delta p_t = \lambda q_t+\epsilon_t,
+$$
+
+where \(q_t\) is signed net order flow and \(\lambda\) measures the price response per unit of signed flow. The model formalizes the link between informed trading, market-maker inference, and liquidity. An empirical “Kyle lambda” must state whether \(q_t\) is shares, currency notional, contracts, or percent of volume; whether price change is currency, return, or basis points; how trade signs are inferred; and what interval is used.
+
+The regression slope is not automatically a causal or permanent-impact estimate. Public news, autocorrelated flow, spread bounce, hidden liquidity, venue fragmentation, and sign-classification errors can all move it.
+
+### Almgren-Chriss Execution Scheduling
+
+The Almgren-Chriss framework divides an order into child trades while balancing expected impact cost against price risk. If \(x_k\) is remaining inventory at time \(k\), then child quantity is \(n_k=x_k-x_{k+1}\). A common objective is:
+
+$$
+\min_{\{n_k\}}
+E[C] + \lambda_A\operatorname{Var}(C),
+\qquad
+\sum_k n_k=Q,
+$$
+
+where \(C\) is implementation cost and \(\lambda_A\) is execution risk aversion. Temporary impact penalizes aggressive child orders; permanent impact shifts the price path; inventory risk penalizes waiting with \(x_k\) exposed.
+
+The model produces a schedule under explicit impact, volatility, time, and risk-aversion assumptions. It does not guarantee fills or concealment. Real implementations add spread, discrete lots, participation caps, auctions, queue position, limit prices, halts, venue choice, and recalibration when live volume or volatility differs from forecast.
+
+The widely used square-root impact heuristic,
+
+$$
+\frac{\Delta p}{p}
+\approx
+Y\sigma\sqrt{\frac{Q}{V}},
+$$
+
+relates impact to volatility \(\sigma\) and order size \(Q\) relative to volume \(V\). It is an empirical scaling law, not the same model as Almgren-Chriss, and \(Y\), horizon, and volume definition must be calibrated to the relevant market.
+
+### Order-Book Imbalance
+
+At the best displayed level, a simple order-book imbalance is:
+
+$$
+I_t
+=
+\frac{Q^{\text{bid}}_t-Q^{\text{ask}}_t}
+{Q^{\text{bid}}_t+Q^{\text{ask}}_t}.
+$$
+
+It ranges from \(-1\) to \(1\) when the denominator is positive. Positive imbalance means more displayed bid than ask quantity under the chosen snapshot; it is not by itself a buy instruction. Variants weight several levels by price distance, use order-flow imbalance from additions/cancellations/trades, or model queue depletion in event time.
+
+Displayed size can cancel, replenish, or sit behind hidden liquidity. Feed sequencing, venue coverage, crossed/locked books, auction states, lot conventions, and latency determine whether two systems calculate the same feature. Evaluate imbalance at the decision horizon after fees, adverse selection, queue position, and message-to-trade latency.
 
 ## VWAP, TWAP, POV, and Implementation Shortfall
 VWAP and TWAP belong in this repo because they are the simplest bridge between trading strategy, microstructure, and measurable execution quality. They also come up often in interviews because they test whether a candidate understands benchmarks, schedules, volume curves, and cost trade-offs rather than only formulas.
@@ -148,6 +200,34 @@ $$
 
 The number is only interpretable if the benchmark, side, fees, partial fills, and currency are defined.
 
+## Worked Instrument Example: Impact Versus Inventory Risk
+Suppose a 200,000-share buy order is divided across four equal time buckets. Compare:
+
+- an even schedule of \(50{,}000\) shares per bucket;
+- a front-loaded schedule of \(80{,}000,\ 60{,}000,\ 40{,}000,\ 20{,}000\).
+
+Under a simplified temporary-impact term proportional to \(\sum_k n_k^2\), measured in thousands of shares:
+
+$$
+50^2+50^2+50^2+50^2=10{,}000,
+$$
+
+while the front-loaded schedule gives:
+
+$$
+80^2+60^2+40^2+20^2=12{,}000.
+$$
+
+The front-loaded schedule has \(20\%\) more temporary-impact penalty under this toy model, but less inventory remains exposed to subsequent price moves. Choosing between them requires the impact coefficient, volatility, urgency, alpha decay, spread, and fill constraints; the sum-of-squares comparison alone is not an optimal schedule.
+
+If the displayed best bid is 120,000 shares and the best ask is 80,000 shares, snapshot imbalance is:
+
+$$
+\frac{120{,}000-80{,}000}{120{,}000+80{,}000}=0.20.
+$$
+
+That observation may affect child-order urgency or limit placement only after validating feed state, persistence, queue position, and out-of-sample predictive value. The calculations are reproduced in [examples/order-book-impact-tradeoff.md](examples/order-book-impact-tradeoff.md).
+
 ## Key Risk Measures and Sensitivities
 - Spread cost and effective spread.
 - Market impact and participation-rate sensitivity.
@@ -157,6 +237,9 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Venue fill quality and adverse selection.
 - Capacity and liquidity limits.
 - Parent-order participation, residual quantity, and completion risk.
+- Kyle lambda and impact-curve sensitivity by interval, venue, side, liquidity bucket, and volatility regime.
+- Remaining-inventory risk, temporary and permanent impact, and schedule sensitivity to execution risk aversion.
+- Order-book and order-flow imbalance, queue depletion, cancellation rate, fill probability, and post-fill adverse selection.
 
 ## Required Data, Curves, Surfaces, and Calibration Objects
 - Order and execution ledgers with timestamps.
@@ -164,6 +247,8 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Venue, broker, fee, rebate, and tax schedules.
 - Volume curves, spread history, volatility, ADV, and intraday participation constraints.
 - Order-book or liquidity proxies, auction schedules, corporate-event calendar, and parent-order urgency constraints.
+- Sequenced depth and trade events with venue, side, price, displayed quantity, order identifiers where available, and exchange timestamps.
+- Trade-sign classification, signed-flow aggregation, queue state, cancellations, hidden-liquidity indicators, halts, limit states, and feed-gap diagnostics.
 - Corporate-action adjusted identifiers.
 - Strategy signal timestamps to detect look-ahead and delay.
 
@@ -175,6 +260,9 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Calibrate impact models by liquidity bucket, volatility, urgency, and participation rate.
 - Feed post-trade results back into pre-trade cost estimates.
 - Record the parent-order objective, constraints, schedule changes, and residual-order decisions so TCA can explain them.
+- Estimate impact with side-aware, horizon-specific and out-of-sample methods; retain uncertainty and residual diagnostics rather than only one coefficient.
+- Normalize order-book events into deterministic event time before constructing imbalance or queue features.
+- Re-optimize or fall back safely when live spread, volatility, volume, book state, or venue availability breaches the calibration regime.
 
 ## Production Pitfalls and Sanity Checks
 - Measuring slippage to close when the execution objective was arrival price.
@@ -183,6 +271,11 @@ The number is only interpretable if the benchmark, side, fees, partial fills, an
 - Aggregating buys and sells with inconsistent sign conventions.
 - Reporting backtests without realistic turnover, spread, and impact assumptions.
 - Treating a fixed participation rate or a round-lot size as proof that an order will be non-disruptive.
+- Treating a Kyle-style slope as invariant, causal, or directly comparable across different flow and price units.
+- Applying a continuous Almgren-Chriss schedule without lot, participation, auction, halt, or limit-price constraints.
+- Using book snapshots with duplicated, dropped, or out-of-sequence messages.
+- Treating displayed imbalance as durable liquidity or ignoring spoof-like cancellations and hidden replenishment.
+- Tuning an imbalance horizon on the final test sample or evaluating fills without queue position and latency.
 
 ## Illustrative Code
 ```python
@@ -205,9 +298,41 @@ def twap(prices: list[float]) -> float:
     if not prices:
         raise ValueError("TWAP requires at least one price")
     return sum(prices) / len(prices)
+
+
+def order_book_imbalance(bid_quantity: float, ask_quantity: float) -> float:
+    total = bid_quantity + ask_quantity
+    if bid_quantity < 0 or ask_quantity < 0 or total <= 0:
+        raise ValueError("displayed quantities must be non-negative with positive total")
+    return (bid_quantity - ask_quantity) / total
+
+
+def temporary_impact_exposure(child_quantities: list[float]) -> float:
+    if any(quantity < 0 for quantity in child_quantities):
+        raise ValueError("use non-negative quantities for a one-sided schedule")
+    return sum(quantity**2 for quantity in child_quantities)
+
+
+def kyle_lambda(price_changes: list[float], signed_flow: list[float]) -> float:
+    if len(price_changes) != len(signed_flow) or len(price_changes) < 2:
+        raise ValueError("aligned price changes and signed flow are required")
+    flow_mean = sum(signed_flow) / len(signed_flow)
+    price_mean = sum(price_changes) / len(price_changes)
+    denominator = sum((flow - flow_mean) ** 2 for flow in signed_flow)
+    if denominator <= 0:
+        raise ValueError("signed flow must vary")
+    numerator = sum(
+        (flow - flow_mean) * (price - price_mean)
+        for flow, price in zip(signed_flow, price_changes)
+    )
+    return numerator / denominator
 ```
 
 ## References and Further Reading
 - Kissell. *The Science of Algorithmic Trading and Portfolio Management*
+- Kyle. *Continuous Auctions and Insider Trading*.
+- Almgren and Chriss. *Optimal Execution of Portfolio Transactions*.
+- Hasbrouck on empirical market microstructure and price impact.
+- Gould et al. on the limit order book and its empirical properties.
 - Market microstructure and execution-algorithm methodology notes.
 - Broker and venue TCA documentation.

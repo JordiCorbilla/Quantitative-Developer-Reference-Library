@@ -37,6 +37,8 @@ Listed options provide transparent contract terms but fragmented liquidity acros
 - Equity option values depend on discounting, expected dividends, borrow, settlement style, exercise style, multiplier, and deliverable adjustments.
 - A variance notional per decimal variance differs by a factor of 10,000 from a notional per variance point. Make the unit part of the type or schema.
 - Mid, natural, and executable prices answer different questions. Research should retain bid, ask, sizes, quote age, and the chosen marking rule.
+- Calendar decay and variance time are not interchangeable defaults. Store whether each interval uses calendar days, trading sessions, exact timestamps, or a calibrated event/weekend clock.
+- A Friday-to-Monday change in implied volatility is not itself the weekend PnL. Separate premium change, passage of time, forward/curve roll, surface re-mark, and event variance; there is no universal convention that volatility must be marked down before every weekend.
 
 ## Core Pricing Framework
 For an expiry $T$, define total implied variance:
@@ -83,6 +85,24 @@ d\Pi \approx
 \frac{1}{2}\Gamma S^2
 \left(\sigma_{\text{realized}}^2-\sigma_{\text{implied}}^2\right)dt
 $$
+
+For one discrete step of variance time $\Delta\tau$, the same local comparison can be written:
+
+$$
+\Delta\Pi
+\approx
+\frac{1}{2}\Gamma
+\left[(\Delta S)^2-S^2\sigma_{\text{imp}}^2\Delta\tau\right].
+$$
+
+The corresponding close-to-close absolute move that offsets the model theta is:
+
+$$
+|\Delta S|_{\text{BE}}
+\approx S\sigma_{\text{imp}}\sqrt{\Delta\tau}.
+$$
+
+This is a local gamma/theta break-even, not the premium break-even at expiry. It assumes compatible Greek units, the same volatility clock, continuous local dynamics, no surface move, and costless delta hedging. A long-gamma hedge sells underlying after rises and buys after falls; a short-gamma hedge must buy after rises and sell after falls. Gaps occur before either side can trade, so realized close-to-close variance does not by itself determine executable hedge PnL. The full derivation and code are in [examples/theta-gamma-daily-breakeven.md](examples/theta-gamma-daily-breakeven.md).
 
 Around a discrete event, full repricing under jump scenarios is preferable. A Taylor approximation can be badly wrong when spot crosses strikes, skew shifts, or the option changes exercise behavior.
 
@@ -141,6 +161,21 @@ Real option PnL will also reflect the entry spread, discrete hedge fills, pre-ev
 
 Daily PnL should separate spot/delta, realized gamma, surface level, skew, term roll, event-variance repricing, theta/carry, hedge trading, fees, lifecycle events, and residual. A falling headline implied volatility can coexist with positive PnL if the position owns the relevant forward or event variance.
 
+Short volatility should be evaluated as an asymmetric distribution, not described only by its average carry. A strategy can collect small theta amounts across many quiet observations and lose several months or years of carry in one jump, volatility-surface dislocation, or failed hedge. The local loss grows quadratically with the move; beyond the local region, full repricing and option payoff bounds take over.
+
+Tail-first sizing starts with a scenario set $\mathcal S$ that includes gaps, skew rotations, volatility jumps, wider execution, delayed hedging, and any market closure or price-limit state. If $L_{\max}$ is the allowed loss and $\operatorname{PnL}_{1}(s)$ is the full-revalued PnL of one trade unit, a basic hard cap is:
+
+$$
+N_{\max}
+=
+\left\lfloor
+\frac{L_{\max}}
+{\max_{s\in\mathcal S}\left[-\operatorname{PnL}_{1}(s)\right]}
+\right\rfloor.
+$$
+
+Apply concentration, liquidity, model-risk, and wrong-way-risk add-ons after this calculation. Premium received, historical hit rate, and normal-day theta do not increase $L_{\max}$ automatically.
+
 ## Required Data, Curves, Surfaces, and Calibration Objects
 A useful option-quote record includes `instrument_id`, underlying, venue, timestamp, expiry timestamp, strike, call/put, exercise and settlement style, multiplier, bid, ask, sizes, last trade, open interest, and deliverable version. Retain raw and normalized symbols.
 
@@ -177,8 +212,11 @@ Backtests must use quotes and event timestamps available at the simulated decisi
 - Pricing from mid while assuming all hedges execute at mid during a gap.
 - Calling a trade delta-neutral while ignoring vanna, charm, discrete hedging, and overnight gap delta.
 - Attributing all post-event volatility collapse to theta instead of an explicit event-variance factor.
+- Comparing model theta with a one-day roll whose curves, forwards, surface coordinates, or event flags changed.
+- Annualizing realized moves on 252 sessions while charging theta on a 365-day clock without a documented bridge.
+- Sizing short-gamma carry from a normal-return covariance matrix while omitting gap and unavailable-hedge states.
 
-Minimum controls include put-call parity residuals, nonnegative calendar forward variance, monotone/convex call-price checks, surface residuals versus bid-ask, quote-age limits, event-version reconciliation, scenario price bounds, and actual-versus-explained PnL.
+Minimum controls include put-call parity residuals, nonnegative calendar forward variance, monotone/convex call-price checks, surface residuals versus bid-ask, quote-age limits, event-version reconciliation, scenario price bounds, theta-gamma reconciliation on a common clock, explicit holiday/weekend roll tests, tail-loss limits with delayed hedges, and actual-versus-explained PnL.
 
 ## Illustrative Code
 ```python
@@ -230,4 +268,4 @@ def event_variance_pnl(
 - Sinclair. *Volatility Trading*.
 - Leung and Santoli. [“Accounting for Earnings Announcements in the Pricing of Equity Options”](https://doi.org/10.1142/S2345768614500165).
 - [Official exchange volatility-index mathematics methodology](https://cdn.cboe.com/resources/indices/Cboe_Volatility_Index_Mathematics_Methodology.pdf).
-- Related material: [18-volatility-products.md](18-volatility-products.md) and [examples/event-volatility-implied-move.md](examples/event-volatility-implied-move.md).
+- Related material: [18-volatility-products.md](18-volatility-products.md), [examples/event-volatility-implied-move.md](examples/event-volatility-implied-move.md), and [examples/theta-gamma-daily-breakeven.md](examples/theta-gamma-daily-breakeven.md).
