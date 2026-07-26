@@ -10,7 +10,7 @@ This index groups the library by practitioner task rather than file number.
 - [05-fixed-income.md](05-fixed-income.md) - bonds, yield, duration, convexity, spreads, schedules
 - [06-interest-rates.md](06-interest-rates.md) - swaps, FRAs, caps/floors, swaptions, multi-curve pricing
 - [07-credit.md](07-credit.md) - CDS, recovery, hazard rates, credit curves, basis, indices
-- [08-commodities.md](08-commodities.md) - storage, convenience yield, seasonality, delivery, curve carry
+- [08-commodities.md](08-commodities.md) - storage, convenience yield, event calendars, signed prices, limits, delivery, curve carry
 - [09-cross-asset.md](09-cross-asset.md) - hybrid payoffs, correlation, collateral, funding, xVA
 - [17-inflation-products.md](17-inflation-products.md) - CPI swaps, indexation lags, seasonality, real-rate risk
 - [18-volatility-products.md](18-volatility-products.md) - variance swaps, VIX, GARCH, regime models, dispersion, realized variance
@@ -24,11 +24,11 @@ This index groups the library by practitioner task rather than file number.
 - [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md) - warrants, rights, PIPEs, SPAC units, redemptions, dilution, lifecycle events
 
 ## Strategy And Special Situations
-- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pairs trading, cointegration, residual signals, execution, model-break risk
+- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - Engle-Granger/Johansen, OU spreads, Kalman hedges, PCA stat-arb, execution, model breaks
 - [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md) - deal terms, spreads, close/break scenarios, event states, and hedging
 - [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md) - cross-instrument issuer mapping, basis, recovery, hedging, and scenario PnL
 - [35-convertible-arbitrage.md](35-convertible-arbitrage.md) - convertible valuation, stock and credit hedges, borrow, financing, and PnL
-- [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md) - surface relative value, event variance, gamma scalping, dispersion, and correlation
+- [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md) - surface/event variance, gamma scalping, theta break-even, tail sizing, dispersion, correlation
 - [39-private-credit-distressed-and-real-estate-credit.md](39-private-credit-distressed-and-real-estate-credit.md) - loan underwriting, covenants, workouts, recovery, and real-estate credit
 - [42-fundamental-catalyst-equity-analysis.md](42-fundamental-catalyst-equity-analysis.md) - financial statements, valuation, estimate revisions, catalysts, and dilution
 
@@ -44,11 +44,15 @@ This index groups the library by practitioner task rather than file number.
 - [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md) - bitemporal/as-of data, immutable event state, lineage, and replay
 - [41-production-quant-engineering.md](41-production-quant-engineering.md) - typed model libraries, SQL, distributed workflows, testing, CI, deployment, and observability
 - [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md) - robust covariance, downside risk, multiple testing, and research validation
+- [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md) - ARIMA/SARIMA/ARIMAX, VAR/VECM, state-space and Kalman forecasting
+- [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md) - regularized regression, trees/boosting, SVM/kNN/Naive Bayes, neural and sequence models
+- [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md) - Q-learning, DQN, policy gradient, PPO, actor-critic, A3C/SAC, offline and safe evaluation
+- [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md) - CAPM, Fama-French, Carhart, Barra-style risk, momentum, reversal, trend, seasonality, ranking
 
 ## Risk, Execution, And Portfolio Workflow
-- [13-risk-and-pnl.md](13-risk-and-pnl.md) - Greeks, VaR, ES, beta, PnL explain, controls
-- [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - factor models, optimization, turnover, backtests
-- [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - VWAP, TWAP, POV, TCA, market impact
+- [13-risk-and-pnl.md](13-risk-and-pnl.md) - Greeks, explain, historical/parametric/Monte Carlo VaR, ES, stress, controls
+- [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) - Markowitz, Black-Litterman, risk parity, Kelly, HRP, turnover, backtests
+- [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md) - Kyle impact, Almgren-Chriss, book imbalance, VWAP/TWAP/POV, TCA
 - [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md) - SIMM, FRTB, margin, stress capital, explain
 - [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - execution, capture, confirmation, settlement, lifecycle events, reconciliation
 - [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md) - related hedges, loss budgets, scenarios, liquidity, financing, and PnL attribution

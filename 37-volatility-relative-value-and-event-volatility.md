@@ -70,13 +70,13 @@ $$
 = W(T_2)-W(T_1)-\bar v(T_2-T_1)
 $$
 
-The corresponding one-standard-deviation log move is approximately:
+The corresponding risk-neutral root-mean-square implied log jump is approximately:
 
 $$
 m_{\text{event}}=\sqrt{\max(\widehat q_{\text{event}},0)}
 $$
 
-This is a model-dependent implied move. The at-the-money straddle premium divided by spot is a useful market shorthand, but it is not algebraically identical: it reflects discounting, continuous volatility, skew, tails, and option convexity.
+Because $q_{\text{event}}=E^Q[J^2]$, this is an RMS move, not a standard deviation unless the risk-neutral mean jump is zero. It is a model-dependent implied move. The at-the-money straddle premium divided by spot is a useful market shorthand, but it is not algebraically identical: it reflects discounting, continuous volatility, skew, tails, and option convexity.
 
 For a locally delta-hedged option in a continuous interval, the familiar approximation is:
 
@@ -86,7 +86,7 @@ d\Pi \approx
 \left(\sigma_{\text{realized}}^2-\sigma_{\text{implied}}^2\right)dt
 $$
 
-For one discrete step of variance time $\Delta\tau$, the same local comparison can be written:
+For one discrete step of variance time $\Delta\tau$, after carry and financing are handled consistently, the same local comparison can be written:
 
 $$
 \Delta\Pi
@@ -132,7 +132,7 @@ $$
 =0.007886
 $$
 
-Therefore the implied one-standard-deviation log move is about:
+Therefore the risk-neutral RMS implied log jump is about:
 
 $$
 \sqrt{0.007886}=8.88\%

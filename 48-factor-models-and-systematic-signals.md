@@ -1,6 +1,6 @@
 # Factor Models and Systematic Signal Research
 
-Related chapters: [03-equities.md](03-equities.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), and [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md).
+Related chapters: [03-equities.md](03-equities.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), and [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md).
 
 ## What This Domain Covers
 Factor models explain common return drivers; systematic signals rank or time positions using reproducible rules. The two are related but not interchangeable. A value exposure can be an intentional alpha, an unwanted risk, or both. A momentum score is not a portfolio until it has been lagged, neutralized, sized, costed, executed, and recorded in a position ledger.
@@ -63,10 +63,10 @@ A practical multi-factor risk model represents asset returns as:
 $$
 r_t = B_t f_t + \epsilon_t,
 \qquad
-\Sigma_t = B_t\Omega_tB_t^\top + D_t,
+\Sigma_t = B_t\Sigma_{f,t}B_t^\top + D_t,
 $$
 
-where \(B_t\) contains industry and style exposures, \(f_t\) contains factor returns, \(\Omega_t\) is factor covariance, and \(D_t\) contains specific variances. Commercial Barra models have documented proprietary specifications; “Barra-style” should mean this engineering structure, not a claim that an internal approximation reproduces a vendor model.
+where \(B_t\) contains industry and style exposures, \(f_t\) contains factor returns, \(\Sigma_{f,t}\) is factor covariance, and \(D_t\) contains specific variances. Commercial Barra models have documented proprietary specifications; “Barra-style” should mean this engineering structure, not a claim that an internal approximation reproduces a vendor model.
 
 Exposure estimation can be:
 
@@ -106,7 +106,7 @@ x_{i,t}
 \operatorname{groupmean}(x_{i,t}),
 $$
 
-followed by winsorization, scaling, and portfolio constraints. Regression residualization can neutralize several exposures at once, but the design matrix and weights must be point-in-time.
+Winsorize or otherwise transform the raw characteristic within the point-in-time universe first, then neutralize, scale, and apply portfolio constraints. A nonlinear transform after neutralization can reintroduce the unwanted exposure; if one is required, neutralize again afterward. Regression residualization can neutralize several exposures at once, but the design matrix and weights must be point-in-time.
 
 Seasonal signals compare like-for-like calendar states across enough independent history. Month-of-year averages, day-of-week effects, commodity delivery seasons, and index-rebalance patterns are especially vulnerable to multiple testing and structural change. A seasonal chart is not a tradable signal until spread, capacity, release timing, and publication bias are included.
 
@@ -176,12 +176,19 @@ Minimum checks include zero-sum constraints where intended, exact reconstruction
 ## Illustrative Code
 ```python
 from collections import defaultdict
+import math
 
 
 def group_neutralize(
     values: dict[str, float],
     groups: dict[str, str],
 ) -> dict[str, float]:
+    if not values:
+        raise ValueError("neutralization requires at least one asset")
+    if not set(values).issubset(groups):
+        raise ValueError("every scored asset requires a group")
+    if any(not math.isfinite(value) for value in values.values()):
+        raise ValueError("scores must be finite")
     grouped: dict[str, list[float]] = defaultdict(list)
     for asset, value in values.items():
         grouped[groups[asset]].append(value)
@@ -197,6 +204,10 @@ def group_neutralize(
 
 
 def gross_normalize(scores: dict[str, float]) -> dict[str, float]:
+    if not scores:
+        raise ValueError("gross normalization requires at least one score")
+    if any(not math.isfinite(score) for score in scores.values()):
+        raise ValueError("scores must be finite")
     gross = sum(abs(score) for score in scores.values())
     if gross <= 0:
         raise ValueError("gross normalization requires a non-zero score")

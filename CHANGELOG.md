@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-07-26
+- Added four practitioner chapters covering classical time-series/state-space forecasting, machine and deep learning, reinforcement learning, and factor/systematic signal research.
+- Expanded options, volatility, and commodities with theta/gamma carry, dynamic rehedging, nonlinear decay, daily break-even moves, EWMA, HAR-RV, mixture/change-point regimes, scheduled commodity events, signed prices, locked markets, gaps, and tail-first sizing.
+- Expanded statistical arbitrage, portfolio construction, execution, and risk with Engle-Granger/Johansen, OU/Kalman/PCA methods, Black-Litterman, risk parity, Kelly, HRP, Kyle impact, Almgren-Chriss, order-book imbalance, and historical/parametric/Monte Carlo VaR method contracts.
+- Added ten focused worked examples covering option carry, commodity event gaps, volatility and Kalman forecasts, regularized and RL research controls, factor neutralization, risk budgeting, order-book impact, and VaR reconciliation.
+- Integrated the material into the overview, index, reading paths, glossary, interview guide, examples catalog, and a sixth end-to-end capstone specification.
+
 ## 2026-07-25
 - Added event-driven and merger-arbitrage material covering transaction terms, probability-weighted valuation, break prices, catalyst calendars, hedging, and deal-level PnL.
 - Added capital-structure and convertible-arbitrage material covering recovery waterfalls, related-security mapping, bond floors, equity and credit hedges, financing, and jump risk.

@@ -56,6 +56,9 @@ Common questions:
 - How would you validate an option pricer?
 - Compare binomial tree, finite difference, Longstaff-Schwartz, and approximation methods for American options.
 - Explain the payoff of a bull call spread, bear put spread, or long straddle.
+- Why is theta sometimes described as the rent paid for gamma?
+- How does a long-gamma hedge differ operationally from a short-gamma hedge?
+- Why is Friday-to-Monday theta not a universal multiple of one ordinary trading day?
 
 Good answers mention:
 - payoff and exercise style,
@@ -63,6 +66,9 @@ Good answers mention:
 - volatility surface conventions,
 - what delta, gamma, theta, vega, and rho each measure,
 - why delta-neutral does not mean risk-free,
+- the local gamma/theta break-even move, common clock and units, discrete hedging, costs, jumps, and surface moves,
+- long-gamma sell-higher/buy-lower rehedging versus short-gamma market chasing,
+- model theta versus an actual roll of forwards, curves, dividends, events, and the volatility surface,
 - finite-difference or bump validation,
 - parity and arbitrage bounds,
 - early-exercise policy and continuation value.
@@ -161,10 +167,14 @@ Common questions:
 - How does beta enter equity VaR?
 - Why can PnL explain leave a residual?
 - What is wrong with relying only on VaR?
+- Compare historical, parametric, Monte Carlo, and filtered historical VaR.
+- Why does Expected Shortfall need enough tail observations and a declared quantile convention?
 
 Good answers mention:
 - horizon and confidence level,
 - full revaluation vs sensitivity approximation,
+- empirical shocks versus distributional assumptions and simulated scenarios,
+- position population, horizon, loss sign, interpolation, tail sample size, and model uncertainty,
 - backtesting exceptions,
 - tail severity and stress scenarios,
 - residual/idiosyncratic risk.
@@ -176,8 +186,10 @@ Common questions:
 - What does GARCH(1,1) model?
 - What is the stationarity condition?
 - Difference between realized and implied volatility.
+- Compare EWMA, HAR-RV, and GARCH volatility forecasts.
 - What do EGARCH or GJR-GARCH add?
 - What is a Markov switching model or HMM?
+- How do Gaussian mixtures and Bayesian change-point methods differ from an HMM?
 - How would a regime-switching GARCH model differ from a single-regime GARCH model?
 - What does the Heston model add beyond Black-Scholes?
 
@@ -187,6 +199,7 @@ Good answers mention:
 - leverage/asymmetry effects,
 - heavy-tailed residuals and regime stability,
 - use in VaR and volatility forecasting.
+- realized-measure construction, EWMA decay, HAR horizons, ordered forecast evaluation, and compatible sampling clocks,
 - HMM components: hidden states, initial probabilities, transition matrix, emissions, filtering, smoothing, and decoding.
 - avoiding look-ahead from smoothed states in backtests.
 - stochastic variance, mean reversion, vol-of-vol, spot-vol correlation, and calibration stability.
@@ -217,6 +230,8 @@ Common questions:
 - When would you use implementation shortfall?
 - What is market impact?
 - How do you evaluate an execution algo?
+- What do Kyle lambda and the Almgren-Chriss objective measure?
+- What is order-book imbalance, and why is it not automatically a trading signal?
 
 Good answers mention:
 - benchmark choice,
@@ -224,6 +239,8 @@ Good answers mention:
 - participation rate,
 - spread, fees, impact, and opportunity cost,
 - partial fills and side-aware slippage.
+- signed-flow and impact units, temporary versus permanent impact, remaining-inventory risk, and model uncertainty,
+- feed sequencing, cancellations, hidden liquidity, queue position, latency, and adverse selection.
 
 ## Trade Lifecycle And Operations
 Read: [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md), [04-fx.md](04-fx.md)
@@ -265,13 +282,83 @@ Common questions:
 - How do factor models help portfolio risk?
 - What is turnover and why does it matter?
 - How do you include transaction costs?
+- Compare Markowitz, Black-Litterman, risk parity, Kelly, and Hierarchical Risk Parity.
 
 Good answers mention:
 - universe membership timing,
 - adjusted vs unadjusted data,
 - factor covariance decomposition,
+- expected-return uncertainty, Black-Litterman view confidence, risk contributions, Kelly drawdown, and HRP cluster stability,
 - target vs executed holdings,
 - slippage and capacity.
+
+## Classical Time-Series And State-Space Models
+Read: [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), [18-volatility-products.md](18-volatility-products.md), [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md)
+
+Common questions:
+- What is stationarity, and when should a series be differenced?
+- Compare ARMA, ARIMA, SARIMA, and ARIMAX.
+- When would you use VAR rather than VECM?
+- What problem does a Kalman filter solve?
+- Why are filtered and smoothed states different in a backtest?
+
+Good answers mention:
+- forecast origin, target horizon, units, calendar, and data vintage,
+- roots, lag order, residual diagnostics, interval coverage, and a naive benchmark,
+- cointegration rank and error correction for non-stationary levels,
+- process versus observation noise and state uncertainty,
+- rolling-origin validation and fitting every transform inside the historical training window.
+
+## Machine Learning And Deep Learning
+Read: [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
+
+Common questions:
+- Compare ridge, lasso, and elastic net.
+- When might trees or boosting be preferable to a neural network?
+- Compare an LSTM/GRU, temporal CNN, Transformer, and Temporal Fusion Transformer.
+- What are purging, embargo, nested selection, and probability calibration?
+- How do you decide whether a more complex model adds trading value?
+
+Good answers mention:
+- point-in-time features, economic labels, horizon, universe, and leakage,
+- training-fold transformations, outer tests, multiple trials, seeds, and reproducibility,
+- ranking or calibration quality as appropriate to the decision,
+- turnover, spread, impact, borrow, funding, capacity, and delayed execution,
+- drift, shadow scoring, constrained rollout, fallback, and rollback.
+
+## Reinforcement Learning
+Read: [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
+
+Common questions:
+- What are the state, action, transition, reward, and discount in a trading MDP?
+- Compare Q-learning/DQN with policy-gradient, PPO, and actor-critic methods.
+- What do A3C and SAC add?
+- Why are simulator fidelity and offline policy evaluation difficult in markets?
+- How do you prevent reward hacking and unsafe exploration?
+
+Good answers mention:
+- partial observability, action support, counterfactual fills, own impact, latency, and queue state,
+- replay and target networks, clipped policy updates, entropy, and continuous versus discrete actions,
+- auditable reward telescoping to PnL, costs, inventory, terminal liquidation, and penalties,
+- behavior-policy propensities, importance-weight diagnostics, uncertainty, and unsupported actions,
+- hard action constraints, shadow mode, kill switches, deterministic fallback, and proposed-versus-executed action logs.
+
+## Factor Models And Systematic Signals
+Read: [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+
+Common questions:
+- Compare CAPM, Fama-French, Carhart, and a Barra-style risk model.
+- What is the difference between a return factor, a characteristic, an alpha model, and a risk model?
+- Compare time-series and cross-sectional momentum.
+- How would you validate reversal, breakout, trend, seasonal, or ranking signals?
+- What does factor neutralization remove, and what can remain?
+
+Good answers mention:
+- exact factor construction, benchmark, currency, lag, universe, and rebalance convention,
+- common-factor covariance versus specific risk and factor-plus-residual PnL attribution,
+- point-in-time ranks, training-window transformations, multiple testing, and structural change,
+- costs, borrow, capacity, crowding, factor crashes, and delayed fills,
+- explicit beta, sector, style, country, liquidity, and gross/net constraints.
 
 ## Event-Driven And Merger Arbitrage
 Read: [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md), [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md)
@@ -328,12 +415,15 @@ Common questions:
 - What is a calendar, skew, or dispersion relative-value trade?
 - Why is an implied-volatility spread not the same as expected PnL?
 - How would you attribute a delta-hedged option strategy?
+- Derive the local gamma/theta break-even move.
+- Why can short gamma show many small gains and one large loss?
 
 Good answers mention:
 - variance-time decomposition and explicit pre-event, event, and post-event assumptions,
 - strike, maturity, forward, dividends, surface convention, and comparable liquidity,
 - carry, theta, realized hedge PnL, vega, gamma, skew, vol-of-vol, jumps, and transaction costs,
 - discrete hedging, pin and gap risk, surface marking, capacity, and scenario-based loss limits.
+- long/short rehedging mechanics, common variance clock, hedge slippage, unavailable markets, and full-revaluation tail sizing.
 
 ## Private, Distressed, And Real-Estate Credit
 Read: [39-private-credit-distressed-and-real-estate-credit.md](39-private-credit-distressed-and-real-estate-credit.md), [07-credit.md](07-credit.md)

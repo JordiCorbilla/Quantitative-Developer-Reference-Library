@@ -18,11 +18,11 @@
   <text class="h" x="62" y="148">1. Delta</text>
   <text class="formula" x="62" y="176">&#916; = &#8706;V / &#8706;S</text>
   <text class="txt" x="62" y="200">Hedge ratio to spot or forward.</text>
-  <line class="axis" x1="78" y1="370" x2="330" y2="370"/><line class="axis" x1="95" y1="385" x2="95" y2="235"/>
-  <line class="grid" x1="95" y1="300" x2="330" y2="300"/><line class="mark" x1="215" y1="235" x2="215" y2="385"/>
-  <path class="blue" d="M95 360 C140 360,155 342,178 315 C194 295,210 276,235 258 C260 241,292 238,330 238"/>
-  <path class="red" d="M95 238 C135 238,165 242,188 260 C210 278,225 306,245 330 C267 356,292 366,330 366"/>
-  <text class="small" x="205" y="404">K</text><text class="small" x="318" y="388">S</text>
+  <line class="axis" x1="78" y1="300" x2="330" y2="300"/><line class="axis" x1="95" y1="385" x2="95" y2="235"/>
+  <line class="mark" x1="215" y1="235" x2="215" y2="385"/>
+  <path class="blue" d="M95 298 C140 298,155 285,178 270 C200 254,225 242,255 238 C282 235,305 236,330 236"/>
+  <path class="red" d="M95 366 C135 366,165 362,188 348 C210 334,225 318,245 309 C267 302,292 301,330 302"/>
+  <text class="small" x="205" y="404">K</text><text class="small" x="318" y="404">S</text>
   <text class="small" x="275" y="270">call</text><text class="small" x="275" y="345">put</text>
 
   <rect class="card" x="420" y="115" width="340" height="315" rx="10"/>
@@ -49,19 +49,19 @@
   <text class="h" x="227" y="503">4. Theta</text>
   <text class="formula" x="227" y="531">&#920; = &#8706;V / &#8706;t</text>
   <text class="txt" x="227" y="555">Time passage, carry, and roll-down.</text>
-  <line class="axis" x1="243" y1="725" x2="495" y2="725"/><line class="axis" x1="260" y1="740" x2="260" y2="590"/>
-  <line class="grid" x1="260" y1="650" x2="495" y2="650"/><line class="mark" x1="380" y1="590" x2="380" y2="740"/>
+  <line class="axis" x1="243" y1="650" x2="495" y2="650"/><line class="axis" x1="260" y1="740" x2="260" y2="590"/>
+  <line class="mark" x1="380" y1="590" x2="380" y2="740"/>
   <path class="amber" d="M260 675 C300 676,324 694,350 715 C374 735,405 735,430 715 C455 694,474 676,495 675"/>
-  <text class="small" x="370" y="759">K</text><text class="small" x="483" y="743">S</text>
+  <text class="small" x="370" y="759">K</text><text class="small" x="483" y="759">S</text>
   <text class="small" x="292" y="578">long ATM theta often most negative</text>
 
   <rect class="card" x="635" y="470" width="340" height="315" rx="10"/>
   <text class="h" x="657" y="503">5. Rho</text>
   <text class="formula" x="657" y="531">&#961; = &#8706;V / &#8706;r</text>
   <text class="txt" x="657" y="555">Sensitivity to interest rates.</text>
-  <line class="axis" x1="673" y1="725" x2="925" y2="725"/><line class="axis" x1="690" y1="740" x2="690" y2="590"/>
-  <path class="blue" d="M690 710 C745 694,805 672,925 615"/>
-  <path class="red" d="M690 620 C750 642,815 670,925 712"/>
+  <line class="axis" x1="673" y1="665" x2="925" y2="665"/><line class="axis" x1="690" y1="740" x2="690" y2="590"/>
+  <path class="blue" d="M690 660 C745 650,805 635,925 615"/>
+  <path class="red" d="M690 712 C750 700,815 680,925 670"/>
   <text class="small" x="913" y="743">r</text>
   <text class="small" x="830" y="626">call rho</text><text class="small" x="830" y="704">put rho</text>
   <text class="small" x="675" y="807">Rho grows with maturity; curve buckets are better for rates-heavy books.</text>

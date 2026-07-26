@@ -151,6 +151,35 @@ Related chapters: [40-point-in-time-data-and-event-systems.md](40-point-in-time-
 ### Extension
 Run a controlled load test, identify the slowest product or shard, improve it, and document both the speedup and the numerical-regression evidence.
 
+## Capstone 6: Point-in-Time Systematic Research and Execution Platform
+
+Related chapters: [13-risk-and-pnl.md](13-risk-and-pnl.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md), [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md), and [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md).
+
+### Build
+- Point-in-time security, price, factor, fundamental, event, borrow, and execution datasets with immutable forecast origins.
+- A typed feature and label registry containing formula, units, availability lag, horizon, universe, transformations, and version.
+- Classical baselines including a naive forecast, AR/ARIMA or HAR-RV model, and a filtered state-space/Kalman model where economically appropriate.
+- Cross-sectional factor and signal research with CAPM/multi-factor attribution, neutralized rankings, turnover, capacity, and cost estimates.
+- At least one regularized linear model and one nonlinear supervised candidate evaluated with nested, chronological, purged folds.
+- Portfolio construction comparing constrained mean-variance with at least two of Black-Litterman, risk budgeting, fractional Kelly, or HRP.
+- Pre-trade impact and execution logic using implementation shortfall, Kyle-style signed-flow diagnostics, an Almgren-Chriss-style schedule objective, and order-book controls where data permits.
+- Historical, parametric, and Monte Carlo VaR/ES plus named market, liquidity, borrow, and gap stresses on executed holdings.
+- A trial registry, target/executed position ledger, PnL attribution, model cards, shadow-run report, and deterministic fallback.
+
+### Acceptance Tests
+- Adding data strictly after a historical forecast origin does not change its features, fitted transforms, filtered state, prediction, or target order.
+- Smoothed states, revised facts, future constituents, and overlapping label information cannot enter historical decisions.
+- Every complex forecast is compared with the same-observation naive or linear baseline and reports outer-fold dispersion, calibration where relevant, and net value after costs.
+- Factor, gross/net, concentration, liquidity, borrow, turnover, and portfolio-risk constraints reconcile before and after execution.
+- For every selected allocation method, the applicable Black-Litterman view units and confidence, risk-budget contributions, Kelly fraction, or HRP hierarchy are visible and stable under declared perturbations.
+- Historical, parametric, Monte Carlo, and named-stress results use the same position population and report intentional methodology differences.
+- Order quantity is conserved from parent through fills and residual; side-aware implementation shortfall, fees, penalties, and PnL reconcile exactly.
+- Replaying the same snapshot, manifest, code, configuration, and seeds reproduces artifacts within declared numerical tolerances.
+- Unsupported market states, stale features, missing borrow, failed constraints, or unavailable liquidity trigger no-trade or deterministic fallback rather than a silent model decision.
+
+### Extension
+Add an RL execution policy only in a simulator and shadow environment. Compare it with deterministic VWAP, POV, and implementation-shortfall baselines; perform offline-support diagnostics, reward-hacking tests, domain stress, proposed-versus-executed action logging, and safety-layer overrides before considering any constrained canary.
+
 ## Review Standard
 A capstone is ready for review when another developer can:
 

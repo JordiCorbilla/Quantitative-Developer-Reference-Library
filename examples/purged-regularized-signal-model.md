@@ -124,11 +124,12 @@ The cost model, decision threshold, feature set, and embargo are hyperparameters
 
 ## Illustrative Code
 
-The following code implements closed-interval purging and a compact ridge fit. Scaling parameters are estimated from the supplied training rows only.
+The following code implements closed-interval purging and a compact ridge fit. Future training rows are disabled by default for a chronological outer holdout; the opt-in two-sided mode exists only for explicitly declared research cross-validation. Scaling parameters are estimated from the supplied training rows only.
 
 ```python
 from dataclasses import dataclass
 import math
+from numbers import Integral
 
 
 @dataclass(frozen=True)
@@ -161,19 +162,62 @@ def purged_indices(
 ) -> list[int]:
     if not test_indices:
         raise ValueError("test_indices cannot be empty")
+    if any(
+        not isinstance(i, Integral)
+        or isinstance(i, bool)
+        or i < 0
+        or i >= len(observations)
+        for i in test_indices
+    ):
+        raise ValueError("test index is out of range")
+    if not isinstance(allow_future_training, bool):
+        raise ValueError("allow_future_training must be boolean")
+    if (
+        not isinstance(embargo_end, Integral)
+        or isinstance(embargo_end, bool)
+    ):
+        raise ValueError("embargo_end must be a finite integer")
+    for observation in observations:
+        timestamps = (
+            observation.feature_time,
+            observation.label_start,
+            observation.label_end,
+        )
+        if any(
+            not isinstance(value, Integral) or isinstance(value, bool)
+            for value in timestamps
+        ):
+            raise ValueError("observation timestamps must be finite integers")
+        if (
+            observation.feature_time > observation.label_start
+            or observation.label_start > observation.label_end
+        ):
+            raise ValueError("observation timestamps are not chronologically ordered")
+        if not all(
+            math.isfinite(value)
+            for value in (*observation.features, observation.target)
+        ):
+            raise ValueError("features and targets must be finite")
     test_intervals = [
         (observations[i].label_start, observations[i].label_end)
         for i in test_indices
     ]
     first_test_feature = min(observations[i].feature_time for i in test_indices)
+    first_test_start = min(start for start, _ in test_intervals)
     last_test_end = max(end for _, end in test_intervals)
+    if allow_future_training and embargo_end < last_test_end:
+        raise ValueError("embargo_end cannot precede the test-label window")
     kept: list[int] = []
 
     for i, candidate in enumerate(observations):
         if i in test_indices:
             continue
-        if not allow_future_training and candidate.feature_time >= first_test_feature:
-            continue
+        if not allow_future_training:
+            if (
+                candidate.feature_time >= first_test_feature
+                or candidate.label_end >= first_test_start
+            ):
+                continue
         label_overlap = any(
             overlaps(
                 candidate.label_start,
@@ -183,10 +227,11 @@ def purged_indices(
             )
             for test_start, test_end in test_intervals
         )
-        post_test_embargo = (
-            last_test_end < candidate.feature_time <= embargo_end
+        test_or_embargo_window = (
+            allow_future_training
+            and first_test_feature <= candidate.feature_time <= embargo_end
         )
-        if not label_overlap and not post_test_embargo:
+        if not label_overlap and not test_or_embargo_window:
             kept.append(i)
     return kept
 
@@ -196,6 +241,14 @@ def solve_linear_system(
     vector: list[float],
 ) -> list[float]:
     n = len(vector)
+    if n == 0 or len(matrix) != n or any(len(row) != n for row in matrix):
+        raise ValueError("square matrix and aligned vector required")
+    if not all(
+        math.isfinite(value)
+        for row in matrix
+        for value in row
+    ) or not all(math.isfinite(value) for value in vector):
+        raise ValueError("linear-system inputs must be finite")
     augmented = [matrix[i][:] + [vector[i]] for i in range(n)]
     for column in range(n):
         pivot = max(range(column, n), key=lambda row: abs(augmented[row][column]))
@@ -223,11 +276,17 @@ def fit_ridge(
 ) -> RidgeModel:
     if not feature_rows or len(feature_rows) != len(targets):
         raise ValueError("aligned non-empty data required")
-    if penalty < 0.0:
+    if not math.isfinite(penalty) or penalty < 0.0:
         raise ValueError("penalty must be non-negative")
     width = len(feature_rows[0])
     if width == 0 or any(len(row) != width for row in feature_rows):
         raise ValueError("inconsistent feature dimensions")
+    if not all(
+        math.isfinite(value)
+        for row in feature_rows
+        for value in row
+    ) or not all(math.isfinite(target) for target in targets):
+        raise ValueError("training data must be finite")
 
     count = len(feature_rows)
     means = tuple(
@@ -266,6 +325,17 @@ def fit_ridge(
 def predict(model: RidgeModel, features: tuple[float, ...]) -> float:
     if len(features) != len(model.coefficients):
         raise ValueError("feature dimension mismatch")
+    model_values = (
+        *model.means,
+        *model.scales,
+        model.target_mean,
+        *model.coefficients,
+        *features,
+    )
+    if not all(math.isfinite(value) for value in model_values):
+        raise ValueError("model and feature values must be finite")
+    if any(scale <= 0.0 for scale in model.scales):
+        raise ValueError("model scales must be positive")
     standardized = [
         (value - mean) / scale
         for value, mean, scale in zip(features, model.means, model.scales)

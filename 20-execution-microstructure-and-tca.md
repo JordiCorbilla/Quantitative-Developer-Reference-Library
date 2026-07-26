@@ -279,17 +279,40 @@ That observation may affect child-order urgency or limit placement only after va
 
 ## Illustrative Code
 ```python
+import math
+
+
 def buy_shortfall(quantity: float, decision_price: float, average_fill_price: float) -> float:
+    if not all(
+        math.isfinite(value)
+        for value in (quantity, decision_price, average_fill_price)
+    ):
+        raise ValueError("shortfall inputs must be finite")
+    if quantity < 0.0:
+        raise ValueError("buy quantity must be non-negative")
     return quantity * (average_fill_price - decision_price)
 
 
 def sell_shortfall(quantity: float, decision_price: float, average_fill_price: float) -> float:
+    if not all(
+        math.isfinite(value)
+        for value in (quantity, decision_price, average_fill_price)
+    ):
+        raise ValueError("shortfall inputs must be finite")
+    if quantity < 0.0:
+        raise ValueError("sell quantity must be non-negative")
     return quantity * (decision_price - average_fill_price)
 
 
 def vwap(prices: list[float], volumes: list[float]) -> float:
+    if not prices or len(prices) != len(volumes):
+        raise ValueError("VWAP requires equally sized, non-empty inputs")
+    if any(not math.isfinite(value) for value in prices + volumes):
+        raise ValueError("VWAP inputs must be finite")
+    if any(volume < 0.0 for volume in volumes):
+        raise ValueError("VWAP volumes cannot be negative")
     traded_volume = sum(volumes)
-    if traded_volume == 0:
+    if traded_volume <= 0.0:
         raise ValueError("VWAP requires positive total volume")
     return sum(price * volume for price, volume in zip(prices, volumes)) / traded_volume
 
@@ -297,10 +320,14 @@ def vwap(prices: list[float], volumes: list[float]) -> float:
 def twap(prices: list[float]) -> float:
     if not prices:
         raise ValueError("TWAP requires at least one price")
+    if any(not math.isfinite(price) for price in prices):
+        raise ValueError("TWAP prices must be finite")
     return sum(prices) / len(prices)
 
 
 def order_book_imbalance(bid_quantity: float, ask_quantity: float) -> float:
+    if not math.isfinite(bid_quantity) or not math.isfinite(ask_quantity):
+        raise ValueError("displayed quantities must be finite")
     total = bid_quantity + ask_quantity
     if bid_quantity < 0 or ask_quantity < 0 or total <= 0:
         raise ValueError("displayed quantities must be non-negative with positive total")
@@ -308,6 +335,8 @@ def order_book_imbalance(bid_quantity: float, ask_quantity: float) -> float:
 
 
 def temporary_impact_exposure(child_quantities: list[float]) -> float:
+    if any(not math.isfinite(quantity) for quantity in child_quantities):
+        raise ValueError("child quantities must be finite")
     if any(quantity < 0 for quantity in child_quantities):
         raise ValueError("use non-negative quantities for a one-sided schedule")
     return sum(quantity**2 for quantity in child_quantities)
@@ -316,6 +345,11 @@ def temporary_impact_exposure(child_quantities: list[float]) -> float:
 def kyle_lambda(price_changes: list[float], signed_flow: list[float]) -> float:
     if len(price_changes) != len(signed_flow) or len(price_changes) < 2:
         raise ValueError("aligned price changes and signed flow are required")
+    if any(
+        not math.isfinite(value)
+        for value in price_changes + signed_flow
+    ):
+        raise ValueError("Kyle inputs must be finite")
     flow_mean = sum(signed_flow) / len(signed_flow)
     price_mean = sum(price_changes) / len(price_changes)
     denominator = sum((flow - flow_mean) ** 2 for flow in signed_flow)

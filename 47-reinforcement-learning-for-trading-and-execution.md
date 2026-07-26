@@ -1,6 +1,6 @@
 # Reinforcement Learning for Trading and Execution
 
-Related chapters: [13-risk-and-pnl.md](13-risk-and-pnl.md), [14-testing-and-validation.md](14-testing-and-validation.md), [15-performance-and-production.md](15-performance-and-production.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [41-production-quant-engineering.md](41-production-quant-engineering.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), and [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md).
+Related chapters: [13-risk-and-pnl.md](13-risk-and-pnl.md), [14-testing-and-validation.md](14-testing-and-validation.md), [15-performance-and-production.md](15-performance-and-production.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [41-production-quant-engineering.md](41-production-quant-engineering.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md), and [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md).
 
 ## What This Domain Covers
 Reinforcement learning (RL) learns a policy for sequential decisions whose actions affect later state and reward. In markets, that feedback matters when an order changes remaining quantity, queue position, inventory, exposure, market impact, or the opportunities available at the next step.
@@ -116,7 +116,7 @@ G_t
 \sum_{k=0}^{T-t-1}\gamma^k r_{t+k+1}
 $$
 
-The action-value function satisfies:
+Let $d_{t+1}=1$ when the transition terminates the episode and zero otherwise. The action-value function satisfies:
 
 $$
 Q^\pi(s,a)
@@ -124,7 +124,7 @@ Q^\pi(s,a)
 \mathbb E_\pi
 \left[
 r_{t+1}
-+\gamma Q^\pi(s_{t+1},a_{t+1})
++\gamma(1-d_{t+1})Q^\pi(s_{t+1},a_{t+1})
 \mid s_t=s,a_t=a
 \right]
 $$
@@ -142,7 +142,7 @@ Q(s_t,a_t)
 +\alpha
 \left[
 r_{t+1}
-+\gamma\max_{a'}Q(s_{t+1},a')
++\gamma(1-d_{t+1})\max_{a'}Q(s_{t+1},a')
 -Q(s_t,a_t)
 \right]
 $$
@@ -155,7 +155,7 @@ $$
 y_t
 =
 r_{t+1}
-+\gamma\max_{a'}Q_{\theta^-}(s_{t+1},a')
++\gamma(1-d_{t+1})\max_{a'}Q_{\theta^-}(s_{t+1},a')
 $$
 
 Replay does not justify random train/test splitting across market time. The environment data, episodes, and regimes still require chronological validation.
@@ -180,7 +180,7 @@ $$
 \delta_t
 =
 r_{t+1}
-+\gamma V_\phi(s_{t+1})
++\gamma(1-d_{t+1})V_\phi(s_{t+1})
 -V_\phi(s_t)
 $$
 
@@ -234,7 +234,7 @@ Reward should telescope to an auditable terminal result. For a buy execution, le
 - $C_t$ be cumulative dollars spent on fills;
 - $F_t$ be cumulative fees;
 - $q_t$ be remaining quantity;
-- $m_t$ be the current executable marking price;
+- $m_t$ be the declared reference mark for the unfilled remainder;
 - $Qp_0$ be arrival notional.
 
 Define marked completion shortfall:
@@ -265,7 +265,9 @@ $$
 -\sum_t P_t
 $$
 
-This telescoping identity is a powerful test. If fees are already included in $S_t$, subtracting them again in $r_t$ double counts them.
+This telescoping identity is for the undiscounted economic audit sum, equivalently $\gamma=1$. A discounted training return does not telescope, so retain and reconcile the undiscounted ledger separately. If fees are already included in $S_t$, subtracting them again in $r_t$ double counts them.
+
+The reference-mark policy changes intermediate shaping rewards. A midpoint is transparent for research but is not generally executable; terminal inventory must be liquidated or marked using a conservative side-aware completion price. Record both reference and executable marks when they differ.
 
 For market making, mark economic wealth consistently:
 
@@ -286,22 +288,24 @@ $$
 
 Only subtract costs not already posted to cash. Terminal inventory should be liquidated or marked at a conservative executable price.
 
-For allocation, a common reward is log wealth growth less incremental costs and risk penalties:
+For allocation, let $C_t(\Delta w_t)$ be the current rebalance cost in currency units. A unit-consistent log-wealth reward posts that cost exactly once:
 
 $$
 r_t
 =
-\log\left(\frac{W_t}{W_{t-1}}\right)
--c(\Delta w_t)
+\log\left(
+\frac{W_t^{\text{pre-cost}}-C_t(\Delta w_t)}
+{W_{t-1}^{\text{post-cost}}}
+\right)
 -\lambda_{\text{risk}}\,\mathcal R_t
 $$
 
-Hard constraints should be enforced through the admissible action set, projection, or a safety layer. A finite penalty does not guarantee compliance.
+Here $W_t^{\text{pre-cost}}$ is marked wealth before the current rebalance cost, $W_{t-1}^{\text{post-cost}}$ is prior post-cost wealth, and $0\leq C_t<W_t^{\text{pre-cost}}$. The risk term must be dimensionless or converted to the same log-return units. If the ledger already supplies $W_t^{\text{post-cost}}=W_t^{\text{pre-cost}}-C_t$, use that value directly and do not subtract cost again. Hard constraints should be enforced through the admissible action set, projection, or a safety layer. A finite penalty does not guarantee compliance.
 
 ## Worked Instrument Example
 Consider a buy order for 10,000 shares at an arrival price of $100.00. Arrival notional is $1,000,000. The reward uses marked completion shortfall and adds separately specified inventory-risk penalties.
 
-| Step | Fill | Fill price | End mid | Cumulative fees | Marked shortfall $S_t$ | Risk penalty | Reward |
+| Step | Fill | Fill price | End reference mid | Cumulative fees | Marked shortfall $S_t$ | Risk penalty | Reward |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | 0 | 0 | - | $100.00 | $0 | $0 | $0 | - |
 | 1 | 2,000 | $100.04 | $100.02 | $10 | $250 | $40 | -$290 |
@@ -318,7 +322,7 @@ S_1
 \$250
 $$
 
-so $r_1=-(250-0)-40=-\$290$. At completion, average fill slippage is $610 and fees are $50:
+so $r_1=-(250-0)-40=-\$290$. The midpoint is used only as the declared intermediate shaping mark; a production environment should also test side-aware executable completion marks. At completion, aggregate fill-price slippage is $610, equivalent to $0.061$ per share or $6.10$ bp of arrival notional, and fees are $50:
 
 $$
 \operatorname{IS}
@@ -475,7 +479,7 @@ class BuyExecutionStep:
     fill_quantity: int
     fill_price: float
     fee: float
-    end_mid: float
+    end_reference_mark: float
     risk_penalty: float
 
 
@@ -496,7 +500,15 @@ def buy_execution_rewards(
     for step in steps:
         if not 0 <= step.fill_quantity <= remaining:
             raise ValueError("invalid fill quantity")
-        if step.fill_price <= 0.0 or step.end_mid <= 0.0:
+        numeric_values = (
+            step.fill_price,
+            step.fee,
+            step.end_reference_mark,
+            step.risk_penalty,
+        )
+        if not all(math.isfinite(value) for value in numeric_values):
+            raise ValueError("execution inputs must be finite")
+        if step.fill_price <= 0.0 or step.end_reference_mark <= 0.0:
             raise ValueError("prices must be positive")
         if step.fee < 0.0 or step.risk_penalty < 0.0:
             raise ValueError("fees and penalties must be non-negative")
@@ -504,7 +516,11 @@ def buy_execution_rewards(
         dollars_spent += step.fill_quantity * step.fill_price
         fees += step.fee
         remaining -= step.fill_quantity
-        marked_cost = dollars_spent + fees + remaining * step.end_mid
+        marked_cost = (
+            dollars_spent
+            + fees
+            + remaining * step.end_reference_mark
+        )
         shortfall = marked_cost - parent_quantity * arrival_price
         reward = -(shortfall - previous_shortfall) - step.risk_penalty
         rewards.append(reward)
@@ -525,6 +541,11 @@ def q_learning_update(
     discount: float,
     terminal: bool,
 ) -> float:
+    if not all(
+        math.isfinite(value)
+        for value in (current_q, reward, best_next_q, learning_rate, discount)
+    ):
+        raise ValueError("Q-learning inputs must be finite")
     if not 0.0 < learning_rate <= 1.0:
         raise ValueError("learning_rate must be in (0, 1]")
     if not 0.0 <= discount <= 1.0:
@@ -534,6 +555,8 @@ def q_learning_update(
 
 
 def elapsed_time_discount(rate: float, elapsed: float) -> float:
+    if not math.isfinite(rate) or not math.isfinite(elapsed):
+        raise ValueError("rate and elapsed time must be finite")
     if rate < 0.0 or elapsed < 0.0:
         raise ValueError("rate and elapsed time must be non-negative")
     return math.exp(-rate * elapsed)

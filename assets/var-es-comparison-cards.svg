@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
   <title id="title">VaR and Expected Shortfall comparison</title>
-  <desc id="desc">Side by side comparison of Value at Risk and Expected Shortfall with use cases, strengths, and limitations.</desc>
+  <desc id="desc">Side by side comparison of Value at Risk as a loss quantile and Expected Shortfall as the average of the worst specified probability mass.</desc>
   <defs>
     <style>
-      .bg{fill:#fbfcff}.card{fill:#fff;stroke:#cbd5e1;stroke-width:2}.var{fill:#eff6ff;stroke:#93c5fd}.es{fill:#fff1f2;stroke:#fda4af}.cap{font:bold 13px Arial,sans-serif;fill:#475569}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 19px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#475569}.formula{font:bold 18px Arial,sans-serif;fill:#0f172a}.good{fill:#dcfce7;stroke:#86efac}.warn{fill:#fff7ed;stroke:#fdba74}.bad{fill:#fee2e2;stroke:#fca5a5}.line{stroke:#cbd5e1;stroke-width:2}.blue{fill:#2563eb}.red{fill:#dc2626}
+      .bg{fill:#fbfcff}.card{fill:#fff;stroke:#cbd5e1;stroke-width:2}.var{fill:#eff6ff;stroke:#93c5fd}.es{fill:#fff1f2;stroke:#fda4af}.cap{font:bold 13px Arial,sans-serif;fill:#475569}.title{font:bold 26px Arial,sans-serif;fill:#0f172a}.h{font:bold 19px Arial,sans-serif;fill:#0f172a}.txt{font:13px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#475569}.formula{font:bold 18px Arial,sans-serif;fill:#0f172a}.formula-wide{font:bold 15px Arial,sans-serif;fill:#0f172a}.good{fill:#dcfce7;stroke:#86efac}.warn{fill:#fff7ed;stroke:#fdba74}.bad{fill:#fee2e2;stroke:#fca5a5}.line{stroke:#cbd5e1;stroke-width:2}.blue{fill:#2563eb}.red{fill:#dc2626}
     </style>
   </defs>
   <rect class="bg" width="1060" height="430"/>
@@ -12,7 +12,7 @@
 
   <rect class="card var" x="40" y="105" width="470" height="270" rx="8"/>
   <text class="h blue" x="70" y="142">Value at Risk (VaR)</text>
-  <text class="formula" x="70" y="176">P(L &gt; VaR_alpha) = 1 - alpha</text>
+  <text class="formula" x="70" y="176">VaR_alpha = inf { l : F_L(l) &gt;= alpha }</text>
   <line class="line" x1="70" y1="198" x2="480" y2="198"/>
   <text class="cap" x="70" y="226">Question</text>
   <text class="txt" x="170" y="226">Where does the loss tail begin?</text>
@@ -21,11 +21,11 @@
   <text class="cap" x="70" y="290">Watch out</text>
   <text class="txt" x="170" y="290">Does not measure severity after breach</text>
   <text class="cap" x="70" y="322">Example</text>
-  <text class="txt" x="170" y="322">95% VaR flags the 5% worst modeled outcomes</text>
+  <text class="txt" x="170" y="322">95% VaR locates the modeled tail threshold</text>
 
   <rect class="card es" x="550" y="105" width="470" height="270" rx="8"/>
   <text class="h red" x="580" y="142">Expected Shortfall (ES)</text>
-  <text class="formula" x="580" y="176">ES_alpha = E[L | L &gt; VaR_alpha]</text>
+  <text class="formula-wide" x="580" y="176">ES_alpha = avg_{u in [alpha,1]} VaR_u</text>
   <line class="line" x1="580" y1="198" x2="990" y2="198"/>
   <text class="cap" x="580" y="226">Question</text>
   <text class="txt" x="680" y="226">How bad are losses inside the tail?</text>
@@ -34,7 +34,7 @@
   <text class="cap" x="580" y="290">Watch out</text>
   <text class="txt" x="680" y="290">Can be noisy with limited tail observations</text>
   <text class="cap" x="580" y="322">Example</text>
-  <text class="txt" x="680" y="322">Average of losses worse than the VaR threshold</text>
+  <text class="txt" x="680" y="322">Average of the worst specified probability mass</text>
 
   <rect class="good" x="120" y="392" width="260" height="26" rx="6"/>
   <text class="small" x="142" y="410">Use VaR to set clear breach thresholds</text>

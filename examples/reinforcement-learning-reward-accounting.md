@@ -14,7 +14,7 @@ Let:
 - $C_t=\sum_{i\leq t}q_i p_i$ be cumulative unsigned fill notional;
 - $F_t$ be cumulative fees net of rebates;
 - $q_t$ be remaining quantity;
-- $m_t$ be the conservative executable mark for the remainder.
+- $m_t$ be the declared reference mark for the remainder.
 
 Define:
 
@@ -37,7 +37,7 @@ r_t
 -P_t^{\text{constraint}}
 $$
 
-When the episode completes:
+For the undiscounted economic audit sum, equivalently $\gamma=1$, when the episode completes:
 
 $$
 \sum_t r_t
@@ -45,17 +45,19 @@ $$
 -S_T-\sum_t P_t
 $$
 
-This invariant exposes sign errors and double counting.
+This invariant exposes sign errors and double counting. A discounted training return does not telescope, so it should be reported separately from this ledger.
 
 ## Numerical Buy Example
 
 Buy 10,000 shares with arrival price $100.00:
 
-| Step | Fill quantity | Fill price | End mid | Step fee | Remaining | $S_t$ | Inventory penalty | $r_t$ |
+| Step | Fill quantity | Fill price | End reference mid | Step fee | Remaining | $S_t$ | Inventory penalty | $r_t$ |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | 1 | 2,000 | $100.04 | $100.02 | $10 | 8,000 | $250 | $40 | -$290 |
 | 2 | 5,000 | $100.07 | $100.05 | $25 | 3,000 | $615 | $15 | -$380 |
 | 3 | 3,000 | $100.06 | $100.06 | $15 | 0 | $660 | $0 | -$45 |
+
+The midpoint is a declared shaping mark for this transparent example, not an executable-price claim. It changes intermediate rewards while the remainder is nonzero. A production environment should retain the reference mark and a conservative side-aware completion quote, then force-liquidate or mark terminal inventory using the executable convention.
 
 The completed fill notional is:
 
@@ -101,7 +103,7 @@ class FillStep:
     quantity: int
     price: float
     fee: float
-    end_mark: float
+    end_reference_mark: float
     inventory_penalty: float = 0.0
     tail_penalty: float = 0.0
     constraint_penalty: float = 0.0
@@ -126,7 +128,11 @@ def execution_reward_ledger(
 ) -> list[RewardRow]:
     if side not in (-1, 1):
         raise ValueError("side must be +1 for buy or -1 for sell")
-    if parent_quantity <= 0 or arrival_price <= 0.0:
+    if (
+        parent_quantity <= 0
+        or not math.isfinite(arrival_price)
+        or arrival_price <= 0.0
+    ):
         raise ValueError("positive quantity and arrival price required")
 
     remaining = parent_quantity
@@ -138,29 +144,30 @@ def execution_reward_ledger(
     for step in steps:
         if not 0 <= step.quantity <= remaining:
             raise ValueError("fill exceeds remaining quantity")
+        penalty_components = (
+            step.inventory_penalty,
+            step.tail_penalty,
+            step.constraint_penalty,
+        )
         numeric_values = (
             step.price,
-            step.end_mark,
+            step.end_reference_mark,
             step.fee,
-            penalties,
+            *penalty_components,
         )
         if not all(math.isfinite(value) for value in numeric_values):
             raise ValueError("non-finite accounting input")
-        if step.price <= 0.0 or step.end_mark <= 0.0:
+        if step.price <= 0.0 or step.end_reference_mark <= 0.0:
             raise ValueError("prices must be positive")
-        penalties = (
-            step.inventory_penalty
-            + step.tail_penalty
-            + step.constraint_penalty
-        )
-        if penalties < 0.0:
+        if any(penalty < 0.0 for penalty in penalty_components):
             raise ValueError("penalties must be non-negative")
+        penalties = sum(penalty_components)
 
         cumulative_notional += step.quantity * step.price
         cumulative_fees += step.fee
         remaining -= step.quantity
         completion_notional = (
-            cumulative_notional + remaining * step.end_mark
+            cumulative_notional + remaining * step.end_reference_mark
         )
         marked_shortfall = (
             side

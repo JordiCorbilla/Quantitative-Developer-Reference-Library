@@ -63,12 +63,12 @@ In practice:
 Factor models are often the right engineering abstraction:
 
 $$
-\Sigma = B \Omega B^\top + D
+\Sigma = B \Sigma_f B^\top + D
 $$
 
 where:
 - $B$ is the asset-by-factor exposure matrix,
-- $\Omega$ is the factor covariance matrix,
+- $\Sigma_f$ is the factor covariance matrix,
 - $D$ is diagonal specific risk.
 
 This matters because portfolio tools are usually built around exposures, active bets, and risk budgets rather than pairwise asset covariances alone.
@@ -78,7 +78,7 @@ This matters because portfolio tools are usually built around exposures, active 
 Markowitz optimization makes the expected-return/risk trade-off explicit. Equivalent formulations maximize expected return for a risk budget, minimize risk for a return target, or maximize a quadratic utility:
 
 $$
-\max_w\ 
+\max_w
 \mu^\top w-\frac{\delta}{2}w^\top\Sigma w-C(w,w_{\text{prev}}).
 $$
 
@@ -172,7 +172,7 @@ $$
 \approx9.43\%.
 $$
 
-With more assets or nontrivial correlation, solve the risk-budget equations using the full covariance matrix rather than assuming inverse-volatility weights are sufficient. The arithmetic is reproduced in [examples/portfolio-risk-budgeting.md](examples/portfolio-risk-budgeting.md).
+With larger universes and heterogeneous correlations, solve the risk-budget equations using the full covariance matrix rather than assuming inverse-volatility weights are sufficient. The arithmetic is reproduced in [examples/portfolio-risk-budgeting.md](examples/portfolio-risk-budgeting.md).
 
 ### Visual Backtesting Reference
 
@@ -252,33 +252,70 @@ Minimum checks:
 
 ## Illustrative Code
 ```python
+import numpy as np
 import pandas as pd
 
 
 def active_weights(weights: pd.Series, benchmark: pd.Series) -> pd.Series:
+    if not weights.index.is_unique or not benchmark.index.is_unique:
+        raise ValueError("weight labels must be unique")
+    if not np.isfinite(weights.to_numpy(dtype=float)).all():
+        raise ValueError("portfolio weights must be finite")
+    if not np.isfinite(benchmark.to_numpy(dtype=float)).all():
+        raise ValueError("benchmark weights must be finite")
     aligned_weights = weights.reindex(weights.index.union(benchmark.index), fill_value=0.0)
     aligned_benchmark = benchmark.reindex(aligned_weights.index, fill_value=0.0)
     return aligned_weights - aligned_benchmark
 
 
 def factor_covariance(exposures: pd.DataFrame, factor_cov: pd.DataFrame, specific_var: pd.Series) -> pd.DataFrame:
-    common = exposures.values @ factor_cov.values @ exposures.values.T
-    specific = pd.Series(specific_var, index=exposures.index).fillna(0.0)
-    total = common + pd.DataFrame(
-        [[specific[i] if i == j else 0.0 for j in exposures.index] for i in exposures.index],
-        index=exposures.index,
-        columns=exposures.index,
-    ).values
+    if not exposures.index.is_unique or not exposures.columns.is_unique:
+        raise ValueError("exposure asset and factor labels must be unique")
+    if not factor_cov.index.is_unique or not factor_cov.columns.is_unique:
+        raise ValueError("factor covariance labels must be unique")
+    if not specific_var.index.is_unique:
+        raise ValueError("specific-variance asset labels must be unique")
+    factors = exposures.columns
+    if set(factor_cov.index) != set(factors) or set(factor_cov.columns) != set(factors):
+        raise ValueError("factor covariance labels must match exposure factors")
+    aligned_factor_cov = factor_cov.reindex(index=factors, columns=factors)
+    aligned_specific = specific_var.reindex(exposures.index)
+    arrays = (
+        exposures.to_numpy(dtype=float),
+        aligned_factor_cov.to_numpy(dtype=float),
+        aligned_specific.to_numpy(dtype=float),
+    )
+    if any(not np.isfinite(array).all() for array in arrays):
+        raise ValueError("covariance inputs must be finite and complete")
+    if not np.allclose(arrays[1], arrays[1].T):
+        raise ValueError("factor covariance must be symmetric")
+    if np.linalg.eigvalsh(arrays[1]).min() < -1e-12:
+        raise ValueError("factor covariance must be positive semidefinite")
+    if (aligned_specific < 0.0).any():
+        raise ValueError("specific variances must be non-negative")
+    common = arrays[0] @ arrays[1] @ arrays[0].T
+    total = common + np.diag(arrays[2])
     return pd.DataFrame(total, index=exposures.index, columns=exposures.index)
 
 
-def turnover(prev_weights: pd.Series, new_weights: pd.Series) -> float:
+def gross_two_way_turnover(prev_weights: pd.Series, new_weights: pd.Series) -> float:
+    """Return sum(abs(delta weight)); halve it for the common one-way convention."""
+    if not prev_weights.index.is_unique or not new_weights.index.is_unique:
+        raise ValueError("weight labels must be unique")
+    if not np.isfinite(prev_weights.to_numpy(dtype=float)).all():
+        raise ValueError("previous weights must be finite")
+    if not np.isfinite(new_weights.to_numpy(dtype=float)).all():
+        raise ValueError("new weights must be finite")
     aligned_prev = prev_weights.reindex(new_weights.index.union(prev_weights.index), fill_value=0.0)
     aligned_new = new_weights.reindex(aligned_prev.index, fill_value=0.0)
     return float((aligned_new - aligned_prev).abs().sum())
 
 
 def inverse_volatility_weights(volatility: pd.Series) -> pd.Series:
+    if volatility.empty or not volatility.index.is_unique:
+        raise ValueError("volatility inputs require unique, non-empty labels")
+    if not np.isfinite(volatility.to_numpy(dtype=float)).all():
+        raise ValueError("volatility inputs must be finite")
     if (volatility <= 0).any():
         raise ValueError("volatility inputs must be positive")
     inverse = 1.0 / volatility
@@ -286,14 +323,37 @@ def inverse_volatility_weights(volatility: pd.Series) -> pd.Series:
 
 
 def volatility_risk_contributions(weights: pd.Series, covariance: pd.DataFrame) -> pd.Series:
-    aligned_covariance = covariance.loc[weights.index, weights.index]
-    marginal_variance = aligned_covariance.values @ weights.values
-    portfolio_variance = float(weights.values @ marginal_variance)
+    if weights.empty or not weights.index.is_unique:
+        raise ValueError("weights require unique, non-empty labels")
+    if not covariance.index.is_unique or not covariance.columns.is_unique:
+        raise ValueError("covariance labels must be unique")
+    if (
+        set(covariance.index) != set(weights.index)
+        or set(covariance.columns) != set(weights.index)
+    ):
+        raise ValueError("covariance labels must match weight labels")
+    aligned_covariance = covariance.reindex(
+        index=weights.index,
+        columns=weights.index,
+    )
+    weight_values = weights.to_numpy(dtype=float)
+    covariance_values = aligned_covariance.to_numpy(dtype=float)
+    if (
+        not np.isfinite(weight_values).all()
+        or not np.isfinite(covariance_values).all()
+    ):
+        raise ValueError("weights and covariance must be finite")
+    if not np.allclose(covariance_values, covariance_values.T):
+        raise ValueError("covariance must be symmetric")
+    if np.linalg.eigvalsh(covariance_values).min() < -1e-12:
+        raise ValueError("covariance must be positive semidefinite")
+    marginal_variance = covariance_values @ weight_values
+    portfolio_variance = float(weight_values @ marginal_variance)
     if portfolio_variance <= 0:
         raise ValueError("portfolio variance must be positive")
     portfolio_volatility = portfolio_variance**0.5
     return pd.Series(
-        weights.values * marginal_variance / portfolio_volatility,
+        weight_values * marginal_variance / portfolio_volatility,
         index=weights.index,
     )
 ```

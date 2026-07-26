@@ -1,6 +1,6 @@
 # Commodity Derivatives
 
-Related chapters: [02-futures.md](02-futures.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), and [13-risk-and-pnl.md](13-risk-and-pnl.md).
+Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [18-volatility-products.md](18-volatility-products.md), and [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md).
 
 ## What This Domain Covers
 Commodities are financial contracts tied to physical reality.
@@ -110,7 +110,7 @@ WASDE is a monthly scheduled release, while the EIA petroleum report is normally
 
 An event timestamp needs a time zone, expected/confirmed status, publication source, revision history, and affected trading session. A report after an option's last-trade cut-off does not belong in that option's variance bucket merely because both share the same calendar date.
 
-For a futures option with gamma to $F$, a local delta-hedged approximation is:
+For a futures option with gamma to $F$, after discount carry and financing are handled consistently, a local delta-hedged approximation is:
 
 $$
 \Delta\Pi

@@ -23,7 +23,7 @@ $$
 The following dependency-free code reproduces the parametric result and illustrates a seeded normal Monte Carlo estimate:
 
 ```python
-from math import exp, pi, sqrt
+from math import ceil, exp, pi, sqrt
 from random import Random
 from statistics import NormalDist
 
@@ -40,9 +40,17 @@ losses = sorted(
     -rng.gauss(0.0, standard_deviation)
     for _ in range(200_000)
 )
-index = int(confidence * len(losses))
-monte_carlo_var = losses[index]
-monte_carlo_es = sum(losses[index:]) / len(losses[index:])
+path_count = len(losses)
+quantile_index = ceil(confidence * path_count) - 1
+monte_carlo_var = losses[quantile_index]
+
+strict_tail = losses[quantile_index + 1:]
+strict_tail_mass = len(strict_tail) / path_count
+boundary_mass = max(0.0, (1.0 - confidence) - strict_tail_mass)
+monte_carlo_es = (
+    sum(strict_tail) / path_count
+    + boundary_mass * monte_carlo_var
+) / (1.0 - confidence)
 
 assert round(parametric_var / 1_000_000, 2) == 3.49
 assert round(parametric_es / 1_000_000, 2) == 4.00
@@ -50,6 +58,6 @@ assert abs(monte_carlo_var / parametric_var - 1.0) < 0.03
 assert abs(monte_carlo_es / parametric_es - 1.0) < 0.03
 ```
 
-The simulation is intentionally the same normal linear model, so the estimates should converge toward the parametric values. It does not demonstrate the main reason to use Monte Carlo. Production Monte Carlo should generate coherent multi-factor states, reprice nonlinear positions, test discretization and model choices, and report sampling uncertainty across path batches.
+The lower empirical quantile and ES calculation deliberately separate the VaR order statistic from the strictly worse observations and add only the boundary mass needed to make a tail of probability $1-\alpha$. The simulation is intentionally the same normal linear model, so the estimates should converge toward the parametric values. It does not demonstrate the main reason to use Monte Carlo. Production Monte Carlo should generate coherent multi-factor states, reprice nonlinear positions, test discretization and model choices, and report sampling uncertainty across path batches.
 
 Historical simulation uses observed shocks instead of normal draws; filtered historical simulation rescales those shocks; named stress scenarios impose coherent hypothetical moves. Their results can legitimately differ. Reconcile position population, horizon, confidence, loss sign, quantile convention, and valuation mapping before attributing differences to model choice.

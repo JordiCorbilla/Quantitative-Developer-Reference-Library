@@ -1,6 +1,6 @@
 # Worked Examples
 
-These examples are small by design. They are meant to connect formulas to implementation checks without turning the repository into a full codebase.
+These examples are focused and self-contained. They connect formulas to implementation checks without pretending to be production libraries.
 
 ## Examples
 - [historical-var-es.md](historical-var-es.md) - compute historical VaR and Expected Shortfall from scenario losses.
@@ -36,6 +36,16 @@ These examples are small by design. They are meant to connect formulas to implem
 - [catalyst-equity-earnings-bridge.md](catalyst-equity-earnings-bridge.md) - bridge revenue, margins, share count, EPS, and valuation under catalyst scenarios.
 - [prime-broker-financing-comparison.md](prime-broker-financing-comparison.md) - compare financing, borrow, margin-liquidity, and allocation costs.
 - [gerber-co-movement.md](gerber-co-movement.md) - compute thresholded robust co-movement while separating signal-sized moves from noise.
+- [theta-gamma-daily-breakeven.md](theta-gamma-daily-breakeven.md) - derive the local delta-hedged move required to offset one interval of theta.
+- [commodity-option-event-gap.md](commodity-option-event-gap.md) - stress a short commodity straddle through event gaps, locked hedges, signed prices, and tail-first sizing.
+- [ewma-har-rv-forecast.md](ewma-har-rv-forecast.md) - compare transparent EWMA and HAR-RV next-day variance forecasts.
+- [kalman-filter-dynamic-hedge-ratio.md](kalman-filter-dynamic-hedge-ratio.md) - update a time-varying hedge ratio with a scalar Kalman filter.
+- [purged-regularized-signal-model.md](purged-regularized-signal-model.md) - fit and evaluate a regularized signal model with nested, purged time splits.
+- [reinforcement-learning-reward-accounting.md](reinforcement-learning-reward-accounting.md) - reconcile execution economics, penalties, and a telescoping RL reward ledger.
+- [factor-signal-neutralization.md](factor-signal-neutralization.md) - neutralize cross-sectional scores by group and verify gross/net exposures.
+- [portfolio-risk-budgeting.md](portfolio-risk-budgeting.md) - calculate inverse-volatility weights and equal risk contributions in a controlled case.
+- [order-book-impact-tradeoff.md](order-book-impact-tradeoff.md) - compare temporary-impact exposure, remaining inventory, and displayed imbalance.
+- [parametric-monte-carlo-var.md](parametric-monte-carlo-var.md) - reconcile normal parametric VaR/ES with a seeded Monte Carlo estimate.
 
 ## How To Use
 - Treat the numbers as sanity-check scaffolding.

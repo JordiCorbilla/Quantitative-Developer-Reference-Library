@@ -66,16 +66,21 @@ VaR and ES summarize the loss tail of a portfolio distribution over a fixed hori
 Let $L$ be portfolio loss over the horizon and let $\alpha$ be the confidence level.
 
 $$
-P(L > \text{VaR}_\alpha) = 1 - \alpha
+\operatorname{VaR}_\alpha(L)
+:=
+\inf\{\ell:F_L(\ell)\geq\alpha\}
 $$
 
-VaR is the loss threshold at the chosen confidence level. A 1-day 95% VaR of USD 10m means that, under the model and data window, losses are expected to exceed USD 10m on roughly 5% of days. VaR is useful for summary reporting, trading limits, and quick comparison across books, but it does not say how severe losses are once the threshold has been breached.
+VaR is the lower loss quantile at the chosen confidence level. A 1-day 95% VaR of USD 10m means that, under the model and data window, USD 10m is the smallest threshold whose cumulative loss probability is at least 95%. For a continuous distribution with no probability mass at the quantile, losses exceed that threshold with probability $1-\alpha$; for a discrete or empirical distribution, that equality need not hold. VaR is useful for summary reporting, trading limits, and quick comparison across books, but it does not say how severe losses are once the threshold has been breached.
 
 $$
-\text{ES}_\alpha = E[L \mid L > \text{VaR}_\alpha]
+\operatorname{ES}_\alpha(L)
+:=
+\frac{1}{1-\alpha}
+\int_\alpha^1 \operatorname{VaR}_u(L)\,du
 $$
 
-Expected Shortfall, also called conditional VaR in some systems, is the average loss beyond the VaR threshold. It is more tail-sensitive than VaR and is a coherent risk measure under the usual axioms, including sub-additivity. That makes ES better suited to stress management, capital-style views, and portfolios where diversification can break down in the tail.
+Expected Shortfall, also called conditional VaR in some systems, averages the worst $1-\alpha$ probability mass of the loss distribution. When the distribution is continuous at VaR, this reduces to $E[L\mid L>\operatorname{VaR}_\alpha]$. With atoms or finite empirical samples, the calculation must include the appropriate fraction of observations at the VaR threshold rather than silently dropping or double-counting that mass. ES is more tail-sensitive than VaR and is a coherent risk measure under the usual axioms, including sub-additivity. That makes ES better suited to stress management, capital-style views, and portfolios where diversification can break down in the tail.
 
 ### Beta in Equity VaR
 

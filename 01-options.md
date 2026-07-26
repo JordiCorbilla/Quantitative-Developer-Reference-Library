@@ -392,7 +392,7 @@ $$
 
 This is why theta is often described as the rent paid to own gamma. The identity is conditional, not a promise of trading profit. It assumes the same model, volatility, time clock, carry treatment, and Greek units on both sides. Real PnL also contains discrete-hedging error, jumps, surface moves, vanna and volga, financing, dividends, transaction costs, and model residual.
 
-For a small interval $\Delta\tau$ measured on the same annualization clock as volatility, a locally delta-hedged long option has the approximation:
+For a small interval $\Delta\tau$ measured on the same annualization clock as volatility, after option carry, option financing, and hedge financing are booked consistently—or under the zero-rate, zero-carry shorthand—a locally delta-hedged long option has the remaining gamma/theta approximation:
 
 $$
 \Delta\Pi_{\Delta\text{-hedged}}

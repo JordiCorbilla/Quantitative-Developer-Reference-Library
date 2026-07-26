@@ -1,6 +1,6 @@
 # Time-Series Forecasting and State-Space Models
 
-Related chapters: [11-market-data.md](11-market-data.md), [18-volatility-products.md](18-volatility-products.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), and [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md).
+Related chapters: [11-market-data.md](11-market-data.md), [18-volatility-products.md](18-volatility-products.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), and [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md).
 
 ## What This Domain Covers
 Time-series forecasting models information in its observed order. In quantitative finance that usually means estimating a conditional mean, volatility, covariance, latent state, or economically meaningful equilibrium from data available at a stated forecast origin.

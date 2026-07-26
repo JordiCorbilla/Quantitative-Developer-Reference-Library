@@ -27,11 +27,13 @@ q_{\text{event}}
 =0.007886
 $$
 
-The implied one-standard-deviation log move is:
+Because $q_{\text{event}}=E^Q[J^2]$, the risk-neutral RMS implied log jump is:
 
 $$
 \sqrt{q_{\text{event}}}=8.88\%
 $$
+
+This equals a standard deviation only if the risk-neutral mean jump is zero.
 
 ```python
 from math import sqrt

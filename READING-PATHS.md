@@ -24,6 +24,26 @@ Use these paths when you want to study the library with a concrete goal.
 6. [18-volatility-products.md](18-volatility-products.md)
 7. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
 
+## Time-Series And Systematic Research
+1. [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md)
+2. [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md)
+3. [18-volatility-products.md](18-volatility-products.md)
+4. [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md)
+5. [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md)
+6. [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md)
+7. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
+8. [examples/kalman-filter-dynamic-hedge-ratio.md](examples/kalman-filter-dynamic-hedge-ratio.md)
+9. [examples/purged-regularized-signal-model.md](examples/purged-regularized-signal-model.md)
+
+## Machine Learning And Sequential Control
+1. [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md)
+2. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
+3. [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md)
+4. [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
+5. [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md)
+6. [examples/purged-regularized-signal-model.md](examples/purged-regularized-signal-model.md)
+7. [examples/reinforcement-learning-reward-accounting.md](examples/reinforcement-learning-reward-accounting.md)
+
 ## Pricing Library Design
 1. [00-overview.md](00-overview.md)
 2. [11-market-data.md](11-market-data.md)
@@ -54,11 +74,14 @@ Use these paths when you want to study the library with a concrete goal.
 
 ## Portfolio And Execution Engineering
 1. [03-equities.md](03-equities.md)
-2. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
-3. [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
-4. [13-risk-and-pnl.md](13-risk-and-pnl.md)
-5. [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md)
-6. [examples/vwap-twap-comparison.md](examples/vwap-twap-comparison.md)
+2. [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md)
+3. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+4. [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md)
+5. [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md)
+6. [13-risk-and-pnl.md](13-risk-and-pnl.md)
+7. [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md)
+8. [examples/portfolio-risk-budgeting.md](examples/portfolio-risk-budgeting.md)
+9. [examples/order-book-impact-tradeoff.md](examples/order-book-impact-tradeoff.md)
 
 ## Volatility And Tail Risk
 1. [01-options.md](01-options.md)
@@ -70,6 +93,9 @@ Use these paths when you want to study the library with a concrete goal.
 7. [examples/regime-switching-probability.md](examples/regime-switching-probability.md)
 8. [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md)
 9. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
+10. [examples/theta-gamma-daily-breakeven.md](examples/theta-gamma-daily-breakeven.md)
+11. [examples/ewma-har-rv-forecast.md](examples/ewma-har-rv-forecast.md)
+12. [examples/parametric-monte-carlo-var.md](examples/parametric-monte-carlo-var.md)
 
 ## Event-Driven And Merger Arbitrage
 1. [03-equities.md](03-equities.md)
@@ -112,8 +138,12 @@ Use these paths when you want to study the library with a concrete goal.
 
 ## Robust Portfolio Research
 1. [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md)
-2. [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md)
-3. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
-4. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
-5. [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md)
-6. [examples/gerber-co-movement.md](examples/gerber-co-movement.md)
+2. [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md)
+3. [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md)
+4. [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md)
+5. [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md)
+6. [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md)
+7. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
+8. [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md)
+9. [examples/gerber-co-movement.md](examples/gerber-co-movement.md)
+10. [examples/factor-signal-neutralization.md](examples/factor-signal-neutralization.md)

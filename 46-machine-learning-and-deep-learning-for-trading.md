@@ -1,6 +1,6 @@
 # Machine Learning and Deep Learning for Trading
 
-Related chapters: [11-market-data.md](11-market-data.md), [14-testing-and-validation.md](14-testing-and-validation.md), [15-performance-and-production.md](15-performance-and-production.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [41-production-quant-engineering.md](41-production-quant-engineering.md), and [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md).
+Related chapters: [11-market-data.md](11-market-data.md), [14-testing-and-validation.md](14-testing-and-validation.md), [15-performance-and-production.md](15-performance-and-production.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [41-production-quant-engineering.md](41-production-quant-engineering.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md), [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), [47-reinforcement-learning-for-trading-and-execution.md](47-reinforcement-learning-for-trading-and-execution.md), and [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md).
 
 ## What This Domain Covers
 Machine learning for trading estimates a conditional quantity from data: a return, direction, rank, volatility, fill probability, cost, default event, or regime. Deep learning extends the function class with learned nonlinear representations and sequence models. Neither category creates an economic edge by itself. A useful model must connect a well-defined information set to an executable decision and survive costs, capacity limits, nonstationarity, and realistic out-of-sample testing.
@@ -208,21 +208,33 @@ $$
 
 where the mask $M$ blocks unavailable or padded observations. Time encoding should represent order, elapsed time, calendar effects, and irregular gaps where relevant. The Temporal Fusion Transformer combines recurrent processing, gating, variable selection, attention, static covariates, and multi-horizon quantile outputs. Its additional structure is justified only when the forecasting problem and sample support it.
 
-Model output is not a position. A simple cost-aware mapping is:
+Model output is not a position. Let $\widehat c_{i,t}\geq0$ be the expected per-unit implementation hurdle in return units. First apply a symmetric no-trade band:
+
+$$
+\widehat e_{i,t}
+:=
+\operatorname{sign}(\widehat\mu_{i,t})
+\max\left(
+\lvert\widehat\mu_{i,t}\rvert-\widehat c_{i,t},
+0
+\right).
+$$
+
+A simple cost-aware mapping is then:
 
 $$
 q_{i,t}
 =
 \operatorname{clip}
 \left(
-\frac{\widehat\mu_{i,t}-\widehat c_{i,t}}
+\frac{\widehat e_{i,t}}
 {\gamma\,\widehat\sigma^2_{i,t}},
 -q_i^{\max},
 +q_i^{\max}
 \right)
 $$
 
-subject to portfolio, factor, liquidity, borrow, and turnover constraints. The complete portfolio construction and PnL convention belongs in [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
+subject to portfolio, factor, liquidity, borrow, and turnover constraints. This maps a zero forecast to zero and never creates a short merely because costs are positive. The complete portfolio construction and PnL convention belongs in [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## Worked Instrument Example
 Suppose a ridge model predicts a one-day return from standardized momentum, value, and volatility features:
@@ -377,6 +389,7 @@ Release checks should fail on point-in-time violations, fold overlap, unexpected
 ```python
 from dataclasses import dataclass
 import math
+from numbers import Integral
 
 
 @dataclass(frozen=True)
@@ -388,28 +401,63 @@ class Sample:
     target: float
 
 
-def purged_training_rows(
+def purged_past_training_rows(
     samples: list[Sample],
     test_rows: set[int],
-    embargo_end: int,
 ) -> list[int]:
     if not test_rows:
         raise ValueError("test_rows cannot be empty")
+    if any(
+        not isinstance(i, Integral)
+        or isinstance(i, bool)
+        or i < 0
+        or i >= len(samples)
+        for i in test_rows
+    ):
+        raise ValueError("test row index is out of range")
+    for sample in samples:
+        timestamps = (
+            sample.feature_time,
+            sample.label_start,
+            sample.label_end,
+        )
+        if any(
+            not isinstance(value, Integral) or isinstance(value, bool)
+            for value in timestamps
+        ):
+            raise ValueError("sample timestamps must be finite integers")
+        if (
+            sample.feature_time > sample.label_start
+            or sample.label_start > sample.label_end
+        ):
+            raise ValueError("sample timestamps are not chronologically ordered")
+        if not all(
+            math.isfinite(value)
+            for value in (*sample.features, sample.target)
+        ):
+            raise ValueError("sample features and targets must be finite")
     test_intervals = [
         (samples[i].label_start, samples[i].label_end) for i in test_rows
     ]
-    last_test_end = max(end for _, end in test_intervals)
+    first_test_start = min(start for start, _ in test_intervals)
+    first_test_feature = min(samples[i].feature_time for i in test_rows)
     kept: list[int] = []
     for i, candidate in enumerate(samples):
         if i in test_rows:
+            continue
+        # A walk-forward outer holdout trains only on information whose
+        # complete label is known before the first test label begins.
+        if (
+            candidate.feature_time >= first_test_feature
+            or candidate.label_end >= first_test_start
+        ):
             continue
         overlaps = any(
             candidate.label_start <= test_end
             and test_start <= candidate.label_end
             for test_start, test_end in test_intervals
         )
-        embargoed = last_test_end < candidate.feature_time <= embargo_end
-        if not overlaps and not embargoed:
+        if not overlaps:
             kept.append(i)
     return kept
 
@@ -418,6 +466,11 @@ def logistic_probability(intercept: float, coefficients: tuple[float, ...],
                          features: tuple[float, ...]) -> float:
     if len(coefficients) != len(features):
         raise ValueError("coefficient and feature dimensions differ")
+    if not all(
+        math.isfinite(value)
+        for value in (intercept, *coefficients, *features)
+    ):
+        raise ValueError("logistic inputs must be finite")
     score = intercept + sum(b * x for b, x in zip(coefficients, features))
     if score >= 0.0:
         return 1.0 / (1.0 + math.exp(-score))
@@ -431,8 +484,20 @@ def expected_net_return(
     return_if_down: float,
     round_trip_cost: float,
 ) -> float:
+    if not all(
+        math.isfinite(value)
+        for value in (
+            probability_up,
+            return_if_up,
+            return_if_down,
+            round_trip_cost,
+        )
+    ):
+        raise ValueError("expected-return inputs must be finite")
     if not 0.0 <= probability_up <= 1.0:
         raise ValueError("probability must be in [0, 1]")
+    if round_trip_cost < 0.0:
+        raise ValueError("round-trip cost must be non-negative")
     gross = (
         probability_up * return_if_up
         + (1.0 - probability_up) * return_if_down
