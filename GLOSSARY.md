@@ -33,6 +33,7 @@
 - **Clean price**: Bond price excluding accrued interest.
 - **CLS**: Continuous Linked Settlement, a settlement system that reduces FX principal settlement risk through payment-versus-payment for eligible currencies and participants.
 - **Collateral**: Assets posted to reduce counterparty exposure or support financing.
+- **Cointegration**: Property of non-stationary level series whose fitted linear combination is stationary; it supports a long-run relation hypothesis but does not guarantee parameter stability, convergence, or trading profit.
 - **Confirmation**: Counterparty agreement of trade economics after execution.
 - **Contingent value right (CVR)**: Security or contractual right paying only if specified milestones, such as an approval or sales threshold, are achieved.
 - **Convexity**: Second-order sensitivity; for bonds it captures curvature of price-yield relation.
@@ -85,6 +86,7 @@
 - **HAR-RV**: Heterogeneous autoregressive realized-volatility model combining daily, weekly, and monthly realized-variance components.
 - **Haircut**: Reduction applied to collateral value in financing or margin.
 - **Hazard rate**: Default intensity used in credit modelling.
+- **Hedge ratio**: Quantity or notional mapping between legs intended to offset a declared relationship or risk; a cointegration hedge is not automatically dollar-, beta-, volatility-, or factor-neutral.
 - **Heston model**: Stochastic-volatility option model with mean-reverting variance and correlated spot/variance shocks.
 - **Hidden Markov Model (HMM)**: Probabilistic sequence model with hidden states, initial probabilities, transition probabilities, and a state-dependent emission distribution. In markets, HMMs are often used to estimate regime probabilities from returns, volatility, volume, or spread data.
 - **Hierarchical Risk Parity (HRP)**: Cluster-based allocation method using dependence distances and recursive risk allocation without directly inverting the complete covariance matrix.
@@ -118,6 +120,7 @@
 - **Market data snapshot**: Versioned set of market inputs used for valuation or risk.
 - **Market capitalization**: Current share price multiplied by shares outstanding; it measures equity value and differs from enterprise value and free-float market cap.
 - **Markov decision process (MDP)**: Sequential-decision model defined by state, action, transition, reward, and discount structure.
+- **Mean reversion**: Tendency of a modeled state or residual to move back toward an estimated equilibrium; an estimate is not a promise that any individual deviation will converge.
 - **Momentum signal**: Rule using the persistence of past relative or own-history returns under a declared lookback, skip period, rebalance, and cost convention.
 - **Model governance**: Controls around model inventory, approval, validation, limitations, and monitoring.
 - **MVA**: Margin valuation adjustment for the funding cost of initial margin.
@@ -136,6 +139,7 @@
 - **Payment-versus-payment (PvP)**: Settlement mechanism in which one currency payment is final only if the other currency payment is also final.
 - **PD**: Probability of Default over a specified horizon and default definition.
 - **PCA**: Principal component analysis, an orthogonal variance-decomposition method whose loadings can rotate across windows and need not be predictive.
+- **Pairs trade**: Long-short relative-value position built from two related securities and a declared hedge relation, usually seeking convergence of a fitted residual rather than predicting either standalone price.
 - **PFE**: Potential future exposure, a high-quantile estimate of counterparty exposure over a future horizon under stated netting, collateral, and simulation assumptions.
 - **PIPE**: Private investment in public equity, often used to finance a transaction or recapitalization and subject to negotiated terms, registration mechanics, and dilution.
 - **Point-in-time data**: Historical data stored with enough timing and version information to reproduce what was knowable at each decision date.
@@ -171,6 +175,7 @@
 - **SIMM**: Standard Initial Margin Model.
 - **Skew**: Variation of implied volatility across strike or delta.
 - **SPAC**: Special purpose acquisition company that raises cash in an IPO to pursue a business combination, usually with units that may separate into shares and warrants and with redemption rights governed by transaction documents.
+- **Spread z-score**: Fitted residual minus its declared mean, divided by its declared standard deviation; it is a model-relative signal whose window, hedge snapshot, and eligibility state must be specified.
 - **Stock borrow**: Arrangement that supplies shares for a short position in return for collateral and a lending fee or rebate.
 - **Stress test**: Scenario designed to measure loss under severe market conditions.
 - **State-space model**: Model separating latent state dynamics from an observation equation; filtering and smoothing answer different information-set questions.

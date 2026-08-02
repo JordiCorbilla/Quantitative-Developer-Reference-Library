@@ -21,6 +21,7 @@ These examples are focused and self-contained. They connect formulas to implemen
 - [fx-swap-forward-points.md](fx-swap-forward-points.md) - compute FX swap forward points and explain near/far leg cashflows.
 - [vwap-twap-comparison.md](vwap-twap-comparison.md) - compare VWAP and TWAP benchmarks on intraday prints.
 - [pairs-trading-spread-signal.md](pairs-trading-spread-signal.md) - calculate a standardized residual signal for a pairs-trading workflow.
+- [cointegrated-pair-trade-lifecycle.md](cointegrated-pair-trade-lifecycle.md) - run a synthetic KO/PEP pair through cointegration-hedge sizing, stateful entry/exit/stop rules, and leg-level PnL.
 - [equity-snapshot-metrics.md](equity-snapshot-metrics.md) - calculate market cap, P/E ratios, and dividend yield from a fictional equity snapshot.
 - [large-order-participation.md](large-order-participation.md) - calculate a participation-limited child-order quantity from a parent order and volume forecast.
 - [copula-tail-dependence.md](copula-tail-dependence.md) - calculate the lower-tail dependence coefficient of a Clayton copula and interpret it carefully.

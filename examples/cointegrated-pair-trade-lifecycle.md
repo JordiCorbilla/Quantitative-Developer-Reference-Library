@@ -1,4 +1,4 @@
-# Cointegrated Pair Trade Lifecycle
+# Synthetic Cointegration-Model Pair Trade Lifecycle
 
 Related chapter: [../31-statistical-arbitrage-and-pairs-trading.md](../31-statistical-arbitrage-and-pairs-trading.md).
 
@@ -14,7 +14,7 @@ $$
 P_t^{KO}=3.00+0.40P_t^{PEP}+s_t,
 $$
 
-with spread mean $mu_s=0$ and spread standard deviation $sigma_s=1$. Therefore:
+with spread mean $\mu_s=\text{USD }0$ and spread standard deviation $\sigma_s=\text{USD }1$ per one-KO-share hedge unit. Therefore:
 
 $$
 z_t=\frac{s_t-\mu_s}{\sigma_s}=s_t.
@@ -70,7 +70,7 @@ Net PnL is $1.39\%$ of initial gross notional. This winning path is not the expe
 
 ## Stateful Trading Policy
 
-A production rule needs state. A flat book may enter, an open book may hold or exit, and a disabled pair may not trade merely because its z-score is extreme.
+A production rule needs state. A flat book may enter, an open book may hold or exit, and a disabled pair may not trade merely because its z-score is extreme. The function also requires the previous z-score so a new position opens on a threshold crossing rather than on a stale extreme.
 
 ```python
 from dataclasses import dataclass
@@ -104,12 +104,13 @@ def z_score(value: float, mean: float, standard_deviation: float) -> float:
 
 def pair_action(
     z: float,
+    previous_z: float,
     state: str,
     age: int,
     policy: PairPolicy,
     model_valid: bool = True,
 ) -> str:
-    if not math.isfinite(z) or age < 0:
+    if not math.isfinite(z) or not math.isfinite(previous_z) or age < 0:
         raise ValueError("invalid signal state")
     if state not in {"flat", "long_spread", "short_spread", "disabled"}:
         raise ValueError("unknown position state")
@@ -122,9 +123,9 @@ def pair_action(
     if not model_valid:
         return "disable_and_close" if state != "flat" else "disable"
     if state == "flat":
-        if z >= policy.entry_z:
+        if previous_z < policy.entry_z <= z:
             return "enter_short_spread"
-        if z <= -policy.entry_z:
+        if previous_z > -policy.entry_z >= z:
             return "enter_long_spread"
         return "remain_flat"
     if age >= policy.maximum_age:
@@ -170,15 +171,16 @@ def pair_pnl(
 policy = PairPolicy()
 entry_spread = spread(69.00, 160.00, alpha=3.00, beta=0.40)
 entry_z = z_score(entry_spread, mean=0.0, standard_deviation=1.0)
-assert pair_action(entry_z, "flat", age=0, policy=policy) == "enter_short_spread"
+assert pair_action(entry_z, 0.80, "flat", age=0, policy=policy) == "enter_short_spread"
+assert pair_action(2.40, 2.20, "flat", age=0, policy=policy) == "remain_flat"
 
 exit_spread = spread(67.60, 161.50, alpha=3.00, beta=0.40)
 exit_z = z_score(exit_spread, mean=0.0, standard_deviation=1.0)
-assert pair_action(exit_z, "short_spread", age=3, policy=policy) == "convergence_exit"
-assert pair_action(3.60, "short_spread", age=2, policy=policy) == "stop_exit"
-assert pair_action(-2.20, "flat", age=0, policy=policy) == "enter_long_spread"
-assert pair_action(-0.30, "long_spread", age=4, policy=policy) == "convergence_exit"
-assert pair_action(0.0, "short_spread", age=1, policy=policy, model_valid=False) == "disable_and_close"
+assert pair_action(exit_z, 1.00, "short_spread", age=3, policy=policy) == "convergence_exit"
+assert pair_action(3.60, 2.00, "short_spread", age=2, policy=policy) == "stop_exit"
+assert pair_action(-2.20, -1.50, "flat", age=0, policy=policy) == "enter_long_spread"
+assert pair_action(-0.30, -1.00, "long_spread", age=4, policy=policy) == "convergence_exit"
+assert pair_action(0.0, 0.50, "short_spread", age=1, policy=policy, model_valid=False) == "disable_and_close"
 
 ko_pnl, pep_pnl, net_pnl = pair_pnl(
     y_shares=1_000,
@@ -203,4 +205,3 @@ assert abs(net_pnl - 1_850.00) < 1e-9
 - Use executable bid/ask prices, simultaneous-leg or basket execution, partial-fill controls, and an explicit legging-loss limit.
 - Accrue borrow, financing, dividends, fees, and corporate actions at leg level.
 - Suspend or retire the pair when the relationship, hedge ratio, residual volatility, liquidity, borrow, or economic thesis changes.
-

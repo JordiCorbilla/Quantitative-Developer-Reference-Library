@@ -61,7 +61,7 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md) - model inventory, documentation, validation, IPV, reserves, approvals, and monitoring
 - [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md) - probability, statistics, OLS regression, diagnostics, beta estimation, and model evaluation
 - [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md) - trade initiation, capture, confirmation, settlement, lifecycle events, reconciliation, and operational controls
-- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - Engle-Granger/Johansen cointegration, OU spreads, Kalman hedges, PCA stat-arb, execution, and model-break risk
+- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - pair selection, correlation versus cointegration, stateful mean-reversion trading, Engle-Granger/Johansen, OU/Kalman/PCA methods, execution, and failure controls
 - [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md) - copulas, tail dependence, joint simulation, calibration, and dependence-model risk
 - [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md) - bitemporal data, immutable events, as-of queries, security masters, corrections, and deterministic replay
 - [41-production-quant-engineering.md](41-production-quant-engineering.md) - typed model libraries, SQL, distributed risk, testing, CI, profiling, deployment, and observability

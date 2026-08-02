@@ -32,8 +32,10 @@ Use these paths when you want to study the library with a concrete goal.
 5. [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md)
 6. [48-factor-models-and-systematic-signals.md](48-factor-models-and-systematic-signals.md)
 7. [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
-8. [examples/kalman-filter-dynamic-hedge-ratio.md](examples/kalman-filter-dynamic-hedge-ratio.md)
-9. [examples/purged-regularized-signal-model.md](examples/purged-regularized-signal-model.md)
+8. [examples/pairs-trading-spread-signal.md](examples/pairs-trading-spread-signal.md)
+9. [examples/cointegrated-pair-trade-lifecycle.md](examples/cointegrated-pair-trade-lifecycle.md)
+10. [examples/kalman-filter-dynamic-hedge-ratio.md](examples/kalman-filter-dynamic-hedge-ratio.md)
+11. [examples/purged-regularized-signal-model.md](examples/purged-regularized-signal-model.md)
 
 ## Machine Learning And Sequential Control
 1. [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md)

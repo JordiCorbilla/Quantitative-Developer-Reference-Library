@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-02
+- Expanded pairs trading with an intuitive correlation-versus-cointegration explanation and a practitioner workflow covering candidate formation, point-in-time testing, hedge interpretation, stateful mean-reversion entries/exits/stops, execution, accounting, invalidation, and pair retirement.
+- Added two original SVG teaching visuals and a dependency-free synthetic KO/PEP lifecycle example with frozen-model sizing and leg-level PnL; no current cointegration or investment recommendation is asserted.
+- Integrated the new material into navigation, reading paths, glossary, examples catalog, interview preparation, and primary-source references.
+
 ## 2026-07-26
 - Added four practitioner chapters covering classical time-series/state-space forecasting, machine and deep learning, reinforcement learning, and factor/systematic signal research.
 - Expanded options, volatility, and commodities with theta/gamma carry, dynamic rehedging, nonlinear decay, daily break-even moves, EWMA, HAR-RV, mixture/change-point regimes, scheduled commodity events, signed prices, locked markets, gaps, and tail-first sizing.

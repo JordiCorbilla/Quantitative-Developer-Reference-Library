@@ -309,6 +309,25 @@ Good answers mention:
 - process versus observation noise and state uncertainty,
 - rolling-origin validation and fitting every transform inside the historical training window.
 
+## Pairs Trading And Cointegration
+Read: [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md), [examples/pairs-trading-spread-signal.md](examples/pairs-trading-spread-signal.md), [examples/cointegrated-pair-trade-lifecycle.md](examples/cointegrated-pair-trade-lifecycle.md)
+
+Common questions:
+- Why can two highly correlated stocks fail to be cointegrated?
+- Describe the Engle-Granger workflow and why its residual test needs special critical values.
+- How does the fitted variable choice determine whether the hedge ratio maps shares or notionals?
+- When do you enter, exit, stop, disable, or retire a mean-reversion pair?
+- How would you backtest thousands of candidate pairs without look-ahead or selection bias?
+
+Good answers mention:
+- economic peer screening before statistical testing and a point-in-time investable universe,
+- compatible integration orders, frozen formation/trading windows, deterministic terms, lags, and residual stability,
+- correlation of returns versus stationarity of a fitted level residual,
+- stateful threshold crossings, hysteresis, time stops, model-break exits, and no mechanical averaging down,
+- simultaneous-leg execution, partial-fill risk, borrow, financing, dividends, costs, and leg-level PnL reconciliation,
+- dollar, beta, sector, style, volatility, and liquidity exposure after applying the cointegration hedge,
+- multiple-testing control, walk-forward selection, capacity, crowding, and explicit pair retirement.
+
 ## Machine Learning And Deep Learning
 Read: [46-machine-learning-and-deep-learning-for-trading.md](46-machine-learning-and-deep-learning-for-trading.md), [40-point-in-time-data-and-event-systems.md](40-point-in-time-data-and-event-systems.md), [44-robust-portfolio-and-research-validation.md](44-robust-portfolio-and-research-validation.md)
 

@@ -45,7 +45,7 @@ $$
 
 ![Statistical arbitrage research-to-trade workflow](assets/statistical-arbitrage-workflow.svg)
 
-If $z_t$ is high, the residual is rich relative to its recent distribution; a simple rule might short $y$, buy $\beta$ units of $x$, and wait for the residual to normalize. If $z_t$ is low, the direction reverses. The rule is only a starting point: the hedge ratio, lookback window, thresholds, and exit logic must be chosen and validated out of sample.
+If $z_t$ is high, the residual is rich relative to its recent distribution; a simple rule might short $y$, take the fitted opposing hedge in $x$, and wait for the residual to normalize. Whether $\beta$ maps to shares, dollar notional, or a research-index weight depends on the fitted variables. If $z_t$ is low, the direction reverses. The rule is only a starting point: the hedge ratio, lookback window, thresholds, and exit logic must be chosen and validated out of sample.
 
 ### Correlation, Cointegration, and Mean Reversion
 
@@ -80,12 +80,12 @@ Useful checks include:
 - factor, sector, currency, and market-beta exposures after hedge construction.
 
 ### Engle-Granger and Johansen Cointegration
-The Engle-Granger two-step procedure is a practical starting point for two or a few series:
+The Engle-Granger two-step procedure is a practical starting point when the model posits one cointegrating relation, especially for a pair; it does not identify multiple cointegrating vectors:
 
 1. verify that the level series have a compatible integration order;
 2. estimate the long-run relation $y_t=\alpha+\beta x_t+u_t$;
 3. test the fitted residual $\hat u_t$ for a unit root;
-4. if supported, represent short-run dynamics with an error-correction term.
+4. if the residual-based test rejects the unit-root/no-cointegration null, represent short-run dynamics with an error-correction term.
 
 A two-series error-correction model can be written:
 
@@ -97,7 +97,7 @@ $$
 +\epsilon_t.
 $$
 
-For convergence, the adjustment coefficient $\lambda$ should have the sign implied by the spread definition. The residual unit-root test uses Engle-Granger critical values, not the ordinary Dickey-Fuller critical values for an observed series, because the residual was estimated. Results depend on intercept/trend specification, lag selection, sample window, and which variable is normalized on the left-hand side.
+For $s_t=y_t-\alpha-\beta x_t$, $\lambda<0$ is the correcting sign when $y$ adjusts, although the full system must still be dynamically stable. The residual unit-root test uses residual-based cointegration critical values matching the deterministic specification and regressor count, not ordinary Dickey-Fuller critical values for an observed series, because the residual was estimated. Results depend on intercept/trend specification, lag selection, sample window, and which variable is normalized on the left-hand side.
 
 Johansen's method treats an $n$-series system jointly through a VECM:
 
@@ -105,10 +105,11 @@ $$
 \Delta\mathbf y_t
 =\alpha\beta^{\mathsf T}\mathbf y_{t-1}
 +\sum_{i=1}^{p-1}\Gamma_i\Delta\mathbf y_{t-i}
++\mathbf d_t
 +\boldsymbol\epsilon_t.
 $$
 
-Trace and maximum-eigenvalue tests provide evidence about cointegration rank. The estimated columns of $\beta$ define stationary baskets and $\alpha$ describes adjustment. This is useful for baskets with more than one equilibrium relation, but it adds material degrees of freedom. Lag order, deterministic terms, finite-sample corrections, and rolling rank stability must be explicit.
+Here $\mathbf d_t$ denotes the declared constant, trend, seasonal, or other deterministic specification. Trace and maximum-eigenvalue tests provide evidence about cointegration rank. The estimated columns of $\beta$ define stationary baskets and $\alpha$ describes adjustment. This is useful for baskets with more than one equilibrium relation, but it adds material degrees of freedom. Lag order, deterministic terms, finite-sample corrections, and rolling rank stability must be explicit.
 
 Neither procedure is a pair-selection oracle. Testing thousands of candidate pairs creates multiple-testing and selection bias; universe formation and false-discovery controls belong inside the walk-forward process. A cointegrating vector can also be statistically stable but economically untradeable after factor exposure, borrow, turnover, and breaks.
 
@@ -186,7 +187,9 @@ PCA maximizes explained variance, not tradable predictability. Loadings can rota
 
 ## Practitioner Workflow: From Candidate Pair to Closed Trade
 
-Pairs and basket mean reversion are common building blocks in quantitative equity-market-neutral and statistical-arbitrage funds. It is not accurate to say that most hedge funds use cointegration: hedge funds span many unrelated strategies, actual models are proprietary, and production statistical-arbitrage portfolios usually diversify across many relationships rather than depend on one pair.
+Pairs and basket mean reversion are documented building blocks in quantitative equity-market-neutral and statistical-arbitrage research, including the distance-based pairs study of [Gatev, Goetzmann, and Rouwenhorst](https://www.nber.org/papers/w7032) and the PCA/ETF residual strategies studied by [Avellaneda and Lee](https://doi.org/10.1080/14697680903124632). It is not accurate to say that most hedge funds use cointegration: hedge funds span many unrelated strategies, actual models are proprietary, and production statistical-arbitrage portfolios usually diversify across many relationships rather than depend on one pair.
+
+The canonical Gatev study is also a useful warning against treating every pairs method as cointegration. It matched normalized cumulative-return paths by minimum squared distance over a 12-month formation period, then traded for six months, opening when the pair diverged by more than two formation-period standard deviations and closing on the next crossing. That is a distance rule, not an Engle-Granger or Johansen screen.
 
 ### 1. Form an Economically Defensible Candidate Universe
 
@@ -270,7 +273,7 @@ Pair retirement is a normal model outcome. Retain the final model snapshot, sign
 
 ## Worked Instrument Example: Coca-Cola and PepsiCo
 
-The Coca-Cola Company (`KO`) and PepsiCo (`PEP`) are recognizable companies with overlapping beverage and consumer-demand exposures, so their securities make an intuitive teaching candidate. They are not identical businesses—PepsiCo also has a substantial convenient-food business—which is exactly why economic similarity cannot substitute for testing and ongoing structural review.
+The Coca-Cola Company (`KO`) describes itself as a total beverage company, while PepsiCo (`PEP`) reported that convenient foods produced 58% and beverages 42% of its 2025 net revenue. Their overlap makes the securities an intuitive teaching candidate, but the product-mix mismatch shows why economic similarity cannot substitute for testing and ongoing structural review ([Coca-Cola 2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/ko-20251231.htm); [PepsiCo 2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/77476/000007747626000007/pep-20251227.htm)).
 
 The companies do not themselves “follow” a pairs strategy. A fund or trading desk chooses whether to research and trade their securities. This example asserts no current cointegration, hedge-fund position, or investment opportunity; all prices and model outputs are synthetic.
 
@@ -384,13 +387,14 @@ def z_score(value: float, mean: float, std_dev: float) -> float:
 
 def pair_action(
     z: float,
+    previous_z: float,
     state: str,
     entry: float = 2.0,
     exit: float = 0.5,
     stop: float = 3.5,
     model_valid: bool = True,
 ) -> str:
-    if not all(math.isfinite(item) for item in (z, entry, exit, stop)):
+    if not all(math.isfinite(item) for item in (z, previous_z, entry, exit, stop)):
         raise ValueError("signal inputs must be finite")
     if state not in {"flat", "long_residual", "short_residual", "disabled"}:
         raise ValueError("unknown pair state")
@@ -401,9 +405,9 @@ def pair_action(
     if not model_valid:
         return "disable_and_close" if state != "flat" else "disable"
     if state == "flat":
-        if z >= entry:
+        if previous_z < entry <= z:
             return "enter_short_residual"
-        if z <= -entry:
+        if previous_z > -entry >= z:
             return "enter_long_residual"
         return "remain_flat"
     if state == "short_residual":
@@ -465,6 +469,6 @@ def scalar_dynamic_beta_update(
 - Avellaneda and Lee. [*Statistical Arbitrage in the U.S. Equities Market*](https://doi.org/10.1080/14697680903124632).
 - Engle and Granger. [*Co-Integration and Error Correction: Representation, Estimation, and Testing*](https://doi.org/10.2307/1913236).
 - Johansen. [*Statistical Analysis of Cointegration Vectors*](https://doi.org/10.1016/0165-1889(88)90041-3).
-- Elliott, van der Hoek, and Malcolm on pairs trading with state-space models.
+- Elliott, van der Hoek, and Malcolm. [*Pairs Trading*](https://doi.org/10.1080/14697680500149370).
 - Company context for the teaching pair: The Coca-Cola Company [2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/ko-20251231.htm) and PepsiCo [2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/77476/000007747626000007/pep-20251227.htm).
 - Links: [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), [examples/pairs-trading-spread-signal.md](examples/pairs-trading-spread-signal.md), [examples/cointegrated-pair-trade-lifecycle.md](examples/cointegrated-pair-trade-lifecycle.md), and [examples/kalman-filter-dynamic-hedge-ratio.md](examples/kalman-filter-dynamic-hedge-ratio.md).

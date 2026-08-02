@@ -24,7 +24,7 @@ This index groups the library by practitioner task rather than file number.
 - [36-warrants-rights-pipes-and-spacs.md](36-warrants-rights-pipes-and-spacs.md) - warrants, rights, PIPEs, SPAC units, redemptions, dilution, lifecycle events
 
 ## Strategy And Special Situations
-- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - Engle-Granger/Johansen, OU spreads, Kalman hedges, PCA stat-arb, execution, model breaks
+- [31-statistical-arbitrage-and-pairs-trading.md](31-statistical-arbitrage-and-pairs-trading.md) - candidate selection, correlation versus cointegration, mean-reversion lifecycle, Engle-Granger/Johansen, OU/Kalman/PCA methods, execution, and model breaks
 - [33-event-driven-and-merger-arbitrage.md](33-event-driven-and-merger-arbitrage.md) - deal terms, spreads, close/break scenarios, event states, and hedging
 - [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md) - cross-instrument issuer mapping, basis, recovery, hedging, and scenario PnL
 - [35-convertible-arbitrage.md](35-convertible-arbitrage.md) - convertible valuation, stock and credit hedges, borrow, financing, and PnL
