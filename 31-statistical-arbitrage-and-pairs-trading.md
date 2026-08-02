@@ -51,6 +51,27 @@ If $z_t$ is high, the residual is rich relative to its recent distribution; a si
 
 High correlation alone is not enough. Two trending assets can be highly correlated while their raw price difference keeps drifting. Cointegration asks whether a linear combination of non-stationary price series is stationary. It is often more relevant for a long-horizon pairs thesis, but it is still an estimated relationship that can fail.
 
+![Correlation versus cointegration](assets/correlation-versus-cointegration.svg)
+
+The concepts answer different questions:
+
+| Concept | Object being studied | What it establishes | What it does not establish |
+| --- | --- | --- | --- |
+| Correlation | Usually contemporaneous returns | Whether two series tend to move together | A stable price-level spread or future convergence |
+| Cointegration | A fitted combination of non-stationary levels | Whether common stochastic trends cancel to leave a stationary residual | Profitability, stable parameters, or a particular convergence time |
+| Mean reversion | Dynamics of the fitted residual | Whether deviations tend to decay toward an estimated equilibrium | That every deviation will close before costs, stops, or structural change |
+| Pairs trade | Executable long-short position | A portfolio intended to monetize residual convergence | Risk-free arbitrage or automatic market neutrality |
+
+The standard term is **mean reversion**, not “reverse mean.” The trade is contrarian with respect to the fitted residual: sell the residual after an unusually positive deviation and buy it after an unusually negative deviation. It is not necessarily contrarian with respect to either stock's standalone return.
+
+Formally, if $x_t$ and $y_t$ are each integrated of order one, written $I(1)$, but
+
+$$
+s_t=y_t-\alpha-\beta x_t
+$$
+
+is $I(0)$, then the levels are cointegrated with normalized vector $(1,-\beta)$. The stationary object is the fitted residual $s_t$—not automatically the raw difference $y_t-x_t$, the price ratio, or the return difference. A residual-test rejection is evidence for a historical relationship under a declared specification; it is not proof that the next observed divergence is mispricing.
+
 Useful checks include:
 - residual plots and rolling distribution checks;
 - Augmented Dickey-Fuller or related stationarity tests, interpreted with their assumptions and limited power;
@@ -163,23 +184,116 @@ A production workflow:
 
 PCA maximizes explained variance, not tradable predictability. Loadings can rotate or change sign, especially when eigenvalues are close. Missing observations, volatility scaling, sector concentration, and a single crisis window can dominate the components. Match components across refits by exposure similarity when interpretation matters, but construct the hedge from the full loading space rather than relying on component names.
 
-## Worked Instrument Example: A Hedged Spread
-Assume a research model estimates:
+## Practitioner Workflow: From Candidate Pair to Closed Trade
+
+Pairs and basket mean reversion are common building blocks in quantitative equity-market-neutral and statistical-arbitrage funds. It is not accurate to say that most hedge funds use cointegration: hedge funds span many unrelated strategies, actual models are proprietary, and production statistical-arbitrage portfolios usually diversify across many relationships rather than depend on one pair.
+
+### 1. Form an Economically Defensible Candidate Universe
+
+A statistical search should start from securities that can plausibly share a long-run driver:
+
+- same industry, product market, supply chain, regulation, geography, or share class;
+- matching currency, trading calendar, timestamp, and corporate-action treatment;
+- adequate liquidity and compatible execution hours;
+- reliable short availability, acceptable borrow fee, and manageable recall risk;
+- no unresolved merger, spin-off, accounting change, index event, or other structural break.
+
+Economic similarity creates a candidate, not a trade. Two beverage companies may share consumer, foreign-exchange, packaging, and commodity exposures while differing materially in product mix, margins, capital allocation, or geography. Those differences are possible causes of spread repricing rather than noise to average down against.
+
+### 2. Estimate and Test Point in Time
+
+At every historical formation date:
+
+1. freeze the investable universe and adjusted research data known at that time;
+2. verify compatible integration orders and deterministic-term assumptions;
+3. estimate the hedge relation only on the formation window;
+4. test the fitted residual with residual-based cointegration critical values;
+5. inspect subperiod stability, hedge-ratio drift, residual variance, and autocorrelation;
+6. estimate OU or AR dynamics and a noisy half-life range;
+7. apply multiple-testing or false-discovery controls across every candidate and specification tried;
+8. freeze the accepted model before calculating signals in the trading window.
+
+The pair-selection decision, left-hand-side normalization, lag choice, trend/intercept choice, training window, threshold grid, and retirement rule are all part of the search. Hiding any of them understates data snooping.
+
+### 3. Translate the Cointegrating Vector into Positions
+
+The meaning of $\beta$ depends on the fitted variables:
+
+| Fitted relation | Local hedge interpretation |
+| --- | --- |
+| Price levels: $P_Y=\alpha+\beta P_X+s$ | One share of $Y$ against $\beta$ shares of $X$ |
+| Log prices: $\log P_Y=\alpha+\beta\log P_X+s$ | Approximately USD 1 of $Y$ against USD $\beta$ of $X$ for a small move |
+| Total-return indices | Research hedge only; convert separately into executable shares and cashflows |
+
+For a log-price long-spread portfolio with gross budget $G$ and $\beta>0$, a gross-normalized starting point is:
 
 $$
-\log(P^A_t) = 0.10 + 1.20\log(P^B_t) + s_t
+N_Y=\frac{G}{1+|\beta|},
+\qquad
+N_X=-\frac{\beta G}{1+|\beta|}.
 $$
 
-and the latest residual is two rolling standard deviations above its mean. The strategy regards A as rich relative to B. For this log-price spread, a local hedge shorts USD 1.00 of A and buys USD 1.20 of B, before any further beta, volatility, or currency scaling and subject to gross, net, and borrow limits.
+The signs reverse for a short-spread position. Convert notionals to shares at executable prices, then evaluate dollar, beta, sector, style, volatility, currency, liquidity, and borrow exposures. The cointegration hedge is not automatically neutral under any of those other definitions.
 
-The trade thesis is not that A must fall or B must rise. It is that the residual should narrow. It can narrow through either leg, both legs, or a change in the estimated relationship. The hedge is therefore a portfolio construction choice, not a guarantee of market neutrality.
+### 4. Run a Stateful Mean-Reversion Policy
 
-An example signal policy might be:
-- enter when $|z_t| \geq 2.0$;
-- reduce or close when $|z_t| \leq 0.5$;
-- stop, de-risk, or disable the pair when the model, liquidity, borrow, or factor-risk checks fail.
+A z-score threshold is not enough; the rule needs position state and hysteresis:
 
-The thresholds are illustrative. A production strategy selects them by an out-of-sample process that includes all trading costs and a realistic delay between observation and fill.
+- **Flat and $z_t\geq z_{entry}$:** enter short residual—short $Y$, long its fitted $X$ hedge.
+- **Flat and $z_t\leq-z_{entry}$:** enter long residual—long $Y$, short its fitted $X$ hedge.
+- **Open and residual returns to the exit band:** close for convergence.
+- **Residual widens in the adverse direction:** stop or move to mandatory review; do not mechanically average down.
+- **Maximum holding period reached:** close or re-underwrite rather than silently extend the horizon.
+- **Model, data, borrow, liquidity, or event check fails:** disable the pair and close according to the emergency execution policy.
+
+Entry is normally triggered by a threshold crossing from an eligible prior state, not simply because an already-stale signal remains extreme. A position that gaps through the mean should close rather than wait for $|z|$ to return to the exit band from the other side.
+
+### 5. Apply the Cost Gate, Size, and Execute Both Legs
+
+Expected convergence must exceed round-trip spread, fees, impact, borrow, financing, dividend exposure, hedge rebalance, and a model-error buffer. Size from a loss budget and stressed spread widening, not from the largest leverage allowed by a small historical residual variance.
+
+Execution normally uses linked or basket orders with:
+
+- locate confirmation before committing the short;
+- maximum legging time and loss if only one leg fills;
+- participation and impact limits on both instruments;
+- a policy for partial fills, rejects, halts, and auction states;
+- target-versus-executed hedge and factor exposure monitoring.
+
+The PnL ledger must reconcile long-leg price PnL, short-leg price PnL, dividends received and paid, borrow, financing, execution costs, corporate actions, FX, hedge rebalances, and residual unexplained PnL.
+
+### 6. Monitor, Invalidate, and Retire
+
+An open pair should be reviewed for residual volatility jumps, hedge-ratio drift, loss of stationarity, half-life extension, factor-exposure drift, earnings or corporate events, borrow recall, crowding, and liquidity deterioration. A low historical cointegration p-value must never override current economic evidence.
+
+Pair retirement is a normal model outcome. Retain the final model snapshot, signal, orders, fills, reason code, and PnL attribution. Re-entry requires the documented cooldown or a newly completed formation process; it should not happen because a broken spread becomes even more statistically extreme.
+
+## Worked Instrument Example: Coca-Cola and PepsiCo
+
+The Coca-Cola Company (`KO`) and PepsiCo (`PEP`) are recognizable companies with overlapping beverage and consumer-demand exposures, so their securities make an intuitive teaching candidate. They are not identical businesses—PepsiCo also has a substantial convenient-food business—which is exactly why economic similarity cannot substitute for testing and ongoing structural review.
+
+The companies do not themselves “follow” a pairs strategy. A fund or trading desk chooses whether to research and trade their securities. This example asserts no current cointegration, hedge-fund position, or investment opportunity; all prices and model outputs are synthetic.
+
+![Illustrative KO and PEP pairs-trade lifecycle](assets/ko-pep-pairs-trade-lifecycle.svg)
+
+Assume a model fitted and frozen before the displayed trading interval estimates:
+
+$$
+P_t^{KO}=3.00+0.40P_t^{PEP}+s_t,
+\qquad \mu_s=0,
+\qquad \sigma_s=1.
+$$
+
+At T0, KO is USD 69.00 and PEP is USD 160.00:
+
+$$
+s_{T0}=69-3-0.40(160)=2,
+\qquad z_{T0}=2.
+$$
+
+KO is rich relative to the fitted relation, so the illustrative trade shorts 1,000 KO shares and buys 400 PEP shares. The entry portfolio is USD 133,000 gross and USD 5,000 net short. At T+3, KO is USD 67.60 and PEP is USD 161.50, making the residual zero. Short-KO PnL is USD 1,400, long-PEP PnL is USD 600, and gross convergence PnL is USD 2,000. After an illustrative USD 150 of all-in costs, net PnL is USD 1,850.
+
+This favorable path teaches accounting, not expected performance. The complete table, both signal directions, stop/time/model-break states, and dependency-free executable code are in [examples/cointegrated-pair-trade-lifecycle.md](examples/cointegrated-pair-trade-lifecycle.md). The smaller arithmetic-only signal example remains in [examples/pairs-trading-spread-signal.md](examples/pairs-trading-spread-signal.md).
 
 ## Key Risk Measures and Sensitivities
 - Spread z-score, residual volatility, and residual drawdown.
@@ -257,34 +371,65 @@ Minimum checks:
 
 ## Illustrative Code
 ```python
+import math
+
+
 def z_score(value: float, mean: float, std_dev: float) -> float:
-    if std_dev <= 0:
+    if not all(math.isfinite(item) for item in (value, mean, std_dev)):
+        raise ValueError("z-score inputs must be finite")
+    if std_dev <= 0.0:
         raise ValueError("standard deviation must be positive")
     return (value - mean) / std_dev
 
 
-def pair_signal(z: float, entry: float = 2.0, exit: float = 0.5) -> str:
-    if entry <= exit:
-        raise ValueError("entry threshold must exceed exit threshold")
-    if z >= entry:
-        return "short_residual"
-    if z <= -entry:
-        return "long_residual"
-    if abs(z) <= exit:
-        return "close_or_flat"
-    return "hold"
+def pair_action(
+    z: float,
+    state: str,
+    entry: float = 2.0,
+    exit: float = 0.5,
+    stop: float = 3.5,
+    model_valid: bool = True,
+) -> str:
+    if not all(math.isfinite(item) for item in (z, entry, exit, stop)):
+        raise ValueError("signal inputs must be finite")
+    if state not in {"flat", "long_residual", "short_residual", "disabled"}:
+        raise ValueError("unknown pair state")
+    if not 0.0 <= exit < entry < stop:
+        raise ValueError("thresholds must satisfy exit < entry < stop")
+    if state == "disabled":
+        return "remain_disabled"
+    if not model_valid:
+        return "disable_and_close" if state != "flat" else "disable"
+    if state == "flat":
+        if z >= entry:
+            return "enter_short_residual"
+        if z <= -entry:
+            return "enter_long_residual"
+        return "remain_flat"
+    if state == "short_residual":
+        if z >= stop:
+            return "stop_exit"
+        return "convergence_exit" if z <= exit else "hold"
+    if z <= -stop:
+        return "stop_exit"
+    return "convergence_exit" if z >= -exit else "hold"
 
 
 def residual(y_log_price: float, x_log_price: float, alpha: float, beta: float) -> float:
+    if not all(
+        math.isfinite(item)
+        for item in (y_log_price, x_log_price, alpha, beta)
+    ):
+        raise ValueError("residual inputs must be finite")
     return y_log_price - alpha - beta * x_log_price
 
 
 def ou_half_life(ar1_phi: float, sampling_interval: float = 1.0) -> float:
-    from math import log
-
-    if not 0.0 < ar1_phi < 1.0:
+    if not math.isfinite(ar1_phi) or not math.isfinite(sampling_interval):
+        raise ValueError("OU inputs must be finite")
+    if not 0.0 < ar1_phi < 1.0 or sampling_interval <= 0.0:
         raise ValueError("OU mapping requires an AR(1) coefficient between zero and one")
-    return -sampling_interval * log(2.0) / log(ar1_phi)
+    return -sampling_interval * math.log(2.0) / math.log(ar1_phi)
 
 
 def scalar_dynamic_beta_update(
@@ -296,6 +441,12 @@ def scalar_dynamic_beta_update(
     observation_variance: float,
 ) -> tuple[float, float, float]:
     """One filtered update for y = beta*x + noise with beta a random walk."""
+    values = (
+        prior_beta, prior_variance, x, y,
+        process_variance, observation_variance,
+    )
+    if not all(math.isfinite(value) for value in values):
+        raise ValueError("Kalman inputs must be finite")
     if prior_variance < 0 or process_variance < 0 or observation_variance <= 0:
         raise ValueError("invalid covariance")
 
@@ -309,10 +460,11 @@ def scalar_dynamic_beta_update(
 ```
 
 ## References and Further Reading
-- Gatev, Goetzmann, and Rouwenhorst. *Pairs Trading: Performance of a Relative-Value Arbitrage Rule*.
+- Gatev, Goetzmann, and Rouwenhorst. [*Pairs Trading: Performance of a Relative-Value Arbitrage Rule*](https://www.nber.org/papers/w7032); published version [DOI 10.1093/rfs/hhj020](https://doi.org/10.1093/rfs/hhj020).
 - Vidyamurthy. *Pairs Trading: Quantitative Methods and Analysis*.
-- Avellaneda and Lee. *Statistical Arbitrage in the U.S. Equities Market*.
-- Engle and Granger on co-integration and error correction.
-- Johansen on estimation and hypothesis testing of cointegration vectors.
+- Avellaneda and Lee. [*Statistical Arbitrage in the U.S. Equities Market*](https://doi.org/10.1080/14697680903124632).
+- Engle and Granger. [*Co-Integration and Error Correction: Representation, Estimation, and Testing*](https://doi.org/10.2307/1913236).
+- Johansen. [*Statistical Analysis of Cointegration Vectors*](https://doi.org/10.1016/0165-1889(88)90041-3).
 - Elliott, van der Hoek, and Malcolm on pairs trading with state-space models.
-- Links: [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), and [examples/kalman-filter-dynamic-hedge-ratio.md](examples/kalman-filter-dynamic-hedge-ratio.md).
+- Company context for the teaching pair: The Coca-Cola Company [2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/ko-20251231.htm) and PepsiCo [2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/77476/000007747626000007/pep-20251227.htm).
+- Links: [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [20-execution-microstructure-and-tca.md](20-execution-microstructure-and-tca.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md), [examples/pairs-trading-spread-signal.md](examples/pairs-trading-spread-signal.md), [examples/cointegrated-pair-trade-lifecycle.md](examples/cointegrated-pair-trade-lifecycle.md), and [examples/kalman-filter-dynamic-hedge-ratio.md](examples/kalman-filter-dynamic-hedge-ratio.md).
