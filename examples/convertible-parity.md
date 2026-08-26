@@ -14,6 +14,9 @@ par = 1_000.0
 
 parity = stock_price * conversion_ratio
 conversion_price = par / conversion_ratio
+
+assert abs(parity - 900.0) < 1e-12
+assert abs(conversion_price - 50.0) < 1e-12
 ```
 
 Parity is USD 900. The conversion price is USD 50. The bond is out of the money for immediate conversion when the stock trades below USD 50.

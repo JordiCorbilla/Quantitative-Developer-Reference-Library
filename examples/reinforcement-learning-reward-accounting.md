@@ -49,13 +49,13 @@ This invariant exposes sign errors and double counting. A discounted training re
 
 ## Numerical Buy Example
 
-Buy 10,000 shares with arrival price $100.00:
+Buy 10,000 shares with arrival price USD 100.00:
 
 | Step | Fill quantity | Fill price | End reference mid | Step fee | Remaining | $S_t$ | Inventory penalty | $r_t$ |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 2,000 | $100.04 | $100.02 | $10 | 8,000 | $250 | $40 | -$290 |
-| 2 | 5,000 | $100.07 | $100.05 | $25 | 3,000 | $615 | $15 | -$380 |
-| 3 | 3,000 | $100.06 | $100.06 | $15 | 0 | $660 | $0 | -$45 |
+| 1 | 2,000 | USD 100.04 | USD 100.02 | USD 10 | 8,000 | USD 250 | USD 40 | USD -290 |
+| 2 | 5,000 | USD 100.07 | USD 100.05 | USD 25 | 3,000 | USD 615 | USD 15 | USD -380 |
+| 3 | 3,000 | USD 100.06 | USD 100.06 | USD 15 | 0 | USD 660 | USD 0 | USD -45 |
 
 The midpoint is a declared shaping mark for this transparent example, not an executable-price claim. It changes intermediate rewards while the remainder is nonzero. A production environment should retain the reference mark and a conservative side-aware completion quote, then force-liquidate or mark terminal inventory using the executable convention.
 
@@ -71,7 +71,7 @@ C_T
 \$1{,}000{,}610
 $$
 
-Fees total $50, so:
+Fees total USD 50, so:
 
 $$
 S_T
@@ -81,7 +81,7 @@ S_T
 \$660
 $$
 
-Arrival notional is $1,000,000, making implementation shortfall:
+Arrival notional is USD 1,000,000, making implementation shortfall:
 
 $$
 \frac{660}{1{,}000{,}000}\times10{,}000
@@ -89,7 +89,7 @@ $$
 6.60\text{ bp}
 $$
 
-The rewards sum to $-\$715$, exactly $-\$660$ of economic shortfall and $-\$55$ of inventory penalties.
+The rewards sum to USD -715: USD -660 of economic shortfall and USD -55 of inventory penalties.
 
 ## Dependency-Light Ledger
 

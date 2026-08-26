@@ -21,6 +21,7 @@ p11 = 0.90
 p21 = 0.25
 
 next_calm_probability = current_calm_probability * p11 + (1.0 - current_calm_probability) * p21
+assert abs(next_calm_probability - 0.705) < 1e-12
 ```
 
 Result:

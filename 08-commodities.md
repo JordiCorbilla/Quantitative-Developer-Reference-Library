@@ -51,7 +51,7 @@ but convenience yield $y$ is not just a nuisance parameter. It reflects scarcity
 
 Commodity options are commonly written on futures, so the risk variable is the relevant delivery-month future $F$, not a generic spot series. Under a lognormal Black-76 convention, the model requires positive futures and strikes. That domain restriction is an assumption of the model, not an economic law.
 
-On April 20, 2020, the NYMEX May 2020 WTI Light Sweet Crude Oil futures contract settled at **-$37.63 per barrel**, one day before it expired. This was a particular near-expiry futures settlement under acute delivery, storage, liquidity, and positioning pressure. It did not mean that every physical crude-oil spot price or every WTI delivery month was negative, and it was not itself an option settlement. The event shows that a physically deliverable futures obligation can have negative value when the marginal cost of accepting delivery exceeds the commodity's immediate value. See the [CFTC interim report and summary](https://www.cftc.gov/PressRoom/PressReleases/8315-20).
+On April 20, 2020, the NYMEX May 2020 WTI Light Sweet Crude Oil futures contract settled at **USD -37.63 per barrel**, one day before it expired. This was a particular near-expiry futures settlement under acute delivery, storage, liquidity, and positioning pressure. It did not mean that every physical crude-oil spot price or every WTI delivery month was negative, and it was not itself an option settlement. The event shows that a physically deliverable futures obligation can have negative value when the marginal cost of accepting delivery exceeds the commodity's immediate value. See the [CFTC interim report and summary](https://www.cftc.gov/PressRoom/PressReleases/8315-20).
 
 Production controls must therefore:
 
@@ -64,19 +64,19 @@ Production controls must therefore:
 No pricing model substitutes for delivery controls. Notice dates, position limits, storage access, broker liquidation policy, and the ability to trade before expiry remain first-order risks.
 
 ## Worked Instrument Example: Crude Oil Future
-Assume a trader buys 20 crude oil futures contracts at $78 per barrel. Each contract represents 1,000 barrels, so the position references:
+Assume a trader buys 20 crude oil futures contracts at USD 78 per barrel. Each contract represents 1,000 barrels, so the position references:
 
 $$
 20 \times 1{,}000 = 20{,}000
 $$
 
-barrels. If the futures price rises to $82, the PnL is:
+barrels. If the futures price rises to USD 82, the PnL is:
 
 $$
 (82 - 78) \times 20{,}000 = 80{,}000
 $$
 
-If the futures price falls to $74, the PnL is:
+If the futures price falls to USD 74, the PnL is:
 
 $$
 (74 - 78) \times 20{,}000 = -80{,}000
@@ -142,9 +142,9 @@ There is no universal rule that Friday-to-Monday option decay equals three ordin
 ### Tail-First Short-Option Sizing
 Consider a hypothetical futures option straddle that expires immediately after a scheduled report:
 
-- futures and strike: $75 per barrel;
+- futures and strike: USD 75 per barrel;
 - short one call and one put;
-- total premium received: $4 per barrel;
+- total premium received: USD 4 per barrel;
 - contract multiplier: 1,000 barrels.
 
 At expiry, PnL per short straddle is:
@@ -156,13 +156,13 @@ $$
 
 | Post-event futures price | Absolute move | PnL per short straddle |
 | ---: | ---: | ---: |
-| $60 | $15 | -$11,000 |
-| $67 | $8 | -$4,000 |
-| $75 | $0 | $4,000 |
-| $83 | $8 | -$4,000 |
-| $90 | $15 | -$11,000 |
+| USD 60 | USD 15 | USD -11,000 |
+| USD 67 | USD 8 | USD -4,000 |
+| USD 75 | USD 0 | USD 4,000 |
+| USD 83 | USD 8 | USD -4,000 |
+| USD 90 | USD 15 | USD -11,000 |
 
-If the pre-add-on loss budget is $110,000 and the $\pm15$ move is the worst approved scenario, the mechanical cap is ten straddles:
+If the pre-add-on loss budget is USD 110,000 and a USD 15 move in either direction is the worst approved scenario, the mechanical cap is ten straddles:
 
 $$
 N_{\max}

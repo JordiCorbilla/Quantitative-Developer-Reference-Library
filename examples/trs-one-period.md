@@ -17,6 +17,10 @@ financing_return = 0.02
 equity_leg = notional * (price_return + dividend_return)
 financing_leg = notional * financing_return
 net_pnl = equity_leg - financing_leg
+
+assert abs(equity_leg - 500_000.0) < 1e-12
+assert abs(financing_leg - 200_000.0) < 1e-12
+assert abs(net_pnl - 300_000.0) < 1e-12
 ```
 
 The receiver of total return earns USD 300,000 before other costs and collateral effects.

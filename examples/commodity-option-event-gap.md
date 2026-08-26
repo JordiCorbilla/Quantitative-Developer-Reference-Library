@@ -8,10 +8,10 @@ Assume:
 
 | Input | Value |
 | --- | ---: |
-| Entry future and strike | $75 per barrel |
-| Short call plus short put premium | $4 per barrel |
+| Entry future and strike | USD 75 per barrel |
+| Short call plus short put premium | USD 4 per barrel |
 | Contract multiplier | 1,000 barrels |
-| Pre-add-on scenario loss budget | $110,000 |
+| Pre-add-on scenario loss budget | USD 110,000 |
 | Option expiry | Immediately after the event |
 
 The short straddle's expiry PnL per contract is:
@@ -25,11 +25,11 @@ For a first scenario set:
 
 | Scenario | $F_T$ | Hedge state | PnL per contract |
 | --- | ---: | --- | ---: |
-| Down $15 | $60 | Tradable after gap | -$11,000 |
-| Down $8 | $67 | Locked at displayed limit | -$4,000 before reopening/add-ons |
-| Unchanged | $75 | Tradable | $4,000 |
-| Up $8 | $83 | Locked at displayed limit | -$4,000 before reopening/add-ons |
-| Up $15 | $90 | Tradable after gap | -$11,000 |
+| Down USD 15 | USD 60 | Tradable after gap | USD -11,000 |
+| Down USD 8 | USD 67 | Locked at displayed limit | USD -4,000 before reopening/add-ons |
+| Unchanged | USD 75 | Tradable | USD 4,000 |
+| Up USD 8 | USD 83 | Locked at displayed limit | USD -4,000 before reopening/add-ons |
+| Up USD 15 | USD 90 | Tradable after gap | USD -11,000 |
 
 The mechanical contract cap is:
 

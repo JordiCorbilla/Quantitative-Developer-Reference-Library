@@ -34,9 +34,9 @@ Common systematic signal families:
 - Factor returns may be long-short, benchmark-relative, beta-neutral, sector-neutral, or fully invested. Record gross and net exposure.
 
 ## Core Pricing Framework
-### CAPM And Multi-Factor Return Models
+### Market Model, CAPM, And Multi-Factor Return Models
 
-The Capital Asset Pricing Model writes asset excess return as market exposure plus residual:
+The empirical single-factor market-model regression writes realized asset excess return as market exposure plus an intercept and residual:
 
 $$
 r_{i,t}-r_{f,t}
@@ -44,7 +44,13 @@ r_{i,t}-r_{f,t}
 \alpha_i+\beta_{i,M}(r_{M,t}-r_{f,t})+\epsilon_{i,t}.
 $$
 
-CAPM is a useful baseline for beta and abnormal-return attribution, not a complete description of expected returns. Beta depends on benchmark, currency, frequency, window, weighting, and regime.
+The CAPM adds an equilibrium restriction on expected returns:
+
+$$
+E[r_i]-r_f=\beta_{i,M}\bigl(E[r_M]-r_f\bigr).
+$$
+
+In that model, correctly specified expected abnormal return is zero; an estimated regression intercept $\alpha_i$ is a diagnostic or empirical abnormal-return estimate, not part of the CAPM restriction itself. The market model is useful for beta and return attribution, while CAPM is a baseline expected-return theory rather than a complete description of observed returns. Beta still depends on benchmark, currency, frequency, window, weighting, and regime.
 
 The Fama-French three-factor model adds size and value:
 

@@ -100,11 +100,15 @@ $$
 
 Seasonality must follow the data-generating calendar. “Five trading days” is not an invariant weekly season when holidays intervene, and intraday seasonality should usually be modeled in exchange-local event time.
 
-ARIMAX adds known or forecast external inputs:
+In the common regression-with-ARIMA-errors convention, ARIMAX adds known or forecast external inputs to a regression and models its residual $u_t$ with ARIMA dynamics:
 
 $$
-\phi(B)(1-B)^d y_t=c+\boldsymbol{\beta}^{\mathsf T}x_t+\theta(B)\epsilon_t.
+y_t=c+\boldsymbol{\beta}^{\mathsf T}x_t+u_t,
+\qquad
+\phi(B)(1-B)^d u_t=\theta(B)\epsilon_t.
 $$
+
+Some libraries instead implement ARMAX or transfer-function conventions in which lag polynomials operate on $y_t$, $x_t$, or both. These parameterizations are not algebraically interchangeable, so production code must record the library and exact equation rather than relying on the label `ARIMAX` alone.
 
 Using contemporaneous $x_t$ is leakage if $x_t$ arrives after the trading decision. For multi-step forecasts, future $x_{t+1:t+h}$ must be known by construction—such as calendar indicators—or supplied by a separately validated forecast whose uncertainty is propagated.
 

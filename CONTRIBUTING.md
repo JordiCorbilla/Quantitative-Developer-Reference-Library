@@ -5,6 +5,9 @@ This repository is a practitioner reference for quant developers. Contributions 
 ## Contribution Standards
 - Keep the writing practical. Explain what a concept means for implementation, validation, and production use.
 - Prefer short worked examples over long theoretical derivations.
+- Tell each chapter as a connected practitioner story: start with the decision or problem, then move through contract or question, quote and data, model or signal, worked example, hedge or decision, and lifecycle controls.
+- Define a concept before writing its formula, interpret the result immediately afterward, and state material assumptions next to the claim they qualify.
+- Separate facts, identities, model assumptions, heuristics, and illustrative scenarios. Cite primary sources for claims that are empirical, regulatory, convention-dependent, or likely to change.
 - Add cross-links when a topic depends on another chapter.
 - Use consistent notation with [00-overview.md](00-overview.md).
 - Add repository-native SVG diagrams under `assets/` when a visual model materially improves the explanation.
@@ -37,17 +40,27 @@ Before opening a PR or committing a large documentation change, run:
 
 ```powershell
 python scripts/validate_docs.py
+python -m pip install -r requirements-validation.txt
+python scripts/execute_python_fences.py
 ```
+
+The execution check runs repository-authored code from the Markdown files. Review incoming documentation changes before running it on an untrusted branch.
 
 The script checks:
 - local Markdown links,
 - image references,
 - SVG XML validity,
 - duplicate top-level headings,
-- expected chapter sections for numbered chapters.
+- expected chapter sections and narrative openings for numbered chapters,
+- balanced code and display-math fences,
+- Python snippet syntax,
+- an executable Python fence with at least one assertion in every standalone worked example,
+- placeholder text and ambiguous numeric currency notation,
+- navigation coverage for chapters and worked examples,
+- SVG accessibility IDs and duplicate IDs.
 
 ## Style Notes
-- Use `USD 10m` rather than `$10m` in prose to avoid Markdown math ambiguity.
+- Use `USD 10m` rather than a bare dollar sign before `10m` in prose to avoid Markdown math ambiguity.
 - Use formulas where they clarify implementation, not as decoration.
 - If a metric depends on convention, state the convention explicitly.
 - If a model has a common failure mode, include it in the production pitfalls section.

@@ -24,6 +24,9 @@ prev_variance = 0.0001
 
 next_variance = omega + alpha * prev_shock ** 2 + beta * prev_variance
 next_vol = next_variance ** 0.5
+
+assert abs(next_variance - 0.000110) < 1e-15
+assert abs(next_vol - 0.010488088481701515) < 1e-15
 ```
 
 Result:

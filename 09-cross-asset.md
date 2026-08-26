@@ -43,7 +43,7 @@ Joint dynamics matter when payoff or exposure depends on multiple risk factors. 
 ### CVA And The Wider xVA Stack
 CVA, or Credit Valuation Adjustment, reduces the clean value of a derivative portfolio for expected counterparty default loss. It matters because a trade can be profitable under market risk but still lose value if the counterparty defaults before paying.
 
-At a high level, using period marginal default probabilities:
+At a high level, a common bucketed approximation uses period marginal default probabilities:
 
 $$
 \text{CVA} \approx \sum_t EE_t \times \Delta PD_t \times LGD_t \times DF_t
@@ -54,6 +54,14 @@ where:
 - $\Delta PD_t$ is the marginal default probability over the period,
 - $LGD_t = 1 - \text{recovery rate}$,
 - $DF_t$ is the discount factor.
+
+Multiplying expected exposure by marginal default probability assumes that exposure and default timing can be separated within each bucket—effectively excluding wrong-way risk from the approximation. A joint simulation instead targets the discounted default loss directly:
+
+$$
+\text{CVA}=(1-R)\sum_t E\!\left[DF_t E_t^+\mathbf{1}_{\{\tau\in(t_{t-1},t_t]\}}\right].
+$$
+
+When counterparty credit quality deteriorates in the same states where exposure rises, the joint expectation cannot be replaced safely by a product of marginal expectations.
 
 ![CVA ingredients and xVA stack](assets/cva-ingredients-flow.svg)
 
@@ -83,13 +91,13 @@ $$
 \frac{4{,}400 - 4{,}000}{4{,}000} = 10\%
 $$
 
-On $5,000,000 notional, the payoff linked to the return is:
+On USD 5,000,000 notional, the payoff linked to the return is:
 
 $$
 5{,}000{,}000 \times 10\% = 500{,}000
 $$
 
-If the index falls to 3,800, the linked return is -5%, or -$250,000 before any capital-protection feature. The pricing problem is not just an equity calculation. The desk also needs equity volatility, FX volatility, the equity-FX correlation, discounting curves, and the exact rule that says whether FX is fixed, floating, capped, or embedded in the payoff.
+If the index falls to 3,800, the linked return is -5%, or USD -250,000 before any capital-protection feature. The pricing problem is not just an equity calculation. The desk also needs equity volatility, FX volatility, the equity-FX correlation, discounting curves, and the exact rule that says whether FX is fixed, floating, capped, or embedded in the payoff.
 
 ## Worked Instrument Example: Simple CVA
 Assume:
@@ -141,8 +149,15 @@ The clean derivative value would be reduced by roughly USD 12,000 in this simpli
 
 ## Illustrative Code
 ```python
-def cva(exposures, default_probabilities, loss_given_default, discount_factors):
-    return sum(e * dp * lgd * df for e, dp, lgd, df in zip(exposures, default_probabilities, loss_given_default, discount_factors))
+def cva(exposures, marginal_default_probabilities, loss_given_defaults, discount_factors):
+    vectors = (exposures, marginal_default_probabilities, loss_given_defaults, discount_factors)
+    lengths = {len(vector) for vector in vectors}
+    if not lengths or len(lengths) != 1 or next(iter(lengths)) == 0:
+        raise ValueError("CVA vectors must be non-empty and have equal length")
+    return sum(
+        exposure * marginal_pd * lgd * discount_factor
+        for exposure, marginal_pd, lgd, discount_factor in zip(*vectors)
+    )
 
 
 def loss_given_default(recovery_rate: float) -> float:

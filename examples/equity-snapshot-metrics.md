@@ -27,6 +27,13 @@ def equity_snapshot_metrics(price: float, shares: float, trailing_eps: float, fo
         "forward_pe": price / forecast_eps if forecast_eps > 0 else float("nan"),
         "dividend_yield": annual_dividend / price,
     }
+
+
+metrics = equity_snapshot_metrics(80.0, 250_000_000.0, 4.0, 5.0, 1.2)
+assert abs(metrics["market_cap"] - 20_000_000_000.0) < 1e-6
+assert abs(metrics["trailing_pe"] - 20.0) < 1e-12
+assert abs(metrics["forward_pe"] - 16.0) < 1e-12
+assert abs(metrics["dividend_yield"] - 0.015) < 1e-12
 ```
 
 These outputs are descriptors, not an investment recommendation. The next questions are why forecast earnings differ from reported earnings, whether the dividend is sustainable, and how debt, cash flow, dilution, and valuation compare with relevant peers.

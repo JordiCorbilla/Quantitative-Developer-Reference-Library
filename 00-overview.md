@@ -40,7 +40,7 @@ Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecyc
 | [10-numerical-methods.md](10-numerical-methods.md) | Trees, PDE, Monte Carlo, interpolation, calibration | The implementation toolkit behind every product chapter |
 | [11-market-data.md](11-market-data.md) | Symbology, cleaning, timeseries, curves, surfaces | Analytics fail when market state is wrong |
 | [12-pricing-architecture.md](12-pricing-architecture.md) | Trade models, engines, dependencies, APIs | Turns formulas into maintainable systems |
-| [13-risk-and-pnl.md](13-risk-and-pnl.md) | Greeks, explain, historical/parametric/Monte Carlo VaR, ES, stress, controls | Bridges pricing output to daily desk and portfolio-risk workflows |
+| [13-risk-and-pnl.md](13-risk-and-pnl.md) | Greeks, explain, historical/parametric/Monte Carlo VaR, peaks-over-threshold GPD, ES, stress, controls | Bridges pricing output to daily desk and portfolio-risk workflows |
 | [14-testing-and-validation.md](14-testing-and-validation.md) | Unit tests, numerical controls, model validation | Prevents silent regressions and false confidence |
 | [15-performance-and-production.md](15-performance-and-production.md) | Latency, scaling, observability, resilience | Production quality is part of quantitative correctness |
 | [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md) | Markowitz, Black-Litterman, risk parity, Kelly, HRP, backtests, costs | Connects analytics to constrained and executable portfolio decisions |
@@ -157,7 +157,7 @@ This matters because production systems should not hard-code "risk-free rate" in
 ## Common Sanity Checks
 - Prices should satisfy trivial bounds before they hit a pricing engine.
 - Parity identities should hold within tolerance when products are related by replication.
-- Discount factors should be monotone non-increasing in maturity under standard assumptions.
+- Discount factors must stay positive. They are non-increasing only when the relevant continuously compounded forward rates are non-negative; negative-rate curves can legitimately contain increasing discount factors.
 - Survival probabilities should stay in $[0, 1]$ and decrease with time.
 - Calendar, day count, and schedule changes should be explainable from conventions, not from hidden defaults.
 - Bump sizes must be stable enough to avoid noise but small enough to approximate the intended derivative.
@@ -173,6 +173,8 @@ The clearest next improvements are implementation-oriented:
 - add crypto and digital-asset market structure only if the library scope expands into that asset class.
 
 ## Chapter Contract
+The headings form one practitioner story rather than eleven disconnected checklists: identify the decision, define the contract or question, establish quote and data conventions, introduce the model, carry a worked example to a decision, and finish with risk, lifecycle, and production controls. Identities, assumptions, approximations, empirical observations, and illustrative scenarios should be labelled as such where they appear.
+
 Every chapter in this repo follows the same top-level structure:
 1. What This Domain Covers
 2. Product Taxonomy and Market Structure

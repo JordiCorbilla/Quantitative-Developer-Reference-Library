@@ -84,7 +84,7 @@ Expected Shortfall, also called conditional VaR in some systems, averages the wo
 
 ### Beta in Equity VaR
 
-Beta was not covered in the earlier VaR section. It belongs here because beta is one practical way to map an equity position to a broad market risk factor.
+Beta provides one practical bridge from a single equity position to a broad market risk factor. It therefore belongs inside the equity-VaR story, between the portfolio loss definition and the full historical or scenario revaluation.
 
 Beta measures how sensitive a stock or portfolio return is to a benchmark return:
 
@@ -152,6 +152,77 @@ The normal approximation is transparent and fast, but linear mapping misses gamm
 **Filtered historical simulation** rescales historical shocks using a volatility or regime estimate. It can make the scenario distribution more responsive to current conditions, but adds model and procyclicality risk. Persist the original shock, scale factor, filter state, and resulting scenario.
 
 **Stress testing and scenario analysis** ask a different question. A named scenario combines coherent moves in spot, curves, volatility, correlation, liquidity, basis, funding, and market access. It need not have an estimated probability. VaR and ES should be compared with historical and hypothetical stress losses, not used to replace them.
+
+### Extreme Losses With Peaks Over Threshold And The GPD
+
+The normal model tells a useful central story, but a risk manager is often asking a narrower question: once a loss is already unusually large, how quickly does the remaining tail decay? Extreme value theory addresses that question without claiming that one distribution describes the whole PnL history.
+
+Let $L$ be loss and choose a high threshold $u$. Keep the $N_u$ observations for which $L>u$ and convert them into excesses $Y=L-u$. For a sufficiently high threshold and a broad class of underlying distributions, the conditional distribution of those excesses can be approximated by a generalized Pareto distribution (GPD):
+
+$$
+G_{\xi,\beta}(y)
+=
+1-\left(1+\frac{\xi y}{\beta}\right)^{-1/\xi},
+\qquad
+\beta>0,
+\quad
+y\geq0,
+\quad
+1+\frac{\xi y}{\beta}>0.
+$$
+
+For $\xi=0$, the continuous limit is $G(y)=1-\exp(-y/\beta)$. The shape parameter $\xi$ controls tail behavior: $\xi>0$ gives an unbounded heavy tail, $\xi=0$ gives an exponential-type tail, and $\xi<0$ gives a finite upper endpoint. The GPD mean exists only for $\xi<1$ and its variance only for $\xi<1/2$; a fitted value outside those ranges is a warning about which summaries are mathematically defined, not a software error to suppress.
+
+If the empirical threshold-exceedance probability is $p_u=N_u/N$, then for $x>u$:
+
+$$
+P(L>x)
+\approx
+p_u
+\left(1+\frac{\xi(x-u)}{\beta}\right)^{-1/\xi}.
+$$
+
+For a confidence level $\alpha>1-p_u$ and $\xi\neq0$, this gives the tail quantile:
+
+$$
+\operatorname{VaR}_{\alpha}
+\approx
+u+\frac{\beta}{\xi}
+\left[
+\left(\frac{1-\alpha}{p_u}\right)^{-\xi}-1
+\right].
+$$
+
+When $\xi=0$, the limit is $u+\beta\log\!\left(p_u/(1-\alpha)\right)$. If $\xi<1$, the corresponding continuous-tail ES is:
+
+$$
+\operatorname{ES}_{\alpha}
+\approx
+\frac{\operatorname{VaR}_{\alpha}+\beta-\xi u}{1-\xi}.
+$$
+
+#### Worked Tail Story: From 1,000 Losses To A 99% Estimate
+
+Suppose 1,000 comparable daily losses contain 50 observations above a USD 2.0 million threshold, so $p_u=5\%$. When losses are measured in USD millions, a fitted GPD has scale $\beta=0.6$ and shape $\xi=0.20$. The 99% quantile lies inside the fitted tail because $99\%>95\%=1-p_u$:
+
+| Stage | Result | Meaning |
+| --- | ---: | --- |
+| Historical sample | 1,000 days | The population to which the estimate applies |
+| Threshold | USD 2.0m | Only larger losses enter the GPD fit |
+| Exceedances | 50 days, or 5% | Connects the conditional GPD to the unconditional loss tail |
+| GPD parameters | $\beta=0.6$ USD m, $\xi=0.20$ | Illustrative fitted scale and shape |
+| 99% VaR | USD 3.14m | Modelled loss quantile |
+| 99% ES | USD 4.17m | Modelled average loss in the worst 1% |
+
+The calculation is a model-based extrapolation, not a claim that a USD 4.17 million average has been directly observed. The threshold creates a bias-variance trade-off: too low contaminates the tail fit with ordinary observations; too high leaves too little data. A production workflow therefore tells the story in this order:
+
+1. Align positions, loss definition, horizon, and sampling regime.
+2. Explore several high thresholds using mean-excess and parameter-stability plots; do not select one solely because it gives the desired capital number.
+3. Fit $\xi$ and $\beta$, check support, residual diagnostics, and uncertainty, and account for clustered extremes or changing volatility.
+4. Recalculate VaR and ES across plausible thresholds and estimation methods.
+5. Backtest quantile exceedances and compare the result with empirical losses and named stress scenarios.
+
+GPD fitting does not manufacture information about unprecedented mechanisms, broken liquidity, changing positions, or dependence across desks. Confidence intervals can be wide because only the tail observations identify the model. Report the threshold, exceedance count, parameter uncertainty, and sensitivity alongside the point estimate.
 
 ### Worked Method Example: Normal Parametric VaR And ES
 
@@ -256,6 +327,49 @@ def normal_var_es(
         + pnl_standard_deviation * density / (1.0 - confidence)
     )
     return value_at_risk, expected_shortfall
+
+
+def gpd_tail_var_es(
+    threshold: float,
+    exceedance_probability: float,
+    scale: float,
+    shape: float,
+    confidence: float,
+) -> tuple[float, float]:
+    from math import isfinite, log
+
+    if not all(isfinite(value) for value in (threshold, scale, shape)):
+        raise ValueError("threshold, scale, and shape must be finite")
+    if scale <= 0:
+        raise ValueError("scale must be positive")
+    if not 0.0 < exceedance_probability < 1.0:
+        raise ValueError("exceedance_probability must be between zero and one")
+    if not 1.0 - exceedance_probability < confidence < 1.0:
+        raise ValueError("confidence must place the quantile above the threshold")
+    if shape >= 1.0:
+        raise ValueError("GPD expected shortfall is infinite when shape >= 1")
+
+    tail_ratio = (1.0 - confidence) / exceedance_probability
+    if abs(shape) < 1e-12:
+        value_at_risk = threshold + scale * log(1.0 / tail_ratio)
+    else:
+        value_at_risk = threshold + scale / shape * (tail_ratio ** (-shape) - 1.0)
+
+    expected_shortfall = (
+        value_at_risk + scale - shape * threshold
+    ) / (1.0 - shape)
+    return value_at_risk, expected_shortfall
+
+
+tail_var, tail_es = gpd_tail_var_es(
+    threshold=2.0,
+    exceedance_probability=0.05,
+    scale=0.6,
+    shape=0.2,
+    confidence=0.99,
+)
+assert abs(tail_var - 3.1392) < 1e-4
+assert abs(tail_es - 4.1740) < 1e-4
 ```
 
 ## References and Further Reading
@@ -263,5 +377,7 @@ def normal_var_es(
 - Jorion. *Value at Risk*.
 - McNeil, Frey, and Embrechts. *Quantitative Risk Management*.
 - Glasserman. *Monte Carlo Methods in Financial Engineering*.
+- Pickands. [“Statistical Inference Using Extreme Order Statistics”](https://doi.org/10.1214/aos/1176343003), the foundational peaks-over-threshold limit result.
+- NIST. [Generalized Pareto conditional mean exceedance reference](https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/cme.htm), including the GPD support and shape interpretation.
 - Basel market-risk standards and applicable local implementation rules.
 - Links: [12-pricing-architecture.md](12-pricing-architecture.md), [14-testing-and-validation.md](14-testing-and-validation.md)

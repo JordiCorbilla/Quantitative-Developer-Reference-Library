@@ -76,7 +76,14 @@ The base of the pyramid is deterministic mechanics. Higher layers add invariants
 
 ## Illustrative Code
 ```python
+import math
+
+
 def assert_close(actual: float, expected: float, tolerance: float, label: str) -> None:
+    if not all(math.isfinite(value) for value in (actual, expected, tolerance)):
+        raise AssertionError(f"{label}: comparison inputs and tolerance must be finite")
+    if tolerance < 0.0:
+        raise ValueError("tolerance cannot be negative")
     if abs(actual - expected) > tolerance:
         raise AssertionError(f"{label}: expected {expected}, got {actual}, tolerance {tolerance}")
 ```

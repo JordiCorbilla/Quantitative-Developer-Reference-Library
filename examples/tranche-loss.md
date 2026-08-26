@@ -16,6 +16,7 @@ def tranche_loss_percent(portfolio_loss: float, attachment: float, detachment: f
 
 
 loss = tranche_loss_percent(0.05, 0.03, 0.07)
+assert abs(loss - 0.50) < 1e-12
 ```
 
 The tranche loses 50% because the portfolio loss has moved halfway through the 3%-7% tranche.

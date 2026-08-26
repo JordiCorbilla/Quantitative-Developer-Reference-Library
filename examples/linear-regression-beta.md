@@ -25,11 +25,17 @@ stock = [-0.028, 0.014, 0.041, -0.011, 0.027]
 x_bar = sum(market) / len(market)
 y_bar = sum(stock) / len(stock)
 beta = sum((x - x_bar) * (y - y_bar) for x, y in zip(market, stock)) / sum((x - x_bar) ** 2 for x in market)
+alpha = y_bar - beta * x_bar
+
+assert abs(beta - 1.35) < 1e-12
+assert abs(alpha - 0.0005) < 1e-12
 ```
 
 Result:
-- beta is approximately `1.31`
+- beta is `1.35`
+- monthly alpha is `0.0005`, or `0.05%`
 
 Interpretation:
-- For a 1% benchmark move, the fitted stock move is about 1.31%, before residual risk.
+- A one-percentage-point *incremental* benchmark move changes the fitted stock return by 1.35 percentage points.
+- At a 1% benchmark return, the fitted stock return is $0.05\%+1.35(1\%)=1.40\%$, before residual risk.
 - The estimate is only meaningful with a declared benchmark, return frequency, lookback window, and residual diagnostics.

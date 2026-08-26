@@ -17,6 +17,10 @@ def call_payoff(spot: float, strike: float) -> float:
 
 def bull_call_spread_payoff(spot: float) -> float:
     return call_payoff(spot, 100.0) - call_payoff(spot, 110.0) - (6.0 - 2.0)
+
+
+expected = {95.0: -4.0, 100.0: -4.0, 105.0: 1.0, 110.0: 6.0, 120.0: 6.0}
+assert all(bull_call_spread_payoff(spot) == payoff for spot, payoff in expected.items())
 ```
 
 At expiry:

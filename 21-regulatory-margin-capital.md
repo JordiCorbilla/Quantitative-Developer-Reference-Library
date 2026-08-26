@@ -45,16 +45,17 @@ Margin analytics sit on top of legal data, market risk, collateral terms, model 
 
 ## Worked Instrument Example: Simple Initial Margin Add-On
 Assume:
-- delta sensitivity: USD 2m per 1% market move,
-- prescribed risk weight: 15%.
+- SIMM-style dollar sensitivity input, $s_k$: USD 2m,
+- prescribed risk weight, $RW_k$: 15%,
+- concentration factor, $CR_k$: 1.0.
 
 A simplified weighted sensitivity is:
 
 $$
-2m \times 15\% = 300k
+WS_k=RW_k\,s_k\,CR_k=15\%\times\text{USD }2m\times1.0=\text{USD }300k.
 $$
 
-Real models aggregate across buckets, correlations, product classes, tenors, netting sets, and add-ons. This example is only the unit intuition.
+Here USD 2m is already the dollar-equivalent sensitivity defined by the applicable methodology; it is not "USD 2m per 1% move" multiplied by a 15-percentage-point scenario. Real models first build prescribed sensitivities and then aggregate weighted sensitivities across buckets, correlations, product classes, tenors, netting sets, and add-ons. This example is only the unit intuition, and the current methodology version remains authoritative.
 
 ## Key Risk Measures and Sensitivities
 - Initial margin and variation margin.
@@ -93,6 +94,6 @@ def weighted_sensitivity(sensitivity: float, risk_weight: float) -> float:
 ```
 
 ## References and Further Reading
-- ISDA SIMM methodology.
+- [ISDA SIMM methodology and governance](https://www.isda.org/category/margin/isda-simm/).
 - Basel Committee FRTB documentation.
 - CCP margin methodology documents.

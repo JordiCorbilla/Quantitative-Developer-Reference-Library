@@ -14,7 +14,7 @@ Assume:
 - long-run mean: 4.00%
 - time step: 0.25 years
 - volatility: 1.00%
-- shock: -0.20
+- standard-normal draw: -0.20
 
 ```python
 rate = 0.03
@@ -22,18 +22,25 @@ mean_reversion = 0.50
 long_run_mean = 0.04
 dt = 0.25
 volatility = 0.01
-shock = -0.20
+standard_normal = -0.20
 
-next_rate = rate + mean_reversion * (long_run_mean - rate) * dt + volatility * shock
+next_rate = (
+    rate
+    + mean_reversion * (long_run_mean - rate) * dt
+    + volatility * (dt ** 0.5) * standard_normal
+)
+assert abs(next_rate - 0.03025) < 1e-12
 ```
 
 Result:
 
 $$
-0.03 + 0.50(0.04 - 0.03)0.25 + 0.01(-0.20) = 0.02925
+0.03 + 0.50(0.04 - 0.03)0.25
++ 0.01\sqrt{0.25}(-0.20)
+= 0.03025
 $$
 
-So the next simulated short rate is 2.925%.
+So the next simulated short rate is 3.025%. The factor $\sqrt{dt}$ converts the standard-normal draw into a Brownian increment with variance $dt$; omitting it silently changes the diffusion scale whenever $dt\neq1$.
 
 Implementation notes:
 - Vasicek is useful for intuition but can produce negative rates.

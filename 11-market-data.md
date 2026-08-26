@@ -84,13 +84,23 @@ from datetime import datetime
 class Quote:
     symbol: str
     value: float
+    unit: str
     quote_type: str
     source: str
     timestamp: datetime
 
 
 def is_stale(quote: Quote, now: datetime, max_age_seconds: int) -> bool:
-    return (now - quote.timestamp).total_seconds() > max_age_seconds
+    if max_age_seconds <= 0:
+        raise ValueError("max_age_seconds must be positive")
+    if quote.timestamp.tzinfo is None or quote.timestamp.utcoffset() is None:
+        raise ValueError("quote timestamp must be timezone-aware")
+    if now.tzinfo is None or now.utcoffset() is None:
+        raise ValueError("current timestamp must be timezone-aware")
+    age_seconds = (now - quote.timestamp).total_seconds()
+    if age_seconds < 0.0:
+        raise ValueError("quote timestamp cannot be in the future")
+    return age_seconds > max_age_seconds
 ```
 
 ## References and Further Reading

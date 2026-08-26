@@ -34,6 +34,9 @@ es_80 = (
     sum(strict_tail) / len(losses)
     + boundary_mass * var_80
 ) / (1.0 - confidence)
+
+assert var_80 == 250
+assert abs(es_80 - 365.0) < 1e-12
 ```
 
 Results:

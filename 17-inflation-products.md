@@ -28,13 +28,15 @@ The product type tells you whether inflation changes principal, coupons, swap le
 ## Core Pricing Framework
 Inflation pricing starts by comparing an index level at the beginning with an index level used at payment.
 
-For a simple zero-coupon inflation swap with start index $I_0$ and maturity reference index $I_T$, the realized inflation leg is:
+For a simple zero-coupon inflation swap with start index $I_0$, maturity reference index $I_T$, annual fixed rate $K$, maturity $T$ in years, and notional $N$, the two undiscounted growth amounts are:
 
 $$
-\frac{I_T}{I_0} - 1
+N\left(\frac{I_T}{I_0}-1\right)
+\qquad\text{and}\qquad
+N\left((1+K)^T-1\right).
 $$
 
-The fair fixed inflation rate is the rate that makes the present value of the fixed inflation leg equal the expected indexed payoff under the chosen discounting convention.
+The receiver of realized inflation receives the first amount and pays the second, subject to the confirmation's index, lag, interpolation, fallback, and payment conventions. The fair fixed rate makes the present value of those two legs equal under the collateral and discounting convention. This is why a quoted annual rate cannot be subtracted directly from a cumulative index ratio without compounding it over the stated maturity.
 
 ### Visual Inflation Reference
 
@@ -63,7 +65,8 @@ $$
 Production systems must define exactly which CPI observations form the start and maturity reference values.
 
 ## Key Risk Measures and Sensitivities
-- Inflation DV01 or real-rate DV01.
+- Inflation-curve sensitivity, often reported by zero-coupon inflation tenor or as an inflation-rate bump.
+- Real-yield DV01 for inflation-linked bonds; this is not the same risk as an inflation-curve bump.
 - Sensitivity to nominal discount curves.
 - CPI fixing risk for near-dated known or partially known periods.
 - Seasonality risk and interpolation risk.
@@ -101,6 +104,7 @@ def annualized_inflation(start_index: float, end_index: float, years: float) -> 
 ```
 
 ## References and Further Reading
-- Inflation-linked bond and inflation swap market documentation.
-- Central-bank and statistics-office index methodology notes.
+- [TreasuryDirect: Treasury Inflation-Protected Securities](https://www.treasurydirect.gov/marketable-securities/tips/) and [TIPS/CPI data](https://www.treasurydirect.gov/auctions/announcements-data-results/tips-cpi-data/).
+- European Central Bank discussion of [zero-coupon inflation-linked swap conventions](https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp2033.en.pdf).
+- [ISDA Inflation Derivatives Definitions](https://www.isda.org/book/isda-inflation-derivatives-definitions/).
 - Links: [05-fixed-income.md](05-fixed-income.md), [06-interest-rates.md](06-interest-rates.md), [11-market-data.md](11-market-data.md)

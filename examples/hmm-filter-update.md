@@ -58,6 +58,11 @@ normalizer = (
 
 filtered_calm = predicted_calm * likelihood_high_vol_given_calm / normalizer
 filtered_stress = predicted_stress * likelihood_high_vol_given_stress / normalizer
+
+assert abs(predicted_calm - 0.705) < 1e-12
+assert abs(predicted_stress - 0.295) < 1e-12
+assert abs(filtered_calm - 0.3740053050397878) < 1e-12
+assert abs(filtered_calm + filtered_stress - 1.0) < 1e-12
 ```
 
 Implementation notes:

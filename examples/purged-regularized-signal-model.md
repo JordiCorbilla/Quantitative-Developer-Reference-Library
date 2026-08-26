@@ -344,6 +344,18 @@ def predict(model: RidgeModel, features: tuple[float, ...]) -> float:
         coefficient * value
         for coefficient, value in zip(model.coefficients, standardized)
     )
+
+
+ridge_example = fit_ridge(
+    [(1.0, 1.0), (1.0, -1.0), (-1.0, 1.0), (-1.0, -1.0)],
+    [30.0, 10.0, -10.0, -30.0],
+    penalty=4.0,
+)
+assert all(
+    abs(actual - expected) < 1e-12
+    for actual, expected in zip(ridge_example.coefficients, (10.0, 5.0))
+)
+assert abs(predict(ridge_example, (0.5, -0.2)) - 4.0) < 1e-12
 ```
 
 ## Checks Before Trusting the Result

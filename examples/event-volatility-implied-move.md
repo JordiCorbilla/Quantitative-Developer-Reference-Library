@@ -19,21 +19,21 @@ $$
 W_2=0.44^2\frac{27}{365}=0.014321
 $$
 
-Subtract the diffuse variance between expiries:
+Under a deliberately simplified independent-Gaussian event model, subtract the diffuse variance between expiries to obtain an effective event variance:
 
 $$
-q_{\text{event}}
+q_{\text{event}}^{\text{eff}}
 =W_2-W_1-0.28^2\frac{7}{365}
 =0.007886
 $$
 
-Because $q_{\text{event}}=E^Q[J^2]$, the risk-neutral RMS implied log jump is:
+The Gaussian-equivalent one-standard-deviation implied log jump is:
 
 $$
-\sqrt{q_{\text{event}}}=8.88\%
+\sqrt{q_{\text{event}}^{\text{eff}}}=8.88\%
 $$
 
-This equals a standard deviation only if the risk-neutral mean jump is zero.
+This is a model-dependent screening number, not a model-free estimate of $E^Q[J^2]$ or a forecast of the realized move. A generic jump distribution, skewed surface, or nonzero jump mean does not map exactly from two ATM Black volatilities into one additive variance. A model-free implied-variance calculation instead uses an out-of-the-money option strip across strikes.
 
 ```python
 from math import sqrt
@@ -58,9 +58,9 @@ def event_variance(
     return value
 
 
-q_event = event_variance(20 / 365, 0.30, 27 / 365, 0.44, 0.28)
-implied_move = sqrt(q_event)
-assert abs(q_event - 0.007886027397260274) < 1e-12
+q_event_effective = event_variance(20 / 365, 0.30, 27 / 365, 0.44, 0.28)
+implied_move = sqrt(q_event_effective)
+assert abs(q_event_effective - 0.007886027397260274) < 1e-12
 assert abs(implied_move - 0.08880330735541483) < 1e-12
 ```
 

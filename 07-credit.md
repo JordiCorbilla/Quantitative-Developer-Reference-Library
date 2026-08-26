@@ -25,18 +25,18 @@ Start by identifying the form of default-risk transfer.
 - Bond spread measures are not interchangeable with CDS spread.
 
 ## Core Pricing Framework
-Credit pricing is built around survival: the probability that the reference entity has not defaulted by a future date.
+Credit pricing is built around survival under a pricing measure: the market-implied weight placed on the reference entity surviving to a future date.
 
-Reduced-form credit models use hazard rates or survival probabilities:
+Reduced-form pricing models use risk-neutral hazard rates or survival probabilities calibrated to traded prices:
 
 $$
 Q(0, T) = \exp\left(-\int_0^T \lambda(u) du\right)
 $$
 
-CDS pricing balances premium leg and protection leg under a recovery assumption. Bond pricing adds default-adjusted expected cashflows and, often, liquidity premia not captured by a simple hazard-rate model.
+CDS pricing balances premium leg and protection leg under a recovery assumption. Bond pricing adds default-adjusted expected cashflows and, often, liquidity premia not captured by a simple hazard-rate model. These market-implied probabilities are valuation parameters, not automatically forecasts of realized default frequency.
 
 ### Probability Of Default Models
-Probability of Default (PD) is the probability that an obligor defaults over a defined horizon, often one year. It is a core input to credit pricing, expected loss, regulatory capital, portfolio monitoring, and stress testing.
+For underwriting, monitoring, expected loss, and capital, Probability of Default (PD) usually means a real-world or physical-measure estimate over a defined horizon, often one year. Keep this forecasting object separate from a risk-neutral default curve used to price CDS or bonds; the two can differ because of risk premia, liquidity, recovery assumptions, and calibration instruments.
 
 $$
 PD = P(\text{default within horizon} \mid \text{information available today})
@@ -48,7 +48,7 @@ Common PD types:
 - Forward PD: conditional on future macroeconomic or scenario assumptions.
 
 Common modelling approaches:
-- Statistical default-rate approach: defaulted obligors divided by total obligors in a segment, or exposure-weighted default rates when the model explicitly targets exposure loss behavior.
+- Statistical default-rate approach: defaulted obligors divided by the number of obligors in a consistently defined segment. Exposure-weighted default or loss rates answer a different portfolio-loss question and must not replace count-weighted obligor default rates when calibrating an obligor PD model or a framework that explicitly requires them.
 - Scorecard or regression approach: borrower and macro variables mapped to PD.
 - Market-implied approach: default probabilities inferred from CDS spreads or bond spreads.
 - Structural approach: default linked to firm value relative to liabilities.
@@ -84,7 +84,7 @@ Model validation focuses on:
 ![PD model validation metrics](assets/pd-validation-metrics.svg)
 
 ## Worked Instrument Example: Single-Name CDS Protection
-Assume an investor buys 5-year CDS protection on $10,000,000 notional with:
+Assume an investor buys 5-year CDS protection on USD 10,000,000 notional with:
 - annual running spread: 100 bps,
 - assumed recovery rate after default: 40%,
 - default event after one year.
@@ -166,6 +166,8 @@ def logistic_pd(score: float) -> float:
 ```
 
 ## References and Further Reading
+- [Federal Reserve: Point-in-Time versus Through-the-Cycle Ratings](https://www.federalreserve.gov/Pubs/feds/2007/200729/index.html)
+- [Basel Framework CRE36: IRB minimum requirements, including PD estimation](https://www.bis.org/basel_framework/chapter/CRE/36.htm)
 - O'Kane. *Modelling Single-name and Multi-name Credit Derivatives*
 - Duffie and Singleton. *Credit Risk*
 - ISDA CDS standard model documentation

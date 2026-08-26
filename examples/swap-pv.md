@@ -27,6 +27,19 @@ $$
 7.80m - 7.52m = 0.28m
 $$
 
+```python
+notional = 100_000_000.0
+fixed_rate = 0.04
+discount_factors = [0.96, 0.92]
+floating_leg_pv = 7_800_000.0
+
+fixed_leg_pv = notional * fixed_rate * sum(discount_factors)
+receive_float_pv = floating_leg_pv - fixed_leg_pv
+
+assert abs(fixed_leg_pv - 7_520_000.0) < 1e-9
+assert abs(receive_float_pv - 280_000.0) < 1e-9
+```
+
 Implementation notes:
 - Real swaps need schedules, calendars, day-count conventions, reset dates, fixing logic, and projection curves.
 - Modern pricing usually separates projection curves from discount curves.

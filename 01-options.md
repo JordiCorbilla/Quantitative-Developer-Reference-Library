@@ -37,14 +37,14 @@ Finally separate the trading venue:
 The reason this taxonomy matters is practical. A European vanilla call can often be priced with a closed-form benchmark. An American put needs exercise logic. A barrier option needs path and monitoring rules. An OTC structure needs confirmation terms. The analytics cannot be correct unless the trade representation captures the product type.
 
 ## Worked Instrument Example: Equity Calls And Puts
-Assume a stock trades at $277. A trader buys a 30-day listed call option with:
+Assume a stock trades at USD 277. A trader buys a 30-day listed call option with:
 
-- strike: $300,
-- quoted premium: $5.00 per share,
+- strike: USD 300,
+- quoted premium: USD 5.00 per share,
 - equity option multiplier: 100 shares per contract,
 - position size: 100 option contracts.
 
-The first implementation trap is the multiplier. One standard US equity option contract usually controls 100 shares. A quoted premium of $5.00 therefore costs:
+The first implementation trap is the multiplier. One standard US equity option contract usually controls 100 shares. A quoted premium of USD 5.00 therefore costs:
 
 $$
 5.00 \times 100 = 500
@@ -56,7 +56,7 @@ $$
 5.00 \times 100 \times 100 = 50{,}000
 $$
 
-The trader has paid $50,000 for the right to buy 10,000 shares at $300. At expiry, the call is valuable only if the stock is above $300:
+The trader has paid USD 50,000 for the right to buy 10,000 shares at USD 300. At expiry, the call is valuable only if the stock is above USD 300:
 
 $$
 \text{Call intrinsic value} = \max(S_T - 300, 0) \times 10{,}000
@@ -68,15 +68,15 @@ $$
 \left[\max(S_T - 300, 0) - 5\right] \times 10{,}000
 $$
 
-| Stock price at expiry | Call intrinsic value | Net PnL after $50,000 premium | Interpretation |
+| Stock price at expiry | Call intrinsic value | Net PnL after USD 50,000 premium | Interpretation |
 | --- | ---: | ---: | --- |
-| $260 | $0 | -$50,000 | The call expires worthless. |
-| $277 | $0 | -$50,000 | The stock stayed below the strike. |
-| $300 | $0 | -$50,000 | At the strike, the premium is still lost. |
-| $305 | $50,000 | $0 | Break-even: strike plus premium. |
-| $330 | $300,000 | $250,000 | Upside after the break-even flows to the buyer. |
+| USD 260 | USD 0 | USD -50,000 | The call expires worthless. |
+| USD 277 | USD 0 | USD -50,000 | The stock stayed below the strike. |
+| USD 300 | USD 0 | USD -50,000 | At the strike, the premium is still lost. |
+| USD 305 | USD 50,000 | USD 0 | Break-even: strike plus premium. |
+| USD 330 | USD 300,000 | USD 250,000 | Upside after the break-even flows to the buyer. |
 
-A put is the mirror idea. It gives the buyer the right to sell at the strike. If the trader buys a 30-day $250 put for $4.00 per share on 100 contracts, the premium is:
+A put is the mirror idea. It gives the buyer the right to sell at the strike. If the trader buys a 30-day USD 250 put for USD 4.00 per share on 100 contracts, the premium is:
 
 $$
 4.00 \times 100 \times 100 = 40{,}000
@@ -88,13 +88,13 @@ $$
 \left[\max(250 - S_T, 0) - 4\right] \times 10{,}000
 $$
 
-| Stock price at expiry | Put intrinsic value | Net PnL after $40,000 premium | Interpretation |
+| Stock price at expiry | Put intrinsic value | Net PnL after USD 40,000 premium | Interpretation |
 | --- | ---: | ---: | --- |
-| $220 | $300,000 | $260,000 | The put pays because selling at $250 is valuable. |
-| $246 | $40,000 | $0 | Break-even: strike minus premium. |
-| $250 | $0 | -$40,000 | At the strike, the premium is still lost. |
-| $277 | $0 | -$40,000 | The put expires worthless. |
-| $310 | $0 | -$40,000 | Upside in the stock does not help a long put. |
+| USD 220 | USD 300,000 | USD 260,000 | The put pays because selling at USD 250 is valuable. |
+| USD 246 | USD 40,000 | USD 0 | Break-even: strike minus premium. |
+| USD 250 | USD 0 | USD -40,000 | At the strike, the premium is still lost. |
+| USD 277 | USD 0 | USD -40,000 | The put expires worthless. |
+| USD 310 | USD 0 | USD -40,000 | Upside in the stock does not help a long put. |
 
 This is only the expiry story. Before expiry, even an out-of-the-money option can be worth more than zero because there is still time for the stock to move. That extra value is time value. Pricing models are mostly about estimating that time value consistently.
 
@@ -247,7 +247,7 @@ $$
 
 If exercising now is better than holding the option, the holder exercises. This turns pricing into an optimal-stopping problem.
 
-For equity calls on non-dividend-paying stocks, early exercise is typically suboptimal. For puts, dividend-paying stocks, commodities, and callable rates structures, early exercise can matter materially.
+In the classical frictionless model with non-negative rates and no dividends or stock-borrow frictions, early exercise of an American equity call is suboptimal. Negative rates, dividends, hard-to-borrow economics, or other market frictions can change that conclusion. For puts, dividend-paying stocks, commodities, and callable rates structures, early exercise can matter materially.
 
 ![American option pricing model choices](assets/american-option-pricing-models.svg)
 
@@ -373,6 +373,8 @@ $$
 \rho_{\text{call}} = KT e^{-rT}N(d_2), \qquad
 \rho_{\text{put}} = -KT e^{-rT}N(-d_2)
 $$
+
+These formulas return vega per 1.00 absolute volatility change and rho per 1.00 absolute rate change. A desk vega per one volatility point multiplies the formula value by $0.01$; a rho per one basis point multiplies it by $0.0001$. Position quantity, contract multiplier, and reporting currency are separate scaling layers.
 
 Theta is especially easy to misunderstand. The formula above is model theta. Many desks report one-day theta as the PnL from rolling valuation date forward while applying a defined market-data roll. Those numbers can differ because forwards, dividends, fixings, curves, and surface anchors also roll.
 
@@ -636,11 +638,21 @@ def black_scholes_vanilla(
     vol: float,
     option_type: str,
 ) -> VanillaResult:
-    if expiry <= 0.0:
+    if option_type not in {"call", "put"}:
+        raise ValueError("option_type must be 'call' or 'put'")
+    if not all(math.isfinite(value) for value in (spot, strike, expiry, rate, dividend, vol)):
+        raise ValueError("all Black-Scholes inputs must be finite")
+    if spot <= 0.0 or strike <= 0.0:
+        raise ValueError("spot and strike must be positive")
+    if expiry < 0.0:
+        raise ValueError("expiry cannot be negative")
+    if expiry == 0.0:
         intrinsic = max(spot - strike, 0.0) if option_type == "call" else max(strike - spot, 0.0)
         delta = 1.0 if option_type == "call" and spot > strike else 0.0
         delta = -1.0 if option_type == "put" and spot < strike else delta
         return VanillaResult(price=intrinsic, delta=delta, gamma=0.0, vega=0.0, theta=0.0, rho=0.0)
+    if vol <= 0.0:
+        raise ValueError("vol must be positive before expiry in this reference implementation")
 
     sigma_root_t = vol * math.sqrt(expiry)
     d1 = (math.log(spot / strike) + (rate - dividend + 0.5 * vol * vol) * expiry) / sigma_root_t

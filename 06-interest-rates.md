@@ -90,7 +90,7 @@ Implementation cautions:
 
 ## Worked Instrument Example: Fixed-Float Interest Rate Swap
 Assume a company enters a 5-year USD swap with:
-- notional: $10,000,000,
+- notional: USD 10,000,000,
 - fixed rate paid by the company: 4.00% per year,
 - floating leg received: SOFR-based rate,
 - annualized current floating expectation for the next period: 5.00%,
@@ -108,7 +108,7 @@ $$
 10{,}000{,}000 \times 5.00\% = 500{,}000
 $$
 
-The net cashflow to the fixed-rate payer is +$100,000 for that period before discounting. If the floating rate fixes at 3.00%, the floating receipt is $300,000 and the net cashflow is -$100,000.
+The net cashflow to the fixed-rate payer is USD 100,000 for that period before discounting. If the floating rate fixes at 3.00%, the floating receipt is USD 300,000 and the net cashflow is USD -100,000.
 
 The payer swap benefits when floating rates rise relative to the fixed rate. A receiver swap benefits when rates fall. In production, each coupon uses its own accrual fraction, fixing date, projection curve, payment date, and discount factor.
 
@@ -166,7 +166,7 @@ Useful implementation split:
 
 Minimum checks:
 - bootstrap instruments reprice within tolerance,
-- discount factors are monotone under standard assumptions,
+- discount factors stay positive, and any increase with maturity is consistent with the curve's negative-forward-rate region rather than a bootstrap defect,
 - par swap rates reconstructed from the curve match input quotes,
 - risk on a receive-fixed swap has sensible sign under parallel rate bumps,
 - fallback or fixing-sensitive trades reprice correctly across fixing dates.
@@ -180,13 +180,22 @@ def par_swap_rate(discount_factors, accrual_fractions):
     return (discount_factors[0] - discount_factors[-1]) / annuity
 
 
-def pv01(notional: float, accrual_fractions, discount_factors) -> float:
+def fixed_coupon_pvbp(notional: float, accrual_fractions, discount_factors) -> float:
+    """PV of one basis point on the fixed coupon leg, not a full curve PV01."""
+    if len(discount_factors) != len(accrual_fractions) + 1:
+        raise ValueError("Need start and end discount factors plus one accrual per coupon period.")
     annuity = sum(alpha * df for alpha, df in zip(accrual_fractions, discount_factors[1:]))
     return notional * annuity * 1.0e-4
 
 
-def vasicek_short_rate_step(rate: float, mean_reversion: float, long_run_mean: float, dt: float, shock: float, volatility: float) -> float:
-    return rate + mean_reversion * (long_run_mean - rate) * dt + volatility * shock
+def vasicek_short_rate_step(rate: float, mean_reversion: float, long_run_mean: float, dt: float, standard_normal: float, volatility: float) -> float:
+    if dt <= 0.0:
+        raise ValueError("dt must be positive")
+    return (
+        rate
+        + mean_reversion * (long_run_mean - rate) * dt
+        + volatility * (dt ** 0.5) * standard_normal
+    )
 ```
 
 ## References and Further Reading

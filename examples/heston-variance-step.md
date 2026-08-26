@@ -25,6 +25,7 @@ dt = 0.01
 shock = -0.25
 
 next_variance = variance + kappa * (theta - variance) * dt + vol_of_vol * (variance ** 0.5) * shock * (dt ** 0.5)
+assert abs(next_variance - 0.0382375) < 1e-12
 ```
 
 Result:

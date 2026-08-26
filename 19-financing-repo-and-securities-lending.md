@@ -35,13 +35,13 @@ $$
 \text{repurchase price} = \text{cash proceeds} \times \left(1 + r_{\text{repo}} \times \text{year fraction}\right)
 $$
 
-For equities and futures, financing and borrow assumptions feed forward pricing:
+For a continuously dividend-paying equity under the idealized cash-and-carry assumptions, a baseline forward relation is:
 
 $$
-F \approx S e^{(r - q + b)T}
+F_0(T)=S_0e^{(r_f-q)T},
 $$
 
-where $b$ can represent borrow or financing spread depending on the setup.
+where $r_f$ is the funding rate used by the replicating long position and $q$ is the continuous dividend yield. Securities lending must not be inserted as an undefined $+b$ term. If $\ell$ denotes lending income that the stock holder can earn, it is a carry benefit and the corresponding relation becomes $F_0(T)=S_0e^{(r_f-q-\ell)T}$. A fee paid by a short seller instead changes the reverse-cash-and-carry economics and may create a no-arbitrage band rather than the same equality. Production systems should therefore store funding, dividends, lending income, short borrow fees, and rebates as separate signed inputs.
 
 ### Visual Financing Reference
 
@@ -108,6 +108,6 @@ def simple_repo_interest(cash: float, repo_rate: float, year_fraction: float) ->
 ```
 
 ## References and Further Reading
-- Securities financing market practice notes.
-- Bond futures implied repo documentation.
-- Prime-broker and collateral-management methodology documents.
+- [CME Group: Calculating Fair Value](https://www.cmegroup.com/trading/equity-index/fairvalue.html).
+- [Federal Reserve: Collateral and rate setting](https://www.federalreserve.gov/monetarypolicy/bst_ratesetting.htm).
+- Securities-financing, bond-futures implied-repo, prime-broker, and collateral-management agreements applicable to the trade.

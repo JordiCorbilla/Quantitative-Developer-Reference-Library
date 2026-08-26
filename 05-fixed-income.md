@@ -80,11 +80,11 @@ A good implementation stores which spread measure is being reported. "Spread" wi
 
 ## Worked Instrument Example: Fixed Coupon Bond
 Assume a 2-year bond has:
-- face value: $1,000,000,
+- face value: USD 1,000,000,
 - annual coupon: 5% paid once per year,
 - required market yield: 4% with annual compounding.
 
-The cashflows are $50,000 after one year and $1,050,000 after two years. The dirty price is:
+The cashflows are USD 50,000 after one year and USD 1,050,000 after two years. The dirty price is:
 
 $$
 \frac{50{,}000}{1.04} + \frac{1{,}050{,}000}{1.04^2} = 1{,}018{,}860.95
@@ -150,18 +150,37 @@ Minimum checks:
 
 ## Illustrative Code
 ```python
+def _validate_parallel_vectors(*vectors) -> None:
+    lengths = {len(vector) for vector in vectors}
+    if not lengths or len(lengths) != 1 or next(iter(lengths)) == 0:
+        raise ValueError("cashflow vectors must be non-empty and have equal length")
+
+
 def bond_dirty_price(cashflows, discount_factors):
+    _validate_parallel_vectors(cashflows, discount_factors)
     return sum(cf * df for cf, df in zip(cashflows, discount_factors))
 
 
-def macaulay_duration(cashflows, discount_factors, times, dirty_price):
+def pv_weighted_payment_time(cashflows, discount_factors, times):
+    """PV-weighted time under the supplied curve; not automatically YTM duration."""
+    _validate_parallel_vectors(cashflows, discount_factors, times)
+    dirty_price = bond_dirty_price(cashflows, discount_factors)
+    if dirty_price <= 0.0:
+        raise ValueError("dirty price must be positive")
     weighted_pv = sum(t * cf * df for t, cf, df in zip(times, cashflows, discount_factors))
     return weighted_pv / dirty_price
 
 
-def modified_duration(macaulay: float, yield_rate: float, compounding_frequency: int) -> float:
+def modified_duration_from_ytm(macaulay: float, yield_rate: float, compounding_frequency: int) -> float:
+    """Convert Macaulay duration built from this same flat YTM convention."""
+    if compounding_frequency <= 0:
+        raise ValueError("compounding frequency must be positive")
+    if 1.0 + yield_rate / compounding_frequency <= 0.0:
+        raise ValueError("yield is outside the valid compounding domain")
     return macaulay / (1.0 + yield_rate / compounding_frequency)
 ```
+
+`pv_weighted_payment_time` is a curve-discounted cashflow-time summary. It is Macaulay duration only when the discount factors come from the same flat yield-to-maturity and compounding convention used by `modified_duration_from_ytm`. With a general term structure, use bumped-curve or key-rate sensitivities for rate risk rather than applying the flat-yield conversion mechanically.
 
 ## References and Further Reading
 - Tuckman and Serrat. *Fixed Income Securities*

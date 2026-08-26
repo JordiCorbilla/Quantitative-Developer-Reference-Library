@@ -69,7 +69,7 @@ $$
 where:
 - $B$ is the asset-by-factor exposure matrix,
 - $\Sigma_f$ is the factor covariance matrix,
-- $D$ is diagonal specific risk.
+- $D$ is the diagonal matrix of asset-specific return variances.
 
 This matters because portfolio tools are usually built around exposures, active bets, and risk budgets rather than pairwise asset covariances alone.
 
@@ -83,6 +83,24 @@ $$
 $$
 
 The mathematical optimum is highly sensitive to \(\mu\). A stable production process normally shrinks expected returns and covariance, limits leverage and concentration, and reports how much each constraint changes the unconstrained answer.
+
+#### Worked Markowitz Story: From Feasible Portfolios To A Decision
+
+Suppose Asset A has expected return $6\%$ and volatility $10\%$, while Asset B has expected return $10\%$ and volatility $20\%$. Their correlation is $0.25$, so the covariance matrix is:
+
+$$
+\Sigma=
+\begin{bmatrix}
+0.010 & 0.005\\
+0.005 & 0.040
+\end{bmatrix}.
+$$
+
+With weights summing to one and no shorting, every convex combination of A and B is feasible. The minimum-variance choice is $87.5\%$ in A and $12.5\%$ in B. It has expected return $6.5\%$ and volatility about $9.68\%$. That is the leftmost feasible point in expected-return/volatility space. The upper branch beginning there is efficient: for each attainable volatility on that branch, no other feasible mix has higher expected return.
+
+Now add a $2\%$ cash rate. Under the same single-period estimates, the maximum-Sharpe risky mix is proportional to $\Sigma^{-1}(\mu-r_f\mathbf 1)$, which normalizes to $66.7\%$ in A and $33.3\%$ in B. Its expected return is about $7.33\%$, volatility $10.54\%$, and estimated Sharpe ratio $0.51$. The line from cash tangent to the risky-asset frontier identifies this mix in the frictionless model.
+
+The story ends with a control, not the optimizer: those weights are only as credible as the return, covariance, cash-rate, shorting, leverage, and cost assumptions. A desk should perturb the inputs, inspect binding constraints, add transaction and liquidity costs, and compare the target with the holdings it can actually execute.
 
 ### Black-Litterman
 
@@ -122,6 +140,8 @@ Kelly allocation maximizes expected logarithmic wealth:
 $$
 \max_w\ E[\log(1+w^\top r)].
 $$
+
+The feasible domain must satisfy $1+w^\top r>0$ for every return outcome given positive modeled probability; otherwise log wealth is undefined. In finite-scenario code this is an explicit scenario constraint, while unbounded return models require a leverage or loss-support treatment consistent with the model.
 
 For small returns under a quadratic approximation, the unconstrained solution resembles:
 
@@ -256,6 +276,46 @@ import numpy as np
 import pandas as pd
 
 
+def fully_invested_minimum_variance_weights(covariance: np.ndarray) -> np.ndarray:
+    covariance = np.asarray(covariance, dtype=float)
+    if covariance.ndim != 2 or covariance.shape[0] != covariance.shape[1]:
+        raise ValueError("covariance must be a square matrix")
+    if not np.isfinite(covariance).all() or not np.allclose(covariance, covariance.T):
+        raise ValueError("covariance must be finite and symmetric")
+    if np.linalg.eigvalsh(covariance).min() <= 0.0:
+        raise ValueError("covariance must be positive definite")
+    ones = np.ones(covariance.shape[0])
+    raw_weights = np.linalg.solve(covariance, ones)
+    return raw_weights / raw_weights.sum()
+
+
+def fully_invested_tangency_weights(
+    expected_returns: np.ndarray,
+    covariance: np.ndarray,
+    cash_rate: float,
+) -> np.ndarray:
+    expected_returns = np.asarray(expected_returns, dtype=float)
+    covariance = np.asarray(covariance, dtype=float)
+    if expected_returns.ndim != 1 or covariance.shape != (
+        expected_returns.size,
+        expected_returns.size,
+    ):
+        raise ValueError("return vector and covariance dimensions must match")
+    if not np.isfinite(expected_returns).all() or not np.isfinite(cash_rate):
+        raise ValueError("return inputs must be finite")
+    if not np.isfinite(covariance).all() or not np.allclose(covariance, covariance.T):
+        raise ValueError("covariance must be finite and symmetric")
+    if np.linalg.eigvalsh(covariance).min() <= 0.0:
+        raise ValueError("covariance must be positive definite")
+    excess_returns = expected_returns - cash_rate
+    raw_weights = np.linalg.solve(covariance, excess_returns)
+    if raw_weights.sum() <= 1e-12:
+        raise ValueError(
+            "conventional long-funded tangency weights require a positive raw sum"
+        )
+    return raw_weights / raw_weights.sum()
+
+
 def active_weights(weights: pd.Series, benchmark: pd.Series) -> pd.Series:
     if not weights.index.is_unique or not benchmark.index.is_unique:
         raise ValueError("weight labels must be unique")
@@ -299,7 +359,7 @@ def factor_covariance(exposures: pd.DataFrame, factor_cov: pd.DataFrame, specifi
 
 
 def gross_two_way_turnover(prev_weights: pd.Series, new_weights: pd.Series) -> float:
-    """Return sum(abs(delta weight)); halve it for the common one-way convention."""
+    """Return sum(abs(delta weight)) across all named holdings."""
     if not prev_weights.index.is_unique or not new_weights.index.is_unique:
         raise ValueError("weight labels must be unique")
     if not np.isfinite(prev_weights.to_numpy(dtype=float)).all():
@@ -356,9 +416,19 @@ def volatility_risk_contributions(weights: pd.Series, covariance: pd.DataFrame) 
         weight_values * marginal_variance / portfolio_volatility,
         index=weights.index,
     )
+
+
+worked_covariance = np.array([[0.010, 0.005], [0.005, 0.040]])
+worked_returns = np.array([0.06, 0.10])
+minimum_variance = fully_invested_minimum_variance_weights(worked_covariance)
+tangency = fully_invested_tangency_weights(worked_returns, worked_covariance, 0.02)
+assert np.allclose(minimum_variance, [0.875, 0.125])
+assert np.allclose(tangency, [2.0 / 3.0, 1.0 / 3.0])
+assert abs(float(minimum_variance @ worked_returns) - 0.065) < 1e-12
+assert abs(float(np.sqrt(minimum_variance @ worked_covariance @ minimum_variance)) - 0.09682458) < 1e-8
 ```
 
-This is deliberately small. A production implementation would also version data snapshots, account for trading calendars and execution timing, and distinguish target weights from executed holdings.
+This is deliberately small. `gross_two_way_turnover` returns the sum of absolute weight changes. Halving that number to report "one-way turnover" is valid only for a cash-neutral, fully invested rebalance whose buys and sells match; subscriptions, withdrawals, leverage changes, shorts, and residual cash require buy, sell, and gross activity to be reported separately. A production implementation would also version data snapshots, account for trading calendars and execution timing, and distinguish target weights from executed holdings.
 
 ## References and Further Reading
 - Grinold and Kahn. *Active Portfolio Management*

@@ -56,27 +56,27 @@ $$
 
 The calculation is simple; using incompatible moneyness, forwards, or interpolation rules is not. Negative forward variance is either a data or construction error, or evidence that the fitted surface violates calendar arbitrage.
 
-For one known event before expiry, a useful first model decomposes total variance into diffuse variance and event jump variance:
+For one known event before expiry, a useful *Gaussian-equivalent* first model decomposes Black total variance into diffuse variance and one effective event-variance parameter:
 
 $$
 W(T) = \int_0^T v_{\text{diffuse}}(u)\,du
-+ \mathbf{1}_{\{\tau_{\text{event}}\leq T\}}q_{\text{event}}
++ \mathbf{1}_{\{\tau_{\text{event}}\leq T\}}q_{\text{event}}^{\text{eff}}
 $$
 
-Here $q_{\text{event}}=E^Q[J^2]$ is risk-neutral squared log-jump exposure, not a forecast of the direction of the jump. With expiries bracketing the event and an estimated diffuse variance $\bar v$:
+Under an independent Gaussian log-jump model, $q_{\text{event}}^{\text{eff}}=\operatorname{Var}^Q(J)$. It is not generally $E^Q[J^2]$, because a nonzero risk-neutral mean contributes to the second moment without becoming Black variance. More broadly, generic jumps, skew, and strike-dependent implied volatility do not collapse exactly into one additive ATM-variance number. With expiries bracketing the event and an estimated diffuse variance $\bar v$, desks often use the following explicitly model-dependent screen:
 
 $$
-\widehat q_{\text{event}}
+\widehat q_{\text{event}}^{\text{eff}}
 = W(T_2)-W(T_1)-\bar v(T_2-T_1)
 $$
 
-The corresponding risk-neutral root-mean-square implied log jump is approximately:
+The corresponding Gaussian-equivalent one-standard-deviation log move is approximately:
 
 $$
-m_{\text{event}}=\sqrt{\max(\widehat q_{\text{event}},0)}
+m_{\text{event}}=\sqrt{\max(\widehat q_{\text{event}}^{\text{eff}},0)}
 $$
 
-Because $q_{\text{event}}=E^Q[J^2]$, this is an RMS move, not a standard deviation unless the risk-neutral mean jump is zero. It is a model-dependent implied move. The at-the-money straddle premium divided by spot is a useful market shorthand, but it is not algebraically identical: it reflects discounting, continuous volatility, skew, tails, and option convexity.
+For small moves, traders may read this as an approximate percentage move, but it is not a model-free event distribution. A model-free expected-variance estimate requires a strip of out-of-the-money options across strikes, as in variance-swap replication; subtracting two ATM Black variances is only a screening heuristic. The at-the-money straddle premium divided by spot is another useful shorthand, but it is not algebraically identical: it reflects discounting, diffuse volatility, skew, tails, and option convexity.
 
 For a locally delta-hedged option in a continuous interval, the familiar approximation is:
 
@@ -262,6 +262,7 @@ def event_variance_pnl(
 ```
 
 ## References and Further Reading
+- [Cboe Volatility Index Mathematics Methodology](https://cdn.cboe.com/resources/indices/Cboe_Volatility_Index_Mathematics_Methodology.pdf) for option-strip implied-variance construction.
 - Carr and Madan. “Towards a Theory of Volatility Trading,” in *Volatility* (1998).
 - Demeterfi, Derman, Kamal, and Zou. “More Than You Ever Wanted to Know About Volatility Swaps” (1999).
 - Gatheral. *The Volatility Surface: A Practitioner's Guide*.

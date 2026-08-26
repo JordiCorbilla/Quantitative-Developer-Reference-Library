@@ -26,6 +26,9 @@ import math
 
 z = -3.0 + 0.8 * 1.5 + 1.2 * 1.0
 pd = 1.0 / (1.0 + math.exp(-z))
+
+assert abs(z - (-0.6)) < 1e-12
+assert abs(pd - 0.35434369377420455) < 1e-12
 ```
 
 Result:

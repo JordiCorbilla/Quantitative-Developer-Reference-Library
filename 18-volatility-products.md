@@ -51,7 +51,7 @@ $$
 \sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2
 $$
 
-where $\epsilon_{t-1}$ is the previous return shock, $\alpha$ controls the impact of new shocks, and $\beta$ controls volatility persistence. A common stationarity condition is:
+where $\epsilon_{t-1}$ is the previous return shock, $\alpha$ controls the impact of new shocks, and $\beta$ controls volatility persistence. For the standard parameterization with $\omega>0$ and $\alpha,\beta\geq0$, the familiar condition for a finite unconditional variance, also called covariance or weak stationarity here, is:
 
 $$
 \alpha + \beta < 1
@@ -214,7 +214,7 @@ $$
 h_t^{(k)} = \omega_k + \alpha_k \epsilon_{t-1}^2 + \beta_k h_{t-1}^{(k)}
 $$
 
-Each regime $k$ has its own GARCH parameters. That makes the model more flexible than a single GARCH process when volatility clustering changes across calm and stressed markets.
+Each regime $k$ has its own GARCH parameters. The displayed recursion is schematic: a complete Markov-switching GARCH specification must also say how lagged variance is carried across an unobserved regime transition. Gray-, Klaassen-, and path-dependent formulations make different choices and are not interchangeable. The extra flexibility can help when volatility clustering changes across calm and stressed markets, but it also creates additional state and estimation uncertainty.
 
 ![Regime models in quant finance](assets/regime-models-map.svg)
 
@@ -253,10 +253,10 @@ For fair validation, refit or update the model at each scheduled historical orig
 ## Heston Stochastic Volatility Model
 The Heston model is a stochastic-volatility model used for option pricing and volatility-surface calibration. Unlike Black-Scholes, it lets variance move through time as its own mean-reverting process. This helps represent volatility clustering, skew, and the equity leverage effect.
 
-Under a risk-neutral measure, a common Heston specification is:
+Under a risk-neutral measure, a common Heston specification for an asset with continuous carry or dividend yield $q$ is:
 
 $$
-dS_t = r S_t\,dt + \sqrt{v_t} S_t\,dW_{1,t}
+dS_t = (r-q) S_t\,dt + \sqrt{v_t} S_t\,dW_{1,t}
 $$
 
 $$
@@ -283,7 +283,7 @@ Key features:
 - Requires careful calibration controls because parameters can be unstable across sparse or noisy option surfaces.
 
 Implementation cautions:
-- The Feller condition $2\kappa\theta \geq \sigma^2$ helps keep variance positive in the continuous-time process, but calibration may violate it in practice.
+- With $v_0>0$, the Feller condition $2\kappa\theta \geq \sigma^2$ makes the zero boundary unattainable in the continuous-time square-root process. Without it, the process remains non-negative under the exact model but may reach zero; naive discretizations can still produce negative numerical values.
 - Numerical integration, branch handling, and parameter bounds can materially affect prices.
 - Heston is a model for volatility dynamics, not a guarantee of correct smile extrapolation or jump behavior.
 - For American options, Heston usually needs numerical methods such as PDEs, trees with extra state variables, or simulation/regression approaches.
@@ -410,5 +410,6 @@ def har_rv_forecast(
 - Adams and MacKay on Bayesian online change-point detection.
 - Bollerslev on generalized autoregressive conditional heteroskedasticity.
 - Hamilton on regime-switching time-series models.
+- Heston. [*A Closed-Form Solution for Options with Stochastic Volatility with Applications to Bond and Currency Options*](https://doi.org/10.1093/rfs/6.2.327).
 - Exchange methodology documents for volatility indices.
 - Links: [45-time-series-forecasting-and-state-space-models.md](45-time-series-forecasting-and-state-space-models.md) and [examples/ewma-har-rv-forecast.md](examples/ewma-har-rv-forecast.md).

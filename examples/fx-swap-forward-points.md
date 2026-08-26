@@ -30,6 +30,7 @@ def forward_points(spot: float, forward: float, points_scale: float = 10_000.0) 
 spot = 1.1000
 forward = 1.0960
 points = forward_points(spot, forward)
+assert abs(points - (-40.0)) < 1e-12
 ```
 
 Implementation notes:

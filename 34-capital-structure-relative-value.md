@@ -79,15 +79,21 @@ $$
 
 where \(\mathbf{r}\) contains the core position's rate DV01, credit CS01, equity delta, FX delta, or sector beta, and columns of \(\mathbf{A}\) contain candidate hedge sensitivities. Liquidity limits and hedge bounds turn this into a constrained least-squares problem. Default, restructuring, call, and borrow-recall scenarios remain necessary because local sensitivities do not describe gaps.
 
-For a bond-CDS comparison, a screening measure is:
+The conventional quoted CDS-bond basis is CDS spread minus a comparable bond spread:
 
 $$
-\text{net basis}
+\text{CDS-bond basis}=s_{\text{CDS}}-s_{\text{bond}}.
+$$
+
+For a long-bond/long-protection trade, a separate net-carry screen is:
+
+$$
+\text{net carry}
 \approx s_{\text{bond}}-s_{\text{CDS}}
 -c_{\text{funding}}-c_{\text{borrow}}-c_{\text{delivery}}-c_{\text{liquidity}}.
 $$
 
-The bond spread must be option- and curve-consistent. Positive carry is not arbitrage when default settlement, delivery optionality, funding, or legal basis can overwhelm it.
+The signs answer different questions: a negative quoted basis can create positive pre-cost carry for this direction of trade. The bond spread must be option- and curve-consistent. Positive carry is not arbitrage when default settlement, delivery optionality, funding, or legal basis can overwhelm it.
 
 ### Trade Construction Checklist
 
@@ -111,7 +117,7 @@ $$
 
 Default settlements total USD 10m before premium, funding, settlement, and delivery effects. The USD 1.8m difference over purchase price compensates for these risks.
 
-If the bond's comparable spread is 760 bps, CDS costs 620 bps, annualized bond funding consumes 65 bps, and liquidity/delivery reserves consume 25 bps, estimated net carry is:
+If the bond's comparable spread is 760 bps and CDS costs 620 bps, the conventional CDS-bond basis is $620-760=-140$ bps. If annualized bond funding consumes 65 bps and liquidity/delivery reserves consume 25 bps, estimated net carry on the long-bond/long-protection package is:
 
 $$
 760-620-65-25=50\text{ bps},
@@ -201,6 +207,7 @@ def absolute_priority_waterfall(
 Production code should also represent collateral silos, guarantees, disputed claims, new-money priority, and non-cash plan consideration.
 
 ## References and Further Reading
+- Federal Reserve Bank of New York. [*Trends in Credit Basis Spreads*](https://www.newyorkfed.org/medialibrary/media/research/epr/2018/EPR_2018_trends-in-credit-basis-spreads_boyarchenko.pdf).
 - Merton. “On the Pricing of Corporate Debt: The Risk Structure of Interest Rates.” *Journal of Finance*, 1974.
 - Duffie and Singleton. *Credit Risk: Pricing, Measurement, and Management*.
 - O'Kane. *Modelling Single-name and Multi-name Credit Derivatives*.

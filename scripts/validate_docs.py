@@ -19,6 +19,10 @@ EXPECTED_SECTIONS = [
     "## Illustrative Code",
     "## References and Further Reading",
 ]
+PLACEHOLDER_PATTERN = re.compile(r"\b(?:TODO|TBD|FIXME|LOREM IPSUM|CITATION NEEDED)\b", re.IGNORECASE)
+NUMERIC_CURRENCY_PATTERN = re.compile(r"(?<!\\)\$(?=[+-]?\d)")
+INLINE_MATH_PATTERN = re.compile(r"(?<!\\)\$(?!\$).*?(?<!\\)\$(?!\$)")
+PYTHON_FENCE_PATTERN = re.compile(r"```python\s*\n(.*?)```", re.DOTALL)
 
 
 def tracked_markdown_files() -> list[Path]:
@@ -68,6 +72,22 @@ def validate_svgs(errors: list[str]) -> None:
             errors.append(
                 f"Incomplete SVG metadata: {path.relative_to(ROOT)}: {', '.join(missing)}"
             )
+            continue
+
+        ids = [element.get("id") for element in root.iter() if element.get("id")]
+        duplicate_ids = sorted({item for item in ids if ids.count(item) > 1})
+        if duplicate_ids:
+            errors.append(
+                f"Duplicate SVG IDs: {path.relative_to(ROOT)}: {', '.join(duplicate_ids)}"
+            )
+
+        labelled_ids = root.get("aria-labelledby", "").split()
+        missing_label_ids = [item for item in labelled_ids if item not in ids]
+        if missing_label_ids:
+            errors.append(
+                f"Unresolved SVG aria-labelledby IDs: {path.relative_to(ROOT)}: "
+                f"{', '.join(missing_label_ids)}"
+            )
 
 
 def validate_chapter_sections(errors: list[str]) -> None:
@@ -87,12 +107,113 @@ def validate_duplicate_h1(errors: list[str]) -> None:
             errors.append(f"{path.relative_to(ROOT)} has {h1_count} H1 headings")
 
 
+def validate_markdown_integrity(errors: list[str]) -> None:
+    for path in tracked_markdown_files():
+        text = path.read_text(encoding="utf-8")
+        relative = path.relative_to(ROOT)
+        if text.count("```") % 2:
+            errors.append(f"Unbalanced code fences: {relative}")
+        if text.count("$$") % 2:
+            errors.append(f"Unbalanced display-math fences: {relative}")
+        if "\ufffd" in text:
+            errors.append(f"Unicode replacement character found: {relative}")
+        for match in PLACEHOLDER_PATTERN.finditer(text):
+            line = text.count("\n", 0, match.start()) + 1
+            errors.append(f"Placeholder text in {relative}:{line}: {match.group(0)}")
+
+
+def validate_python_fences(errors: list[str]) -> None:
+    for path in tracked_markdown_files():
+        text = path.read_text(encoding="utf-8")
+        for index, block in enumerate(PYTHON_FENCE_PATTERN.findall(text), start=1):
+            try:
+                compile(block, f"{path.relative_to(ROOT)}:python-block-{index}", "exec")
+            except SyntaxError as exc:
+                errors.append(
+                    f"Invalid Python fence: {path.relative_to(ROOT)} block {index}: {exc.msg}"
+                )
+
+
+def validate_worked_example_checks(errors: list[str]) -> None:
+    """Require each standalone worked example to contain executable checks."""
+    for path in sorted((ROOT / "examples").glob("*.md")):
+        if path.name == "README.md":
+            continue
+        blocks = PYTHON_FENCE_PATTERN.findall(path.read_text(encoding="utf-8"))
+        if not blocks:
+            errors.append(f"Worked example has no Python fence: {path.relative_to(ROOT)}")
+        elif not any(re.search(r"\bassert\b", block) for block in blocks):
+            errors.append(f"Worked example has no assertion: {path.relative_to(ROOT)}")
+
+
+def validate_currency_style(errors: list[str]) -> None:
+    """Keep dollar signs from being mistaken for inline-math delimiters."""
+    for path in tracked_markdown_files():
+        in_code = False
+        in_display_math = False
+        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+            if stripped == "$$":
+                in_display_math = not in_display_math
+                continue
+            if in_display_math:
+                continue
+            prose = INLINE_MATH_PATTERN.sub("", line)
+            if NUMERIC_CURRENCY_PATTERN.search(prose):
+                errors.append(
+                    f"Use an explicit currency code instead of '$' in "
+                    f"{path.relative_to(ROOT)}:{line_number}"
+                )
+
+
+def validate_story_openings(errors: list[str]) -> None:
+    """Require each chapter to begin its scope with a reader-oriented narrative."""
+    marker = "## What This Domain Covers"
+    for path in sorted(ROOT.glob("[0-9][0-9]-*.md")):
+        if path.name == "00-overview.md":
+            continue
+        text = path.read_text(encoding="utf-8")
+        if marker not in text:
+            continue  # validate_chapter_sections reports the missing section.
+        section = text.split(marker, 1)[1].split("\n## ", 1)[0]
+        content = [line.strip() for line in section.splitlines() if line.strip()]
+        if not content or content[0].startswith(("-", "*", "|", "#")):
+            errors.append(
+                f"{path.name} must open 'What This Domain Covers' with explanatory prose"
+            )
+
+
+def validate_navigation_completeness(errors: list[str]) -> None:
+    chapters = [path.name for path in sorted(ROOT.glob("[0-9][0-9]-*.md"))]
+    for navigation_file in ("README.md", "00-overview.md", "INDEX.md"):
+        text = (ROOT / navigation_file).read_text(encoding="utf-8")
+        for chapter in chapters:
+            if chapter != "00-overview.md" and chapter not in text:
+                errors.append(f"{navigation_file} does not reference {chapter}")
+
+    examples_index = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
+    for example in sorted((ROOT / "examples").glob("*.md")):
+        if example.name != "README.md" and example.name not in examples_index:
+            errors.append(f"examples/README.md does not reference {example.name}")
+
+
 def main() -> int:
     errors: list[str] = []
     validate_local_links(errors)
     validate_svgs(errors)
     validate_chapter_sections(errors)
     validate_duplicate_h1(errors)
+    validate_markdown_integrity(errors)
+    validate_python_fences(errors)
+    validate_worked_example_checks(errors)
+    validate_currency_style(errors)
+    validate_story_openings(errors)
+    validate_navigation_completeness(errors)
 
     if errors:
         print("Documentation validation failed:")

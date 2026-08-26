@@ -20,8 +20,19 @@ $$
 VWAP:
 
 $$
-\frac{100.00 \times 20k + 100.10 \times 10k + 100.20 \times 10k + 100.50 \times 60k}{100k} = 100.34
+\frac{100.00 \times 20k + 100.10 \times 10k + 100.20 \times 10k + 100.50 \times 60k}{100k} = 100.33
 $$
+
+```python
+prices = [100.00, 100.10, 100.20, 100.50]
+volumes = [20_000, 10_000, 10_000, 60_000]
+
+twap = sum(prices) / len(prices)
+vwap = sum(price * volume for price, volume in zip(prices, volumes)) / sum(volumes)
+
+assert abs(twap - 100.20) < 1e-12
+assert abs(vwap - 100.33) < 1e-12
+```
 
 Interpretation:
 - TWAP treats each time bucket equally.

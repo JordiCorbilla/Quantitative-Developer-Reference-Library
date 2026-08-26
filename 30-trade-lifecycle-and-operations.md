@@ -32,15 +32,15 @@ Lifecycle errors often start at the quote.
 For FX, quote orientation is especially important. Buying EUR/USD means buying EUR and selling USD. The same economic intent written in inverted orientation must still produce the same cashflows.
 
 ## Core Pricing Framework
-The pricing framework for lifecycle work is not a closed-form formula. It is the rule that valuation must be run against the correct economic state of the trade. A clean model price is only meaningful if the trade is genuinely live, confirmed, and represented with the right cashflows.
+The pricing framework for lifecycle work is not a closed-form formula. It is the rule that valuation must be run against the correct economic state of the trade. A clean model price is meaningful only if the parties have reached an economically binding agreement under the applicable documentation and law, and the system represents its cashflows correctly. A later confirmation normally records and evidences agreed terms; it should not be treated mechanically as the moment at which every trade first becomes valuable or risky.
 
 The basic state machine is:
 
 1. **Pre-trade**: request, quote, suitability, limit check, market-data snapshot.
-2. **Execution**: quote accepted or order filled.
+2. **Agreement or execution**: quote accepted, order filled, or bilateral economic terms agreed; applicable documentation and law determine when the parties are bound.
 3. **Capture and booking**: trade representation enters the front-office system.
 4. **Validation**: economic terms, limits, static data, calendars, and settlement instructions are checked.
-5. **Confirmation**: counterparties agree the trade terms.
+5. **Confirmation**: counterparties match and evidence the agreed terms; a mismatch or delay becomes an exception without erasing the economic exposure automatically.
 6. **Clearing or settlement preparation**: margin, funding, nostro, custodian, clearing broker, or CLS instructions are prepared.
 7. **Settlement and cash movement**: cash, securities, or variation margin move.
 8. **Post-trade control**: reconciliation, PnL explain, risk explain, accounting, reporting, and exception handling.
@@ -49,7 +49,7 @@ The basic state machine is:
 
 ![FX trade lifecycle from quote to settlement](assets/fx-trade-lifecycle.svg)
 
-The key point is that pricing and lifecycle state are connected. A trade that is pending confirmation, disputed, partially settled, novated, compressed, assigned, terminated, or exercised is not the same operational object as a clean live trade.
+The key point is that pricing and lifecycle state are connected, but the states are not one simple line. Economic state, confirmation status, and individual cashflow status are separate dimensions. A trade that is pending confirmation, disputed, partially settled, novated, compressed, assigned, terminated, or exercised is not the same operational object as an undisputed active trade.
 
 ## Worked Instrument Example: FX Spot Trade
 Suppose an asset manager buys EUR 250 million against USD at EUR/USD 1.0923 for spot settlement.
@@ -140,43 +140,58 @@ from dataclasses import dataclass, replace
 from enum import Enum
 
 
-class TradeState(Enum):
+class EconomicState(Enum):
     QUOTED = "quoted"
-    EXECUTED = "executed"
-    BOOKED = "booked"
-    CONFIRMED = "confirmed"
-    SETTLED = "settled"
-    CLOSED = "closed"
+    AGREED = "agreed"
+    ACTIVE = "active"
+    TERMINATED = "terminated"
+    MATURED = "matured"
+    CANCELLED = "cancelled"
+
+
+class CashflowState(Enum):
+    PROJECTED = "projected"
+    FIXED = "fixed"
+    DUE = "due"
+    PAID = "paid"
+    FAILED = "failed"
+    DISPUTED = "disputed"
 
 
 ALLOWED_TRANSITIONS = {
-    TradeState.QUOTED: {TradeState.EXECUTED},
-    TradeState.EXECUTED: {TradeState.BOOKED},
-    TradeState.BOOKED: {TradeState.CONFIRMED},
-    TradeState.CONFIRMED: {TradeState.SETTLED},
-    TradeState.SETTLED: {TradeState.CLOSED},
+    EconomicState.QUOTED: {EconomicState.AGREED, EconomicState.CANCELLED},
+    EconomicState.AGREED: {EconomicState.ACTIVE, EconomicState.CANCELLED},
+    EconomicState.ACTIVE: {EconomicState.TERMINATED, EconomicState.MATURED},
 }
 
 
 @dataclass(frozen=True)
 class TradeLifecycle:
     trade_id: str
-    state: TradeState
+    economic_state: EconomicState
+    confirmation_matched: bool = False
 
-    def transition(self, new_state: TradeState) -> "TradeLifecycle":
-        allowed = ALLOWED_TRANSITIONS.get(self.state, set())
+    def transition(self, new_state: EconomicState) -> "TradeLifecycle":
+        allowed = ALLOWED_TRANSITIONS.get(self.economic_state, set())
         if new_state not in allowed:
-            raise ValueError(f"cannot move {self.trade_id} from {self.state.value} to {new_state.value}")
-        return replace(self, state=new_state)
+            raise ValueError(
+                f"cannot move {self.trade_id} from "
+                f"{self.economic_state.value} to {new_state.value}"
+            )
+        return replace(self, economic_state=new_state)
 
 
-trade = TradeLifecycle("FX-1001", TradeState.QUOTED)
-trade = trade.transition(TradeState.EXECUTED)
-trade = trade.transition(TradeState.BOOKED)
+trade = TradeLifecycle("FX-1001", EconomicState.QUOTED)
+trade = trade.transition(EconomicState.AGREED)
+trade = trade.transition(EconomicState.ACTIVE)
+trade = replace(trade, confirmation_matched=True)
 ```
+
+Settlement belongs on each cashflow, not as a universal terminal trade state. A swap can have one coupon marked `PAID` while later coupons remain `PROJECTED`; once the trade is active, termination or maturity closes its economic state.
 
 ## References and Further Reading
 - CLS settlement and payment-versus-payment educational material
-- ISDA confirmation, collateral, and lifecycle-event documentation
+- [2002 ISDA Master Agreement](https://www.isda.org/a/XZEDE/2002-ISDA-Master-Agreement-English.pdf), especially section 9(e) on agreement and confirmation of transactions
+- ISDA collateral and lifecycle-event documentation
 - Exchange and clearing-house product specifications
 - Internal operations, settlement, and trade-control standards

@@ -22,18 +22,26 @@ The market structure layer matters: auctions, fragmented venues, dark pools, mar
 
 ## Quoting and Market Conventions
 - Prices are quoted per share; risk and PnL depend on lot size and position size.
-- Total return includes dividends, splits, rights, spin-offs, and financing costs for shorts.
+- Holding-period total return includes price change plus distributions and corporate actions, with financing and stock-borrow economics added separately for a funded position.
 - Short inventory and borrow fees materially affect realized economics.
 - Benchmark-relative language is common: beta, active weight, tracking error, sector neutrality.
 
 ## Core Pricing Framework
 For cash equities, the "model" is usually not a stochastic pricing equation. It is an economic ledger that must not lose or double-count anything.
 
-For many applications, the "pricing model" is simply marked market value plus corporate actions and financing:
+The point-in-time marked market value is simply:
 
 $$
-\text{EquityValue}_t = N_t \cdot S_t + \text{AccruedDividends} - \text{FinancingCost}
+\text{MarketValue}_t = N_t S_t.
 $$
+
+That snapshot is different from cumulative economics. For an unchanged long share quantity over a holding period, a simple ledger is:
+
+$$
+\text{PnL}_{0,t}=N(S_t-S_0)+\text{cash distributions}+\text{corporate-action cash}-\text{financing and fees}.
+$$
+
+Trades, splits, rights, spin-offs, taxes, and short borrow require explicit quantity and cash-ledger entries rather than being folded into the current market value.
 
 What matters is not closed-form valuation but the consistency of:
 - adjusted vs unadjusted prices,
@@ -45,7 +53,7 @@ What matters is not closed-form valuation but the consistency of:
 Factor models and cost models turn cash equities into a risk and optimization problem rather than a derivative-pricing problem.
 
 ## Worked Instrument Example: Long And Short Stock
-Assume a portfolio buys 1,000 shares at $50. The stock later trades at $56 and pays a $0.40 dividend per share during the holding period.
+Assume a portfolio buys 1,000 shares at USD 50. The stock later trades at USD 56 and pays a USD 0.40 dividend per share during the holding period.
 
 The long-position PnL is:
 
@@ -53,13 +61,13 @@ $$
 1{,}000 \times (56 - 50 + 0.40) = 6{,}400
 $$
 
-If the stock instead falls to $45 with the same dividend:
+If the stock instead falls to USD 45 with the same dividend:
 
 $$
 1{,}000 \times (45 - 50 + 0.40) = -4{,}600
 $$
 
-For a short position of 1,000 shares initiated at $50 and covered at $45, the price move is profitable, but the trader may owe the dividend and borrow cost:
+For a short position of 1,000 shares initiated at USD 50 and covered at USD 45, the price move is profitable, but the trader may owe the dividend and borrow cost:
 
 $$
 1{,}000 \times (50 - 45 - 0.40) - \text{borrow cost}

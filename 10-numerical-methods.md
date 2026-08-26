@@ -138,30 +138,44 @@ Minimum checks:
 
 ## Illustrative Code
 ```python
+from dataclasses import dataclass
 import math
 import random
 
 
-def monte_carlo_call(spot: float, strike: float, expiry: float, rate: float, vol: float, paths: int, seed: int = 0) -> float:
-    if paths <= 0:
-        raise ValueError("paths must be positive")
+@dataclass(frozen=True)
+class MonteCarloEstimate:
+    price: float
+    standard_error: float
+    paths: int
+
+
+def monte_carlo_call(spot: float, strike: float, expiry: float, rate: float, vol: float, paths: int, seed: int = 0) -> MonteCarloEstimate:
+    if not all(math.isfinite(value) for value in (spot, strike, expiry, rate, vol)):
+        raise ValueError("model inputs must be finite")
+    if spot <= 0.0 or strike <= 0.0:
+        raise ValueError("spot and strike must be positive")
+    if expiry < 0.0 or vol < 0.0:
+        raise ValueError("expiry and volatility cannot be negative")
+    if paths < 2:
+        raise ValueError("at least two paths are required to estimate standard error")
     rng = random.Random(seed)
     discount = math.exp(-rate * expiry)
     drift = (rate - 0.5 * vol * vol) * expiry
     diffusion = vol * math.sqrt(expiry)
-    payoff_sum = 0.0
-    simulated_paths = 0
+    mean = 0.0
+    sum_squared_deviations = 0.0
 
-    for _ in range((paths + 1) // 2):
+    for count in range(1, paths + 1):
         z = rng.gauss(0.0, 1.0)
-        for shock in (z, -z):
-            if simulated_paths == paths:
-                break
-            terminal = spot * math.exp(drift + diffusion * shock)
-            payoff_sum += max(terminal - strike, 0.0)
-            simulated_paths += 1
+        terminal = spot * math.exp(drift + diffusion * z)
+        discounted_payoff = discount * max(terminal - strike, 0.0)
+        delta = discounted_payoff - mean
+        mean += delta / count
+        sum_squared_deviations += delta * (discounted_payoff - mean)
 
-    return discount * payoff_sum / simulated_paths
+    sample_variance = sum_squared_deviations / (paths - 1)
+    return MonteCarloEstimate(mean, math.sqrt(sample_variance / paths), paths)
 ```
 
 ## References and Further Reading

@@ -27,6 +27,7 @@ lgd = 0.60
 discount_factor = 1.00
 
 cva = exposure * marginal_default_probability * lgd * discount_factor
+assert abs(cva - 12_000.0) < 1e-12
 ```
 
 Interpretation:

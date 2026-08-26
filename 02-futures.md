@@ -33,17 +33,19 @@ $$
 F_0(T) = S_0 e^{(r + u - y)T}
 $$
 
-where $u$ is storage or financing cost and $y$ is income or convenience yield. Variants:
+where $r$ is the funding rate, $u$ is a non-financing storage or carry cost, and $y$ is income or convenience yield. Keeping funding out of $u$ prevents double-counting it. Variants:
 - equity index forward: carry comes from funding minus dividends,
 - FX forward: carry comes from domestic minus foreign rates,
 - commodity forward: storage and convenience yield dominate,
 - futures on margined exchanges may differ from forwards due to daily settlement and convexity effects.
 
+$F_0(T)$ is the delivery price that makes a newly initiated forward worth zero. It is not the later mark-to-market value of that contract. If the contracted delivery price is $K$, a simple long-forward value at time $t$ is $P(t,T)[F_t(T)-K]$; product settlement and collateral conventions may modify that expression.
+
 For fixed-income futures, the core pricing object is often the implied repo or cheapest-to-deliver package rather than a clean carry formula.
 
 ## Worked Instrument Example: Equity Index Future
 Assume an equity index future is bought at 5,000 with:
-- contract multiplier: $50 per index point,
+- contract multiplier: USD 50 per index point,
 - position size: 10 contracts,
 - current futures price after one week: 5,080.
 
