@@ -59,6 +59,67 @@ Modern systems separate:
 
 This changes architecture. A trade no longer depends on "the rate curve" but on a dependency graph of curves and conventions.
 
+### Curve Construction Between Market Nodes: Interpolation Versus Fitting
+Market quotes arrive at a finite set of maturities, but a trade can pay on almost any date. If the curve has solved 5-year and 10-year nodes, a cashflow at 7.3 years still needs a discount factor. The off-node rule is therefore part of the pricing model, not a cosmetic chart setting. In a sequential bootstrap, the rule is evaluated while later nodes are being solved, so bootstrapping and interpolation are coupled.
+
+For continuously compounded zero rates, the core representations are linked by:
+
+$$
+P(0,T)=e^{-z(T)T},
+\qquad
+z(T)=-\frac{\log P(0,T)}{T},
+\qquad
+f(0,T)=-\frac{\partial \log P(0,T)}{\partial T}
+=z(T)+Tz'(T).
+$$
+
+These identities use one stated compounding convention. A production curve may expose several quote conventions, but it must transform them into one internally consistent state before interpolation.
+
+An **interpolator** passes through the constructed nodes in its selected variable. A **curve fit** estimates a smooth or parsimonious representation and may leave residuals at those observations. Neither label determines quality by itself: pricing curves normally require quote repricing within tolerance, while fitted curves can be useful for estimation, reporting, or deliberately smoothing noisy observations.
+
+| Method | Contract between nodes | Implied-forward and risk behavior |
+| --- | --- | --- |
+| Piecewise-linear zero rate | Interpolate \(z(T)\), then derive \(P(0,T)\) | Zero rates are continuous, but changes in slope generally make \(f(0,T)=z(T)+Tz'(T)\) jump at knots. |
+| Log-linear discount factor | Interpolate \(\log P(0,T)\) | Discount factors remain positive and the instantaneous forward is constant inside each interval, with possible jumps at knots. |
+| Piecewise-linear discount factor | Interpolate \(P(0,T)\) directly | Positive endpoint discount factors remain positive between adjacent nodes; \(f(0,T)=-P'(0,T)/P(0,T)\) varies inside the interval and can jump when the segment slope changes. |
+| Natural cubic spline | Join cubic pieces and impose zero second derivative at the endpoints in the selected variable | The selected variable is twice continuously differentiable, but the endpoint condition is numerical rather than financial; overshoot and implausible derived forwards remain possible. |
+| Monotone cubic / PCHIP | Use local slopes to preserve monotone data shape in the selected variable | Reduces spline overshoot and is local, but shape preservation of zero rates or discount factors does not by itself guarantee a well-behaved forward curve. |
+| B-spline basis | Represent the curve with basis functions and chosen knots | Can underpin exact interpolation or penalized/least-squares fitting. Degree, knots, boundary conditions, and smoothing penalty determine locality and stability. |
+| Forward-based monotone-convex construction | Build the curve from interval forwards with explicit shape controls | Designed to control forward behavior more directly, but still requires discount-factor positivity, a stated continuity class, quote repricing, and bump-stability tests for the actual input set. |
+| Nelson-Siegel / Svensson | Estimate a small set of global level, slope, curvature, and decay parameters | Produces a smooth parametric fit and usually does not pass through every observation exactly. Parameter and residual stability matter as much as appearance. |
+
+![Yield-curve interpolation and implied-forward impact](assets/yield-curve-interpolation-forward-impact.svg)
+
+#### Worked Off-Node Story: Pricing At 7.3 Years
+Take synthetic continuously compounded zero-rate nodes of 3.40% at 5 years and 3.55% at 10 years. At 7.3 years, the interval weight is \(w=(7.3-5)/(10-5)=0.46\).
+
+Linear interpolation in zero-rate space gives:
+
+$$
+z_{\text{linear zero}}(7.3)
+=3.40\%+0.46(3.55\%-3.40\%)
+=3.469\%,
+$$
+
+and therefore \(P(0,7.3)=e^{-0.03469\times7.3}\approx0.776284\). Log-linear discount-factor interpolation instead uses \(\log P(0,5)=-0.1700\) and \(\log P(0,10)=-0.3550\):
+
+$$
+\log P(0,7.3)=-0.1700+0.46(-0.3550+0.1700)=-0.2551,
+$$
+
+so \(P(0,7.3)\approx0.774839\) and \(z(7.3)\approx3.4945\%\). Both methods reproduce the two nodes exactly, yet their off-node zero rates differ by about 2.55 basis points. On this interval, log-linear discount factors imply a constant 3.70% instantaneous forward, while linear zero rates imply 3.688% at 7.3 years and a forward that changes across the interval.
+
+The difference does not prove that one method is universally closer to an unobservable true curve. It proves that the interpolation space is a model choice with PV and risk consequences. The complete arithmetic and executable checks are in [examples/yield-curve-interpolation-comparison.md](examples/yield-curve-interpolation-comparison.md).
+
+A controlled construction workflow tells the story in this order:
+
+1. Define instruments, calendars, compounding, day counts, and the internal curve variable.
+2. Bootstrap nodes with the interpolator active, then reprice every calibration instrument to its market quote within tolerance.
+3. Inspect discount factors, zero rates, and forwards together. Require positive discount factors; do not impose decreasing discount factors blindly because negative forward rates can make them rise over an interval.
+4. Bump one market quote, rebuild the whole curve, and inspect node Jacobians, locality, PV, and PV01 for discontinuities or unstable amplification.
+5. Specify extrapolation independently from interpolation and stress the first and last liquid points.
+6. For fitted curves, report quote residuals and parameter stability rather than presenting visual smoothness as validation.
+
 ### Derivative Pricing
 - Vanilla swaps: discounted cashflows using projected floating coupons.
 - Caps and floors: caplets and floorlets priced with Black or Bachelier style formulas on forward rates.
@@ -167,6 +228,9 @@ Useful implementation split:
 Minimum checks:
 - bootstrap instruments reprice within tolerance,
 - discount factors stay positive, and any increase with maturity is consistent with the curve's negative-forward-rate region rather than a bootstrap defect,
+- zero rates, discount factors, and implied forwards remain finite and economically explainable under the selected interpolation policy,
+- single-quote bumps produce stable curve Jacobians, PV, and PV01 rather than unexplained non-local oscillation,
+- extrapolation remains controlled beyond the first and last liquid nodes,
 - par swap rates reconstructed from the curve match input quotes,
 - risk on a receive-fixed swap has sensible sign under parallel rate bumps,
 - fallback or fixing-sensitive trades reprice correctly across fixing dates.
@@ -202,4 +266,7 @@ def vasicek_short_rate_step(rate: float, mean_reversion: float, long_run_mean: f
 - Brigo and Mercurio. *Interest Rate Models*
 - Andersen and Piterbarg. *Interest Rate Modeling*
 - Henrard. *Interest Rate Modelling in the Multi-Curve Framework*
+- Hagan and West. [*Interpolation Methods for Curve Construction*](https://bank.uni-hohenheim.de/uploads/media/Hagan_and_West__2006__-_Interpolation_Methods_for_Curve_Construction.pdf).
+- Fritsch and Carlson. [“Monotone Piecewise Cubic Interpolation”](https://doi.org/10.1137/0717021).
+- European Central Bank. [*Technical Notes: Theoretical Background of the Yield Curve Methodology*](https://www.ecb.europa.eu/stats/financial_markets_and_interest_rates/euro_area_yield_curves/shared/pdf/technical_notes.pdf), including the Nelson-Siegel-Svensson specification.
 - Hagan et al. on SABR and practical smile modelling

@@ -51,6 +51,8 @@ Interpolation space matters. Examples:
 - linear in total variance,
 - monotone cubic or arbitrage-aware spline variants.
 
+The variable and method together define the model contract. Smoothness in one representation does not ensure smoothness or sensible shape in a derived representation: for example, a continuous zero curve can imply jumps in instantaneous forwards. Exact interpolation is also different from global curve fitting. The rates-specific derivation, method comparison, worked 7.3-year example, and controls are in [06-interest-rates.md](06-interest-rates.md#curve-construction-between-market-nodes-interpolation-versus-fitting).
+
 ### Trees And PDE
 Trees and PDE methods work best when the state dimension is low and exercise or boundary behavior matters. Key ideas:
 - stable grids,

@@ -171,7 +171,9 @@ y\geq0,
 1+\frac{\xi y}{\beta}>0.
 $$
 
-For $\xi=0$, the continuous limit is $G(y)=1-\exp(-y/\beta)$. The shape parameter $\xi$ controls tail behavior: $\xi>0$ gives an unbounded heavy tail, $\xi=0$ gives an exponential-type tail, and $\xi<0$ gives a finite upper endpoint. The GPD mean exists only for $\xi<1$ and its variance only for $\xi<1/2$; a fitted value outside those ranges is a warning about which summaries are mathematically defined, not a software error to suppress.
+For $\xi=0$, the continuous limit is $G(y)=1-\exp(-y/\beta)$. The shape parameter $\xi$ controls tail behavior: $\xi>0$ gives an unbounded heavy tail, $\xi=0$ gives an exponential-type tail, and $\xi<0$ gives a finite maximum excess $-\beta/\xi$ and therefore a fitted loss endpoint $u-\beta/\xi$. The GPD mean exists only for $\xi<1$ and its variance only for $\xi<1/2$; a fitted value outside those ranges is a warning about which summaries are mathematically defined, not a software error to suppress.
+
+![Peaks-over-threshold generalized Pareto workflow](assets/gpd-peaks-over-threshold.svg)
 
 If the empirical threshold-exceedance probability is $p_u=N_u/N$, then for $x>u$:
 
@@ -181,6 +183,8 @@ P(L>x)
 p_u
 \left(1+\frac{\xi(x-u)}{\beta}\right)^{-1/\xi}.
 $$
+
+For $\xi=0$, the continuous limit is $P(L>x)\approx p_u\exp(-(x-u)/\beta)$.
 
 For a confidence level $\alpha>1-p_u$ and $\xi\neq0$, this gives the tail quantile:
 
@@ -217,12 +221,12 @@ Suppose 1,000 comparable daily losses contain 50 observations above a USD 2.0 mi
 The calculation is a model-based extrapolation, not a claim that a USD 4.17 million average has been directly observed. The threshold creates a bias-variance trade-off: too low contaminates the tail fit with ordinary observations; too high leaves too little data. A production workflow therefore tells the story in this order:
 
 1. Align positions, loss definition, horizon, and sampling regime.
-2. Explore several high thresholds using mean-excess and parameter-stability plots; do not select one solely because it gives the desired capital number.
-3. Fit $\xi$ and $\beta$, check support, residual diagnostics, and uncertainty, and account for clustered extremes or changing volatility.
+2. Explore several high thresholds. Look for an approximately linear mean-residual-life plot and stability of $\xi$ and the threshold-adjusted scale $\beta_u-\xi u$; raw $\beta_u$ is expected to change as the threshold changes. Do not select one threshold solely because it gives the desired capital number.
+3. Fit $\xi$ and $\beta$ with a constrained method such as maximum likelihood, check support and residual diagnostics, and show uncertainty using profile likelihood or an appropriate bootstrap.
 4. Recalculate VaR and ES across plausible thresholds and estimation methods.
 5. Backtest quantile exceedances and compare the result with empirical losses and named stress scenarios.
 
-GPD fitting does not manufacture information about unprecedented mechanisms, broken liquidity, changing positions, or dependence across desks. Confidence intervals can be wide because only the tail observations identify the model. Report the threshold, exceedance count, parameter uncertainty, and sensitivity alongside the point estimate.
+The classical likelihood story treats excesses as identically distributed and sufficiently independent. Volatility clustering or event clusters reduce the effective information in the tail. Depending on the use case, validation may require declustering or extremal-index analysis, a block bootstrap, volatility filtering before POT fitting, and separate regime fits. GPD fitting does not manufacture information about unprecedented mechanisms, broken liquidity, changing positions, or dependence across desks. Confidence intervals can be wide because only the tail observations identify the model. Report the threshold, exceedance count, parameter uncertainty, dependence treatment, and sensitivity alongside the point estimate.
 
 ### Worked Method Example: Normal Parametric VaR And ES
 
@@ -336,7 +340,7 @@ def gpd_tail_var_es(
     shape: float,
     confidence: float,
 ) -> tuple[float, float]:
-    from math import isfinite, log
+    from math import expm1, isfinite, log
 
     if not all(isfinite(value) for value in (threshold, scale, shape)):
         raise ValueError("threshold, scale, and shape must be finite")
@@ -353,7 +357,10 @@ def gpd_tail_var_es(
     if abs(shape) < 1e-12:
         value_at_risk = threshold + scale * log(1.0 / tail_ratio)
     else:
-        value_at_risk = threshold + scale / shape * (tail_ratio ** (-shape) - 1.0)
+        value_at_risk = (
+            threshold
+            + scale / shape * expm1(-shape * log(tail_ratio))
+        )
 
     expected_shortfall = (
         value_at_risk + scale - shape * threshold

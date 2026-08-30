@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="gpd-title gpd-desc">
+  <title id="gpd-title">Peaks-over-threshold generalized Pareto workflow</title>
+  <desc id="gpd-desc">An original diagram showing how large losses above a chosen threshold become excesses for a generalized Pareto tail fit. It summarizes the distribution support, the effect of the shape parameter, an illustrative 99 percent VaR and expected-shortfall calculation, and the validation workflow.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.panel{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.5}.ink{fill:#0f172a}.muted{fill:#475569}.quiet{fill:#64748b}.title{font:700 30px Arial,sans-serif}.subtitle{font:15px Arial,sans-serif}.h{font:700 17px Arial,sans-serif}.body{font:14px Arial,sans-serif}.small{font:12px Arial,sans-serif}.metric{font:700 20px Arial,sans-serif}.axis{stroke:#64748b;stroke-width:1.5}.grid{stroke:#e2e8f0;stroke-width:1}.curve{stroke:#2563eb;stroke-width:3;fill:none}.tail{fill:#ffedd5;stroke:#ea580c;stroke-width:2}.threshold{stroke:#b91c1c;stroke-width:2;stroke-dasharray:7 5}.blue-fill{fill:#eff6ff;stroke:#93c5fd;stroke-width:1.5}.amber-fill{fill:#fffbeb;stroke:#fbbf24;stroke-width:1.5}.rose-fill{fill:#fff1f2;stroke:#fda4af;stroke-width:1.5}.teal-fill{fill:#ecfeff;stroke:#5eead4;stroke-width:1.5}.slate-fill{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.5}.arrow{stroke:#64748b;stroke-width:1.8;fill:none;marker-end:url(#gpd-arrow)}.dot{fill:#ea580c;stroke:#ffffff;stroke-width:1.5}</style>
+    <marker id="gpd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <text class="title ink" x="44" y="50">Peaks over threshold isolates the part of the loss tail being modelled</text>
+  <text class="subtitle muted" x="44" y="76">Schematic distribution and illustrative inputs · a GPD models threshold excesses, not the entire loss history</text>
+
+  <rect class="panel" x="36" y="98" width="542" height="312" rx="14"/>
+  <text class="h ink" x="62" y="130">1. Choose a high loss threshold u</text>
+  <text class="small quiet" x="62" y="151">Only observations with L &gt; u enter the conditional tail fit.</text>
+  <line class="grid" x1="92" y1="205" x2="536" y2="205"/>
+  <line class="grid" x1="92" y1="270" x2="536" y2="270"/>
+  <line class="grid" x1="92" y1="335" x2="536" y2="335"/>
+  <line class="axis" x1="92" y1="356" x2="542" y2="356"/>
+  <line class="axis" x1="92" y1="175" x2="92" y2="356"/>
+  <path class="curve" d="M92 350 C120 336 140 250 184 198 C223 152 270 182 302 235 C333 286 353 322 382 336 C420 352 477 354 536 355"/>
+  <path class="tail" opacity="0.72" d="M360 326 C369 332 376 335 382 336 C420 352 477 354 536 355 L536 356 L360 356 Z"/>
+  <line class="threshold" x1="360" y1="176" x2="360" y2="356"/>
+  <text class="body ink" x="344" y="169">u</text>
+  <text class="small muted" x="108" y="381">ordinary losses</text>
+  <text class="small" x="402" y="381" fill="#9a3412">tail exceedances</text>
+  <text class="small quiet" transform="translate(66 305) rotate(-90)">density</text>
+  <text class="small quiet" x="492" y="381">Loss L</text>
+  <circle class="dot" cx="382" cy="336" r="5"/>
+  <circle class="dot" cx="405" cy="345" r="5"/>
+  <circle class="dot" cx="436" cy="350" r="5"/>
+  <circle class="dot" cx="474" cy="353" r="5"/>
+  <circle class="dot" cx="518" cy="355" r="5"/>
+  <text class="small muted" x="382" y="304">Nᵤ exceedances out of N losses</text>
+
+  <rect class="panel" x="598" y="98" width="566" height="312" rx="14"/>
+  <text class="h ink" x="624" y="130">2. Convert each exceedance and fit the conditional tail</text>
+  <rect class="blue-fill" x="624" y="158" width="138" height="64" rx="10"/>
+  <text class="body ink" x="647" y="184">Large loss</text>
+  <text class="metric ink" x="670" y="209">L &gt; u</text>
+  <path class="arrow" d="M768 190h46"/>
+  <rect class="amber-fill" x="820" y="158" width="152" height="64" rx="10"/>
+  <text class="body ink" x="846" y="184">Excess loss</text>
+  <text class="metric ink" x="852" y="209">Y = L − u</text>
+  <path class="arrow" d="M978 190h46"/>
+  <rect class="teal-fill" x="1030" y="158" width="108" height="64" rx="10"/>
+  <text class="body ink" x="1053" y="184">Fit GPD</text>
+  <text class="small muted" x="1046" y="207">estimate ξ, β</text>
+
+  <rect class="slate-fill" x="624" y="242" width="514" height="76" rx="10"/>
+  <text class="body ink" x="646" y="270">Gξ,β(y) = 1 − (1 + ξy / β)^(−1/ξ)</text>
+  <text class="small muted" x="646" y="294">β &gt; 0, y ≥ 0, and 1 + ξy/β &gt; 0; use the exponential limit when ξ = 0</text>
+
+  <rect class="rose-fill" x="624" y="334" width="154" height="52" rx="9"/>
+  <text class="body ink" x="642" y="356">ξ &lt; 0</text>
+  <text class="small muted" x="642" y="375">finite endpoint</text>
+  <rect class="amber-fill" x="793" y="334" width="154" height="52" rx="9"/>
+  <text class="body ink" x="811" y="356">ξ = 0</text>
+  <text class="small muted" x="811" y="375">exponential tail</text>
+  <rect class="teal-fill" x="962" y="334" width="176" height="52" rx="9"/>
+  <text class="body ink" x="980" y="356">ξ &gt; 0</text>
+  <text class="small muted" x="980" y="375">unbounded heavy tail</text>
+
+  <rect class="panel" x="36" y="430" width="542" height="274" rx="14"/>
+  <text class="h ink" x="62" y="462">3. Connect the fitted tail back to the full sample</text>
+  <text class="body ink" x="62" y="493">pᵤ = Nᵤ / N</text>
+  <text class="small muted" x="175" y="493">empirical probability of crossing u</text>
+  <rect class="slate-fill" x="62" y="512" width="490" height="50" rx="9"/>
+  <text class="body ink" x="80" y="543">P(L &gt; x) ≈ pᵤ · (1 + ξ(x − u)/β)^(−1/ξ),  x &gt; u</text>
+
+  <text class="small quiet" x="62" y="590">Illustrative tail inputs from the chapter</text>
+  <text class="body ink" x="62" y="616">N = 1,000 · Nᵤ = 50 · u = USD 2.0m · β = 0.60m · ξ = 0.20</text>
+  <rect class="blue-fill" x="62" y="636" width="220" height="48" rx="9"/>
+  <text class="small muted" x="78" y="655">99% modelled VaR</text>
+  <text class="metric ink" x="78" y="677">USD 3.14m</text>
+  <rect class="amber-fill" x="300" y="636" width="252" height="48" rx="9"/>
+  <text class="small muted" x="316" y="655">99% modelled ES, valid for ξ &lt; 1</text>
+  <text class="metric ink" x="316" y="677">USD 4.17m</text>
+
+  <rect class="panel" x="598" y="430" width="566" height="274" rx="14"/>
+  <text class="h ink" x="624" y="462">4. Validate the threshold story before using the extrapolation</text>
+  <rect class="blue-fill" x="624" y="486" width="152" height="58" rx="9"/>
+  <text class="small ink" x="643" y="509">Define loss, horizon,</text>
+  <text class="small ink" x="653" y="526">and sampling regime</text>
+  <path class="arrow" d="M781 515h30"/>
+  <rect class="amber-fill" x="816" y="486" width="142" height="58" rx="9"/>
+  <text class="small ink" x="837" y="509">Compare several</text>
+  <text class="small ink" x="843" y="526">high thresholds</text>
+  <path class="arrow" d="M963 515h30"/>
+  <rect class="teal-fill" x="998" y="486" width="140" height="58" rx="9"/>
+  <text class="small ink" x="1017" y="509">Fit ξ and β with</text>
+  <text class="small ink" x="1016" y="526">uncertainty shown</text>
+
+  <rect class="slate-fill" x="624" y="574" width="152" height="58" rx="9"/>
+  <text class="small ink" x="647" y="597">Check support,</text>
+  <text class="small ink" x="642" y="614">residuals, clustering</text>
+  <path class="arrow" d="M781 603h30"/>
+  <rect class="rose-fill" x="816" y="574" width="142" height="58" rx="9"/>
+  <text class="small ink" x="838" y="597">Stress threshold</text>
+  <text class="small ink" x="845" y="614">and estimator</text>
+  <path class="arrow" d="M963 603h30"/>
+  <rect class="blue-fill" x="998" y="574" width="140" height="58" rx="9"/>
+  <text class="small ink" x="1016" y="597">Backtest VaR and</text>
+  <text class="small ink" x="1025" y="614">compare stresses</text>
+
+  <text class="small muted" x="624" y="662">Threshold choice trades bias against variance; visual smoothness is not validation.</text>
+  <text class="small muted" x="624" y="682">A GPD cannot invent unseen mechanisms, liquidity breaks, or cross-desk dependence.</text>
+</svg>

@@ -84,6 +84,22 @@ $$
 
 The mathematical optimum is highly sensitive to \(\mu\). A stable production process normally shrinks expected returns and covariance, limits leverage and concentration, and reports how much each constraint changes the unconstrained answer.
 
+For a target expected return \(\mu_p\), the canonical minimum-variance frontier problem is:
+
+$$
+\begin{aligned}
+\min_w\quad & \frac{1}{2}w^\top\Sigma w \\
+\text{subject to}\quad
+& w^\top\mu=\mu_p, \\
+& \mathbf{1}^\top w=1, \\
+& w_i\geq0\quad\text{when the mandate is long-only}.
+\end{aligned}
+$$
+
+Each constraint-consistent weight vector is feasible. Its expected return is \(w^\top\mu\) and its volatility is \(\sqrt{w^\top\Sigma w}\). The efficient frontier is the upper boundary of feasible risky portfolios: at a given volatility, a portfolio is efficient only when no other feasible portfolio offers a higher expected return. Constraints can introduce corners and kinks, so the feasible region and frontier belong to the mandate, not just to \(\mu\) and \(\Sigma\).
+
+![Markowitz feasible region, efficient frontier, and tangency portfolio](assets/markowitz-efficient-frontier.svg)
+
 #### Worked Markowitz Story: From Feasible Portfolios To A Decision
 
 Suppose Asset A has expected return $6\%$ and volatility $10\%$, while Asset B has expected return $10\%$ and volatility $20\%$. Their correlation is $0.25$, so the covariance matrix is:
@@ -98,7 +114,7 @@ $$
 
 With weights summing to one and no shorting, every convex combination of A and B is feasible. The minimum-variance choice is $87.5\%$ in A and $12.5\%$ in B. It has expected return $6.5\%$ and volatility about $9.68\%$. That is the leftmost feasible point in expected-return/volatility space. The upper branch beginning there is efficient: for each attainable volatility on that branch, no other feasible mix has higher expected return.
 
-Now add a $2\%$ cash rate. Under the same single-period estimates, the maximum-Sharpe risky mix is proportional to $\Sigma^{-1}(\mu-r_f\mathbf 1)$, which normalizes to $66.7\%$ in A and $33.3\%$ in B. Its expected return is about $7.33\%$, volatility $10.54\%$, and estimated Sharpe ratio $0.51$. The line from cash tangent to the risky-asset frontier identifies this mix in the frictionless model.
+Now add a $2\%$ cash rate. Under the same single-period horizon and a frictionless assumption that cash can be borrowed or lent at that rate, the maximum-Sharpe risky mix is proportional to $\Sigma^{-1}(\mu-r_f\mathbf 1)$, which normalizes to $66.7\%$ in A and $33.3\%$ in B. Its expected return is about $7.33\%$, volatility $10.54\%$, and estimated Sharpe ratio $0.51$. The Capital Allocation Line from cash tangent to the risky-asset frontier identifies this mix in the unconstrained model. Borrowing spreads, leverage, shorting, concentration, or turnover constraints can move the optimum and create a kinked boundary for which this closed form no longer applies.
 
 The story ends with a control, not the optimizer: those weights are only as credible as the return, covariance, cash-rate, shorting, leverage, and cost assumptions. A desk should perturb the inputs, inspect binding constraints, add transaction and liquidity costs, and compare the target with the holdings it can actually execute.
 
@@ -427,6 +443,8 @@ assert np.allclose(tangency, [2.0 / 3.0, 1.0 / 3.0])
 assert abs(float(minimum_variance @ worked_returns) - 0.065) < 1e-12
 assert abs(float(np.sqrt(minimum_variance @ worked_covariance @ minimum_variance)) - 0.09682458) < 1e-8
 ```
+
+The two analytical weight functions enforce only the net budget constraint; they do not enforce long-only or other portfolio bounds and can therefore return negative component weights. They also require a positive-definite covariance matrix. A singular positive-semidefinite estimate needs a documented regularization, pseudoinverse policy, or constrained solver. The worked case happens to satisfy the long-only constraint because both computed weights are positive.
 
 This is deliberately small. `gross_two_way_turnover` returns the sum of absolute weight changes. Halving that number to report "one-way turnover" is valid only for a cash-neutral, fully invested rebalance whose buys and sells match; subscriptions, withdrawals, leverage changes, shorts, and residual cash require buy, sell, and gross activity to be reported separately. A production implementation would also version data snapshots, account for trading calendars and execution timing, and distinguish target weights from executed holdings.
 

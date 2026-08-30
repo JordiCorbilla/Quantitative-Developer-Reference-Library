@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" role="img" aria-labelledby="markowitz-title markowitz-desc">
+  <title id="markowitz-title">Markowitz feasible region, efficient frontier, and tangency portfolio</title>
+  <desc id="markowitz-desc">An original schematic of a multi-asset feasible region in expected-return and volatility space. It labels the global minimum-variance portfolio, the inefficient boundary, the efficient frontier, a risk-free rate, a Capital Allocation Line, and the tangency portfolio. A separate card reports the exact two-asset worked example from the chapter.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.panel{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.5}.ink{fill:#0f172a}.muted{fill:#475569}.quiet{fill:#64748b}.title{font:700 30px Arial,sans-serif}.subtitle{font:15px Arial,sans-serif}.h{font:700 17px Arial,sans-serif}.body{font:14px Arial,sans-serif}.small{font:12px Arial,sans-serif}.metric{font:700 19px Arial,sans-serif}.axis{stroke:#64748b;stroke-width:1.5}.grid{stroke:#e2e8f0;stroke-width:1}.region{fill:#dbeafe;stroke:#93c5fd;stroke-width:1.5}.frontier{stroke:#2563eb;stroke-width:4;fill:none}.inefficient{stroke:#94a3b8;stroke-width:2.5;fill:none;stroke-dasharray:8 6}.cal{stroke:#d97706;stroke-width:3;fill:none}.point{fill:#ffffff;stroke:#0f172a;stroke-width:2}.tangent{fill:#d97706;stroke:#ffffff;stroke-width:2}.asset{fill:#64748b;stroke:#ffffff;stroke-width:1.5}.blue-fill{fill:#eff6ff;stroke:#93c5fd;stroke-width:1.5}.amber-fill{fill:#fffbeb;stroke:#fbbf24;stroke-width:1.5}.teal-fill{fill:#ecfeff;stroke:#5eead4;stroke-width:1.5}.slate-fill{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.5}</style>
+  </defs>
+  <rect class="bg" width="1200" height="740"/>
+  <text class="title ink" x="44" y="50">Markowitz turns a portfolio mandate into a feasible risk–return boundary</text>
+  <text class="subtitle muted" x="44" y="76">Multi-asset geometry is schematic · the two-asset worked metrics at right are calculated exactly</text>
+
+  <rect class="panel" x="36" y="98" width="760" height="606" rx="14"/>
+  <text class="h ink" x="62" y="131">Expected return versus portfolio volatility</text>
+  <text class="small quiet" x="62" y="152">A filled feasible region requires three or more independent risky assets; two risky assets trace a curve.</text>
+
+  <line class="grid" x1="104" y1="225" x2="748" y2="225"/>
+  <line class="grid" x1="104" y1="335" x2="748" y2="335"/>
+  <line class="grid" x1="104" y1="445" x2="748" y2="445"/>
+  <line class="grid" x1="104" y1="555" x2="748" y2="555"/>
+  <line class="axis" x1="104" y1="630" x2="752" y2="630"/>
+  <line class="axis" x1="104" y1="176" x2="104" y2="630"/>
+  <text class="small quiet" x="594" y="661">Portfolio volatility σₚ</text>
+  <text class="small quiet" transform="translate(68 405) rotate(-90)">Expected return μₚ</text>
+
+  <path class="region" d="M250 460 C310 380 370 320 430 275 C520 208 620 165 720 145 C681 254 626 390 540 505 C430 605 310 570 250 460 Z"/>
+  <path class="frontier" d="M250 460 C310 380 370 320 430 275 C520 208 620 165 720 145"/>
+  <path class="inefficient" d="M250 460 C310 570 430 605 540 505 C626 390 681 254 720 145"/>
+
+  <circle class="asset" cx="400" cy="470" r="7"/>
+  <circle class="asset" cx="475" cy="390" r="7"/>
+  <circle class="asset" cx="555" cy="325" r="7"/>
+  <circle class="asset" cx="610" cy="265" r="7"/>
+  <text class="small quiet" x="488" y="448">mandate-compliant</text>
+  <text class="small quiet" x="508" y="466">feasible portfolios</text>
+
+  <path class="cal" d="M104 560 L610 118"/>
+  <circle class="point" cx="104" cy="560" r="6"/>
+  <text class="body ink" x="119" y="566">risk-free rate r<tspan baseline-shift="sub" font-size="10">f</tspan></text>
+  <circle class="point" cx="250" cy="460" r="7"/>
+  <text class="body ink" x="174" y="486">global minimum variance</text>
+  <circle class="tangent" cx="430" cy="275" r="8"/>
+  <text class="body ink" x="447" y="272">tangency portfolio</text>
+  <text class="small" x="505" y="161" fill="#1d4ed8">efficient frontier</text>
+  <text class="small quiet" x="390" y="574">inefficient boundary</text>
+  <text class="small" x="226" y="323" fill="#9a3412" transform="rotate(-41 226 323)">Capital Allocation Line</text>
+
+  <rect class="panel" x="816" y="98" width="348" height="178" rx="14"/>
+  <text class="h ink" x="840" y="130">Canonical frontier problem</text>
+  <rect class="slate-fill" x="840" y="149" width="300" height="103" rx="9"/>
+  <text class="body ink" x="859" y="175">min  ½ wᵀΣw</text>
+  <text class="small muted" x="859" y="198">subject to  wᵀμ = μₚ</text>
+  <text class="small muted" x="859" y="218">1ᵀw = 1</text>
+  <text class="small muted" x="859" y="238">and wᵢ ≥ 0 when the mandate is long-only</text>
+
+  <rect class="panel" x="816" y="296" width="348" height="206" rx="14"/>
+  <text class="h ink" x="840" y="328">How to read the geometry</text>
+  <rect class="blue-fill" x="840" y="349" width="300" height="56" rx="9"/>
+  <text class="small ink" x="857" y="372">Efficient = no feasible portfolio has more</text>
+  <text class="small ink" x="857" y="389">expected return at the same volatility.</text>
+  <rect class="amber-fill" x="840" y="420" width="300" height="58" rx="9"/>
+  <text class="small ink" x="857" y="443">The Capital Allocation Line supports the</text>
+  <text class="small ink" x="857" y="460">maximum-Sharpe risky mix only under the</text>
+  <text class="small ink" x="857" y="475">stated frictionless, unconstrained assumptions.</text>
+
+  <rect class="panel" x="816" y="522" width="348" height="182" rx="14"/>
+  <text class="h ink" x="840" y="554">Exact two-asset worked story</text>
+  <text class="small quiet" x="840" y="574">Separate from the schematic multi-asset region</text>
+  <rect class="teal-fill" x="840" y="591" width="142" height="88" rx="9"/>
+  <text class="small muted" x="857" y="612">Minimum variance</text>
+  <text class="metric ink" x="857" y="636">87.5% / 12.5%</text>
+  <text class="small ink" x="857" y="655">return 6.50%</text>
+  <text class="small ink" x="857" y="671">volatility 9.68%</text>
+  <rect class="blue-fill" x="998" y="591" width="142" height="88" rx="9"/>
+  <text class="small muted" x="1015" y="612">Tangency at r<tspan baseline-shift="sub" font-size="9">f</tspan> = 2%</text>
+  <text class="metric ink" x="1015" y="636">66.7% / 33.3%</text>
+  <text class="small ink" x="1015" y="655">return 7.33%</text>
+  <text class="small ink" x="1015" y="671">vol 10.54% · Sharpe 0.51</text>
+</svg>

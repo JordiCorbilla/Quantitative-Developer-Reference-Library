@@ -60,6 +60,7 @@
 - **Earnings per share (EPS)**: Profit attributable to common shareholders divided by weighted average common shares; diluted EPS reflects potential share-count dilution.
 - **Event time**: Time an event occurred in the source domain, distinct from when it was published, received, or processed.
 - **Elastic net**: Linear-model regularization combining lasso's \(L_1\) penalty with ridge's \(L_2\) penalty.
+- **Efficient frontier**: Upper boundary of mandate-feasible risky portfolios in expected-return/volatility space; at a given volatility, no feasible portfolio on the frontier has a higher expected return.
 - **Engle-Granger procedure**: Two-step cointegration method estimating a long-run relation and testing its fitted residual for a unit root with appropriate critical values.
 - **EWMA volatility**: Exponentially weighted moving-average variance estimate whose decay parameter is tied to the sampling frequency.
 - **Expected Shortfall (ES)**: Average of the worst specified probability mass of a loss distribution; with discrete mass at VaR, the boundary mass must be included fractionally as required by the declared quantile convention.
@@ -80,7 +81,9 @@
 - **Gamma**: Sensitivity of delta to the underlying.
 - **Gamma scalping**: Dynamic delta-hedging of a gamma position to realize pathwise hedge PnL; profitability still depends on theta, volatility, jumps, surface moves, and trading costs.
 - **Gaussian mixture model**: Weighted mixture of Gaussian component distributions used for flexible density or regime approximation; component labels are not intrinsically stable.
+- **Generalized Pareto distribution (GPD)**: Distribution used in a peaks-over-threshold model for excesses above a high threshold; its shape parameter controls whether the fitted tail has a finite endpoint, exponential limit, or unbounded heavy tail.
 - **Gerber co-movement statistic**: Robust dependence measure that counts joint threshold exceedances and ignores small central moves; its threshold and estimator variant must be stated.
+- **Global minimum-variance (GMV) portfolio**: Feasible risky portfolio with the lowest variance under the declared funding, shorting, leverage, and other constraints.
 
 ## H
 - **HAR-RV**: Heterogeneous autoregressive realized-volatility model combining daily, weekly, and monthly realized-variance components.
@@ -127,6 +130,7 @@
 
 ## N
 - **Naive Bayes**: Probabilistic classifier combining class priors and conditionally independent feature likelihoods; correlated features can double-count evidence.
+- **Nelson-Siegel-Svensson model**: Parsimonious global yield-curve fit using level, slope, curvature, and decay terms; it is not an exact interpolator unless a separate calibration contract makes it one.
 - **Neural network**: Layered nonlinear function approximator whose architecture, inputs, targets, regularization, training data, and deployment controls determine its economic meaning.
 
 ## O
@@ -140,6 +144,8 @@
 - **PD**: Probability of Default over a specified horizon and default definition.
 - **PCA**: Principal component analysis, an orthogonal variance-decomposition method whose loadings can rotate across windows and need not be predictive.
 - **Pairs trade**: Long-short relative-value position built from two related securities and a declared hedge relation, usually seeking convergence of a fitted residual rather than predicting either standalone price.
+- **PCHIP**: Piecewise cubic Hermite interpolating polynomial that preserves monotone shape in the selected input variable; it does not automatically make derived forwards or other transformed quantities arbitrage-free.
+- **Peaks over threshold (POT)**: Extreme-value workflow that selects observations above a high threshold, models their excesses with a GPD, and reconnects the conditional fit to the empirical exceedance probability.
 - **PFE**: Potential future exposure, a high-quantile estimate of counterparty exposure over a future horizon under stated netting, collateral, and simulation assumptions.
 - **PIPE**: Private investment in public equity, often used to finance a transaction or recapitalization and subject to negotiated terms, registration mechanics, and dilution.
 - **Point-in-time data**: Historical data stored with enough timing and version information to reproduce what was knowable at each decision date.
@@ -184,6 +190,7 @@
 
 ## T
 - **Tail dependence**: Limiting tendency for variables to experience joint extreme quantile events; upper and lower tails may differ.
+- **Tangency portfolio**: Risky portfolio maximizing the estimated Sharpe ratio relative to a stated cash rate in the applicable unconstrained or constrained opportunity set.
 - **Theta**: Sensitivity of option value to time passage under a specified model or market-data roll convention.
 - **Temporal CNN**: Causal convolutional sequence model whose receptive field, dilation, padding, and mask must prevent future-data leakage.
 - **Through-the-cycle PD**: PD estimate smoothed across the economic cycle for long-run risk views.
@@ -204,3 +211,6 @@
 
 ## W
 - **Warrant**: Security giving the holder the right to buy an issuer's shares under contractual strike, expiry, adjustment, redemption, and exercise terms.
+
+## Y
+- **Yield-curve interpolation**: Rule for obtaining off-node discount factors, zero rates, or forwards from constructed curve nodes; the interpolated variable, method, and extrapolation policy jointly affect price and risk.

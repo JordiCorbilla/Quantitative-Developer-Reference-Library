@@ -81,11 +81,15 @@ Common questions:
 - Duration vs convexity.
 - How does a vanilla interest-rate swap price?
 - Why do modern systems use multiple curves?
+- Why does the interpolated yield-curve variable matter?
+- How does exact interpolation differ from Nelson-Siegel or Svensson curve fitting?
 - Compare Vasicek, CIR, Hull-White, and LMM.
 
 Good answers mention:
 - schedules, day count, calendars,
 - projection vs discount curves,
+- discount-factor, continuously compounded zero-rate, and instantaneous-forward relationships,
+- node repricing versus fit residuals, forward-shape implications, and extrapolation policy,
 - PV01/key-rate risk,
 - fixing and reset mechanics,
 - model purpose: short-rate intuition, positivity, curve fit, or term-structure dynamics.
@@ -168,6 +172,7 @@ Common questions:
 - Why can PnL explain leave a residual?
 - What is wrong with relying only on VaR?
 - Compare historical, parametric, Monte Carlo, and filtered historical VaR.
+- How does peaks-over-threshold GPD modelling estimate losses beyond a high threshold?
 - Why does Expected Shortfall need enough tail observations and a declared quantile convention?
 
 Good answers mention:
@@ -175,6 +180,7 @@ Good answers mention:
 - full revaluation vs sensitivity approximation,
 - empirical shocks versus distributional assumptions and simulated scenarios,
 - position population, horizon, loss sign, interpolation, tail sample size, and model uncertainty,
+- the POT threshold bias-variance trade-off, GPD shape and scale, dependence treatment, and threshold stability,
 - backtesting exceptions,
 - tail severity and stress scenarios,
 - residual/idiosyncratic risk.

@@ -47,6 +47,7 @@ These examples are focused and self-contained. They connect formulas to implemen
 - [portfolio-risk-budgeting.md](portfolio-risk-budgeting.md) - calculate inverse-volatility weights and equal risk contributions in a controlled case.
 - [order-book-impact-tradeoff.md](order-book-impact-tradeoff.md) - compare temporary-impact exposure, remaining inventory, and displayed imbalance.
 - [parametric-monte-carlo-var.md](parametric-monte-carlo-var.md) - reconcile normal parametric VaR/ES with a seeded Monte Carlo estimate.
+- [yield-curve-interpolation-comparison.md](yield-curve-interpolation-comparison.md) - compare linear-zero and log-linear-discount-factor interpolation at an off-node maturity.
 
 ## How To Use
 - Treat the numbers as sanity-check scaffolding.
