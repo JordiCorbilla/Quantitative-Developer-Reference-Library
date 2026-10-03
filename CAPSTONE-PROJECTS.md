@@ -1,6 +1,6 @@
 # Capstone Projects
 
-These projects turn the reference chapters into reviewable, runnable work. Each capstone should be implemented with synthetic or appropriately licensed data, a versioned input snapshot, automated tests, and a short technical report explaining assumptions and limitations.
+These are six implementation exercise specifications, not completed packages included in the checkout. They turn the reference chapters into reviewable, runnable work when implemented. Each capstone should use synthetic or appropriately licensed data, a versioned input snapshot, automated tests, and a short technical report explaining assumptions and limitations. For calculations that already run, start with the [worked examples](examples/README.md) and [quickstart](QUICKSTART.md).
 
 The objective is not to reproduce a trading strategy. It is to demonstrate that market conventions, valuation, hedging, data lineage, risk, PnL, and production controls can be connected coherently.
 

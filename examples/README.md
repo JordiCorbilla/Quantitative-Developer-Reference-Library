@@ -52,7 +52,11 @@ These examples are focused and self-contained. They connect formulas to implemen
 - [option-greeks-and-earnings-repricing.md](option-greeks-and-earnings-repricing.md) - fully reprice a rising-stock, losing-call scenario and verify Greek derivatives, parity, units, and sign exceptions.
 - [index-divisor-and-weights.md](index-divisor-and-weights.md) - reconcile share quantities, portfolio weights, a split, and a continuity-preserving divisor adjustment.
 
+- [option-tree-convergence.md](option-tree-convergence.md) - independently benchmark European call/put prices with a CRR tree across twelve cases and three resolutions.
+- [curve-bootstrap-and-quote-risk.md](curve-bootstrap-and-quote-risk.md) - calibrate deposit/swap quotes, verify residuals, price off-node cashflows, and rebuild after a quote shock.
+
 ## How To Use
+
 Use the options repricing example to follow a complete question-to-control story; use the other examples to isolate a specific calculation.
 
 - Treat the numbers as sanity-check scaffolding.

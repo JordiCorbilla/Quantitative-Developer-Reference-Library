@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 import sys
 import unicodedata
 import xml.etree.ElementTree as ET
@@ -28,11 +30,23 @@ PYTHON_FENCE_PATTERN = re.compile(r"```python\s*\n(.*?)```", re.DOTALL)
 
 
 def tracked_markdown_files() -> list[Path]:
-    return sorted(
-        path
-        for path in ROOT.rglob("*.md")
-        if ".git" not in path.parts and ".codex-remote-attachments" not in path.parts
-    )
+    # Include proposed additions, but not ignored environments or local notes.
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "*.md"],
+            cwd=ROOT, capture_output=True, check=False,
+        )
+    except FileNotFoundError:
+        result = None
+    if result is not None and result.returncode == 0:
+        return sorted({ROOT / name for name in result.stdout.decode("utf-8").split("\0") if name})
+    # Source archives can be checked without Git metadata.
+    excluded = {".git", ".codex-remote-attachments", ".venv", "venv", "node_modules", "__pycache__"}
+    markdown = []
+    for directory, subdirectories, filenames in os.walk(ROOT):
+        subdirectories[:] = [name for name in subdirectories if name not in excluded]
+        markdown.extend(Path(directory) / name for name in filenames if name.endswith(".md"))
+    return sorted(markdown)
 
 
 def markdown_heading_anchors(text: str) -> set[str]:

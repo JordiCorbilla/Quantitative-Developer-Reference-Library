@@ -109,7 +109,7 @@ $$
 
 so \(P(0,7.3)\approx0.774839\) and \(z(7.3)\approx3.4945\%\). Both methods reproduce the two nodes exactly, yet their off-node zero rates differ by about 2.55 basis points. On this interval, log-linear discount factors imply a constant 3.70% instantaneous forward, while linear zero rates imply 3.688% at 7.3 years and a forward that changes across the interval.
 
-The difference does not prove that one method is universally closer to an unobservable true curve. It proves that the interpolation space is a model choice with PV and risk consequences. The complete arithmetic and executable checks are in [examples/yield-curve-interpolation-comparison.md](examples/yield-curve-interpolation-comparison.md).
+The difference does not prove that one method is universally closer to an unobservable true curve. It proves that the interpolation space is a model choice with PV and risk consequences. The complete arithmetic and executable checks are in [examples/yield-curve-interpolation-comparison.md](examples/yield-curve-interpolation-comparison.md). To start from quotes rather than supplied nodes, follow the [deposit/swap bootstrap and rebuilt quote-risk example](examples/curve-bootstrap-and-quote-risk.md), which verifies every calibration residual before valuing off-node cashflows.
 
 A controlled construction workflow tells the story in this order:
 

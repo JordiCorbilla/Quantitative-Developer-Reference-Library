@@ -181,6 +181,8 @@ def monte_carlo_call(spot: float, strike: float, expiry: float, rate: float, vol
 ```
 
 ## References and Further Reading
+
+For an executable independent-method comparison, see [European tree convergence against Black-Scholes](examples/option-tree-convergence.md). It checks multiple resolutions and rejects invalid risk-neutral probabilities instead of clipping them.
 - Glasserman. *Monte Carlo Methods in Financial Engineering*
 - Duffy. *Finite Difference Methods in Financial Engineering*
 - Joshi. *C++ Design Patterns and Derivatives Pricing*

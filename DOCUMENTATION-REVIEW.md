@@ -46,20 +46,21 @@ Existing short chapters retain their common structure so readers can find conven
 
 ## Reproduce The Checks
 
-From the repository root with the validation dependencies installed:
+Follow the [clean-checkout quickstart](QUICKSTART.md), then run:
 
 ```powershell
-python scripts/validate_docs.py
-python scripts/execute_python_fences.py
+python scripts/check_repository.py
 git diff --check
 ```
 
-The post-review execution set contains 95 Python fences, including the two new standalone examples. Local Markdown heading fragments are now checked as well as target-file existence; Python comments inside fences are excluded from heading counts. The altered Greek SVG was rendered and visually inspected. The documentation CI workflow now also installs the declared example dependencies and runs the execution check; its remote run is separate from the locally completed validation.
+The final execution set contains 97 Python fences across one overview, 48 subject chapters, and 49 standalone worked examples. Local Markdown heading fragments are checked as well as target-file existence; Python comments inside fences are excluded from heading counts. Three tooling regressions check fragment handling, duplicate/code-block headings, and exclusion of environment documentation. The altered Greek SVG was rendered and visually inspected. CI installs the declared dependencies and runs the same release check on Windows and Linux; remote runs are separate from locally completed validation.
 
-Passing code verifies the assertions that were actually written. The options checks exercise mathematical identities and derivative consistency against the chapter implementation; they are not a second independent production pricing engine. Mechanical link checks cover local links, not universal availability or correctness of external references.
+The complete check also passed from a separate copy of the release files, without Git metadata or ignored local notes, using a fresh Python 3.12.14 environment with NumPy 2.5.3 and pandas 3.0.6 installed from the declared requirements. `pip check` reported no broken requirements. Invoking the check from outside that copy verified working-directory independence. The release command rejects optimized Python execution, which would otherwise skip example assertions.
 
-## Remaining Work For A Maintained Reference
+Passing code verifies the assertions that were actually written. The options derivative checks exercise mathematical identities against the chapter implementation. The separate CRR tree benchmark checks twelve call/put cases at 256, 1024, and 4096 steps; the largest final absolute price error was 0.00048820 per underlying unit. The curve bootstrap repriced all four synthetic quotes with maximum absolute rate residual below 5e-17, valued the off-node bond at 0.98305591 per principal unit, and reconciled its five-year quote signed PV01 of -329.4894 with actual upward-bump PnL of -329.4632 on one million principal. These are bounded model checks, not production engine certification. Mechanical link checks cover local links, not universal availability or correctness of external references.
+
+## Release Scope And Maintenance
 
 The review is a broad consistency and risk-focused factual pass, not a line-by-line external-source certification. It does not establish that no factual errors remain, that every bibliography entry has been independently verified, or that any strategy has a live edge. Historical blog articles remain snapshots; their counts should not be used as current inventory.
 
-The next depth improvements are independent benchmark engines, complete curve/surface calibration examples with market-quote residuals, runnable capstone implementations, and a claim-level source/version register for jurisdiction- and contract-dependent conventions. Extend these with explicit evidence and failure cases rather than claiming completeness from the number of topics alone.
+The reference release includes an independent European tree benchmark, a complete simplified curve calibration with quote residuals and rebuilt risk, a selected primary-source claim register, and a clean setup/verification path. Capstones are explicitly published as six implementation exercise specifications. The existing volatility and credit examples remain bounded teaching calculations; full production surface/credit calibration and completed capstone platforms are extensions to this reference, not undisclosed artifacts promised by this release. Maintain source versions and executable controls together through the contribution process.

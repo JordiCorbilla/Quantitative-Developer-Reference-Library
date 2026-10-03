@@ -1,5 +1,7 @@
 # Contributing
 
+Start with the [quickstart](QUICKSTART.md). Run `python scripts/check_repository.py` before committing; it performs the documentation, tooling-regression, and executable-example checks. Consult [sources and conventions](SOURCES-AND-CONVENTIONS.md) when changing a consequential formula or product rule.
+
 This repository is a practitioner reference for quant developers. Contributions should make the library clearer, more useful, or more reliable for people building pricing, risk, market data, execution, and portfolio analytics systems.
 
 ## Contribution Standards
@@ -42,9 +44,8 @@ New chapters should follow [CHAPTER-TEMPLATE.md](CHAPTER-TEMPLATE.md). Existing 
 Before opening a PR or committing a large documentation change, run:
 
 ```powershell
-python scripts/validate_docs.py
 python -m pip install -r requirements-validation.txt
-python scripts/execute_python_fences.py
+python scripts/check_repository.py
 ```
 
 The execution check runs repository-authored code from the Markdown files. Review incoming documentation changes before running it on an untrusted branch.

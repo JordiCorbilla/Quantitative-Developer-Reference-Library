@@ -4,6 +4,8 @@ Practical reference material for quant developers, engineering-minded quants, an
 
 Start with [00-overview.md](00-overview.md). It defines the shared notation, discounting language, curve and surface glossary, and the overall map of the library.
 
+Ready to reproduce the calculations? Follow [QUICKSTART.md](QUICKSTART.md) for a clean Python setup and one command that checks the complete reference. The checkout contains executable teaching examples and capstone exercise specifications; it is a reference library rather than a packaged production pricing API.
+
 Read the library through a problem you need to solve. A trader's call loses money even though the stock rises: follow the [options risk story](01-options.md#worked-risk-story-right-on-direction-losing-on-the-call), then [reprice the position](examples/option-greeks-and-earnings-repricing.md). A swap changes value between quoted maturities: follow [curve construction](06-interest-rates.md#curve-construction-between-market-nodes-interpolation-versus-fitting), then reproduce the off-node arithmetic. A backtest looks unusually strong: follow [point-in-time data](40-point-in-time-data-and-event-systems.md) and [research validation](44-robust-portfolio-and-research-validation.md) before trusting the result. Each route moves from a question to assumptions, a calculation, and a control.
 
 ## Project Navigation
@@ -12,7 +14,9 @@ Read the library through a problem you need to solve. A trader's call loses mone
 - [INTERVIEW-GUIDE.md](INTERVIEW-GUIDE.md) - common interview questions and what strong answers should cover
 - [GLOSSARY.md](GLOSSARY.md) - core terms, acronyms, and working definitions
 - [examples/README.md](examples/README.md) - compact worked examples
-- [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md) - runnable project specifications that connect data, valuation, hedging, risk, PnL, and controls
+- [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md) - implementation exercise specifications connecting data, valuation, hedging, risk, PnL, and controls
+- [QUICKSTART.md](QUICKSTART.md) - clean setup, reproducible calculations, and complete verification command
+- [SOURCES-AND-CONVENTIONS.md](SOURCES-AND-CONVENTIONS.md) - reviewed primary sources and contract/model/version boundaries
 - [CONTRIBUTING.md](CONTRIBUTING.md) - contribution rules, style guidance, and quality checks
 - [CHANGELOG.md](CHANGELOG.md) - notable project changes
 - [DOCUMENTATION-REVIEW.md](DOCUMENTATION-REVIEW.md) - dated review scope, factual corrections, options coverage, and limits of validation
@@ -77,12 +81,7 @@ Read the library through a problem you need to solve. A trader's call loses mone
 ## Current Coverage Review
 The library now covers the main building blocks a quant developer usually needs first: probability and statistics; classical time-series and state-space forecasting; statistical arbitrage; factor and systematic signal research; machine learning, deep learning, and reinforcement learning; robust point-in-time validation; options and volatility carry; linear derivatives; cash equities and commodities; FX, rates, credit, and structured products; event, relative-value, and catalyst strategies; historical, parametric, Monte Carlo, and stress risk; portfolio construction; market microstructure and execution; financing; production engineering; lifecycle operations; regulation; and model governance.
 
-The main future direction remains executable depth:
-- more worked end-to-end examples that connect market inputs, pricing, risk, and validation,
-- deeper calibration case studies for curves, volatility surfaces, and credit curves,
-- broader stress-testing examples across market, liquidity, and counterparty risk,
-- crypto and digital-asset market structure if the library scope expands into that asset class,
-- runnable implementations of the specifications in [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md).
+Executable depth includes the [option risk story](examples/option-greeks-and-earnings-repricing.md), [independent tree benchmark](examples/option-tree-convergence.md), [quote-calibrated curve and risk](examples/curve-bootstrap-and-quote-risk.md), and the [full worked-example catalog](examples/README.md). The capstones provide exercises for extending these ideas into complete systems; their implementations are not promised as existing repository artifacts. New asset classes and larger engines can be added through the contribution process.
 
 ## How To Use This Repo
 - Read the overview once, then use chapters as standalone references.

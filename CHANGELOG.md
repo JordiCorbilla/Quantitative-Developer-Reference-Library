@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-03: Reproducible Reference Release
+
+- Added a clean-checkout quickstart and one release check covering documentation, validator regressions, and all executable fences.
+- Added independent CRR price convergence and a deposit/swap bootstrap with calibration residuals, off-node valuation, negative rates, and rebuilt quote risk.
+- Added a reviewed primary-source register and explicit contract/model/version boundaries.
+- Made checks work from another directory, excluded ignored local environments, and configured Windows/Linux CI.
+- Clarified the published capstones as implementation exercises and recorded the final validation scope.
+
 ## 2026-10-03
 - Reviewed documentation structure, narrative openings, runnable examples, and high-risk mathematical/convention claims; recorded scope and remaining evidence limits in the documentation review.
 - Completed the options Greeks teaching route with shock-unit intuition, long/short signs and exceptions, delta versus probability, coordinate-dependent rho, and a fully repriced earnings scenario with derivative, parity, and PDE checks.

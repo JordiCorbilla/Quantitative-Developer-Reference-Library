@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import traceback
 from pathlib import Path
@@ -19,6 +20,8 @@ def executable_markdown_files() -> list[Path]:
 
 
 def main() -> int:
+    # Examples may read sibling chapters; callers need not be in the checkout.
+    os.chdir(ROOT)
     failures: list[str] = []
     executed = 0
 
