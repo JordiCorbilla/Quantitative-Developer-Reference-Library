@@ -3,6 +3,8 @@
 Related chapters: [05-fixed-income.md](05-fixed-income.md), [07-credit.md](07-credit.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md), [22-model-governance-and-ipv.md](22-model-governance-and-ipv.md), [24-structured-credit-and-securitization.md](24-structured-credit-and-securitization.md), [30-trade-lifecycle-and-operations.md](30-trade-lifecycle-and-operations.md), and [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md).
 
 ## What This Domain Covers
+Imagine a borrower that can pay interest only by adding it to the loan balance. The reported balance grows, but the lender still needs to ask whether that larger claim will be repaid. Now add a covenant breach or a property whose rent no longer covers debt service: valuation depends on documents, cashflows, and recovery scenarios together.
+
 Private and distressed credit values cashflows dependent on borrower performance, documents, collateral, control rights, and negotiation. Real-estate credit adds property cashflows, leases, appraisals, and mortgage structures.
 
 Private loans may have no reliable daily price. Work starts with underwriting and continues through covenant monitoring, amendments, draws, prepayments, valuation, default, restructuring, and recovery. Model definitions must match executed documents and point-in-time inputs.
@@ -95,20 +97,15 @@ $$
 
 where \(r_k\) includes both cash and the fair value of securities received under a plan.
 
-Total loan PnL should reconcile:
+Begin the loan PnL reconciliation with an economic identity:
 
 $$
-\text{PnL}=
-\text{cash interest}
-+\text{PIK accretion}
-+\text{fee/OID accretion}
-+\text{mark change}
-+\text{FX}
--\text{funding}
--\text{hedge cost}
--\text{credit loss}
-+\text{trade/lifecycle effects}.
+\text{PnL}_{0,1}=V_1-V_0+\text{net cash received}_{0,1},
 $$
+
+where $V_t$ is full marked value of the held claim in the reporting currency, including the current principal balance, and net cash received includes interest, repayments, sale proceeds, purchases, funded draws, and costs with their signs. External investor contributions or withdrawals must be removed if this is calculated from total account wealth.
+
+Explain this total through cash carry, PIK/fee/OID accretion, rate and spread marks, FX, financing, hedges, credit events, and trade/lifecycle effects. These are attribution buckets, not independent amounts to add on top of a full mark change. If PIK increases the balance from 100 to 105 and the claim remains marked at par, the value increase already contains the 5 of PIK. If default reduces full value from 100 to a recovery claim worth 40, the mark change already contains the 60 loss. Report that loss in the credit-event bucket and remove it from the residual mark bucket. Repayment similarly transfers value from the claim to cash rather than creating profit by itself.
 
 Credit-index, CDS, equity, rate, or macro hedges introduce basis risk. They do not transfer covenants, amendment risk, unfunded obligations, or exact recovery.
 

@@ -18,3 +18,9 @@ jobs:
 
       - name: Validate documentation
         run: python scripts/validate_docs.py
+
+      - name: Install example dependencies
+        run: python -m pip install -r requirements-validation.txt
+
+      - name: Execute chapter and worked-example Python fences
+        run: python scripts/execute_python_fences.py

@@ -3,6 +3,8 @@
 Related chapters: [13-risk-and-pnl.md](13-risk-and-pnl.md), [14-testing-and-validation.md](14-testing-and-validation.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [23-probability-statistics-and-regression.md](23-probability-statistics-and-regression.md), [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md), and [38-deal-level-risk-and-strategy-pnl.md](38-deal-level-risk-and-strategy-pnl.md).
 
 ## What This Domain Covers
+Imagine two researchers using the same return history. One reports the best of sixty backtests; the other records every trial, fixes the selection rule, and evaluates it on later data. The first number can look much stronger while providing less evidence. The same problem appears in portfolio construction when an optimizer treats an uncertain return estimate as a precise input.
+
 Portfolio weights can be extremely sensitive to estimation error. Sample means are noisy, sample covariance is unstable when the asset count is large relative to the history, and a few observations can dominate Pearson correlation. Research can also make weak signals look convincing through repeated testing or future leakage.
 
 Robust construction addresses uncertain inputs and asymmetric loss; validation asks whether a result survives a realistic simulation of selection and deployment. Make estimator definitions, data vintages, trials, constraints, costs, and out-of-sample evidence reproducible.

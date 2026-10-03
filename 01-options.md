@@ -204,9 +204,9 @@ Useful intuition:
 
 - $K e^{-rT}$ is the present value of paying the strike later.
 - $S_0 e^{-qT}$ is the carry-adjusted spot leg.
-- $N(d_2)$ is often read as a risk-neutral finishing probability for a European call.
-- $N(d_1)$ appears in the hedge ratio.
-- As volatility or time goes to zero, the model price collapses toward discounted intrinsic value.
+- $N(d_2)=Q(S_T>K)$ is the risk-neutral probability that a European call finishes in the money under these lognormal dynamics. It is not a real-world forecast or a probability of touching the strike before expiry.
+- $e^{-qT}N(d_1)$ is the spot hedge ratio. Delta and finishing probability are different quantities.
+- As volatility goes to zero at fixed $T$, the call approaches $\max(S_0e^{-qT}-Ke^{-rT},0)$ and the put approaches $\max(Ke^{-rT}-S_0e^{-qT},0)$. As $T$ goes to zero, both approach their spot intrinsic values.
 
 ### Why Black-Scholes Is Not Enough
 Black-Scholes gives the first language, not the final implementation.
@@ -334,6 +334,47 @@ Quick practitioner summary:
 | Rho | Price sensitivity to rates | Interest-rate exposure | Long-dated, rates-sensitive products | Rate-risk management and curve-bucket checks |
 
 The trading intuition is useful but incomplete. A book can be delta-neutral and still lose money through gamma, vega, theta, skew, or jump risk. Greeks should therefore be read together, under a stated shock convention, rather than treated as isolated facts.
+
+### Reading The Dashboard One Shock At A Time
+Imagine holding a call while its underlying rises by one currency unit. A delta of $0.60$ estimates a $0.60$ increase in premium per underlying unit, with the other inputs fixed. If gamma is $0.08$, the same small rise increases delta by approximately $0.08$. Gamma changes the hedge you need next; it is not another first-order exposure to add to delta.
+
+Now let a day pass or let implied volatility change. A reported daily theta of $-0.05$ estimates a loss of $0.05$ per underlying unit under that day's roll convention. A vega of $0.12$ **per volatility point** estimates a $0.12$ premium rise when implied volatility goes from $20\%$ to $21\%$. That is one percentage point, rather than a one-percent relative rise to $20.2\%$. Multiply each premium change by signed contracts and the contract multiplier to obtain position PnL. These are separate illustrative shocks, not a calibrated set of Greeks for one option.
+
+The shapes help explain where to look. Short-dated options near the money often concentrate gamma and theta; comparable longer-dated options often carry more vega and rate exposure. Exact peaks and tenor comparisons depend on spot, forward, strike, carry, and the surface. An ATM call's delta is often near $0.5$, but it need not equal $0.5$. For example, at the forward strike Black-Scholes gives $d_1=\sigma\sqrt{T}/2$, rather than zero.
+
+### Long And Short Vanilla Sign Reference
+For European calls and puts under Black-Scholes with fixed continuous yield $q$, positive spot, strike, volatility, and time to expiry, delta, gamma, vega, and spot-fixed rho have the signs below. Theta is the usual near-ATM intuition, qualified separately.
+
+| Position | Delta | Gamma | Calendar theta, typical | Vega | Rho, spot and $q$ fixed |
+| --- | --- | --- | --- | --- | --- |
+| Long call | Positive | Positive | Negative | Positive | Positive |
+| Long put | Negative | Positive | Negative | Positive | Negative |
+| Short call | Negative | Negative | Positive | Negative | Negative |
+| Short put | Positive | Negative | Positive | Negative | Positive |
+
+A short position reverses the long position's Greeks. This helps check position signs; it does not establish whether the trade is safe or profitable. A useful memory aid is **direction, changing hedge, passing time, volatility, rates** for delta, gamma, theta, vega, and rho.
+
+Theta has genuine exceptions. A deep-in-the-money European put can have positive calendar theta at positive rates: the benefit of receiving the strike sooner can exceed its remaining volatility decay. Dividend carry can also change call theta. Long gamma and vega stay positive in this vanilla model, but that statement does not extend to every exotic or spread.
+
+Rho needs its own coordinate convention. The formulas below bump $r$ while holding spot and $q$ fixed, so the forward changes too. In Black-76, holding the forward and volatility fixed and bumping only a constant discount rate gives $\partial V/\partial r=-TV$ for either option. FX options have domestic- and foreign-rate risks, while rates options require curve buckets. Longer tenor is a useful warning to inspect rate risk, not a theorem that every option's absolute rho increases monotonically with maturity. See the [OIC rho explanation](https://www.optionseducation.org/advancedconcepts/rho) for the standard equity intuition.
+
+Long-dated listed options such as [LEAPS](https://www.optionseducation.org/optionsoverview/how-leaps-work) make this rate/carry horizon particularly visible. Equity LEAPS have American exercise, so the European formulas here serve as a benchmark rather than a complete contract model.
+
+### Worked Risk Story: Right On Direction, Losing On The Call
+A fictional stock is at USD 100 just before earnings. A European USD 100 call has 30 calendar days left, implied volatility of 60%, and zero rates and dividends. Black-Scholes values it at about USD 6.85 per share. A trader buys one contract with a 100-share multiplier.
+
+The next day the stock rises to USD 102, but implied volatility falls to 30% and only 29 days remain. Full repricing gives about USD 4.50 per share: the unhedged call loses approximately USD 235 per contract before costs, despite the favorable stock move.
+
+| Repricing step | Premium per share | Incremental change |
+| --- | ---: | ---: |
+| Initial state | USD 6.85 | — |
+| Raise spot to USD 102, hold other inputs fixed | USD 7.97 | USD +1.11 |
+| Reduce time to 29/365 years | USD 7.85 | USD -0.12 |
+| Reduce implied volatility to 30% | USD 4.50 | USD -3.35 |
+
+The displayed premiums and differences are rounded independently. This sequential explain adds exactly to full price PnL before rounding, but allocating interaction effects to each step depends on the chosen order. A 30-point volatility shock is too large to trust a first-order vega explain alone. This example illustrates a possible volatility crush, not a claim that earnings always cause one. The [OIC earnings discussion](https://www.optionseducation.org/news/may-office-hours-faqs) describes why volatility changes can offset a favorable directional move.
+
+Reproduce the full repricing, verify Greek units against finite differences, and check the positive-theta exception in [examples/option-greeks-and-earnings-repricing.md](examples/option-greeks-and-earnings-repricing.md). Event-variance extraction and hedged trading economics continue in [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md).
 
 ### Black-Scholes Greek Formula Reference
 For a European vanilla option with continuous dividend yield $q$:
@@ -693,7 +734,10 @@ def put_call_parity_gap(call_price: float, put_price: float, spot: float, strike
 
 This snippet is deliberately small. A production implementation would separate quote conventions, premium currency, exercise style, calendar logic, market-data access, and volatility-surface construction from the pricing formula.
 
+At expiry the code returns placeholder zero Greeks to keep its result schema simple. At the strike, the payoff has no unique classical delta or gamma; expiry vega is zero for the payoff, while time derivatives and near-expiry limits need separate treatment. Do not use those placeholder values as an expiry hedging report.
+
 ## References and Further Reading
+- Options Industry Council. [Understanding Options Greeks](https://www.optionseducation.org/advancedconcepts/understanding-options-greeks), for sensitivities and their limits; [Rho](https://www.optionseducation.org/advancedconcepts/rho), for equity rate-risk intuition; and [May Office Hours FAQs](https://www.optionseducation.org/news/may-office-hours-faqs), for earnings and volatility-crush context.
 - Hull, J. *Options, Futures, and Other Derivatives*
 - Gatheral, J. *The Volatility Surface*
 - Haug, E. *The Complete Guide to Option Pricing Formulas*

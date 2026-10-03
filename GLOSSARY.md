@@ -112,6 +112,7 @@
 - **Kyle lambda**: Estimated price response per unit of signed order flow under declared price, flow, and interval units; an empirical slope is not automatically a causal impact estimate.
 
 ## L
+- **LEAPS**: Long-dated listed options; equity LEAPS have American exercise. Longer tenor makes rate, dividend, and volatility assumptions more consequential; see the [OIC overview](https://www.optionseducation.org/optionsoverview/how-leaps-work).
 - **Lasso**: Linear-model estimator using an \(L_1\) coefficient penalty that can shrink some coefficients to zero.
 - **LGD**: Loss given default, equal to one minus recovery rate.
 - **Locate**: Confirmation from a broker or lender that shares may be available to borrow for a short sale; it is not a guarantee that borrow remains available.

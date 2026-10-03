@@ -1,5 +1,7 @@
 # A Practical Reference Library for Quant Developers
 
+*Historical project article: descriptions and counts refer to the version discussed here. Use the [current README](README.md) and [documentation review](DOCUMENTATION-REVIEW.md) for current scope and validation.*
+
 Quantitative finance has a strange documentation problem.
 
 There is plenty of material on the mathematics. There are books on option pricing, fixed income, stochastic calculus, portfolio construction, numerical methods, and risk. There are also plenty of code snippets scattered across notebooks, tutorials, and old internal tools.

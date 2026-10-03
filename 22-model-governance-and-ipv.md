@@ -27,11 +27,13 @@ The governance process is a lifecycle, not a one-time approval.
 - Governance artifacts need version control just like code and market data.
 
 ## Core Pricing Framework
-Governance wraps the pricing stack with approval, evidence, and challenge:
+Governance wraps the pricing stack with approval, evidence, and challenge. For a specified valuation ledger, write:
 
 $$
-\text{official value} = \text{model value} + \text{valuation adjustments} + \text{approved reserves}
+\text{reported value} = \text{base model value} + \sum_j\text{signed booked adjustment}_j.
 $$
+
+Each adjustment needs a basis, sign, owner, and ledger destination. If the base price already includes CVA or another adjustment, book only the incremental amount required by that ledger. A valuation reserve may itself be an adjustment, rather than an additional number to add again. For a long asset, a conservative price reserve typically reduces its reported value. Regulatory prudent-valuation adjustments can affect capital separately from accounting fair value; an approval does not make these ledgers interchangeable. The [Basel prudent-valuation guidance](https://www.bis.org/committees/bcbs/basel-framework/standard/cap/50/inforce/2019-12-15/published/2019-12-15) distinguishes valuation controls and additional prudential treatment.
 
 The control question is not only whether the model computes a value. It is whether the value is appropriate for the trade, market observability, data quality, and approved model scope.
 
@@ -92,6 +94,7 @@ def price_testing_exception(official_price: float, independent_price: float, tol
 ```
 
 ## References and Further Reading
+- Basel Committee. [Prudent valuation guidance, CAP50](https://www.bis.org/committees/bcbs/basel-framework/standard/cap/50/inforce/2019-12-15/published/2019-12-15), a dated framework reference; use the version applicable to the reporting jurisdiction and date.
 - Internal model-risk policy and valuation-control methodology.
 - Independent price verification and valuation adjustment policy documents.
 - Links: [14-testing-and-validation.md](14-testing-and-validation.md), [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md)

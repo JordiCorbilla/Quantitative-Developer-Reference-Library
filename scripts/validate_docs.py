@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import re
 import sys
+import unicodedata
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,6 +35,34 @@ def tracked_markdown_files() -> list[Path]:
     )
 
 
+def markdown_heading_anchors(text: str) -> set[str]:
+    """GitHub-style anchors for ATX headings, including duplicate suffixes."""
+    anchors: set[str] = set()
+    in_code = False
+    for line in text.splitlines():
+        if line.lstrip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        match = re.match(r"^#{1,6}\s+(.+?)(?:\s+#+)?\s*$", line)
+        if not match:
+            continue
+        heading = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", match.group(1))
+        heading = re.sub(r"<[^>]+>", "", heading).lower()
+        slug = "".join(
+            char for char in heading
+            if char in " -_" or unicodedata.category(char)[0] in "LNM"
+        ).replace(" ", "-")
+        anchor = slug
+        suffix = 0
+        while anchor in anchors:
+            suffix += 1
+            anchor = f"{slug}-{suffix}"
+        anchors.add(anchor)
+    return anchors
+
+
 def validate_local_links(errors: list[str]) -> None:
     link_pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
     image_pattern = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
@@ -40,12 +70,20 @@ def validate_local_links(errors: list[str]) -> None:
         text = path.read_text(encoding="utf-8")
         for pattern, kind in ((link_pattern, "link"), (image_pattern, "image")):
             for match in pattern.finditer(text):
-                target = match.group(1).split("#", 1)[0]
-                if not target or re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", target):
+                full_target = match.group(1)
+                if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", full_target):
                     continue
-                target_path = (path.parent / target).resolve()
+                target, _, fragment = full_target.partition("#")
+                target = unquote(target)
+                target_path = (path.parent / target).resolve() if target else path
                 if not target_path.exists():
                     errors.append(f"Missing {kind}: {path.relative_to(ROOT)} -> {target}")
+                elif fragment and target_path.suffix.lower() == ".md":
+                    anchors = markdown_heading_anchors(target_path.read_text(encoding="utf-8"))
+                    if unquote(fragment) not in anchors:
+                        errors.append(
+                            f"Missing heading anchor: {path.relative_to(ROOT)} -> {full_target}"
+                        )
 
 
 def validate_svgs(errors: list[str]) -> None:
@@ -102,7 +140,14 @@ def validate_chapter_sections(errors: list[str]) -> None:
 
 def validate_duplicate_h1(errors: list[str]) -> None:
     for path in tracked_markdown_files():
-        h1_count = sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.startswith("# "))
+        h1_count = 0
+        in_code = False
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.lstrip().startswith("```"):
+                in_code = not in_code
+                continue
+            if not in_code and line.startswith("# "):
+                h1_count += 1
         if h1_count != 1:
             errors.append(f"{path.relative_to(ROOT)} has {h1_count} H1 headings")
 

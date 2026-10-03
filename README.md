@@ -4,6 +4,8 @@ Practical reference material for quant developers, engineering-minded quants, an
 
 Start with [00-overview.md](00-overview.md). It defines the shared notation, discounting language, curve and surface glossary, and the overall map of the library.
 
+Read the library through a problem you need to solve. A trader's call loses money even though the stock rises: follow the [options risk story](01-options.md#worked-risk-story-right-on-direction-losing-on-the-call), then [reprice the position](examples/option-greeks-and-earnings-repricing.md). A swap changes value between quoted maturities: follow [curve construction](06-interest-rates.md#curve-construction-between-market-nodes-interpolation-versus-fitting), then reproduce the off-node arithmetic. A backtest looks unusually strong: follow [point-in-time data](40-point-in-time-data-and-event-systems.md) and [research validation](44-robust-portfolio-and-research-validation.md) before trusting the result. Each route moves from a question to assumptions, a calculation, and a control.
+
 ## Project Navigation
 - [INDEX.md](INDEX.md) - topic index across products, engineering, risk, execution, and governance
 - [READING-PATHS.md](READING-PATHS.md) - guided paths for interviews, pricing, risk, rates, portfolio engineering, and volatility
@@ -13,6 +15,7 @@ Start with [00-overview.md](00-overview.md). It defines the shared notation, dis
 - [CAPSTONE-PROJECTS.md](CAPSTONE-PROJECTS.md) - runnable project specifications that connect data, valuation, hedging, risk, PnL, and controls
 - [CONTRIBUTING.md](CONTRIBUTING.md) - contribution rules, style guidance, and quality checks
 - [CHANGELOG.md](CHANGELOG.md) - notable project changes
+- [DOCUMENTATION-REVIEW.md](DOCUMENTATION-REVIEW.md) - dated review scope, factual corrections, options coverage, and limits of validation
 
 ## Library Map
 
@@ -95,6 +98,11 @@ The main future direction remains executable depth:
 - Theory only where it helps build or validate systems.
 - Conventions and edge cases matter as much as formulas.
 - The repo should keep growing without changing its basic structure.
+
+## Evidence And Maintenance
+The library distinguishes contract facts, mathematical identities, model assumptions, empirical heuristics, and synthetic examples. Read the qualification beside a formula before using it. Source documents and current product specifications determine conventions; regulatory chapters are conceptual guides whose rules must be checked for the jurisdiction, methodology version, and reporting date.
+
+The automated checks validate structure, local links and heading anchors, SVG metadata, and runnable snippets. Worked examples contain assertions, but passing them is not independent validation of every model or a guarantee that a trading strategy works. The [documentation review](DOCUMENTATION-REVIEW.md) records what was checked and what still needs deeper evidence. Historical blog posts describe earlier snapshots rather than the current inventory.
 
 ## Contribution Direction
 - Preserve the chapter template so readers always know where to find pricing, risk, data, and implementation guidance.

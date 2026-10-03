@@ -49,7 +49,12 @@ These examples are focused and self-contained. They connect formulas to implemen
 - [parametric-monte-carlo-var.md](parametric-monte-carlo-var.md) - reconcile normal parametric VaR/ES with a seeded Monte Carlo estimate.
 - [yield-curve-interpolation-comparison.md](yield-curve-interpolation-comparison.md) - compare linear-zero and log-linear-discount-factor interpolation at an off-node maturity.
 
+- [option-greeks-and-earnings-repricing.md](option-greeks-and-earnings-repricing.md) - fully reprice a rising-stock, losing-call scenario and verify Greek derivatives, parity, units, and sign exceptions.
+- [index-divisor-and-weights.md](index-divisor-and-weights.md) - reconcile share quantities, portfolio weights, a split, and a continuity-preserving divisor adjustment.
+
 ## How To Use
+Use the options repricing example to follow a complete question-to-control story; use the other examples to isolate a specific calculation.
+
 - Treat the numbers as sanity-check scaffolding.
 - Read the related chapter before relying on an example.
 - In production, add conventions, calendars, data lineage, validation tolerances, and error handling.

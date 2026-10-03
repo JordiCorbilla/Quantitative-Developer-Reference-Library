@@ -86,6 +86,8 @@ Use these paths when you want to study the library with a concrete goal.
 9. [examples/order-book-impact-tradeoff.md](examples/order-book-impact-tradeoff.md)
 
 ## Volatility And Tail Risk
+Begin with the [earnings repricing story](examples/option-greeks-and-earnings-repricing.md): understand how a favorable stock move can be outweighed by volatility and time. Then follow the chapters from local Greeks through volatility dynamics to portfolio tails.
+
 1. [01-options.md](01-options.md)
 2. [18-volatility-products.md](18-volatility-products.md)
 3. [32-dependence-modelling-and-copulas.md](32-dependence-modelling-and-copulas.md)

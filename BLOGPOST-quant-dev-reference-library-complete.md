@@ -1,5 +1,7 @@
 # From Map to Maintained Reference: The Quant Developer Library, Three Months Later
 
+*Historical project article: descriptions and counts refer to the version discussed here. Use the [current README](README.md) and [documentation review](DOCUMENTATION-REVIEW.md) for current scope and validation.*
+
 ![Quantitative Developer Reference Library map](blog-assets/library-map-hero.svg)
 
 *The library now contains 32 subject chapters, 21 standalone worked examples, and 61 SVG visuals. More importantly, it has acquired the structure and quality controls needed to remain coherent as it grows.*

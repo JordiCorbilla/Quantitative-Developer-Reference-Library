@@ -9,7 +9,7 @@
   <rect class="bg" width="1180" height="860"/>
   <text class="title" x="40" y="48">The Greeks: Key Option Price Sensitivities</text>
   <text class="subtitle" x="40" y="72">Greeks measure how option value changes when spot, volatility, time, or rates change.</text>
-  <text class="subtitle" x="40" y="94">Shapes below are typical Black-Scholes long-vanilla intuition.</text>
+  <text class="subtitle" x="40" y="94">Schematic shapes versus spot; European vanillas with other model inputs held fixed.</text>
   <rect class="note" x="880" y="28" width="250" height="62" rx="8"/>
   <text class="txt" x="898" y="54">Always state the shock convention:</text>
   <text class="small" x="898" y="74">sticky strike, sticky delta, unit scaling</text>
@@ -62,7 +62,7 @@
   <line class="axis" x1="673" y1="665" x2="925" y2="665"/><line class="axis" x1="690" y1="740" x2="690" y2="590"/>
   <path class="blue" d="M690 660 C745 650,805 635,925 615"/>
   <path class="red" d="M690 712 C750 700,815 680,925 670"/>
-  <text class="small" x="913" y="743">r</text>
+  <text class="small" x="913" y="743">S</text>
   <text class="small" x="830" y="626">call rho</text><text class="small" x="830" y="704">put rho</text>
-  <text class="small" x="675" y="807">Rho grows with maturity; curve buckets are better for rates-heavy books.</text>
+  <text class="small" x="657" y="807">Long tenor often raises rate exposure; state the curve-bump convention.</text>
 </svg>

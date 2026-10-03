@@ -24,7 +24,7 @@ Good answers mention:
 - return definition and sampling frequency,
 - expectation, variance, covariance, and correlation,
 - OLS residuals and squared-error minimization,
-- linearity, independence, heteroskedasticity, normality, and multicollinearity,
+- the distinction between fitting and inference: exogeneity and rank for coefficient interpretation, heteroskedasticity/autocorrelation for standard errors, and normality for classical exact finite-sample tests,
 - train/test splits by time and avoiding leakage,
 - economic significance, costs, capacity, and robustness.
 
@@ -59,6 +59,9 @@ Common questions:
 - Why is theta sometimes described as the rent paid for gamma?
 - How does a long-gamma hedge differ operationally from a short-gamma hedge?
 - Why is Friday-to-Monday theta not a universal multiple of one ordinary trading day?
+- Can a call lose money when the stock rises? Walk through a full repricing and explain why a large volatility move challenges a local Greek approximation.
+- Which vanilla Greek signs are model properties, and why can a long European put have positive theta?
+- Why is delta different from the probability of finishing in the money, and why does rho depend on whether spot or forward is held fixed?
 
 Good answers mention:
 - payoff and exercise style,

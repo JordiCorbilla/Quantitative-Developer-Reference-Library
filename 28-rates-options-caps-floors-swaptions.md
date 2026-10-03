@@ -27,21 +27,24 @@ Start with the underlying rate exposure.
 - Premium settlement, annuity, calendars, and exercise cut-off matter.
 
 ## Core Pricing Framework
-A cap is a strip of caplets. Each caplet is an option on a forward rate.
+A cap is a strip of caplets. For a simple term-rate coupon fixing at $T_i$ and paying at $T_{i+1}$, a caplet pays $N\alpha_i\max(L_{T_i}-K,0)$ at payment. Its price uses the payment-date discount factor and the corresponding forward measure. A compounded overnight coupon can have different observation, exercise, and payment timing; resolve the actual payoff before selecting the model.
 
-For a swaption, the underlying is a par swap rate and the natural scale is the swap annuity. A simplified payer swaption value is:
+For a European physically settled payer swaption, the underlying is a par swap rate and the natural scale is the swap annuity. Under a consistent collateral and projection setup, the time-zero price can be expressed as:
 
 $$
-V \approx \text{Annuity} \times \mathbb{E}[(S_T - K)^+]
+V_0=A_0\,\mathbb{E}^{Q^A}[(S_T-K)^+],
+\qquad A_0=N\sum_j\alpha_jP(0,T_j).
 $$
 
-where $S_T$ is the swap rate at option expiry and $K$ is the strike.
+Here $S_T$ is the underlying forward-starting swap rate at exercise, $K$ is the strike, $A_0$ is today's fixed-leg annuity including notional, and $Q^A$ is the annuity measure. The random exercise-time annuity is absorbed by the measure change; replacing it with an arbitrary fixed annuity inside a risk-neutral expectation is not the same calculation. Rates are decimals, so the annuity is currency per 1.00 rate unit. A reported PVBP equals $10^{-4}A_0$.
 
 Black-style models assume lognormal rates or shifted rates. Bachelier-style models assume normal rate moves. Desk convention determines which model is used for quote interpretation and risk.
 
+For an ATM European payer under a constant normal-volatility quote, the Bachelier price simplifies to $A_0\sigma_N\sqrt{T}/\sqrt{2\pi}$. With $A_0=\text{USD }4.5m$, $T=1$ year, and $\sigma_N=100$ basis points per square-root year ($0.01$ in decimal units), premium is about USD 17,952. This is a price before exercise; the next example is an exercise-time value. Cash-settled swaptions can use a contractual cash annuity and a different settlement convention. QuantLib's [swaption engine](https://github.com/lballabio/QuantLib/blob/master/ql/pricingengines/swaption/blackswaptionengine.hpp) explicitly distinguishes physical and cash settlement annuities.
+
 ## Worked Instrument Example: Payer Swaption Payoff
 Assume:
-- swap annuity: USD 4.5m per 1.00 rate unit,
+- exercise-time underlying swap annuity: USD 4.5m per 1.00 rate unit,
 - expiry swap rate: 4.20%,
 - strike: 4.00%.
 
@@ -51,7 +54,7 @@ $$
 4{,}500{,}000 \times (4.20\% - 4.00\%) = 9{,}000
 $$
 
-A payer swaption benefits when the underlying swap rate rises above the strike, because it gives the holder the right to pay fixed below market.
+A payer swaption benefits when the underlying swap rate rises above the strike, because it gives the holder the right to pay fixed below market. For physical settlement, USD 9,000 is the value of the swap entered at exercise, rather than necessarily a cash payment received then. Premium paid, subsequent swap cashflows, and any cash-settlement annuity are separate economics.
 
 ## Key Risk Measures and Sensitivities
 - Delta/PV01 to curve moves.
@@ -86,11 +89,24 @@ A payer swaption benefits when the underlying swap rate rises above the strike, 
 
 ## Illustrative Code
 ```python
+import math
+
+
 def payer_swaption_intrinsic(annuity: float, swap_rate: float, strike: float) -> float:
     return annuity * max(swap_rate - strike, 0.0)
+
+
+# ATM normal-model price with time-zero annuity including notional.
+annuity_today = 4_500_000.0
+normal_vol = 100.0 * 1e-4
+expiry_years = 1.0
+atm_premium = annuity_today * normal_vol * math.sqrt(expiry_years) / math.sqrt(2 * math.pi)
+assert round(atm_premium, 2) == 17_952.40
+assert math.isclose(payer_swaption_intrinsic(4_500_000.0, 0.042, 0.04), 9_000.0)
 ```
 
 ## References and Further Reading
+- QuantLib. [Black and Bachelier swaption engine](https://github.com/lballabio/QuantLib/blob/master/ql/pricingengines/swaption/blackswaptionengine.hpp), including settlement-specific annuity calculation.
 - Brigo and Mercurio. *Interest Rate Models*
 - Andersen and Piterbarg. *Interest Rate Modeling*
 - Hagan et al. on SABR volatility modelling

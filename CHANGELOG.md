@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03
+- Reviewed documentation structure, narrative openings, runnable examples, and high-risk mathematical/convention claims; recorded scope and remaining evidence limits in the documentation review.
+- Completed the options Greeks teaching route with shock-unit intuition, long/short signs and exceptions, delta versus probability, coordinate-dependent rho, and a fully repriced earnings scenario with derivative, parity, and PDE checks.
+- Corrected index share/weight/divisor mechanics, swaption annuity measure and settlement interpretation, warrant dilution inputs, valuation-adjustment and loan-PnL double counting, OLS fitting versus inference, and the PIPEs book reference.
+- Added two executable worked examples, improved reading/navigation routes, checked local heading anchors, and qualified the Greek visual's rate-risk shorthand.
+
 ## 2026-08-02
 - Expanded pairs trading with an intuitive correlation-versus-cointegration explanation and a practitioner workflow covering candidate formation, point-in-time testing, hedge interpretation, stateful mean-reversion entries/exits/stops, execution, accounting, invalidation, and pair retirement.
 - Added two original SVG teaching visuals and a dependency-free synthetic KO/PEP lifecycle example with frozen-model sizing and leg-level PnL; no current cointegration or investment recommendation is asserted.

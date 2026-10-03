@@ -73,6 +73,10 @@ $$
 
 ![Linear regression OLS workflow](assets/linear-regression-ols-workflow.svg)
 
+Keep fitting and inference separate. Least squares can compute a fitted line without normally distributed errors. Interpreting its coefficients as unbiased estimates of a correctly specified linear conditional mean requires, among other conditions, full column rank and $E[\epsilon\mid X]=0$. That condition can fail through endogeneity, omitted variables, or future leakage.
+
+Under homoskedastic, uncorrelated errors, the classical OLS covariance formula supports the usual standard errors; Gaussian errors additionally support exact finite-sample t and F inference. Heteroskedasticity-consistent standard errors address unequal error variance, while autocorrelated financial data can require HAC or an appropriate cluster/dependence model. Robust standard errors do not repair a biased coefficient or a spurious regression in non-stationary levels. The [NIST least-squares guide](https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm) explains the fitting problem, benefits, and limitations.
+
 ## Worked Instrument Example: Beta Regression
 Assume a stock return is regressed on market return:
 
@@ -80,7 +84,7 @@ $$
 r_{\text{stock}} = \alpha + \beta r_{\text{market}} + \epsilon
 $$
 
-If the estimated slope is 1.25, the stock has estimated beta of 1.25 to the benchmark. A 1% market move corresponds to an expected 1.25% stock move, before residual/idiosyncratic effects.
+If the estimated slope is 1.25, the stock has estimated beta of 1.25 to the benchmark. A 1% market return contributes 1.25% to the fitted stock return; the intercept and residual remain separate. This is a conditional linear estimate under the fitted specification, rather than a guaranteed response or a causal claim.
 
 This feeds directly into equity VaR and factor risk:
 
@@ -148,6 +152,7 @@ def rmse(actual: list[float], predicted: list[float]) -> float:
 ```
 
 ## References and Further Reading
+- NIST/SEMATECH. [Linear Least Squares Regression](https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm).
 - Wooldridge. *Introductory Econometrics*
 - Hastie, Tibshirani, and Friedman. *The Elements of Statistical Learning*
 - Links: [13-risk-and-pnl.md](13-risk-and-pnl.md), [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md), [18-volatility-products.md](18-volatility-products.md)

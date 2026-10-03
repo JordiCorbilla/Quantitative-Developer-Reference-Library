@@ -8,6 +8,9 @@ This repository is a practitioner reference for quant developers. Contributions 
 - Tell each chapter as a connected practitioner story: start with the decision or problem, then move through contract or question, quote and data, model or signal, worked example, hedge or decision, and lifecycle controls.
 - Define a concept before writing its formula, interpret the result immediately afterward, and state material assumptions next to the claim they qualify.
 - Separate facts, identities, model assumptions, heuristics, and illustrative scenarios. Cite primary sources for claims that are empirical, regulatory, convention-dependent, or likely to change.
+- Verify bibliographic titles and authors against a publisher or the original paper. For a reviewed claim, link the relevant source beside it; a general reading list alone does not substantiate a specific convention or empirical result.
+- Qualify sign rules and monotonicity claims with the model, input coordinates, and parameter domain. Add a counterexample or limit-case check when a common shorthand has a material exception.
+- Reconcile examples to full economic value and cashflows before splitting PnL into attribution buckets. Label units and distinguish a price, a payoff, a derivative, and a finite-shock explain.
 - Add cross-links when a topic depends on another chapter.
 - Use consistent notation with [00-overview.md](00-overview.md).
 - Add repository-native SVG diagrams under `assets/` when a visual model materially improves the explanation.
@@ -47,7 +50,7 @@ python scripts/execute_python_fences.py
 The execution check runs repository-authored code from the Markdown files. Review incoming documentation changes before running it on an untrusted branch.
 
 The script checks:
-- local Markdown links,
+- local Markdown links and heading anchors,
 - image references,
 - SVG XML validity,
 - duplicate top-level headings,

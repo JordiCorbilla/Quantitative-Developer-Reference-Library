@@ -42,13 +42,16 @@ $$
 
 where \(U\) is unit value, \(S\) common value, \(W\) warrant value, \(R\) right value, and \(A\) is the value of restrictions, fees, separation timing, and settlement optionality. A non-zero package residual is not automatically executable arbitrage.
 
-For \(N\) existing shares and \(M\) one-for-one warrants, a simplified dilution-adjusted warrant approximation is:
+For \(N\) existing shares and \(M\) identical one-for-one European corporate warrants, start with the exercise proceeds. In a simple debt-free, no-dividend firm-value model with no other claims, write \(X_T\) for equity value before the exercise cash arrives. Each exercised warrant receives a new share and pays \(K\), so its expiry payoff is:
 
 $$
-W \approx \frac{N}{N+M}C(S,K,T,\sigma,r,q)
+W_T=\max\left(\frac{X_T+MK}{N+M}-K,0\right)
+=\frac{N}{N+M}\max\left(\frac{X_T}{N}-K,0\right).
 $$
 
-where \(C\) is a call value. Production valuation must add redemption barriers, notice periods, cashless exercise, share-price averaging, changing share count, private-warrant transfer features, and event-dependent survival. These can dominate the textbook option value.
+If \(X_t/N\) follows the required lognormal pricing dynamics, a corresponding benchmark is \(W_0=N/(N+M)\,C(X_0/N,K,T,\sigma_X,r,0)\). The call's underlying is equity value per existing share **before allocating value to warrants**, not automatically the observed stock price. In this model \(X_0=NS_0+MW_0\); using observed \(S_0\) and stock volatility without this distinction is only a heuristic. The [Olvik and Kangro paper, section 3.1](https://arxiv.org/html/1503.05139) derives the payoff and explains why warrants alter stock-price dynamics.
+
+Production valuation must add redemption barriers, notice periods, cashless exercise, share-price averaging, changing share count, private-warrant transfer features, and event-dependent survival. These can dominate the benchmark. Bank-issued covered warrants that transfer existing shares do not introduce this corporate dilution mechanism.
 
 For a rights issue in which \(r\) old shares each receive one right and \(r\) rights buy one new share at subscription price \(K\), the theoretical ex-rights price is:
 
@@ -183,5 +186,6 @@ def unit_component_residual(
 - NYSE and Nasdaq listing manuals for warrants, shareholder approval, equity issuance, and acquisition-company requirements.
 - Options Clearing Corporation information memoranda for listed-option adjustments after rights issues, mergers, and reorganizations.
 - Primary prospectuses, warrant agreements, rights offering documents, subscription agreements, charter documents, and transfer-agent notices.
-- Dresner and Eakins. *The PIPEs Report: Private Investments in Public Equity*.
+- Steven Dresner and E. Kurt Kim, editors. [*PIPEs: A Guide to Private Investments in Public Equity*](https://www.wiley-vch.de/en?isbn=9781576601945&option=com_eshop&title=PIPEs&view=product), second edition, 2005. *The PIPEs Report* is a separate publication, not this book's title.
+- Olvik and Kangro. [*Pricing of Warrants with Stock Price Dependent Threshold Conditions*](https://arxiv.org/abs/1503.05139), 2015, especially the classical corporate-warrant benchmark in section 3.1.
 - [Options](01-options.md) for baseline option sensitivities and [Convertibles and Equity-Linked Notes](25-convertibles-and-equity-linked-notes.md) for hybrid security modelling.
