@@ -30,9 +30,9 @@ The central execution question is simple: how much did trading cost relative to 
 
 Implementation shortfall compares executed value to the decision-time benchmark:
 
-$$
+```math
 \text{shortfall} = \sum_i q_i(p_i - p_0)
-$$
+```
 
 for a buy order, where $p_0$ is the decision or arrival price. A complete TCA decomposes shortfall into spread, impact, delay, fees, and opportunity cost.
 
@@ -46,51 +46,51 @@ TCA is useful when it connects decisions, order instructions, market conditions,
 
 A simple Kyle-style price-impact relationship is:
 
-$$
+```math
 \Delta p_t = \lambda q_t+\epsilon_t,
-$$
+```
 
-where \(q_t\) is signed net order flow and \(\lambda\) measures the price response per unit of signed flow. The model formalizes the link between informed trading, market-maker inference, and liquidity. An empirical “Kyle lambda” must state whether \(q_t\) is shares, currency notional, contracts, or percent of volume; whether price change is currency, return, or basis points; how trade signs are inferred; and what interval is used.
+where $q_t$ is signed net order flow and $\lambda$ measures the price response per unit of signed flow. The model formalizes the link between informed trading, market-maker inference, and liquidity. An empirical “Kyle lambda” must state whether $q_t$ is shares, currency notional, contracts, or percent of volume; whether price change is currency, return, or basis points; how trade signs are inferred; and what interval is used.
 
 The regression slope is not automatically a causal or permanent-impact estimate. Public news, autocorrelated flow, spread bounce, hidden liquidity, venue fragmentation, and sign-classification errors can all move it.
 
 ### Almgren-Chriss Execution Scheduling
 
-The Almgren-Chriss framework divides an order into child trades while balancing expected impact cost against price risk. If \(x_k\) is remaining inventory at time \(k\), then child quantity is \(n_k=x_k-x_{k+1}\). A common objective is:
+The Almgren-Chriss framework divides an order into child trades while balancing expected impact cost against price risk. If $x_k$ is remaining inventory at time $k$, then child quantity is $n_k=x_k-x_{k+1}$. A common objective is:
 
-$$
+```math
 \min_{\{n_k\}}
 E[C] + \lambda_A\operatorname{Var}(C),
 \qquad
 \sum_k n_k=Q,
-$$
+```
 
-where \(C\) is implementation cost and \(\lambda_A\) is execution risk aversion. Temporary impact penalizes aggressive child orders; permanent impact shifts the price path; inventory risk penalizes waiting with \(x_k\) exposed.
+where $C$ is implementation cost and $\lambda_A$ is execution risk aversion. Temporary impact penalizes aggressive child orders; permanent impact shifts the price path; inventory risk penalizes waiting with $x_k$ exposed.
 
 The model produces a schedule under explicit impact, volatility, time, and risk-aversion assumptions. It does not guarantee fills or concealment. Real implementations add spread, discrete lots, participation caps, auctions, queue position, limit prices, halts, venue choice, and recalibration when live volume or volatility differs from forecast.
 
 The widely used square-root impact heuristic,
 
-$$
+```math
 \frac{\Delta p}{p}
 \approx
 Y\sigma\sqrt{\frac{Q}{V}},
-$$
+```
 
-relates impact to volatility \(\sigma\) and order size \(Q\) relative to volume \(V\). It is an empirical scaling law, not the same model as Almgren-Chriss, and \(Y\), horizon, and volume definition must be calibrated to the relevant market.
+relates impact to volatility $\sigma$ and order size $Q$ relative to volume $V$. It is an empirical scaling law, not the same model as Almgren-Chriss, and $Y$, horizon, and volume definition must be calibrated to the relevant market.
 
 ### Order-Book Imbalance
 
 At the best displayed level, a simple order-book imbalance is:
 
-$$
+```math
 I_t
 =
 \frac{Q^{\text{bid}}_t-Q^{\text{ask}}_t}
 {Q^{\text{bid}}_t+Q^{\text{ask}}_t}.
-$$
+```
 
-It ranges from \(-1\) to \(1\) when the denominator is positive. Positive imbalance means more displayed bid than ask quantity under the chosen snapshot; it is not by itself a buy instruction. Variants weight several levels by price distance, use order-flow imbalance from additions/cancellations/trades, or model queue depletion in event time.
+It ranges from $-1$ to $1$ when the denominator is positive. Positive imbalance means more displayed bid than ask quantity under the chosen snapshot; it is not by itself a buy instruction. Variants weight several levels by price distance, use order-flow imbalance from additions/cancellations/trades, or model queue depletion in event time.
 
 Displayed size can cancel, replenish, or sit behind hidden liquidity. Feed sequencing, venue coverage, crossed/locked books, auction states, lot conventions, and latency determine whether two systems calculate the same feature. Evaluate imbalance at the decision horizon after fees, adverse selection, queue position, and message-to-trade latency.
 
@@ -100,18 +100,18 @@ VWAP and TWAP belong in this repo because they are the simplest bridge between t
 ### VWAP
 Volume-weighted average price measures the average traded price weighted by market volume:
 
-$$
+```math
 \text{VWAP} = \frac{\sum_i p_i v_i}{\sum_i v_i}
-$$
+```
 
 A VWAP execution algorithm tries to trade in line with the expected intraday volume curve. If 12% of the day's volume usually trades in the first interval, a VWAP schedule may target roughly 12% of the parent order in that interval. VWAP is useful when the objective is to perform near the market's volume-weighted benchmark and avoid being too visible relative to normal liquidity.
 
 ### TWAP
 Time-weighted average price slices an order evenly through time:
 
-$$
+```math
 \text{TWAP} = \frac{1}{n}\sum_i p_i
-$$
+```
 
 A TWAP execution schedule is simple: trade the same quantity every time bucket. It is easy to explain and does not require a strong volume forecast, but it can overtrade quiet periods and undertrade liquid periods.
 
@@ -160,18 +160,18 @@ For a buy order, implementation shortfall can be separated conceptually into spr
 
 If $Q$ shares were intended, $q_i$ shares were executed at prices $p_i$, and $q_u$ shares remain unfilled and are valued at an end-of-window price $p_T$, a simple buy-side implementation-shortfall representation is:
 
-$$
+```math
 \text{IS} = \sum_i q_i(p_i-p_0) + q_u(p_T-p_0) + \text{fees},
 \qquad Q = \sum_i q_i + q_u
-$$
+```
 
 The first term captures executed slippage. The second makes the opportunity cost of the unfilled residual visible. A production TCA must state the chosen end-of-window price and sign convention.
 
 Order size is often normalized by average daily volume:
 
-$$
+```math
 \text{ADV participation} = \frac{\text{parent order quantity}}{\text{average daily volume}}
-$$
+```
 
 This is only a first screen. A 10% ADV order may be manageable in a deep, stable name over a full day, yet highly disruptive if concentrated in a short interval, during a news event, or in a stock with a wide spread and little displayed depth. Pre-trade analysis should use intraday volume curves, volatility, spread, event calendar, borrow status for sells, and a capacity limit by venue.
 
@@ -180,9 +180,9 @@ Assume a manager must buy 400,000 shares. Historical ADV is 4,000,000 shares, so
 
 If the first two hours are forecast to contain 25% of daily volume, the forecast volume is 1,000,000 shares. The schedule may target no more than:
 
-$$
+```math
 10\% \times 1{,}000{,}000 = 100{,}000\text{ shares}
-$$
+```
 
 in that window, subject to spread, volatility, price, and real-time volume checks. If actual volume is lower than forecast, the algorithm reduces child-order quantity rather than forcing the schedule. If the trade is not complete, the residual is a real decision: continue, increase urgency, use an auction, cross liquidity, or leave the position partly unfilled. It should never be hidden inside a single average fill price.
 
@@ -194,37 +194,37 @@ Assume:
 
 Implementation shortfall is:
 
-$$
+```math
 100{,}000 \times (50.08 - 50.00) = 8{,}000
-$$
+```
 
 The number is only interpretable if the benchmark, side, fees, partial fills, and currency are defined.
 
 ## Worked Instrument Example: Impact Versus Inventory Risk
 Suppose a 200,000-share buy order is divided across four equal time buckets. Compare:
 
-- an even schedule of \(50{,}000\) shares per bucket;
-- a front-loaded schedule of \(80{,}000,\ 60{,}000,\ 40{,}000,\ 20{,}000\).
+- an even schedule of $50{,}000$ shares per bucket;
+- a front-loaded schedule of $80{,}000,\ 60{,}000,\ 40{,}000,\ 20{,}000$.
 
-Under a simplified temporary-impact term proportional to \(\sum_k n_k^2\), measured in thousands of shares:
+Under a simplified temporary-impact term proportional to $\sum_k n_k^2$, measured in thousands of shares:
 
-$$
+```math
 50^2+50^2+50^2+50^2=10{,}000,
-$$
+```
 
 while the front-loaded schedule gives:
 
-$$
+```math
 80^2+60^2+40^2+20^2=12{,}000.
-$$
+```
 
-The front-loaded schedule has \(20\%\) more temporary-impact penalty under this toy model, but less inventory remains exposed to subsequent price moves. Choosing between them requires the impact coefficient, volatility, urgency, alpha decay, spread, and fill constraints; the sum-of-squares comparison alone is not an optimal schedule.
+The front-loaded schedule has $20\%$ more temporary-impact penalty under this toy model, but less inventory remains exposed to subsequent price moves. Choosing between them requires the impact coefficient, volatility, urgency, alpha decay, spread, and fill constraints; the sum-of-squares comparison alone is not an optimal schedule.
 
 If the displayed best bid is 120,000 shares and the best ask is 80,000 shares, snapshot imbalance is:
 
-$$
+```math
 \frac{120{,}000-80{,}000}{120{,}000+80{,}000}=0.20.
-$$
+```
 
 That observation may affect child-order urgency or limit placement only after validating feed state, persistence, queue position, and out-of-sample predictive value. The calculations are reproduced in [examples/order-book-impact-tradeoff.md](examples/order-book-impact-tradeoff.md).
 

@@ -10,15 +10,15 @@ This example uses The Coca-Cola Company (`KO`) and PepsiCo (`PEP`) as familiar, 
 
 Assume a prior point-in-time training window produced the price-level relationship:
 
-$$
+```math
 P_t^{KO}=3.00+0.40P_t^{PEP}+s_t,
-$$
+```
 
 with spread mean $\mu_s=\text{USD }0$ and spread standard deviation $\sigma_s=\text{USD }1$ per one-KO-share hedge unit. Therefore:
 
-$$
+```math
 z_t=\frac{s_t-\mu_s}{\sigma_s}=s_t.
-$$
+```
 
 This convenient scaling is only for teaching. A real study would use a much longer adjusted-price or log-price history, confirm compatible integration orders, apply the correct Engle-Granger residual test, and freeze the fitted coefficients before the trading window.
 
@@ -33,10 +33,10 @@ This convenient scaling is only for teaching. A real study would use a much long
 
 At T0, KO is rich relative to the frozen PEP relationship:
 
-$$
+```math
 s_{T0}=69-3-0.40(160)=2,
 \qquad z_{T0}=2.
-$$
+```
 
 For every KO share sold short, the fitted price-level hedge buys $0.40$ PEP shares. With 1,000 KO shares, the target is:
 
@@ -52,9 +52,9 @@ The cointegration hedge is not automatically dollar-, beta-, volatility-, or fac
 
 At T+3:
 
-$$
+```math
 s_{T+3}=67.60-3-0.40(161.50)=0,
-$$
+```
 
 so the spread has returned to its fitted mean and the position closes.
 

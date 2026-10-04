@@ -1,6 +1,6 @@
 # Commodity Derivatives
 
-Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [18-volatility-products.md](18-volatility-products.md), and [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md).
+Related chapters: [01-options.md](01-options.md), [02-futures-forwards.md](02-futures-forwards.md), [09-cross-asset.md](09-cross-asset.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), [18-volatility-products.md](18-volatility-products.md), and [37-volatility-relative-value-and-event-volatility.md](37-volatility-relative-value-and-event-volatility.md).
 
 ## What This Domain Covers
 Commodities are financial contracts tied to physical reality.
@@ -43,9 +43,9 @@ The carry formula is a useful starting point, but commodities often teach you wh
 
 Commodity forward curves are often described through cost of carry:
 
-$$
+```math
 F_0(T) = S_0 e^{(r + u - y)T}
-$$
+```
 
 but convenience yield $y$ is not just a nuisance parameter. It reflects scarcity and inventory value, and can make backwardation economically reasonable. Many real commodity books are better thought of as optimization or inventory problems with embedded optionality.
 
@@ -66,21 +66,21 @@ No pricing model substitutes for delivery controls. Notice dates, position limit
 ## Worked Instrument Example: Crude Oil Future
 Assume a trader buys 20 crude oil futures contracts at USD 78 per barrel. Each contract represents 1,000 barrels, so the position references:
 
-$$
+```math
 20 \times 1{,}000 = 20{,}000
-$$
+```
 
 barrels. If the futures price rises to USD 82, the PnL is:
 
-$$
+```math
 (82 - 78) \times 20{,}000 = 80{,}000
-$$
+```
 
 If the futures price falls to USD 74, the PnL is:
 
-$$
+```math
 (74 - 78) \times 20{,}000 = -80{,}000
-$$
+```
 
 The same price move can have different meaning across delivery months. A front-month crude contract may react to immediate inventory scarcity, while a deferred contract may react more to long-term supply expectations. That is why commodity systems usually model a delivery curve, not a single spot-like number.
 
@@ -112,14 +112,14 @@ An event timestamp needs a time zone, expected/confirmed status, publication sou
 
 For a futures option with gamma to $F$, after discount carry and financing are handled consistently, a local delta-hedged approximation is:
 
-$$
+```math
 \Delta\Pi
 \approx
 \frac{1}{2}\Gamma_F
 \left[(\Delta F)^2-F^2\sigma_{\text{imp}}^2\Delta\tau\right]
 +\text{Vega}\,\Delta\sigma
 +\text{surface and hedge residual}.
-$$
+```
 
 This decomposition is useful for normal trading intervals. Around a report, limit move, or weekend gap, reprice the entire structure under signed futures levels, curve reshaping, skew/volatility changes, elapsed time, and executable hedge assumptions. A hedge placed after the release cannot monetize the path that occurred before the first fill.
 
@@ -149,10 +149,10 @@ Consider a hypothetical futures option straddle that expires immediately after a
 
 At expiry, PnL per short straddle is:
 
-$$
+```math
 \operatorname{PnL}_{1}(F_T)
 =1{,}000\left[4-|F_T-75|\right].
-$$
+```
 
 | Post-event futures price | Absolute move | PnL per short straddle |
 | ---: | ---: | ---: |
@@ -164,11 +164,11 @@ $$
 
 If the pre-add-on loss budget is USD 110,000 and a USD 15 move in either direction is the worst approved scenario, the mechanical cap is ten straddles:
 
-$$
+```math
 N_{\max}
 =\left\lfloor\frac{110{,}000}{11{,}000}\right\rfloor
 =10.
-$$
+```
 
 That is a starting cap, not a target. Fees, remaining time value, volatility and skew repricing, basis, price limits, concentration, margin, and a delayed or unavailable hedge require additional reserves or a smaller position. Premium already received and a high historical percentage of profitable report days do not make the tail loss smaller. The executable calculation and checks are in [examples/commodity-option-event-gap.md](examples/commodity-option-event-gap.md).
 

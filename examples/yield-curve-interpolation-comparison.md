@@ -12,7 +12,7 @@ The synthetic nodes are:
 | 10 years | 3.55% |
 | 30 years | 3.85% |
 
-The target is 7.3 years, between the 5-year and 10-year nodes. Linear-zero interpolation connects the two zero rates. Log-linear discount-factor interpolation first converts each node using \(P(0,T)=e^{-z(T)T}\), connects \(\log P(0,T)\), and converts the result back to a zero rate.
+The target is 7.3 years, between the 5-year and 10-year nodes. Linear-zero interpolation connects the two zero rates. Log-linear discount-factor interpolation first converts each node using $P(0,T)=e^{-z(T)T}$, connects $\log P(0,T)$, and converts the result back to a zero rate.
 
 ```python
 from math import exp, isfinite, log

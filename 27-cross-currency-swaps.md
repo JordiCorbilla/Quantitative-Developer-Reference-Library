@@ -30,9 +30,9 @@ A cross-currency swap is valued as two currency cashflow legs converted through 
 
 At a high level:
 
-$$
+```math
 PV = PV_{\text{domestic leg}} - FX_0 \times PV_{\text{foreign leg}}
-$$
+```
 
 The basis spread is the spread that makes the two legs balance under market quotes.
 

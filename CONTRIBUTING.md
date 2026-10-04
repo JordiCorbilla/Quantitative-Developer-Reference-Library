@@ -64,6 +64,7 @@ The script checks:
 - SVG accessibility IDs and duplicate IDs.
 
 ## Style Notes
+- Use `$...$` for inline math and fenced `math` blocks for display equations, following [GitHub's math syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions). Fences protect multiline formulas from Markdown heading and list parsing.
 - Use `USD 10m` rather than a bare dollar sign before `10m` in prose to avoid Markdown math ambiguity.
 - Use formulas where they clarify implementation, not as decoration.
 - If a metric depends on convention, state the convention explicitly.

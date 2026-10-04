@@ -58,23 +58,23 @@ SQL schemas should use fixed-precision decimal types for contractual money and q
 ## Core Pricing Framework
 A production calculation is a function of more than the trade:
 
-$$
+```math
 R =
 F(
 T,\ M,\ \Theta,\ S,\ C,\ V
 )
-$$
+```
 
 where:
 
-- \(T\) is the immutable trade or position definition;
-- \(M\) is a versioned market snapshot;
-- \(\Theta\) is model and calibration state;
-- \(S\) is the scenario or risk request;
-- \(C\) is configuration and convention metadata;
-- \(V\) is the code/runtime version.
+- $T$ is the immutable trade or position definition;
+- $M$ is a versioned market snapshot;
+- $\Theta$ is model and calibration state;
+- $S$ is the scenario or risk request;
+- $C$ is configuration and convention metadata;
+- $V$ is the code/runtime version.
 
-The output \(R\) should include:
+The output $R$ should include:
 
 - requested measures,
 - calculation status,
@@ -82,26 +82,26 @@ The output \(R\) should include:
 - input and dependency identifiers,
 - timing and resource metrics.
 
-For distributed portfolio risk, let trades be partitioned into deterministic shards \(P_k\). If \(r_i\) is an additive risk vector for trade \(i\), portfolio risk is:
+For distributed portfolio risk, let trades be partitioned into deterministic shards $P_k$. If $r_i$ is an additive risk vector for trade $i$, portfolio risk is:
 
-$$
+```math
 r_{\text{portfolio}}
 =
 \sum_{k=1}^{K}
 \left(
 \sum_{i \in P_k} r_i
 \right).
-$$
+```
 
 Not every measure is additive. VaR, expected shortfall, netting-set exposure, option-implied correlation, and portfolio optimization may require scenario-level or state-level aggregation before the final statistic is computed. The map/reduce boundary must follow the mathematics rather than convenience.
 
 ## Worked Instrument Example
 Assume an intraday risk request contains 120,000 trades and 250 scenarios. A monolithic worker processes 2,000 trade-scenarios per second:
 
-$$
+```math
 \frac{120{,}000 \times 250}{2{,}000}
 = 15{,}000 \text{ seconds}.
-$$
+```
 
 That is more than four hours. With 100 workers and ideal scaling, the lower bound is 150 seconds, but real performance also includes:
 

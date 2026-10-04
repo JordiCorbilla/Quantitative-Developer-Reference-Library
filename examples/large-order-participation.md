@@ -4,9 +4,9 @@ Related chapter: [20-execution-microstructure-and-tca.md](../20-execution-micros
 
 Assume a 400,000-share parent buy order. The first two hours are forecast to account for 1,000,000 shares of market volume, and the mandate sets a 10% maximum participation rate.
 
-$$
+```math
 \text{maximum child quantity} = 1{,}000{,}000 \times 10\% = 100{,}000\text{ shares}
-$$
+```
 
 ```python
 def participation_limit(forecast_volume: float, max_participation: float, parent_remaining: float) -> float:

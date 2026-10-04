@@ -13,15 +13,15 @@ Assume these intraday market prints:
 
 TWAP:
 
-$$
+```math
 \frac{100.00 + 100.10 + 100.20 + 100.50}{4} = 100.20
-$$
+```
 
 VWAP:
 
-$$
+```math
 \frac{100.00 \times 20k + 100.10 \times 10k + 100.20 \times 10k + 100.50 \times 60k}{100k} = 100.33
-$$
+```
 
 ```python
 prices = [100.00, 100.10, 100.20, 100.50]

@@ -4,9 +4,9 @@ Related chapter: [../18-volatility-products.md](../18-volatility-products.md).
 
 The Heston variance process is:
 
-$$
+```math
 dv_t = \kappa(\theta - v_t)dt + \sigma\sqrt{v_t}dW_t
-$$
+```
 
 Assume:
 - current variance: 0.04
@@ -30,9 +30,9 @@ assert abs(next_variance - 0.0382375) < 1e-12
 
 Result:
 
-$$
+```math
 0.04 + 1.5(0.0225 - 0.04)0.01 + 0.30\sqrt{0.04}(-0.25)\sqrt{0.01} = 0.0382375
-$$
+```
 
 Implementation notes:
 - Discrete simulation can produce negative variance unless the scheme handles the boundary.

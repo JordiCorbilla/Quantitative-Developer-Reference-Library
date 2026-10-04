@@ -33,44 +33,44 @@ Dependence inputs need conventions just as prices and volatilities do.
 ## Core Pricing Framework
 Sklar's theorem supplies the separation between marginals and dependence. For a joint distribution $H$ with marginal distributions $F_1,\ldots,F_d$, there is a copula $C$ such that:
 
-$$
+```math
 H(x_1,\ldots,x_d)
 = C\left(F_1(x_1),\ldots,F_d(x_d)\right)
-$$
+```
 
 If the marginals are continuous, the copula is unique. With discrete marginals, including default indicators, uniqueness and estimation require extra care.
 
 For a continuous, correctly specified marginal model:
 
-$$
+```math
 U_j = F_j(X_j) \sim U(0,1)
-$$
+```
 
 The copula joins the uniform variables $U_1,\ldots,U_d$. Simulation reverses the process:
 
-$$
+```math
 (U_1,\ldots,U_d) \sim C,
 \qquad X_j = F_j^{-1}(U_j)
-$$
+```
 
 ![Copula dependence and tail map](assets/copula-dependence-tail-map.svg)
 
 ### Tail Dependence
 For two continuous variables with copula $C$, lower-tail dependence is:
 
-$$
+```math
 \lambda_L
 = \lim_{u\downarrow 0}\Pr(U_2 \leq u \mid U_1 \leq u)
 = \lim_{u\downarrow 0}\frac{C(u,u)}{u}
-$$
+```
 
 Upper-tail dependence is:
 
-$$
+```math
 \lambda_U
 = \lim_{u\uparrow 1}\Pr(U_2 > u \mid U_1 > u)
 = \lim_{u\uparrow 1}\frac{1-2u+C(u,u)}{1-u}
-$$
+```
 
 These are asymptotic quantities. A model with zero asymptotic tail dependence can still show meaningful co-exceedance at finite quantiles, so validation should inspect the actual probability levels relevant to the portfolio.
 
@@ -87,28 +87,28 @@ These are asymptotic quantities. A model with zero asymptotic tail dependence ca
 
 For a bivariate Student-t copula with correlation parameter $\rho$ and $\nu$ degrees of freedom, symmetric tail dependence is:
 
-$$
+```math
 \lambda_L = \lambda_U
 = 2t_{\nu+1}\left(
 -\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}
 \right)
-$$
+```
 
 where $t_{\nu+1}$ is the Student-t CDF. Lower degrees of freedom generally create stronger tail dependence, holding $\rho$ fixed.
 
 ## Worked Instrument Example: Clayton Lower-Tail Dependence
 For a Clayton copula with parameter $\theta>0$:
 
-$$
+```math
 \lambda_L = 2^{-1/\theta},
 \qquad \lambda_U = 0
-$$
+```
 
 If $\theta=2$:
 
-$$
+```math
 \lambda_L = 2^{-1/2} \approx 0.7071
-$$
+```
 
 This does **not** mean that two assets have a 70.71% probability of crashing. It means that, in the asymptotic limit, the conditional probability that one transformed variable is in its lower tail given that the other is in the same lower tail approaches 70.71%. The interpretation depends on the variables, their marginal models, and whether low transformed values represent losses.
 

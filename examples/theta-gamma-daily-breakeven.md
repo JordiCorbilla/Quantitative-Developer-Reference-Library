@@ -16,36 +16,36 @@ Assume:
 
 With rates and carry suppressed, the Black-Scholes PDE relates theta and gamma:
 
-$$
+```math
 \Theta_{\Delta\tau}
 \approx
 -\frac{1}{2}\Gamma S^2\sigma_{\text{imp}}^2\Delta\tau.
-$$
+```
 
 The interval theta is therefore:
 
-$$
+```math
 \Theta_{\Delta\tau}
 =-\frac{1}{2}(0.035)(100)^2(0.25)^2\frac{1}{252}
 =-0.0434028.
-$$
+```
 
 The delta-hedged local PnL for a spot move $\Delta S$ is:
 
-$$
+```math
 \Delta\Pi
 \approx
 \frac{1}{2}\Gamma(\Delta S)^2+\Theta_{\Delta\tau}.
-$$
+```
 
 Setting that approximation to zero gives:
 
-$$
+```math
 |\Delta S|_{\text{BE}}
 =\sqrt{\frac{-2\Theta_{\Delta\tau}}{\Gamma}}
 =S\sigma_{\text{imp}}\sqrt{\Delta\tau}
 =1.57485.
-$$
+```
 
 | Absolute one-step move | Gamma PnL | Theta PnL | Approximate net PnL |
 | ---: | ---: | ---: | ---: |

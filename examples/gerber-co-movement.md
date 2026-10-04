@@ -13,13 +13,13 @@ Classify standardized returns as `1` above a positive threshold, `-1` below a ne
 
 Using the convention that ignores observations where either asset is neutral:
 
-$$
+```math
 g_{12}
 =\frac{n^{UU}+n^{DD}-n^{UD}-n^{DU}}
 {n^{UU}+n^{DD}+n^{UD}+n^{DU}}
 =\frac{5+3-1-1}{10}
 =0.60
-$$
+```
 
 ```python
 def gerber_pair(states_a: list[int], states_b: list[int]) -> float:
@@ -47,15 +47,15 @@ assert abs(g - 0.60) < 1e-12
 
 If annualized robust volatility scales are 20% and 30%, covariance is:
 
-$$
+```math
 \widehat\Sigma_{12}=0.60(0.20)(0.30)=0.036
-$$
+```
 
 A 50/50 portfolio has annualized volatility:
 
-$$
+```math
 \sqrt{0.5^2(0.20^2)+0.5^2(0.30^2)+2(0.5)(0.5)(0.036)}
 =22.47\%
-$$
+```
 
 The example has very few jointly extreme observations. Production controls should require adequate counts, persist the threshold and statistic variant, test sensitivity to window and scale estimator, and verify that the complete covariance matrix is symmetric and positive semidefinite.

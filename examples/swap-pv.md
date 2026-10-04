@@ -4,9 +4,9 @@ Related chapter: [../06-interest-rates.md](../06-interest-rates.md).
 
 For a fixed-vs-floating swap:
 
-$$
+```math
 PV = PV_{\text{float}} - PV_{\text{fixed}}
-$$
+```
 
 Assume:
 - notional: USD 100m
@@ -17,15 +17,15 @@ Assume:
 
 Fixed leg PV:
 
-$$
+```math
 100m \times 4\% \times (0.96 + 0.92) = 7.52m
-$$
+```
 
 Swap PV to receive floating and pay fixed:
 
-$$
+```math
 7.80m - 7.52m = 0.28m
-$$
+```
 
 ```python
 notional = 100_000_000.0

@@ -42,56 +42,56 @@ Risk reports should state signs explicitly. One useful convention defines DV01 a
 ## Core Pricing Framework
 ### One Enterprise, Several Claims
 
-Let distributable value in scenario \(k\) be enterprise value after administrative costs and higher-priority leakage:
+Let distributable value in scenario $k$ be enterprise value after administrative costs and higher-priority leakage:
 
-$$
+```math
 A_k = \max(EV_k - C_k, 0).
-$$
+```
 
-For claim \(i\) in priority order, with allowed amount \(F_i\), a simple waterfall gives:
+For claim $i$ in priority order, with allowed amount $F_i$, a simple waterfall gives:
 
-$$
+```math
 R_{i,k} = \min\left(F_i,\max\left(A_k-\sum_{j<i}R_{j,k},0\right)\right).
-$$
+```
 
-Its recovery rate is \(R_{i,k}/F_i\). Real restructurings can deviate because of collateral silos, guarantees, adequate-protection claims, disputed amounts, new-money priority, valuation negotiation, and plan consideration paid as cash, debt, or equity. The waterfall is therefore a scenario engine, not a legal conclusion.
+Its recovery rate is $R_{i,k}/F_i$. Real restructurings can deviate because of collateral silos, guarantees, adequate-protection claims, disputed amounts, new-money priority, valuation negotiation, and plan consideration paid as cash, debt, or equity. The waterfall is therefore a scenario engine, not a legal conclusion.
 
 ### Relative-Value Portfolio
 
-For quantities \(q_i\), full prices \(P_i\), and financing cash account \(B\), current value is:
+For quantities $q_i$, full prices $P_i$, and financing cash account $B$, current value is:
 
-$$
+```math
 V = \sum_i q_i P_i + B.
-$$
+```
 
-Under scenario \(k\):
+Under scenario $k$:
 
-$$
+```math
 \Delta V_k = \sum_i q_i(P_{i,k}-P_i)
  + \text{carry}_k - \text{funding}_k - \text{transaction costs}_k.
-$$
+```
 
-A trade is sized against the whole distribution of \(\Delta V_k\), not just the expected convergence. Local hedges can be obtained by solving:
+A trade is sized against the whole distribution of $\Delta V_k$, not just the expected convergence. Local hedges can be obtained by solving:
 
-$$
+```math
 \mathbf{A}\mathbf{h}=-\mathbf{r},
-$$
+```
 
-where \(\mathbf{r}\) contains the core position's rate DV01, credit CS01, equity delta, FX delta, or sector beta, and columns of \(\mathbf{A}\) contain candidate hedge sensitivities. Liquidity limits and hedge bounds turn this into a constrained least-squares problem. Default, restructuring, call, and borrow-recall scenarios remain necessary because local sensitivities do not describe gaps.
+where $\mathbf{r}$ contains the core position's rate DV01, credit CS01, equity delta, FX delta, or sector beta, and columns of $\mathbf{A}$ contain candidate hedge sensitivities. Liquidity limits and hedge bounds turn this into a constrained least-squares problem. Default, restructuring, call, and borrow-recall scenarios remain necessary because local sensitivities do not describe gaps.
 
 The conventional quoted CDS-bond basis is CDS spread minus a comparable bond spread:
 
-$$
+```math
 \text{CDS-bond basis}=s_{\text{CDS}}-s_{\text{bond}}.
-$$
+```
 
 For a long-bond/long-protection trade, a separate net-carry screen is:
 
-$$
+```math
 \text{net carry}
 \approx s_{\text{bond}}-s_{\text{CDS}}
 -c_{\text{funding}}-c_{\text{borrow}}-c_{\text{delivery}}-c_{\text{liquidity}}.
-$$
+```
 
 The signs answer different questions: a negative quoted basis can create positive pre-cost carry for this direction of trade. The bond spread must be option- and curve-consistent. Positive carry is not arbitrage when default settlement, delivery optionality, funding, or legal basis can overwhelm it.
 
@@ -111,17 +111,17 @@ Distributable value is USD 550m. The first lien receives USD 300m, the unsecured
 
 Suppose USD 10m face of the unsecured bond trades at 82 clean and an investor buys USD 10m of matched unsecured CDS protection. Ignoring accrued interest, the bond costs USD 8.2m. If a covered credit event occurs and the CDS auction recovery is also 62.5%, the bond is worth USD 6.25m and CDS pays:
 
-$$
+```math
 10m\times(1-62.5\%)=3.75m.
-$$
+```
 
 Default settlements total USD 10m before premium, funding, settlement, and delivery effects. The USD 1.8m difference over purchase price compensates for these risks.
 
 If the bond's comparable spread is 760 bps and CDS costs 620 bps, the conventional CDS-bond basis is $620-760=-140$ bps. If annualized bond funding consumes 65 bps and liquidity/delivery reserves consume 25 bps, estimated net carry on the long-bond/long-protection package is:
 
-$$
+```math
 760-620-65-25=50\text{ bps},
-$$
+```
 
 or about USD 50,000 per year before convexity, accrual, and trading costs. Entity mismatch, non-deliverability, auction basis, or an early call can erase it.
 

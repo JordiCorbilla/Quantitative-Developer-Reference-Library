@@ -13,11 +13,11 @@ Assume:
 
 Then:
 
-$$
+```math
 h_t
 =0.94(0.000100)+0.06(-0.020)^2
 =0.000118.
-$$
+```
 
 The daily volatility is $\sqrt{0.000118}=1.0863\%$. The sign of the return does not affect this symmetric EWMA update.
 
@@ -30,14 +30,14 @@ Suppose realized-variance inputs computed through the forecast origin are:
 
 With $\beta_0=0.000005$, $\beta_d=0.40$, $\beta_w=0.35$, and $\beta_m=0.20$:
 
-$$
+```math
 \widehat{RV}_{t+1}
 =0.000005
 +0.40(0.000120)
 +0.35(0.000100)
 +0.20(0.000080)
 =0.000104.
-$$
+```
 
 That is a daily volatility forecast of about $1.0198\%$, or about $16.19\%$ under a simple $\sqrt{252}$ annualization.
 

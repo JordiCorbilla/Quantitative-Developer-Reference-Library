@@ -11,27 +11,27 @@ Two option expiries bracket one scheduled event:
 
 Assume diffuse volatility during the seven days between expiries is 28%. Work in total variance, $W=\sigma^2T$:
 
-$$
+```math
 W_1=0.30^2\frac{20}{365}=0.004932
-$$
+```
 
-$$
+```math
 W_2=0.44^2\frac{27}{365}=0.014321
-$$
+```
 
 Under a deliberately simplified independent-Gaussian event model, subtract the diffuse variance between expiries to obtain an effective event variance:
 
-$$
+```math
 q_{\text{event}}^{\text{eff}}
 =W_2-W_1-0.28^2\frac{7}{365}
 =0.007886
-$$
+```
 
 The Gaussian-equivalent one-standard-deviation implied log jump is:
 
-$$
+```math
 \sqrt{q_{\text{event}}^{\text{eff}}}=8.88\%
-$$
+```
 
 This is a model-dependent screening number, not a model-free estimate of $E^Q[J^2]$ or a forecast of the realized move. A generic jump distribution, skewed surface, or nonzero jump mean does not map exactly from two ATM Black volatilities into one additive variance. A model-free implied-variance calculation instead uses an out-of-the-money option strip across strikes.
 
@@ -66,9 +66,9 @@ assert abs(implied_move - 0.08880330735541483) < 1e-12
 
 For USD 10m notional per unit of decimal event variance, a realized absolute log jump of 12% gives:
 
-$$
+```math
 10{,}000{,}000(0.12^2-0.00788603)
 =\text{USD }65{,}140
-$$
+```
 
 This calculation is a diagnostic, not an option price. Before using it, verify forward and moneyness alignment, expiry timestamps, event-time version history, diffuse-variance choice, bid/ask execution, post-event surface behavior, and the variance-notional unit.

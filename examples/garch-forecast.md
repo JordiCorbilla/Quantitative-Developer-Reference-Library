@@ -4,9 +4,9 @@ Related chapter: [../18-volatility-products.md](../18-volatility-products.md).
 
 The GARCH(1,1) variance update is:
 
-$$
+```math
 \sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2
-$$
+```
 
 Assume:
 - $\omega = 0.000002$

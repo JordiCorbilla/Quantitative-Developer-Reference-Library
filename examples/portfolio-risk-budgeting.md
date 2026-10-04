@@ -2,9 +2,9 @@
 
 Related chapters: [../16-portfolio-construction-and-backtesting.md](../16-portfolio-construction-and-backtesting.md) and [../44-robust-portfolio-and-research-validation.md](../44-robust-portfolio-and-research-validation.md).
 
-Assume two uncorrelated assets have annualized volatilities of \(10\%\) and \(20\%\). Inverse-volatility weights are:
+Assume two uncorrelated assets have annualized volatilities of $10\%$ and $20\%$. Inverse-volatility weights are:
 
-$$
+```math
 w_1
 =
 \frac{1/0.10}{1/0.10+1/0.20}
@@ -12,36 +12,36 @@ w_1
 \frac{2}{3},
 \qquad
 w_2=\frac{1}{3}.
-$$
+```
 
 The covariance matrix is:
 
-$$
+```math
 \Sigma=
 \begin{bmatrix}
 0.10^2 & 0\\
 0 & 0.20^2
 \end{bmatrix}.
-$$
+```
 
 Portfolio volatility is:
 
-$$
+```math
 \sigma_p
 =
 \sqrt{w^\top\Sigma w}
 =
 \sqrt{\frac{4}{9}(0.10)^2+\frac{1}{9}(0.20)^2}
 \approx9.43\%.
-$$
+```
 
 Volatility contribution is:
 
-$$
+```math
 RC_i=w_i\frac{(\Sigma w)_i}{\sigma_p}.
-$$
+```
 
-Both contributions are approximately \(4.71\%\), half of portfolio volatility.
+Both contributions are approximately $4.71\%$, half of portfolio volatility.
 
 ```python
 from math import sqrt

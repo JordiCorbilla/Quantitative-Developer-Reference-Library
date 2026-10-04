@@ -31,10 +31,10 @@ A cap is a strip of caplets. For a simple term-rate coupon fixing at $T_i$ and p
 
 For a European physically settled payer swaption, the underlying is a par swap rate and the natural scale is the swap annuity. Under a consistent collateral and projection setup, the time-zero price can be expressed as:
 
-$$
+```math
 V_0=A_0\,\mathbb{E}^{Q^A}[(S_T-K)^+],
 \qquad A_0=N\sum_j\alpha_jP(0,T_j).
-$$
+```
 
 Here $S_T$ is the underlying forward-starting swap rate at exercise, $K$ is the strike, $A_0$ is today's fixed-leg annuity including notional, and $Q^A$ is the annuity measure. The random exercise-time annuity is absorbed by the measure change; replacing it with an arbitrary fixed annuity inside a risk-neutral expectation is not the same calculation. Rates are decimals, so the annuity is currency per 1.00 rate unit. A reported PVBP equals $10^{-4}A_0$.
 
@@ -50,9 +50,9 @@ Assume:
 
 The intrinsic payoff is:
 
-$$
+```math
 4{,}500{,}000 \times (4.20\% - 4.00\%) = 9{,}000
-$$
+```
 
 A payer swaption benefits when the underlying swap rate rises above the strike, because it gives the holder the right to pay fixed below market. For physical settlement, USD 9,000 is the value of the swap entered at exercise, rather than necessarily a cash payment received then. Premium paid, subsequent swap cashflows, and any cash-settlement annuity are separate economics.
 

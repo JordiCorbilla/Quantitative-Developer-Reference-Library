@@ -4,16 +4,16 @@ Related chapter: [32-dependence-modelling-and-copulas.md](../32-dependence-model
 
 For a Clayton copula with positive parameter $\theta$:
 
-$$
+```math
 \lambda_L = 2^{-1/\theta}
-$$
+```
 
 At $\theta=2$:
 
-$$
+```math
 \lambda_L = 2^{-1/2} \approx 0.7071,
 \qquad \lambda_U=0
-$$
+```
 
 ```python
 def clayton_lower_tail_dependence(theta: float) -> float:

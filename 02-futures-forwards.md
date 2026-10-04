@@ -29,9 +29,9 @@ The pricing story starts with carry: what does it cost or earn to hold the under
 
 In a simple carry model:
 
-$$
+```math
 F_0(T) = S_0 e^{(r + u - y)T}
-$$
+```
 
 where $r$ is the funding rate, $u$ is a non-financing storage or carry cost, and $y$ is income or convenience yield. Keeping funding out of $u$ prevents double-counting it. Variants:
 - equity index forward: carry comes from funding minus dividends,
@@ -51,15 +51,15 @@ Assume an equity index future is bought at 5,000 with:
 
 The PnL for the long futures position is:
 
-$$
+```math
 (5{,}080 - 5{,}000) \times 50 \times 10 = 40{,}000
-$$
+```
 
 If the future instead falls to 4,920:
 
-$$
+```math
 (4{,}920 - 5{,}000) \times 50 \times 10 = -40{,}000
-$$
+```
 
 There is no option-like right to walk away. A long future benefits from price increases and loses from price decreases. A short future has the exact opposite PnL. For exchange-traded futures, this gain or loss is usually settled through daily variation margin rather than paid only at final maturity.
 

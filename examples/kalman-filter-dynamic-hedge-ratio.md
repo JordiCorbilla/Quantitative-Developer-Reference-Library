@@ -4,10 +4,10 @@ Related chapters: [../31-statistical-arbitrage-and-pairs-trading.md](../31-stati
 
 This example performs one scalar Kalman-filter update for:
 
-$$
+```math
 y_t=\beta_t x_t+\epsilon_t,\qquad
 \beta_t=\beta_{t-1}+\eta_t.
-$$
+```
 
 It omits an intercept to keep the arithmetic visible. Assume the prior filtered state and the new aligned observation are:
 
@@ -19,31 +19,31 @@ It omits an intercept to keep the arithmetic visible. Assume the prior filtered 
 
 The prediction covariance is:
 
-$$
+```math
 P_{t|t-1}=0.040+0.001=0.041.
-$$
+```
 
 The predicted observation is $1.10(1.20)=1.32$, so the innovation is $v_t=0.08$. The innovation variance and Kalman gain are:
 
-$$
+```math
 F_t=x_t^2P_{t|t-1}+R
 =1.20^2(0.041)+0.010=0.06904,
-$$
+```
 
-$$
+```math
 K_t=\frac{P_{t|t-1}x_t}{F_t}
 =0.712630.
-$$
+```
 
 The filtered hedge and its variance are:
 
-$$
+```math
 \beta_{t|t}=1.10+0.712630(0.08)=1.157010,
-$$
+```
 
-$$
+```math
 P_{t|t}=(1-K_tx_t)P_{t|t-1}=0.005939.
-$$
+```
 
 ```python
 def dynamic_beta_update(

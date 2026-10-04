@@ -45,9 +45,9 @@ CVA, or Credit Valuation Adjustment, reduces the clean value of a derivative por
 
 At a high level, a common bucketed approximation uses period marginal default probabilities:
 
-$$
+```math
 \text{CVA} \approx \sum_t EE_t \times \Delta PD_t \times LGD_t \times DF_t
-$$
+```
 
 where:
 - $EE_t$ is expected positive exposure,
@@ -57,9 +57,9 @@ where:
 
 Multiplying expected exposure by marginal default probability assumes that exposure and default timing can be separated within each bucket—effectively excluding wrong-way risk from the approximation. A joint simulation instead targets the discounted default loss directly:
 
-$$
+```math
 \text{CVA}=(1-R)\sum_t E\!\left[DF_t E_t^+\mathbf{1}_{\{\tau\in(t_{t-1},t_t]\}}\right].
-$$
+```
 
 When counterparty credit quality deteriorates in the same states where exposure rises, the joint expectation cannot be replaced safely by a product of marginal expectations.
 
@@ -87,15 +87,15 @@ Assume a USD investor buys a one-year quanto note linked to a European stock ind
 
 If the index starts at 4,000 and ends at 4,400, the index return is:
 
-$$
+```math
 \frac{4{,}400 - 4{,}000}{4{,}000} = 10\%
-$$
+```
 
 On USD 5,000,000 notional, the payoff linked to the return is:
 
-$$
+```math
 5{,}000{,}000 \times 10\% = 500{,}000
-$$
+```
 
 If the index falls to 3,800, the linked return is -5%, or USD -250,000 before any capital-protection feature. The pricing problem is not just an equity calculation. The desk also needs equity volatility, FX volatility, the equity-FX correlation, discounting curves, and the exact rule that says whether FX is fixed, floating, capped, or embedded in the payoff.
 
@@ -108,13 +108,13 @@ Assume:
 
 Then:
 
-$$
+```math
 LGD = 1 - 40\% = 60\%
-$$
+```
 
-$$
+```math
 \text{CVA} = 1{,}000{,}000 \times 2\% \times 60\% = 12{,}000
-$$
+```
 
 The clean derivative value would be reduced by roughly USD 12,000 in this simplified setup. Real portfolios use time-dependent exposure profiles and default curves rather than one scalar exposure and one scalar marginal default probability.
 

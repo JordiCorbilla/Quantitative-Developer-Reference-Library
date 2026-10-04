@@ -63,9 +63,9 @@ Trees and PDE methods work best when the state dimension is low and exercise or 
 ### Monte Carlo
 Monte Carlo approximates:
 
-$$
+```math
 V \approx \frac{1}{N} \sum_{i=1}^{N} D_i \cdot X_i
-$$
+```
 
 and improves with:
 - antithetic paths,
@@ -91,9 +91,9 @@ Key interview points:
 ### Calibration
 Calibration turns observed quotes into model parameters by minimizing error:
 
-$$
+```math
 \min_{\theta} \sum_j w_j \left(\text{ModelQuote}_j(\theta) - \text{MarketQuote}_j\right)^2
-$$
+```
 
 The hard problem is not only minimizing the objective. It is controlling parameter stability, regularization, and sensitivity to stale or inconsistent quotes.
 

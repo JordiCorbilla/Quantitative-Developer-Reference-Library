@@ -2,23 +2,23 @@
 
 Related chapters: [../13-risk-and-pnl.md](../13-risk-and-pnl.md) and [../10-numerical-methods.md](../10-numerical-methods.md).
 
-Assume zero expected one-day PnL and standard deviation USD \(1.5\) million. Under a normal parametric model at \(99\%\) confidence:
+Assume zero expected one-day PnL and standard deviation USD $1.5$ million. Under a normal parametric model at $99\%$ confidence:
 
-$$
+```math
 \operatorname{VaR}_{0.99}
 =
 \Phi^{-1}(0.99)\times1.5
 \approx
 USD\ 3.49\text{ million},
-$$
+```
 
-$$
+```math
 \operatorname{ES}_{0.99}
 =
 1.5\frac{\phi(\Phi^{-1}(0.99))}{0.01}
 \approx
 USD\ 4.00\text{ million}.
-$$
+```
 
 The following dependency-free code reproduces the parametric result and illustrates a seeded normal Monte Carlo estimate:
 

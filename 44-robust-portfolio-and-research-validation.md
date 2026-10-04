@@ -38,17 +38,17 @@ Research validation methods include fixed chronological holdouts, expanding or r
 ## Core Pricing Framework
 For return vectors $r_t$, sample covariance is:
 
-$$
+```math
 S=\frac{1}{T-1}\sum_{t=1}^{T}(r_t-\bar r)(r_t-\bar r)^\top
-$$
+```
 
 Linear shrinkage reduces estimation error by blending $S$ with a target $F$:
 
-$$
+```math
 \widehat\Sigma_{\text{shrunk}}
 =(1-\delta)S+\delta F,
 \qquad 0\leq\delta\leq1
-$$
+```
 
 The target might be diagonal, constant-correlation, or factor-based. Validate $\delta$ out of sample.
 
@@ -56,38 +56,38 @@ The target might be diagonal, constant-correlation, or factor-based. Validate $\
 
 For asset $i$, use robust center $\mu_i$ and scale $s_i$, for example median and scaled median absolute deviation:
 
-$$
+```math
 s_i=1.4826\,\operatorname{median}_t|r_{i,t}-\operatorname{median}(r_i)|
-$$
+```
 
 Classify each standardized return using threshold $h>0$:
 
-$$
+```math
 z_{i,t}=
 \begin{cases}
 +1, & r_{i,t}-\mu_i\geq h s_i\\
 -1, & r_{i,t}-\mu_i\leq-h s_i\\
 0, & \text{otherwise}
 \end{cases}
-$$
+```
 
 For a pair $(i,j)$, count jointly extreme up/up, down/down, up/down, and down/up observations. One common Gerber-statistic convention is:
 
-$$
+```math
 g_{ij}=
 \frac{n^{UU}_{ij}+n^{DD}_{ij}-n^{UD}_{ij}-n^{DU}_{ij}}
 {n^{UU}_{ij}+n^{DD}_{ij}+n^{UD}_{ij}+n^{DU}_{ij}}
-$$
+```
 
 Neutral observations are excluded from this denominator. Other variants treat neutral regions differently, so persist the exact variant. Too few jointly extreme observations makes the estimate unreliable.
 
 Convert the co-movement matrix $G$ into covariance using annualized scales:
 
-$$
+```math
 \widehat\Sigma_G=DGD,
 \qquad
 D=\operatorname{diag}(\sigma_1,\ldots,\sigma_N)
-$$
+```
 
 Thresholding reduces the influence of tiny moves and the exact amplitude beyond a threshold. It does not remove regime, asymmetry, missing-data, or threshold risk. Apply a documented nearest-correlation or shrinkage procedure if needed.
 
@@ -95,26 +95,26 @@ Thresholding reduces the influence of tiny moves and the exact amplitude beyond 
 
 For target vector $\tau$, define downside deviations:
 
-$$
+```math
 d_t=\min(r_t-\tau,0)
-$$
+```
 
 where the minimum is componentwise. An uncentered target-semivariance matrix is:
 
-$$
+```math
 \Sigma^-=\frac{1}{T}\sum_{t=1}^{T}d_td_t^\top
-$$
+```
 
 It is PSD and measures simultaneous target shortfalls. Conditional semivariance and lower-partial covariance use different denominators and centering, so label reports precisely.
 
 A practical constrained optimizer can combine robust symmetric and downside risk:
 
-$$
+```math
 \min_w
 \lambda w^\top\widehat\Sigma_{\text{robust}}w
 +(1-\lambda)w^\top\Sigma^-w
 +\kappa\lVert w-w_{\text{prev}}\rVert_1
-$$
+```
 
 subject to funding, gross, factor, concentration, liquidity, and turnover constraints. Tail scenarios remain separate controls because neither covariance nor semivariance fully represents gaps.
 
@@ -122,9 +122,9 @@ subject to funding, gross, factor, concentration, liquidity, and turnover constr
 
 If $m$ independent null hypotheses are tested at significance level $\alpha$, the probability of at least one false positive is:
 
-$$
+```math
 \operatorname{FWER}=1-(1-\alpha)^m
-$$
+```
 
 Bonferroni tests each hypothesis at $\alpha/m$; false-discovery-rate procedures answer a different question. With dependent financial trials, consider effective trial count, bootstrap reality checks, superior-predictive-ability tests, or a Deflated Sharpe Ratio.
 
@@ -142,24 +142,24 @@ Suppose two assets have annualized robust volatility scales of 20% and 30%. Amon
 
 Their thresholded co-movement is:
 
-$$
+```math
 g_{12}=\frac{5+3-1-1}{5+3+1+1}=0.60
-$$
+```
 
 The robust covariance is $0.60\times0.20\times0.30=0.036$. For a 50/50 portfolio:
 
-$$
+```math
 \sigma_p
 =\sqrt{0.5^2(0.20^2)+0.5^2(0.30^2)
 +2(0.5)(0.5)(0.036)}
 =22.47\%
-$$
+```
 
 Now suppose a researcher tries 60 strategy variants and uses an unadjusted 5% test. Under independent nulls:
 
-$$
+```math
 1-0.95^{60}=95.4\%
-$$
+```
 
 The research record must expose all 60 trials, assess multiplicity, and evaluate the chosen specification on an untouched chronological outer test.
 
@@ -175,12 +175,12 @@ The research record must expose all 60 trials, assess multiplicity, and evaluate
 
 Portfolio PnL should be calculated from lagged executed weights:
 
-$$
+```math
 \operatorname{PnL}_t
 =\operatorname{NAV}_{t-1}w_{t-1}^\top r_t
 -\operatorname{cost}(\Delta w_t)
 +\operatorname{financing}_t
-$$
+```
 
 Attribute factor, specific, carry, rebalance, and cost PnL. Compare ex-ante risk with realized returns and run stressed-correlation, volatility-scaling, liquidity, and gap scenarios.
 

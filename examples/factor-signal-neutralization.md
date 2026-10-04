@@ -11,16 +11,16 @@ Suppose four assets have point-in-time momentum scores:
 | C | Banks | 0.3 |
 | D | Banks | -0.5 |
 
-The Technology mean is \(1.0\), and the Banks mean is \(-0.1\). Subtracting the relevant industry mean gives:
+The Technology mean is $1.0$, and the Banks mean is $-0.1$. Subtracting the relevant industry mean gives:
 
 | Asset | Calculation | Neutralized score |
 | --- | ---: | ---: |
-| A | \(1.4-1.0\) | 0.4 |
-| B | \(0.6-1.0\) | -0.4 |
-| C | \(0.3-(-0.1)\) | 0.4 |
-| D | \(-0.5-(-0.1)\) | -0.4 |
+| A | $1.4-1.0$ | 0.4 |
+| B | $0.6-1.0$ | -0.4 |
+| C | $0.3-(-0.1)$ | 0.4 |
+| D | $-0.5-(-0.1)$ | -0.4 |
 
-The sum of scores is zero within each industry. Total absolute score is \(1.6\), so gross-normalized weights are:
+The sum of scores is zero within each industry. Total absolute score is $1.6$, so gross-normalized weights are:
 
 | Asset | Weight |
 | --- | ---: |
@@ -29,7 +29,7 @@ The sum of scores is zero within each industry. Total absolute score is \(1.6\),
 | C | 0.25 |
 | D | -0.25 |
 
-Gross exposure is \(1.0\), net exposure is zero, and each industry has zero net dollar exposure.
+Gross exposure is $1.0$, net exposure is zero, and each industry has zero net dollar exposure.
 
 ```python
 scores = {"A": 1.4, "B": 0.6, "C": 0.3, "D": -0.5}

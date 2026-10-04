@@ -29,9 +29,9 @@ The product type tells you which part of the rates stack you are touching: cash,
 
 Par swap rate identity:
 
-$$
+```math
 K_{\text{par}} = \frac{P(0, T_0) - P(0, T_n)}{\sum_{i=1}^{n} \alpha_i P(0, T_i)}
-$$
+```
 
 for a simple single-curve setup with accrual fractions $\alpha_i$. Multi-curve systems generalize the projection side while preserving the annuity intuition.
 
@@ -47,9 +47,9 @@ Before the financial crisis, many systems projected and discounted off one curve
 
 Simple forward rate relation:
 
-$$
+```math
 L(T_i, T_{i+1}) = \frac{1}{\alpha_i} \left(\frac{P(0, T_i)}{P(0, T_{i+1})} - 1\right)
-$$
+```
 
 ### Multi-Curve Reality
 Modern systems separate:
@@ -64,14 +64,14 @@ Market quotes arrive at a finite set of maturities, but a trade can pay on almos
 
 For continuously compounded zero rates, the core representations are linked by:
 
-$$
+```math
 P(0,T)=e^{-z(T)T},
 \qquad
 z(T)=-\frac{\log P(0,T)}{T},
 \qquad
 f(0,T)=-\frac{\partial \log P(0,T)}{\partial T}
 =z(T)+Tz'(T).
-$$
+```
 
 These identities use one stated compounding convention. A production curve may expose several quote conventions, but it must transform them into one internally consistent state before interpolation.
 
@@ -79,9 +79,9 @@ An **interpolator** passes through the constructed nodes in its selected variabl
 
 | Method | Contract between nodes | Implied-forward and risk behavior |
 | --- | --- | --- |
-| Piecewise-linear zero rate | Interpolate \(z(T)\), then derive \(P(0,T)\) | Zero rates are continuous, but changes in slope generally make \(f(0,T)=z(T)+Tz'(T)\) jump at knots. |
-| Log-linear discount factor | Interpolate \(\log P(0,T)\) | Discount factors remain positive and the instantaneous forward is constant inside each interval, with possible jumps at knots. |
-| Piecewise-linear discount factor | Interpolate \(P(0,T)\) directly | Positive endpoint discount factors remain positive between adjacent nodes; \(f(0,T)=-P'(0,T)/P(0,T)\) varies inside the interval and can jump when the segment slope changes. |
+| Piecewise-linear zero rate | Interpolate $z(T)$, then derive $P(0,T)$ | Zero rates are continuous, but changes in slope generally make $f(0,T)=z(T)+Tz'(T)$ jump at knots. |
+| Log-linear discount factor | Interpolate $\log P(0,T)$ | Discount factors remain positive and the instantaneous forward is constant inside each interval, with possible jumps at knots. |
+| Piecewise-linear discount factor | Interpolate $P(0,T)$ directly | Positive endpoint discount factors remain positive between adjacent nodes; $f(0,T)=-P'(0,T)/P(0,T)$ varies inside the interval and can jump when the segment slope changes. |
 | Natural cubic spline | Join cubic pieces and impose zero second derivative at the endpoints in the selected variable | The selected variable is twice continuously differentiable, but the endpoint condition is numerical rather than financial; overshoot and implausible derived forwards remain possible. |
 | Monotone cubic / PCHIP | Use local slopes to preserve monotone data shape in the selected variable | Reduces spline overshoot and is local, but shape preservation of zero rates or discount factors does not by itself guarantee a well-behaved forward curve. |
 | B-spline basis | Represent the curve with basis functions and chosen knots | Can underpin exact interpolation or penalized/least-squares fitting. Degree, knots, boundary conditions, and smoothing penalty determine locality and stability. |
@@ -91,23 +91,23 @@ An **interpolator** passes through the constructed nodes in its selected variabl
 ![Yield-curve interpolation and implied-forward impact](assets/yield-curve-interpolation-forward-impact.svg)
 
 #### Worked Off-Node Story: Pricing At 7.3 Years
-Take synthetic continuously compounded zero-rate nodes of 3.40% at 5 years and 3.55% at 10 years. At 7.3 years, the interval weight is \(w=(7.3-5)/(10-5)=0.46\).
+Take synthetic continuously compounded zero-rate nodes of 3.40% at 5 years and 3.55% at 10 years. At 7.3 years, the interval weight is $w=(7.3-5)/(10-5)=0.46$.
 
 Linear interpolation in zero-rate space gives:
 
-$$
+```math
 z_{\text{linear zero}}(7.3)
 =3.40\%+0.46(3.55\%-3.40\%)
 =3.469\%,
-$$
+```
 
-and therefore \(P(0,7.3)=e^{-0.03469\times7.3}\approx0.776284\). Log-linear discount-factor interpolation instead uses \(\log P(0,5)=-0.1700\) and \(\log P(0,10)=-0.3550\):
+and therefore $P(0,7.3)=e^{-0.03469\times7.3}\approx0.776284$. Log-linear discount-factor interpolation instead uses $\log P(0,5)=-0.1700$ and $\log P(0,10)=-0.3550$:
 
-$$
+```math
 \log P(0,7.3)=-0.1700+0.46(-0.3550+0.1700)=-0.2551,
-$$
+```
 
-so \(P(0,7.3)\approx0.774839\) and \(z(7.3)\approx3.4945\%\). Both methods reproduce the two nodes exactly, yet their off-node zero rates differ by about 2.55 basis points. On this interval, log-linear discount factors imply a constant 3.70% instantaneous forward, while linear zero rates imply 3.688% at 7.3 years and a forward that changes across the interval.
+so $P(0,7.3)\approx0.774839$ and $z(7.3)\approx3.4945\%$. Both methods reproduce the two nodes exactly, yet their off-node zero rates differ by about 2.55 basis points. On this interval, log-linear discount factors imply a constant 3.70% instantaneous forward, while linear zero rates imply 3.688% at 7.3 years and a forward that changes across the interval.
 
 The difference does not prove that one method is universally closer to an unobservable true curve. It proves that the interpolation space is a model choice with PV and risk consequences. The complete arithmetic and executable checks are in [examples/yield-curve-interpolation-comparison.md](examples/yield-curve-interpolation-comparison.md). To start from quotes rather than supplied nodes, follow the [deposit/swap bootstrap and rebuilt quote-risk example](examples/curve-bootstrap-and-quote-risk.md), which verifies every calibration residual before valuing off-node cashflows.
 
@@ -159,15 +159,15 @@ Assume a company enters a 5-year USD swap with:
 
 For the next payment period, the fixed payment is:
 
-$$
+```math
 10{,}000{,}000 \times 4.00\% = 400{,}000
-$$
+```
 
 The floating receipt is:
 
-$$
+```math
 10{,}000{,}000 \times 5.00\% = 500{,}000
-$$
+```
 
 The net cashflow to the fixed-rate payer is USD 100,000 for that period before discounting. If the floating rate fixes at 3.00%, the floating receipt is USD 300,000 and the net cashflow is USD -100,000.
 

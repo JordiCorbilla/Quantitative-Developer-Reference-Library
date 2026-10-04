@@ -31,15 +31,15 @@ Structured credit pricing starts from collateral cashflows and allocates them th
 
 A simplified tranche loss for portfolio loss $L$ with attachment $A$ and detachment $D$ is:
 
-$$
+```math
 \text{TrancheLoss}(L) = \min(\max(L - A, 0), D - A)
-$$
+```
 
 The tranche loss percentage is:
 
-$$
+```math
 \frac{\text{TrancheLoss}(L)}{D - A}
-$$
+```
 
 Cash products also need interest collections, principal collections, fees, expenses, reserve accounts, triggers, and reinvestment rules. Synthetic tranches need default timing, recovery, discounting, and premium/protection legs.
 
@@ -52,27 +52,27 @@ Assume:
 
 The tranche absorbs losses above 3% and below 7%:
 
-$$
+```math
 \text{loss inside tranche} = 5\% - 3\% = 2\%
-$$
+```
 
 The tranche width is:
 
-$$
+```math
 7\% - 3\% = 4\%
-$$
+```
 
 So the tranche loss percentage is:
 
-$$
+```math
 \frac{2\%}{4\%} = 50\%
-$$
+```
 
 The dollar loss is:
 
-$$
+```math
 10{,}000{,}000 \times 50\% = 5{,}000{,}000
-$$
+```
 
 ## Key Risk Measures and Sensitivities
 - Collateral default, delinquency, recovery, and prepayment sensitivity.

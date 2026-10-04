@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-04: GitHub Formula Rendering And Futures Chapter Name
+
+- Replaced unsupported inline math delimiters and protected display equations with GitHub-supported math fences, including standalone equals signs previously parsed as headings.
+- Added a rendering-syntax regression check.
+- Renamed `02-futures.md` to `02-futures-forwards.md` and updated chapter navigation and cross-links.
+
 ## 2026-10-03: Reproducible Reference Release
 
 - Added a clean-checkout quickstart and one release check covering documentation, validator regressions, and all executable fences.

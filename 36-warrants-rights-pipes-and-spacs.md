@@ -9,7 +9,7 @@ The challenge is to preserve contractual identity through that lifecycle. A warr
 
 ## Product Taxonomy and Market Structure
 - **Warrants**: issuer-created options that may be detachable or attached, public or private, cash or cashless exercisable, American or European, redeemable, resettable, or subject to anti-dilution adjustments.
-- **Subscription rights**: short-dated rights given or sold to existing holders, commonly requiring \(r\) rights plus a subscription price to acquire one new share.
+- **Subscription rights**: short-dated rights given or sold to existing holders, commonly requiring $r$ rights plus a subscription price to acquire one new share.
 - **Units**: packages containing common stock plus a fraction of a warrant, right, or other security. Components may not separate until a stated date and operational instruction.
 - **PIPEs**: negotiated purchases of common stock, preferred stock, convertibles, or other equity-linked securities, often conditional on a related transaction and subject to resale-registration or lock-up provisions.
 - **SPAC securities**: IPO units, redeemable common shares, public and sponsor warrants, rights, founder or sponsor shares, and securities issued in a business combination or financing.
@@ -34,70 +34,70 @@ Ticker suffixes are vendor conventions, not durable identifiers. Unit separation
 Rights are sensitive to record, ex-rights, subscription, oversubscription, and expiration dates. Warrants may adjust for splits, extraordinary dividends, tender offers, below-market issuances, or reorganizations. Terms in the governing agreement override generic option assumptions.
 
 ## Core Pricing Framework
-Under simple assumptions, a unit containing one common share and \(w\) warrants satisfies:
+Under simple assumptions, a unit containing one common share and $w$ warrants satisfies:
 
-$$
+```math
 U \approx S + wW + rR + A
-$$
+```
 
-where \(U\) is unit value, \(S\) common value, \(W\) warrant value, \(R\) right value, and \(A\) is the value of restrictions, fees, separation timing, and settlement optionality. A non-zero package residual is not automatically executable arbitrage.
+where $U$ is unit value, $S$ common value, $W$ warrant value, $R$ right value, and $A$ is the value of restrictions, fees, separation timing, and settlement optionality. A non-zero package residual is not automatically executable arbitrage.
 
-For \(N\) existing shares and \(M\) identical one-for-one European corporate warrants, start with the exercise proceeds. In a simple debt-free, no-dividend firm-value model with no other claims, write \(X_T\) for equity value before the exercise cash arrives. Each exercised warrant receives a new share and pays \(K\), so its expiry payoff is:
+For $N$ existing shares and $M$ identical one-for-one European corporate warrants, start with the exercise proceeds. In a simple debt-free, no-dividend firm-value model with no other claims, write $X_T$ for equity value before the exercise cash arrives. Each exercised warrant receives a new share and pays $K$, so its expiry payoff is:
 
-$$
+```math
 W_T=\max\left(\frac{X_T+MK}{N+M}-K,0\right)
 =\frac{N}{N+M}\max\left(\frac{X_T}{N}-K,0\right).
-$$
+```
 
-If \(X_t/N\) follows the required lognormal pricing dynamics, a corresponding benchmark is \(W_0=N/(N+M)\,C(X_0/N,K,T,\sigma_X,r,0)\). The call's underlying is equity value per existing share **before allocating value to warrants**, not automatically the observed stock price. In this model \(X_0=NS_0+MW_0\); using observed \(S_0\) and stock volatility without this distinction is only a heuristic. The [Olvik and Kangro paper, section 3.1](https://arxiv.org/html/1503.05139) derives the payoff and explains why warrants alter stock-price dynamics.
+If $X_t/N$ follows the required lognormal pricing dynamics, a corresponding benchmark is $W_0=N/(N+M)\,C(X_0/N,K,T,\sigma_X,r,0)$. The call's underlying is equity value per existing share **before allocating value to warrants**, not automatically the observed stock price. In this model $X_0=NS_0+MW_0$; using observed $S_0$ and stock volatility without this distinction is only a heuristic. The [Olvik and Kangro paper, section 3.1](https://arxiv.org/html/1503.05139) derives the payoff and explains why warrants alter stock-price dynamics.
 
 Production valuation must add redemption barriers, notice periods, cashless exercise, share-price averaging, changing share count, private-warrant transfer features, and event-dependent survival. These can dominate the benchmark. Bank-issued covered warrants that transfer existing shares do not introduce this corporate dilution mechanism.
 
-For a rights issue in which \(r\) old shares each receive one right and \(r\) rights buy one new share at subscription price \(K\), the theoretical ex-rights price is:
+For a rights issue in which $r$ old shares each receive one right and $r$ rights buy one new share at subscription price $K$, the theoretical ex-rights price is:
 
-$$
+```math
 \text{TERP}=\frac{rS_0+K}{r+1}
-$$
+```
 
 and the theoretical value of one right before the stock goes ex-rights is:
 
-$$
+```math
 R=\frac{S_0-K}{r+1}
-$$
+```
 
 A redeemable SPAC common share can be decomposed as:
 
-$$
+```math
 S = p_{\text{redeem}}V_{\text{trust}}
 +p_{\text{close}}V_{\text{post-close}}
 +p_{\text{liquidate}}V_{\text{liquidation}}
 -\text{frictions}
-$$
+```
 
 with mutually exclusive branches defined at the holder level. The holder's redemption election, transaction outcome, and ability to keep or separate warrants must be modelled explicitly.
 
 ## Worked Instrument Example
 Assume a separable unit trades at USD 10.38. Its common share trades at USD 10.06 and each unit contains one-half of a public warrant. Ignoring rights and frictions, the warrant value implied by the unit is:
 
-$$
+```math
 W_{\text{implied}}
 =\frac{10.38-10.06}{0.5}
 =\text{USD }0.64
-$$
+```
 
 If the separately traded warrant is USD 0.58, the marked component package is:
 
-$$
+```math
 10.06+0.5(0.58)=\text{USD }10.35
-$$
+```
 
 so the unit carries a USD 0.03 premium. That premium must be compared with bid-ask spreads, separation fees, whole-unit constraints, processing time, borrow, and settlement risk before it is considered tradeable.
 
 Suppose estimated net trust value on a redemption date 120 days away is USD 10.12. The common's simple trust discount is USD 0.06, and the frictionless annualized convergence rate is:
 
-$$
+```math
 \left(\frac{10.12}{10.06}\right)^{365/120}-1=1.83\%
-$$
+```
 
 It is not risk-free: trust value may change, instructions can fail, and a holder who does not redeem owns the post-combination share. See the executable [SPAC unit and warrant example](examples/spac-unit-and-warrant.md).
 

@@ -14,13 +14,13 @@ Suppose a two-state HMM has:
 
 First predict next-period state probabilities:
 
-$$
+```math
 P(S_t=\text{calm}) = 0.70 \times 0.90 + 0.30 \times 0.25 = 0.705
-$$
+```
 
-$$
+```math
 P(S_t=\text{stress}) = 0.70 \times 0.10 + 0.30 \times 0.75 = 0.295
-$$
+```
 
 Now assume the new observation is a high-volatility return day. The likelihood of that observation is:
 - under calm state: 0.20
@@ -28,11 +28,11 @@ Now assume the new observation is a high-volatility return day. The likelihood o
 
 Bayes update:
 
-$$
+```math
 P(\text{calm} \mid y_t) =
 \frac{0.705 \times 0.20}{0.705 \times 0.20 + 0.295 \times 0.80}
 = 0.374
-$$
+```
 
 So the filtered calm probability falls from 70.5% before the observation to 37.4% after observing a high-volatility day.
 

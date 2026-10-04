@@ -36,73 +36,73 @@ Financial data must declare its basis.
 
 Consensus is a timestamped distribution. Store contributor count, mean, median, range, dispersion, and constituents where licensed. A surprise such as:
 
-$$
+```math
 \text{Surprise}=\frac{\text{Actual}-\text{Consensus}}{|\text{Consensus}|}
-$$
+```
 
 is unstable near zero or across a sign change. Then report an absolute difference and business-scale denominator. Preserve guidance ranges rather than silently substituting their midpoint.
 
 Enterprise value conventions also need labels:
 
-$$
+```math
 EV=\text{Equity Value}+\text{Debt}+\text{Preferred}
 +\text{Non-controlling Interest}-\text{Cash}
-$$
+```
 
 Lease liabilities, pensions, associates, restricted cash, and financial subsidiaries may require adjustments. Comparable-company multiples are meaningless if numerator and denominator use inconsistent definitions.
 
 ## Core Pricing Framework
-Start with an operating model. Revenue can be decomposed by segment \(j\):
+Start with an operating model. Revenue can be decomposed by segment $j$:
 
-$$
+```math
 R_t=\sum_j Q_{j,t}P_{j,t}FX_{j,t}
-$$
+```
 
 The income and cash-flow bridge is:
 
-$$
+```math
 \text{EBIT}=R-\text{COGS}-\text{Operating Expenses}
-$$
+```
 
-$$
+```math
 \text{EPS}
 =
 \frac{(\text{EBIT}-\text{Net Interest}+\text{Other Pretax}) (1-\tau)}
 {\text{Diluted Weighted-Average Shares}}
-$$
+```
 
-$$
+```math
 \text{Unlevered FCF}
 =\text{EBIT}(1-\tau)+D\&A-\text{Capex}-\Delta NWC
-$$
+```
 
 A discounted cash-flow cross-check is:
 
-$$
+```math
 EV_0=\sum_{t=1}^{T}\frac{FCF_t}{(1+WACC)^t}
 +\frac{TV_T}{(1+WACC)^T}
-$$
+```
 
 Equity value follows by subtracting net debt and other senior claims and adding non-operating assets. Per-share value must use a scenario-consistent diluted share count.
 
-For a multiple framework \(P=M E\), the exact one-period price bridge is:
+For a multiple framework $P=M E$, the exact one-period price bridge is:
 
-$$
+```math
 \Delta P
 =M_0\Delta E+E_0\Delta M+\Delta E\Delta M
-$$
+```
 
-where \(E\) is forward EPS and \(M\) the forward P/E multiple. This separates estimate revision from re-rating and their interaction. Catalysts often improve earnings while reducing the multiple, or vice versa.
+where $E$ is forward EPS and $M$ the forward P/E multiple. This separates estimate revision from re-rating and their interaction. Catalysts often improve earnings while reducing the multiple, or vice versa.
 
 Valuation should be scenario based:
 
-$$
+```math
 \mathbb{E}[P_T]=
 \sum_i p_i
 \left(
 \text{Equity Value from operating scenario }i
 \right)
-$$
+```
 
 Each scenario links operating assumptions, statements, capital structure, valuation, probability, and horizon.
 
@@ -111,17 +111,17 @@ Suppose pre-release consensus expects quarterly revenue of USD 1,000m, gross mar
 
 Consensus EBIT, net income, and EPS are:
 
-$$
+```math
 \text{EBIT}=1{,}000(40\%)-250=150
-$$
+```
 
-$$
+```math
 \text{Net Income}=(150-20)(1-25\%)=97.5
-$$
+```
 
-$$
+```math
 \text{EPS}=97.5/100=\text{USD }0.975
-$$
+```
 
 The company reports revenue of USD 1,060m, gross margin of 41%, operating expense of USD 265m, the same interest and tax assumptions, and 102m diluted shares. Reported gross profit is USD 434.6m, EBIT is USD 169.6m, net income is USD 112.2m, and EPS is USD 1.10: a 12.8% beat.
 

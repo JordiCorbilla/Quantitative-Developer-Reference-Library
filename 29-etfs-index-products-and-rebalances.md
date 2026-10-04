@@ -29,12 +29,12 @@ Start with the wrapper around the index exposure.
 ## Core Pricing Framework
 Begin with the constituent quantities, then turn the basket value into an index level. For a simple float-adjusted capitalization-weighted price index in one currency:
 
-$$
+```math
 I_t=\frac{\sum_i Q_{i,t}f_{i,t}S_{i,t}}{D_t},
 \qquad
 w_{i,t}=\frac{Q_{i,t}f_{i,t}S_{i,t}}
 {\sum_j Q_{j,t}f_{j,t}S_{j,t}}.
-$$
+```
 
 Here $Q_i$ is the index share count, $f_i$ is the float adjustment, and $D_t$ is the index divisor. Prices need FX conversion for a basket spanning currencies. Weights are fractions of market value, rather than share quantities: summing $w_iS_i$ does not generally reconstruct the index. With unchanged holdings and no intervening distributions or corporate actions, the basket's one-period return is $\sum_i w_{i,t-1}r_{i,t}$. Price-weighted, equal-weighted, capped, total-return, and currency-hedged indices each require their own methodology.
 
@@ -42,9 +42,9 @@ The divisor preserves continuity for specified non-market events. Suppose two co
 
 For an ETF, premium/discount to NAV is:
 
-$$
+```math
 \frac{\text{ETF Price} - \text{NAV}}{\text{NAV}}
-$$
+```
 
 Creation/redemption mechanisms usually keep liquid ETFs close to NAV, but premiums and discounts can widen when markets are stressed, underlying assets are illiquid, or baskets are hard to trade.
 
@@ -57,9 +57,9 @@ Assume:
 
 Premium to NAV is:
 
-$$
+```math
 \frac{50.20 - 50.00}{50.00} = 0.40\%
-$$
+```
 
 The ETF trades 40 bps above NAV. That may be normal for a hard-to-access market or a warning sign if the underlying basket is liquid.
 

@@ -31,41 +31,41 @@ Loans may be bilateral, clubbed, or syndicated; an agent maintains lender record
 
 Underwriting measures are:
 
-$$
+```math
 \text{net leverage}=\frac{\text{debt}-\text{eligible cash}}{\text{adjusted EBITDA}},
-$$
+```
 
-$$
+```math
 \text{interest coverage}=\frac{\text{adjusted EBITDA}}{\text{cash interest}},
-$$
+```
 
-$$
+```math
 \text{LTV}=\frac{\text{loan balance}}{\text{property value}},
 \quad
 \text{DSCR}=\frac{\text{NOI or NCF}}{\text{debt service}},
 \quad
 \text{debt yield}=\frac{\text{NOI}}{\text{loan balance}}.
-$$
+```
 
 “Adjusted” is not harmless wording. Permitted add-backs, synergies, unrestricted subsidiaries, cash netting caps, annualization, and cure rights come from the agreement.
 
 ## Core Pricing Framework
-For a floating-rate loan, the cash coupon rate during period \(t\) is often:
+For a floating-rate loan, the cash coupon rate during period $t$ is often:
 
-$$
+```math
 c_t=\max(I_t,f)+s,
-$$
+```
 
-where \(I_t\) is the benchmark fixing, \(f\) the contractual floor, and \(s\) the spread. Expected value across scenarios is:
+where $I_t$ is the benchmark fixing, $f$ the contractual floor, and $s$ the spread. Expected value across scenarios is:
 
-$$
+```math
 V=\sum_k p_k\left[
 \sum_t DF_t\,CF_{t,k}
 +DF_{\tau_k}\,R_k
 \right],
-$$
+```
 
-where \(CF_{t,k}\) includes signed cash flows such as cash interest, fees, funded draws, amortization, and prepayments; \(\tau_k\) is a resolution time; and \(R_k\) is recovery or exit consideration. PIK does not enter \(CF_{t,k}\) when accrued: it increases outstanding principal and therefore a later repayment or recovery claim. This separation prevents PIK from being counted twice. Scenario probabilities and discount rates should not both absorb the same risk premium without a documented convention.
+where $CF_{t,k}$ includes signed cash flows such as cash interest, fees, funded draws, amortization, and prepayments; $\tau_k$ is a resolution time; and $R_k$ is recovery or exit consideration. PIK does not enter $CF_{t,k}$ when accrued: it increases outstanding principal and therefore a later repayment or recovery claim. This separation prevents PIK from being counted twice. Scenario probabilities and discount rates should not both absorb the same risk premium without a documented convention.
 
 Triangulate illiquid marks from contractual cashflows, comparable spreads, default/recovery scenarios, transactions, and enterprise or collateral value. Report valuation uncertainty and independent-price-verification controls.
 
@@ -73,35 +73,35 @@ Triangulate illiquid marks from contractual cashflows, comparable spreads, defau
 
 For a maximum leverage covenant:
 
-$$
+```math
 \text{headroom}_{x}
 =L_{\max}-L_{\text{actual}},
-$$
+```
 
 and debt-capacity headroom, holding the agreement-defined EBITDA and cash constant, is:
 
-$$
+```math
 \text{headroom}_{\$}
 =L_{\max}\times EBITDA-(debt-\text{eligible cash}).
-$$
+```
 
 For minimum coverage, headroom is actual minus required coverage. First determine whether the test is active, its entities and adjustments, cure rights, and reporting period.
 
 ### Distressed Recovery and Position PnL
 
-Recovery follows the claim and collateral waterfall described in [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md). Expected recovery value for purchased face \(F\) is:
+Recovery follows the claim and collateral waterfall described in [34-capital-structure-relative-value.md](34-capital-structure-relative-value.md). Expected recovery value for purchased face $F$ is:
 
-$$
+```math
 EV_{\text{recovery}}=\sum_k p_k F r_k DF(\tau_k),
-$$
+```
 
-where \(r_k\) includes both cash and the fair value of securities received under a plan.
+where $r_k$ includes both cash and the fair value of securities received under a plan.
 
 Begin the loan PnL reconciliation with an economic identity:
 
-$$
+```math
 \text{PnL}_{0,1}=V_1-V_0+\text{net cash received}_{0,1},
-$$
+```
 
 where $V_t$ is full marked value of the held claim in the reporting currency, including the current principal balance, and net cash received includes interest, repayments, sale proceeds, purchases, funded draws, and costs with their signs. External investor contributions or withdrawals must be removed if this is calculated from total account wealth.
 
@@ -114,15 +114,15 @@ Credit-index, CDS, equity, rate, or macro hedges introduce basis risk. They do n
 
 A borrower reports USD 50m of agreement-defined EBITDA, USD 225m of debt, and USD 15m of eligible cash. Its maximum net-leverage covenant is 5.25x.
 
-$$
+```math
 \text{net leverage}=\frac{225-15}{50}=4.20x.
-$$
+```
 
 Headroom is 1.05x, or:
 
-$$
+```math
 5.25\times50-(225-15)=USD\ 52.5m.
-$$
+```
 
 If EBITDA falls 25% to USD 37.5m with debt and cash unchanged, leverage becomes 5.60x and breaches by 0.35x. Before assuming acceleration, check cures, test dates, grace periods, waivers, and add-backs. A reusable calculator appears in [examples/private-credit-covenant-headroom.md](examples/private-credit-covenant-headroom.md).
 
@@ -130,11 +130,11 @@ If EBITDA falls 25% to USD 37.5m with debt and cash unchanged, leverage becomes 
 
 Consider an interest-only property loan with USD 120m balance, USD 12m annual NOI, 8% interest rate, and property value based on a 7.5% capitalization rate:
 
-$$
+```math
 \text{value}=\frac{12m}{7.5\%}=USD\ 160m.
-$$
+```
 
-Initial LTV is 75%, DSCR is \(12/9.6=1.25x\), and debt yield is 10%.
+Initial LTV is 75%, DSCR is $12/9.6=1.25x$, and debt yield is 10%.
 
 Now reduce NOI by 15% to USD 10.2m and increase the capitalization rate to 9%. Implied value falls to USD 113.3m, LTV rises to 105.9%, and DSCR falls to 1.06x. Debt yield falls to 8.5%. The loan may remain current while being unable to refinance at maturity, illustrating why payment status alone is a weak risk signal.
 

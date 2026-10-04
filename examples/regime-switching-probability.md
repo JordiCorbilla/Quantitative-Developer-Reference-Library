@@ -11,9 +11,9 @@ Suppose a two-state model has:
 
 The next-period probability of the calm state is:
 
-$$
+```math
 P(S_{t+1}=1) = P(S_t=1)p_{11} + P(S_t=2)p_{21}
-$$
+```
 
 ```python
 current_calm_probability = 0.70
@@ -26,9 +26,9 @@ assert abs(next_calm_probability - 0.705) < 1e-12
 
 Result:
 
-$$
+```math
 0.70 \times 0.90 + 0.30 \times 0.25 = 0.705
-$$
+```
 
 So the one-step-ahead calm-regime probability is 70.5%.
 

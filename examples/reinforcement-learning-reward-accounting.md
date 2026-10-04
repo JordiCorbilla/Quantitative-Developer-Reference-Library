@@ -18,32 +18,32 @@ Let:
 
 Define:
 
-$$
+```math
 S_t
 =
 d\left(C_t+q_t m_t-Qp_0\right)+F_t
-$$
+```
 
 For a completed buy, paying above arrival makes $S_T>0$. For a completed sell, receiving below arrival also makes $S_T>0$.
 
 A dense reward with separately measured penalties is:
 
-$$
+```math
 r_t
 =
 -(S_t-S_{t-1})
 -P_t^{\text{inventory}}
 -P_t^{\text{tail}}
 -P_t^{\text{constraint}}
-$$
+```
 
 For the undiscounted economic audit sum, equivalently $\gamma=1$, when the episode completes:
 
-$$
+```math
 \sum_t r_t
 =
 -S_T-\sum_t P_t
-$$
+```
 
 This invariant exposes sign errors and double counting. A discounted training return does not telescope, so it should be reported separately from this ledger.
 
@@ -61,7 +61,7 @@ The midpoint is a declared shaping mark for this transparent example, not an exe
 
 The completed fill notional is:
 
-$$
+```math
 C_T
 =
 (2{,}000)(100.04)
@@ -69,25 +69,25 @@ C_T
 +(3{,}000)(100.06)
 =
 \$1{,}000{,}610
-$$
+```
 
 Fees total USD 50, so:
 
-$$
+```math
 S_T
 =
 1{,}000{,}610+50-1{,}000{,}000
 =
 \$660
-$$
+```
 
 Arrival notional is USD 1,000,000, making implementation shortfall:
 
-$$
+```math
 \frac{660}{1{,}000{,}000}\times10{,}000
 =
 6.60\text{ bp}
-$$
+```
 
 The rewards sum to USD -715: USD -660 of economic shortfall and USD -55 of inventory penalties.
 

@@ -26,7 +26,7 @@ Read the library through a problem you need to solve. A trader's call loses mone
 ### Core Instruments
 - [00-overview.md](00-overview.md) - shared notation, discounting language, curve and surface vocabulary, sanity checks, and reading paths
 - [01-options.md](01-options.md) - calls, puts, exercise styles, payoff mechanics, volatility surfaces, Greeks, theta/gamma carry, dynamic hedging, and listed contract multipliers
-- [02-futures.md](02-futures.md) - forwards and futures as linear future-price agreements, including carry, basis, daily margining, contract multipliers, and rolls
+- [02-futures-forwards.md](02-futures-forwards.md) - forwards and futures as linear future-price agreements, including carry, basis, daily margining, contract multipliers, and rolls
 - [03-equities.md](03-equities.md) - direct share ownership, long/short PnL, dividends, corporate actions, borrow costs, execution, and factor risk
 - [04-fx.md](04-fx.md) - currency-pair orientation, spot, forwards, swaps, NDFs, FX option conventions, premium currency, and settlement calendars
 - [05-fixed-income.md](05-fixed-income.md) - bonds as dated cashflows, clean vs dirty price, yield, duration, convexity, spreads, schedules, and curve inputs

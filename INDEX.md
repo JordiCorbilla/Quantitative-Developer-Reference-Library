@@ -4,7 +4,7 @@ This index groups the library by practitioner task rather than file number.
 
 ## Product And Market Structure
 - [01-options.md](01-options.md) - listed and OTC option mechanics, payoffs, Greeks, volatility surfaces
-- [02-futures.md](02-futures.md) - forwards, futures, margining, carry, basis, rolls
+- [02-futures-forwards.md](02-futures-forwards.md) - forwards, futures, margining, carry, basis, rolls
 - [03-equities.md](03-equities.md) - cash equities, dividends, borrow, corporate actions, factor risk
 - [04-fx.md](04-fx.md) - spot, forwards, swaps, NDFs, FX options, settlement conventions
 - [05-fixed-income.md](05-fixed-income.md) - bonds, yield, duration, convexity, spreads, schedules

@@ -75,21 +75,21 @@ Every dataset should have a prediction contract:
 
 For a forward simple return label:
 
-$$
+```math
 y_{i,t}^{(h)}
 =
 \frac{P^{\text{exit}}_{i,t+h}}{P^{\text{entry}}_{i,t}}-1
-$$
+```
 
 $P^{\text{entry}}$ must be a price that could be acted on after the feature cutoff. A close-to-close label is invalid if the feature includes the same closing auction result and assumes execution at that close.
 
 A directional label can be defined as:
 
-$$
+```math
 y_{i,t}
 =
 \mathbb{1}\left(r_{i,t:t+h}>c_{i,t}+b\right)
-$$
+```
 
 where $c_{i,t}$ is an estimated round-trip cost and $b$ is a required edge buffer. This is different from predicting whether the raw return is merely positive. Persist the threshold used to create the label.
 
@@ -100,14 +100,14 @@ Features require both economic time and availability time. A value for period $t
 ## Core Pricing Framework
 Let $x_{i,t}$ be a point-in-time feature vector and $y_{i,t}$ a label. Supervised learning estimates:
 
-$$
+```math
 \widehat f
 =
 \arg\min_{f\in\mathcal F}
 \sum_{(i,t)\in\mathcal T}
 w_{i,t}\mathcal L\left(y_{i,t},f(x_{i,t})\right)
 +\Omega(f)
-$$
+```
 
 where $\mathcal T$ is a training fold, $w_{i,t}$ controls sampling or economic importance, $\mathcal L$ is the loss, and $\Omega$ regularizes complexity. Weights do not make overlapping observations independent; validation must still respect time and entity dependence.
 
@@ -115,27 +115,27 @@ where $\mathcal T$ is a training fold, $w_{i,t}$ controls sampling or economic i
 
 OLS minimizes squared error:
 
-$$
+```math
 \widehat\beta_{\text{OLS}}
 =
 \arg\min_\beta
 \lVert y-X\beta\rVert_2^2
-$$
+```
 
 Ridge adds an $L_2$ penalty:
 
-$$
+```math
 \widehat\beta_{\text{ridge}}
 =
 \arg\min_\beta
 \left(
 \lVert y-X\beta\rVert_2^2+\lambda\lVert\beta\rVert_2^2
 \right)
-$$
+```
 
 Lasso and elastic net use:
 
-$$
+```math
 \widehat\beta_{\text{EN}}
 =
 \arg\min_\beta
@@ -146,19 +146,19 @@ $$
 +\frac{1-\alpha}{2}\lVert\beta\rVert_2^2
 \right)
 \right]
-$$
+```
 
 $\alpha=1$ is lasso and $\alpha=0$ is ridge under this parameterization. Standardize continuous features within each training fold, usually leave the intercept unpenalized, and store the exact transformation with the model.
 
 Logistic regression maps a score to an event probability:
 
-$$
+```math
 p(y=1\mid x)
 =
 \sigma(\beta_0+x^\top\beta)
 =
 \frac{1}{1+\exp[-(\beta_0+x^\top\beta)]}
-$$
+```
 
 Fit it using log loss, then test probability calibration. A profitable decision threshold need not be 0.5.
 
@@ -166,19 +166,19 @@ Fit it using log loss, then test probability calibration. A profitable decision 
 
 A decision tree partitions the feature space and assigns a constant prediction to each leaf. A random forest averages trees fitted to bootstrapped observations with randomized feature subsets:
 
-$$
+```math
 \widehat f_{\text{RF}}(x)
 =
 \frac{1}{B}\sum_{b=1}^{B}T_b(x)
-$$
+```
 
 Boosting builds an additive model:
 
-$$
+```math
 F_M(x)
 =
 F_0(x)+\sum_{m=1}^{M}\eta\,h_m(x)
-$$
+```
 
 where each $h_m$ targets the current loss residual or gradient and $\eta$ is a learning rate. Depth, leaf size, subsampling, number of rounds, and early stopping define effective complexity.
 
@@ -188,11 +188,11 @@ A support-vector classifier seeks a large-margin boundary; kernels replace expli
 
 A feed-forward neural layer is:
 
-$$
+```math
 h^{(\ell)}
 =
 \phi\left(W^{(\ell)}h^{(\ell-1)}+b^{(\ell)}\right)
-$$
+```
 
 LSTMs and GRUs add gates that control the retention and update of recurrent state. They are useful when a fixed lag vector hides state persistence, but the implementation must define sequence boundaries, padding, masks, and what happens after gaps or instrument changes.
 
@@ -200,17 +200,17 @@ A causal temporal CNN applies convolutions only to current and past inputs. Dila
 
 Transformer attention is:
 
-$$
+```math
 \operatorname{Attention}(Q,K,V)
 =
 \operatorname{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}+M\right)V
-$$
+```
 
 where the mask $M$ blocks unavailable or padded observations. Time encoding should represent order, elapsed time, calendar effects, and irregular gaps where relevant. The Temporal Fusion Transformer combines recurrent processing, gating, variable selection, attention, static covariates, and multi-horizon quantile outputs. Its additional structure is justified only when the forecasting problem and sample support it.
 
 Model output is not a position. Let $\widehat c_{i,t}\geq0$ be the expected per-unit implementation hurdle in return units. First apply a symmetric no-trade band:
 
-$$
+```math
 \widehat e_{i,t}
 :=
 \operatorname{sign}(\widehat\mu_{i,t})
@@ -218,11 +218,11 @@ $$
 \lvert\widehat\mu_{i,t}\rvert-\widehat c_{i,t},
 0
 \right).
-$$
+```
 
 A simple cost-aware mapping is then:
 
-$$
+```math
 q_{i,t}
 =
 \operatorname{clip}
@@ -232,7 +232,7 @@ q_{i,t}
 -q_i^{\max},
 +q_i^{\max}
 \right)
-$$
+```
 
 subject to portfolio, factor, liquidity, borrow, and turnover constraints. This maps a zero forecast to zero and never creates a short merely because costs are positive. The complete portfolio construction and PnL convention belongs in [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
@@ -248,35 +248,35 @@ Suppose a ridge model predicts a one-day return from standardized momentum, valu
 
 The forecast is:
 
-$$
+```math
 \widehat r
 =
 0.0005+(0.50)(0.0040)+(-0.20)(-0.0030)+(0.30)(-0.0020)
 =
 0.0025
-$$
+```
 
 or 25 basis points. Estimated spread and fees are 6 bp, impact is 5 bp at the intended size, and the strategy requires a 4 bp uncertainty buffer:
 
-$$
+```math
 \text{deployable edge}
 =
 25-6-5-4
 =
 10\text{ bp}
-$$
+```
 
 This is a candidate trade, not proof of profitability. The ridge penalty, standardization parameters, feature set, cost estimate, and 4 bp buffer must have been selected without looking at the outer test period. The final assessment uses executed prices, rejected orders, partial fills, financing, and capacity stress.
 
 For a probability model, economics can set the threshold. If a calibrated classifier estimates $p_{\text{up}}=0.58$, conditional up and down returns are +70 bp and -60 bp, and round-trip costs are 8 bp:
 
-$$
+```math
 \mathbb E[r_{\text{net}}]
 =
 0.58(70)+0.42(-60)-8
 =
 7.4\text{ bp}
-$$
+```
 
 The result is sensitive to calibration and conditional payoff estimates, not just classification accuracy.
 

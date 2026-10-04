@@ -1,6 +1,6 @@
 # Cash Equities and Equity Analytics
 
-Related chapters: [01-options.md](01-options.md), [02-futures.md](02-futures.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
+Related chapters: [01-options.md](01-options.md), [02-futures-forwards.md](02-futures-forwards.md), [11-market-data.md](11-market-data.md), [13-risk-and-pnl.md](13-risk-and-pnl.md), and [16-portfolio-construction-and-backtesting.md](16-portfolio-construction-and-backtesting.md).
 
 ## What This Domain Covers
 Cash equities are ownership claims in companies, quoted one share at a time.
@@ -31,15 +31,15 @@ For cash equities, the "model" is usually not a stochastic pricing equation. It 
 
 The point-in-time marked market value is simply:
 
-$$
+```math
 \text{MarketValue}_t = N_t S_t.
-$$
+```
 
 That snapshot is different from cumulative economics. For an unchanged long share quantity over a holding period, a simple ledger is:
 
-$$
+```math
 \text{PnL}_{0,t}=N(S_t-S_0)+\text{cash distributions}+\text{corporate-action cash}-\text{financing and fees}.
-$$
+```
 
 Trades, splits, rights, spin-offs, taxes, and short borrow require explicit quantity and cash-ledger entries rather than being folded into the current market value.
 
@@ -57,21 +57,21 @@ Assume a portfolio buys 1,000 shares at USD 50. The stock later trades at USD 56
 
 The long-position PnL is:
 
-$$
+```math
 1{,}000 \times (56 - 50 + 0.40) = 6{,}400
-$$
+```
 
 If the stock instead falls to USD 45 with the same dividend:
 
-$$
+```math
 1{,}000 \times (45 - 50 + 0.40) = -4{,}600
-$$
+```
 
 For a short position of 1,000 shares initiated at USD 50 and covered at USD 45, the price move is profitable, but the trader may owe the dividend and borrow cost:
 
-$$
+```math
 1{,}000 \times (50 - 45 - 0.40) - \text{borrow cost}
-$$
+```
 
 The core implementation point is that price PnL, dividends, splits, borrow, and financing belong in the same economic ledger. A clean equity system does not treat corporate actions as comments on a price series.
 
@@ -92,9 +92,9 @@ A useful reading order is: **price -> company size -> earnings -> valuation -> d
 
 Market capitalization is the market value of all shares outstanding:
 
-$$
+```math
 \text{Market cap} = \text{share price} \times \text{shares outstanding}
-$$
+```
 
 It is a measure of equity value, not the price of the whole business. Enterprise value is often more useful when comparing operating businesses because it also considers debt, preferred equity, minority interests, and cash. Free-float market cap is another useful variant: it excludes shares that are unavailable for normal public trading and is common in index construction.
 
@@ -110,21 +110,21 @@ Terms such as large cap, mid cap, and small cap are relative labels, not univers
 
 Basic earnings per share (EPS) allocates profit attributable to common shareholders across a weighted average number of common shares:
 
-$$
+```math
 \text{basic EPS} = \frac{\text{net income available to common shareholders}}{\text{weighted average common shares}}
-$$
+```
 
 Diluted EPS adjusts the denominator, and sometimes the numerator, for instruments such as options, convertibles, and restricted stock that could increase the share count. The distinction matters when a company has meaningful potential dilution.
 
 The price-to-earnings ratio compares the current share price with earnings per share:
 
-$$
+```math
 \text{trailing P/E} = \frac{\text{current share price}}{\text{trailing twelve-month EPS}}
-$$
+```
 
-$$
+```math
 \text{forward P/E} = \frac{\text{current share price}}{\text{forecast next-twelve-month EPS}}
-$$
+```
 
 Trailing P/E uses reported history. Forward P/E uses an estimate and is therefore sensitive to the forecast source and revision date. A high P/E can mean the market expects growth, temporarily depressed earnings, or an expensive valuation. A low P/E can mean value, low expected growth, cyclical peak earnings, financial risk, or a reporting-quality concern. P/E is undefined when EPS is zero and usually not useful when EPS is negative; do not turn either case into a false valuation signal.
 
@@ -132,9 +132,9 @@ Trailing P/E uses reported history. Forward P/E uses an estimate and is therefor
 
 Dividend yield is annual cash dividends per share divided by current share price:
 
-$$
+```math
 \text{dividend yield} = \frac{\text{annual dividends per share}}{\text{current share price}}
-$$
+```
 
 It is a cash-distribution measure, not a measure of total shareholder return. A stock with no dividend yield may be retaining cash to invest in the business, but it may also have limited distributable cash, debt-reduction needs, a buyback policy, a different capital-allocation priority, or simply no dividend policy. The conclusion must come from the company's cashflows, investment opportunities, balance sheet, and stated policy, not the yield alone.
 
@@ -159,15 +159,15 @@ Assume ExampleCo has:
 
 Its market cap is:
 
-$$
+```math
 80 \times 250{,}000{,}000 = \text{USD }20\text{bn}
-$$
+```
 
 Its trailing P/E, forward P/E, and dividend yield are:
 
-$$
+```math
 \frac{80}{4.00} = 20.0, \qquad \frac{80}{5.00} = 16.0, \qquad \frac{1.20}{80} = 1.5\%
-$$
+```
 
 The numbers tell a coherent but incomplete story: the market is valuing the business at 20 times reported EPS and 16 times forecast EPS, while paying a 1.5% cash yield. The 52-week range says USD 80 is between the recent low and high; it does not say whether the stock should be bought. An analyst would next examine the source and durability of forecast EPS growth, free cash flow, debt, competitive position, and the liquidity needed to trade the desired size.
 

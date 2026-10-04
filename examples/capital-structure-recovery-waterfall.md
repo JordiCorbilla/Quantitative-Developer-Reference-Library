@@ -11,17 +11,17 @@ Assume:
 - subordinated allowed claim: USD 250m,
 - administrative and restructuring costs: USD 20m.
 
-For enterprise value \(EV\), distributable value is:
+For enterprise value $EV$, distributable value is:
 
-$$
+```math
 A=\max(EV-20m,0).
-$$
+```
 
 Claims are paid from most senior to most junior:
 
-$$
+```math
 R_i=\min(F_i,\max(A-\text{recoveries already allocated},0)).
-$$
+```
 
 ## Downside Case
 
@@ -35,19 +35,19 @@ Let enterprise value be USD 570m. Distributable value is USD 550m:
 
 The allocation conserves value:
 
-$$
+```math
 300m+250m+0=550m.
-$$
+```
 
 Now suppose USD 10m face of the senior unsecured bond was purchased at 82 clean and matched with USD 10m CDS protection. If the bond and CDS auction both settle at the 62.5% recovery assumption:
 
-$$
+```math
 \text{bond recovery}=10m\times62.5\%=USD\ 6.25m,
-$$
+```
 
-$$
+```math
 \text{CDS protection payment}=10m\times(1-62.5\%)=USD\ 3.75m.
-$$
+```
 
 Total default settlement is USD 10m versus USD 8.2m clean purchase cost. The difference must fund CDS premiums, accrued interest, financing, transaction costs, and legal/delivery basis. If the auction recovery differs from the owned bond's recovery, the package does not settle to par.
 
@@ -60,7 +60,7 @@ Total default settlement is USD 10m versus USD 8.2m clean purchase cost. The dif
 | Base restructuring | USD 800m | 100.0% | 100.0% | 32.0% |
 | Full coverage | USD 970m | 100.0% | 100.0% | 100.0% |
 
-In the severe case, costs leave exactly USD 300m for the first lien. In the base restructuring case, USD 80m remains for subordinated debt after costs and the two senior classes, so subordinated recovery is \(80/250=32\%\).
+In the severe case, costs leave exactly USD 300m for the first lien. In the base restructuring case, USD 80m remains for subordinated debt after costs and the two senior classes, so subordinated recovery is $80/250=32\%$.
 
 ```python
 from dataclasses import dataclass

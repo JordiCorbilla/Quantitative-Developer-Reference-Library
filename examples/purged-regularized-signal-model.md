@@ -26,9 +26,9 @@ If the embargo runs through day 16, row F is excluded even though its label begi
 
 The overlap rule for closed intervals $[a,b]$ and $[c,d]$ is:
 
-$$
+```math
 a\leq d\quad\text{and}\quad c\leq b
-$$
+```
 
 Persist the endpoint convention. If a return interval is half-open, the boundary comparison changes.
 
@@ -41,7 +41,7 @@ After fold construction, assume the training-only transformation produces two ce
 
 The centered training matrix and target, measured in basis points, are:
 
-$$
+```math
 X=
 \begin{bmatrix}
 1&1\\
@@ -57,11 +57,11 @@ y=
 -10\\
 -30
 \end{bmatrix}
-$$
+```
 
 Then:
 
-$$
+```math
 X^\top X=
 \begin{bmatrix}
 4&0\\
@@ -73,11 +73,11 @@ X^\top y=
 80\\
 40
 \end{bmatrix}
-$$
+```
 
 With ridge penalty $\lambda=4$:
 
-$$
+```math
 \widehat\beta
 =
 (X^\top X+\lambda I)^{-1}X^\top y
@@ -87,23 +87,23 @@ $$
 5
 \end{bmatrix}
 \text{ bp}
-$$
+```
 
 For a new point with standardized features $(0.5,-0.2)$:
 
-$$
+```math
 \widehat y
 =
 (0.5)(10)+(-0.2)(5)
 =
 4\text{ bp}
-$$
+```
 
 If round-trip costs are 6 bp and the uncertainty buffer is 2 bp, the deployable edge is:
 
-$$
+```math
 4-6-2=-4\text{ bp}
-$$
+```
 
 so the correct action is no trade. Regularization is judged through net decisions, not by whether it produces a nonzero forecast.
 

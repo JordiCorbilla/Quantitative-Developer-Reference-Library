@@ -50,26 +50,26 @@ A trade may not silently belong 100% to two strategies. Shared hedges require an
 ## Core Pricing Framework
 For strategy $d$ with legs $i$, its marked value in base currency $b$ is:
 
-$$
+```math
 V_d(t)=
 \sum_{i\in d} a_{i,d}\,q_i m_i P_i(t)X_{c_i\rightarrow b}(t)
 + C_d(t)
-$$
+```
 
 where $a_{i,d}$ is the allocation fraction, $q_i$ is signed quantity, $m_i$ is the multiplier, $P_i$ is clean or dirty price under a documented convention, $X$ is the FX conversion, and $C_d$ is the strategy cash/accrual ledger. The allocation fractions for each trade must reconcile across all strategies.
 
 Economic PnL is the change in marked positions plus cash, adjusted for external transfers:
 
-$$
+```math
 \operatorname{PnL}_{d,t}
 =
 \left[V_d(t)-V_d(t-1)\right]
 -\operatorname{ExternalFlow}_{d,t}
-$$
+```
 
 The cash ledger carries executions and lifecycle flows to prevent double counting. The explain decomposes exact PnL:
 
-$$
+```math
 \operatorname{PnL}
 =\operatorname{Market}
 +\operatorname{Carry}
@@ -78,33 +78,33 @@ $$
 +\operatorname{Lifecycle}
 +\operatorname{ModelDataChange}
 +\operatorname{Residual}
-$$
+```
 
 For scenario $s$, full-revaluation PnL is:
 
-$$
+```math
 \Delta V_d^{(s)}
 =
 \sum_{i\in d}
 \left[V_i(x+\Delta x_s,\tau_s)-V_i(x,\tau_0)\right]
 +CF_d^{(s)}-U_d^{(s)}
-$$
+```
 
 where $CF$ contains scenario cash flows and $U$ is the estimated unwind cost, including spread, impact, borrow close-out, and legging. Define reasonable-worst-case loss and utilization as:
 
-$$
+```math
 L_{\text{RWC}}=\max_s\left(0,-\Delta V_d^{(s)}\right),
 \qquad
 u=\frac{L_{\text{RWC}}}{L_{\text{budget}}}
-$$
+```
 
 The scenario set, not the formula, determines whether this control is credible. It must include thesis failure, delay, market-factor shocks, liquidity deterioration, hedge failure, and relevant nonlinear interactions.
 
 Factor neutrality is an independent diagnostic. For an equity strategy:
 
-$$
+```math
 B_d=\sum_i \left(q_i m_i S_i\Delta_i\right)\beta_i
-$$
+```
 
 A small $B_d$ means low estimated linear market-beta exposure at that snapshot. It does not eliminate idiosyncratic gaps, changing beta, basis, gamma, skew, correlation, or liquidity risk.
 
@@ -118,9 +118,9 @@ Consider a relative-value strategy:
 
 Initial beta-dollar exposure is:
 
-$$
+```math
 4.0\text{m}\times1.20-4.8\text{m}\times1.00=0
-$$
+```
 
 Now full-revalue named scenarios, including estimated carry and exit cost:
 
@@ -135,9 +135,9 @@ With a USD 750k loss budget, RWC utilization is $1{,}240/750=165.3\%$. The initi
 
 For one ordinary day, suppose the asset rises 1.5%, the index rises 1.0%, and financing plus fees cost USD 3k. At full size, PnL is:
 
-$$
+```math
 60\text{k}-48\text{k}-3\text{k}=9\text{k}
-$$
+```
 
 The first 1.2% of the asset move contributes USD 48k and is offset by the hedge. The remaining 0.3% contributes USD 12k of relative performance; after costs, explained PnL is USD 9k.
 

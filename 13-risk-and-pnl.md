@@ -29,9 +29,9 @@ PnL explain starts by asking which market factors moved and how the portfolio wa
 
 Common decomposition:
 
-$$
+```math
 \text{PnL} \approx \sum_i \frac{\partial V}{\partial x_i}\Delta x_i + \frac{1}{2}\sum_{i,j}\frac{\partial^2 V}{\partial x_i \partial x_j}\Delta x_i \Delta x_j + \text{carry} + \text{new trades} + \text{residual}
-$$
+```
 
 The practical challenge is not writing the formula. It is:
 - defining the risk factors $x_i$,
@@ -65,20 +65,20 @@ VaR and ES summarize the loss tail of a portfolio distribution over a fixed hori
 
 Let $L$ be portfolio loss over the horizon and let $\alpha$ be the confidence level.
 
-$$
+```math
 \operatorname{VaR}_\alpha(L)
 :=
 \inf\{\ell:F_L(\ell)\geq\alpha\}
-$$
+```
 
 VaR is the lower loss quantile at the chosen confidence level. A 1-day 95% VaR of USD 10m means that, under the model and data window, USD 10m is the smallest threshold whose cumulative loss probability is at least 95%. For a continuous distribution with no probability mass at the quantile, losses exceed that threshold with probability $1-\alpha$; for a discrete or empirical distribution, that equality need not hold. VaR is useful for summary reporting, trading limits, and quick comparison across books, but it does not say how severe losses are once the threshold has been breached.
 
-$$
+```math
 \operatorname{ES}_\alpha(L)
 :=
 \frac{1}{1-\alpha}
 \int_\alpha^1 \operatorname{VaR}_u(L)\,du
-$$
+```
 
 Expected Shortfall, also called conditional VaR in some systems, averages the worst $1-\alpha$ probability mass of the loss distribution. When the distribution is continuous at VaR, this reduces to $E[L\mid L>\operatorname{VaR}_\alpha]$. With atoms or finite empirical samples, the calculation must include the appropriate fraction of observations at the VaR threshold rather than silently dropping or double-counting that mass. ES is more tail-sensitive than VaR and is a coherent risk measure under the usual axioms, including sub-additivity. That makes ES better suited to stress management, capital-style views, and portfolios where diversification can break down in the tail.
 
@@ -88,9 +88,9 @@ Beta provides one practical bridge from a single equity position to a broad mark
 
 Beta measures how sensitive a stock or portfolio return is to a benchmark return:
 
-$$
+```math
 r_i = \alpha_i + \beta_i r_m + \epsilon_i
-$$
+```
 
 Here $r_i$ is the stock or portfolio return, $r_m$ is the benchmark market return, $\beta_i$ is the market sensitivity, and $\epsilon_i$ is residual stock-specific return. A beta of 1.0 means the position tends to move broadly in line with the benchmark. A beta of 0.5 means it tends to move about half as much. A beta of 1.5 means it tends to move about 50% more than the benchmark.
 
@@ -98,9 +98,9 @@ Here $r_i$ is the stock or portfolio return, $r_m$ is the benchmark market retur
 
 In a simple factor VaR approximation, beta scales the market-factor shock:
 
-$$
+```math
 \Delta V_{\text{market}} \approx \text{position value} \times \beta \times \Delta r_m
-$$
+```
 
 Illustrative market-factor VaR example:
 
@@ -129,21 +129,21 @@ Common implementation choices:
 
 **Historical simulation** applies observed historical risk-factor changes to today's positions. It preserves empirical co-movement and tails present in the selected window, but it cannot contain a state that never occurred, and old scenarios may be economically inconsistent with today's levels, instruments, or market structure. Full revaluation is preferable for nonlinear books; sensitivity approximation should report its error.
 
-For a linear portfolio with factor exposure vector \(b\), factor covariance \(\Sigma\), zero mean, and normally distributed PnL, portfolio standard deviation is:
+For a linear portfolio with factor exposure vector $b$, factor covariance $\Sigma$, zero mean, and normally distributed PnL, portfolio standard deviation is:
 
-$$
+```math
 \sigma_P=\sqrt{b^\top\Sigma b}.
-$$
+```
 
-If \(z_\alpha=\Phi^{-1}(\alpha)\), normal parametric loss measures are:
+If $z_\alpha=\Phi^{-1}(\alpha)$, normal parametric loss measures are:
 
-$$
+```math
 \operatorname{VaR}_\alpha=z_\alpha\sigma_P,
 \qquad
 \operatorname{ES}_\alpha
 =
 \sigma_P\frac{\phi(z_\alpha)}{1-\alpha}.
-$$
+```
 
 The normal approximation is transparent and fast, but linear mapping misses gamma and optionality, while a thin-tailed distribution can materially understate skew, jumps, volatility clustering, and dependence changes. Delta-gamma or full-revaluation parametric approaches require an explicit approximation and distributional contract.
 
@@ -159,7 +159,7 @@ The normal model tells a useful central story, but a risk manager is often askin
 
 Let $L$ be loss and choose a high threshold $u$. Keep the $N_u$ observations for which $L>u$ and convert them into excesses $Y=L-u$. For a sufficiently high threshold and a broad class of underlying distributions, the conditional distribution of those excesses can be approximated by a generalized Pareto distribution (GPD):
 
-$$
+```math
 G_{\xi,\beta}(y)
 =
 1-\left(1+\frac{\xi y}{\beta}\right)^{-1/\xi},
@@ -169,7 +169,7 @@ G_{\xi,\beta}(y)
 y\geq0,
 \quad
 1+\frac{\xi y}{\beta}>0.
-$$
+```
 
 For $\xi=0$, the continuous limit is $G(y)=1-\exp(-y/\beta)$. The shape parameter $\xi$ controls tail behavior: $\xi>0$ gives an unbounded heavy tail, $\xi=0$ gives an exponential-type tail, and $\xi<0$ gives a finite maximum excess $-\beta/\xi$ and therefore a fitted loss endpoint $u-\beta/\xi$. The GPD mean exists only for $\xi<1$ and its variance only for $\xi<1/2$; a fitted value outside those ranges is a warning about which summaries are mathematically defined, not a software error to suppress.
 
@@ -177,33 +177,33 @@ For $\xi=0$, the continuous limit is $G(y)=1-\exp(-y/\beta)$. The shape paramete
 
 If the empirical threshold-exceedance probability is $p_u=N_u/N$, then for $x>u$:
 
-$$
+```math
 P(L>x)
 \approx
 p_u
 \left(1+\frac{\xi(x-u)}{\beta}\right)^{-1/\xi}.
-$$
+```
 
 For $\xi=0$, the continuous limit is $P(L>x)\approx p_u\exp(-(x-u)/\beta)$.
 
 For a confidence level $\alpha>1-p_u$ and $\xi\neq0$, this gives the tail quantile:
 
-$$
+```math
 \operatorname{VaR}_{\alpha}
 \approx
 u+\frac{\beta}{\xi}
 \left[
 \left(\frac{1-\alpha}{p_u}\right)^{-\xi}-1
 \right].
-$$
+```
 
 When $\xi=0$, the limit is $u+\beta\log\!\left(p_u/(1-\alpha)\right)$. If $\xi<1$, the corresponding continuous-tail ES is:
 
-$$
+```math
 \operatorname{ES}_{\alpha}
 \approx
 \frac{\operatorname{VaR}_{\alpha}+\beta-\xi u}{1-\xi}.
-$$
+```
 
 #### Worked Tail Story: From 1,000 Losses To A 99% Estimate
 
@@ -230,31 +230,31 @@ The classical likelihood story treats excesses as identically distributed and su
 
 ### Worked Method Example: Normal Parametric VaR And ES
 
-Assume a portfolio has zero expected daily PnL and estimated daily standard deviation USD \(1.5\) million. At \(99\%\) confidence:
+Assume a portfolio has zero expected daily PnL and estimated daily standard deviation USD $1.5$ million. At $99\%$ confidence:
 
-$$
+```math
 z_{0.99}\approx2.326,
 \qquad
 \phi(z_{0.99})\approx0.02665.
-$$
+```
 
 Therefore:
 
-$$
+```math
 \operatorname{VaR}_{0.99}
 \approx
 2.326\times1.5
 =
 USD\ 3.49\text{ million},
-$$
+```
 
-$$
+```math
 \operatorname{ES}_{0.99}
 \approx
 1.5\times\frac{0.02665}{0.01}
 =
 USD\ 4.00\text{ million}.
-$$
+```
 
 The result is conditional on the normal, zero-mean, one-day model. A historical or Monte Carlo estimate should not be forced to match it: differences may reveal skew, fat tails, nonlinear revaluation, sampling error, or inconsistent positions and horizons. The calculation and a compact simulation comparison are reproduced in [examples/parametric-monte-carlo-var.md](examples/parametric-monte-carlo-var.md).
 

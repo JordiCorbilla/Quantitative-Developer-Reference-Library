@@ -29,13 +29,13 @@ Before modelling a bond, first identify what kind of cashflow promise it makes.
 
 Core identities:
 
-$$
+```math
 \text{Dirty Price} = \text{Clean Price} + \text{Accrued Interest}
-$$
+```
 
-$$
+```math
 \text{PV} = \sum_i CF_i \cdot P(0, t_i)
-$$
+```
 
 Yields compress the entire curve into one scalar and should be treated with caution. When a system uses both yield-based and discount-factor-based analytics, the mapping rules must be explicit.
 
@@ -46,18 +46,18 @@ The safest mental model is to generate the cashflows first and price them second
 
 The most robust fixed-income implementation values a bond by generated cashflows and discount factors:
 
-$$
+```math
 \text{PV} = \sum_{i=1}^{n} CF_i \cdot P(0, t_i)
-$$
+```
 
 For a plain fixed coupon bond, the $CF_i$ are deterministic given the schedule. For floaters, coupon projection depends on forward rates and fixing logic. For callable bonds, valuation becomes an embedded-option problem linked to [06-interest-rates.md](06-interest-rates.md) and [10-numerical-methods.md](10-numerical-methods.md).
 
 ### Yield, Duration, And Convexity
 Yield-to-maturity solves:
 
-$$
+```math
 \text{Dirty Price} = \sum_{i=1}^{n} \frac{CF_i}{(1 + y / m)^{m t_i}}
-$$
+```
 
 under a chosen compounding frequency $m$. This is useful for quoting and rough comparison, but:
 - two bonds with the same yield can have different cashflow risk,
@@ -66,9 +66,9 @@ under a chosen compounding frequency $m$. This is useful for quoting and rough c
 
 Duration and convexity are better first-order and second-order summaries:
 
-$$
+```math
 \Delta P \approx -D_{\text{mod}} P \Delta y + \frac{1}{2} C P (\Delta y)^2
-$$
+```
 
 ### Spread Measures
 - Z-spread: constant spread added to the discount curve to fit price.
@@ -86,15 +86,15 @@ Assume a 2-year bond has:
 
 The cashflows are USD 50,000 after one year and USD 1,050,000 after two years. The dirty price is:
 
-$$
+```math
 \frac{50{,}000}{1.04} + \frac{1{,}050{,}000}{1.04^2} = 1{,}018{,}860.95
-$$
+```
 
 The bond trades above par because its 5% coupon is higher than the 4% market yield. If the required yield rises to 6%, the same cashflows are worth:
 
-$$
+```math
 \frac{50{,}000}{1.06} + \frac{1{,}050{,}000}{1.06^2} = 981{,}666.07
-$$
+```
 
 The price falls when yield rises because the fixed cashflows are discounted more heavily. Clean price then subtracts accrued interest from the dirty price; the valuation engine should keep both values explicit.
 

@@ -31,17 +31,17 @@ Pairs trading is often equity-oriented, but the workflow also applies to rates c
 ## Core Pricing Framework
 The first question is not whether two prices move together. Correlation measures co-movement; it does not guarantee that a price spread is stable. A common pairs framework estimates a hedge ratio and studies the residual:
 
-$$
+```math
 s_t = y_t - \alpha - \beta x_t
-$$
+```
 
 where $y_t$ and $x_t$ are aligned log-price series or economically comparable value series, and $s_t$ is the spread or residual. A strategy needs evidence that this residual is stationary, or at least sufficiently mean-reverting over the intended holding horizon.
 
 The signal is often standardized with a rolling mean and volatility:
 
-$$
+```math
 z_t = \frac{s_t - \mu_t}{\sigma_t}
-$$
+```
 
 ![Statistical arbitrage research-to-trade workflow](assets/statistical-arbitrage-workflow.svg)
 
@@ -66,9 +66,9 @@ The standard term is **mean reversion**, not “reverse mean.” The trade is co
 
 Formally, if $x_t$ and $y_t$ are each integrated of order one, written $I(1)$, but
 
-$$
+```math
 s_t=y_t-\alpha-\beta x_t
-$$
+```
 
 is $I(0)$, then the levels are cointegrated with normalized vector $(1,-\beta)$. The stationary object is the fitted residual $s_t$—not automatically the raw difference $y_t-x_t$, the price ratio, or the return difference. A residual-test rejection is evidence for a historical relationship under a declared specification; it is not proof that the next observed divergence is mispricing.
 
@@ -89,25 +89,25 @@ The Engle-Granger two-step procedure is a practical starting point when the mode
 
 A two-series error-correction model can be written:
 
-$$
+```math
 \Delta y_t
 =c+\lambda\left(y_{t-1}-\alpha-\beta x_{t-1}\right)
 +\sum_i\gamma_i\Delta y_{t-i}
 +\sum_j\delta_j\Delta x_{t-j}
 +\epsilon_t.
-$$
+```
 
 For $s_t=y_t-\alpha-\beta x_t$, $\lambda<0$ is the correcting sign when $y$ adjusts, although the full system must still be dynamically stable. The residual unit-root test uses residual-based cointegration critical values matching the deterministic specification and regressor count, not ordinary Dickey-Fuller critical values for an observed series, because the residual was estimated. Results depend on intercept/trend specification, lag selection, sample window, and which variable is normalized on the left-hand side.
 
 Johansen's method treats an $n$-series system jointly through a VECM:
 
-$$
+```math
 \Delta\mathbf y_t
 =\alpha\beta^{\mathsf T}\mathbf y_{t-1}
 +\sum_{i=1}^{p-1}\Gamma_i\Delta\mathbf y_{t-i}
 +\mathbf d_t
 +\boldsymbol\epsilon_t.
-$$
+```
 
 Here $\mathbf d_t$ denotes the declared constant, trend, seasonal, or other deterministic specification. Trace and maximum-eigenvalue tests provide evidence about cointegration rank. The estimated columns of $\beta$ define stationary baskets and $\alpha$ describes adjustment. This is useful for baskets with more than one equilibrium relation, but it adds material degrees of freedom. Lag order, deterministic terms, finite-sample corrections, and rolling rank stability must be explicit.
 
@@ -116,48 +116,48 @@ Neither procedure is a pair-selection oracle. Testing thousands of candidate pai
 ### Ornstein-Uhlenbeck Spread Dynamics
 A mean-reverting spread is often approximated by an Ornstein-Uhlenbeck (OU) process:
 
-$$
+```math
 ds_t=\kappa(\theta-s_t)\,dt+\sigma\,dW_t,\qquad \kappa>0.
-$$
+```
 
 Over interval $\Delta$, the exact conditional mean is:
 
-$$
+```math
 \mathbb E[s_{t+\Delta}\mid s_t]
 =\theta+(s_t-\theta)e^{-\kappa\Delta},
-$$
+```
 
 and the conditional variance is:
 
-$$
+```math
 \operatorname{Var}(s_{t+\Delta}\mid s_t)
 =\frac{\sigma^2}{2\kappa}\left(1-e^{-2\kappa\Delta}\right).
-$$
+```
 
 The corresponding AR(1) coefficient is $\phi=e^{-\kappa\Delta}$ and the model half-life is:
 
-$$
+```math
 t_{1/2}=\frac{\log 2}{\kappa}
 =-\frac{\Delta\log 2}{\log\phi}.
-$$
+```
 
 Estimate the process on the spread produced by a point-in-time hedge model, not on a retrospectively re-hedged series. The half-life is a model diagnostic, not an expected trade duration: threshold crossing, stops, costs, discrete sampling, and parameter breaks change the realized holding period. If $\phi$ is close to one, small estimation changes create large half-life changes; if $\phi\leq0$ or $\phi\geq1$, the simple positive mean-reversion interpretation does not apply.
 
 ### Kalman Dynamic Hedge Ratios
 A state-space model allows the intercept and hedge ratio to evolve:
 
-$$
+```math
 y_t=\alpha_t+\beta_t x_t+\epsilon_t,\qquad
 \epsilon_t\sim\mathcal N(0,R),
-$$
+```
 
-$$
+```math
 \begin{bmatrix}\alpha_t\\\beta_t\end{bmatrix}
 =
 \begin{bmatrix}\alpha_{t-1}\\\beta_{t-1}\end{bmatrix}
 +\boldsymbol\eta_t,\qquad
 \boldsymbol\eta_t\sim\mathcal N(0,Q).
-$$
+```
 
 The Kalman filter predicts $(\alpha_t,\beta_t)$ from the previous filtered state, measures the innovation in $y_t$, and updates the state and its covariance. It naturally represents hedge uncertainty and can accommodate missing observations, but “time-varying” does not automatically mean “more accurate.”
 
@@ -168,9 +168,9 @@ A trading decision made after observing the current close may use the current fi
 ### PCA-Based Statistical Arbitrage
 Principal-component statistical arbitrage estimates common return factors from a standardized return matrix:
 
-$$
+```math
 R_t=Bf_t+\varepsilon_t.
-$$
+```
 
 The leading principal components approximate dominant common variation. Residual returns can be accumulated over a documented horizon, tested for mean reversion, and converted into cross-sectional signals. This scales beyond hand-selected pairs and can expose market, sector, or style-neutral opportunities.
 
@@ -230,11 +230,11 @@ The meaning of $\beta$ depends on the fitted variables:
 
 For a log-price long-spread portfolio with gross budget $G$ and $\beta>0$, a gross-normalized starting point is:
 
-$$
+```math
 N_Y=\frac{G}{1+|\beta|},
 \qquad
 N_X=-\frac{\beta G}{1+|\beta|}.
-$$
+```
 
 The signs reverse for a short-spread position. Convert notionals to shares at executable prices, then evaluate dollar, beta, sector, style, volatility, currency, liquidity, and borrow exposures. The cointegration hedge is not automatically neutral under any of those other definitions.
 
@@ -281,18 +281,18 @@ The companies do not themselves “follow” a pairs strategy. A fund or trading
 
 Assume a model fitted and frozen before the displayed trading interval estimates:
 
-$$
+```math
 P_t^{KO}=3.00+0.40P_t^{PEP}+s_t,
 \qquad \mu_s=0,
 \qquad \sigma_s=1.
-$$
+```
 
 At T0, KO is USD 69.00 and PEP is USD 160.00:
 
-$$
+```math
 s_{T0}=69-3-0.40(160)=2,
 \qquad z_{T0}=2.
-$$
+```
 
 KO is rich relative to the fitted relation, so the illustrative trade shorts 1,000 KO shares and buys 400 PEP shares. The entry portfolio is USD 133,000 gross and USD 5,000 net short. At T+3, KO is USD 67.60 and PEP is USD 161.50, making the residual zero. Short-KO PnL is USD 1,400, long-PEP PnL is USD 600, and gross convergence PnL is USD 2,000. After an illustrative USD 150 of all-in costs, net PnL is USD 1,850.
 

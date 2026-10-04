@@ -71,7 +71,7 @@ Counterparty exposure is agreement-dependent. Netting applies within enforceable
 ## Core Pricing Framework
 For a financed long/short equity book over a short interval, a simplified financing PnL is:
 
-$$
+```math
 \text{Financing PnL}
 =
 -L r_L \Delta t
@@ -79,36 +79,36 @@ $$
 - \sum_i S_i f_i \Delta t
 + C r_C \Delta t
 - \text{fees},
-$$
+```
 
 where:
 
-- \(L\) is the financed long debit balance;
-- \(S\) is general short-sale proceeds;
-- \(r_L\) is the long debit rate;
-- \(r_R\) is the short rebate;
-- \(S_i\) and \(f_i\) are short market value and borrow fee for name \(i\);
-- \(C\) is remunerated collateral;
-- \(r_C\) is its collateral rate.
+- $L$ is the financed long debit balance;
+- $S$ is general short-sale proceeds;
+- $r_L$ is the long debit rate;
+- $r_R$ is the short rebate;
+- $S_i$ and $f_i$ are short market value and borrow fee for name $i$;
+- $C$ is remunerated collateral;
+- $r_C$ is its collateral rate.
 
 The exact ledger depends on whether proceeds can offset long debits, whether collateral is segregated, and whether exposure is cash or synthetic.
 
 Current bilateral exposure for a netting set can be simplified as:
 
-$$
+```math
 E_t = \max(V_t - C_t, 0),
-$$
+```
 
-where \(V_t\) is net mark-to-market owed to the portfolio and \(C_t\) is recognized collateral after agreement rules and haircuts. Potential future exposure adds a distribution of future changes:
+where $V_t$ is net mark-to-market owed to the portfolio and $C_t$ is recognized collateral after agreement rules and haircuts. Potential future exposure adds a distribution of future changes:
 
-$$
+```math
 \text{PFE}_{q}(T)
 =
 \operatorname{Quantile}_{q}
 \left[
 \max(V_T - C_T, 0)
 \right].
-$$
+```
 
 Liquidity risk is not captured by exposure alone. A negative mark-to-market may require a real variation-margin payment even when the final trade payoff is expected to recover.
 
@@ -125,33 +125,33 @@ Consider a market-neutral cash equity trade:
 
 Assume a gross debit-and-rebate convention: the broker charges the full long debit balance and separately pays a rebate on the short collateral balance. The long debit cost is:
 
-$$
+```math
 20{,}000{,}000 \times 5.75\% \times \frac{30}{360}
 = \text{USD }95{,}833.
-$$
+```
 
 The short rebate is:
 
-$$
+```math
 20{,}000{,}000 \times 4.25\% \times \frac{30}{360}
 = \text{USD }70{,}833.
-$$
+```
 
 This convention does not assume that the two USD 20m balances net to zero financing. Actual availability of short-sale proceeds, balance netting, and spreads depends on the account and legal agreement.
 
 The special borrow fee is:
 
-$$
+```math
 5{,}000{,}000 \times 9.00\% \times \frac{30}{360}
 = \text{USD }37{,}500.
-$$
+```
 
 Net financing PnL before commissions is:
 
-$$
+```math
 -95{,}833 + 70{,}833 - 37{,}500
 = -\text{USD }62{,}500.
-$$
+```
 
 If the special borrow fee rises from 9% to 30%, the thirty-day special-borrow cost becomes USD 125,000. That single financing change worsens strategy PnL by USD 87,500. If the stock is recalled, the relevant stress is not merely another fee increase: the short may have to be covered while the long leg remains exposed.
 
@@ -197,7 +197,7 @@ Build a daily financing ledger at settled lot or position level:
 
 For allocation across prime brokers, compare total incremental cost:
 
-$$
+```math
 \text{Incremental Cost}
 =
 \text{financing}
@@ -205,7 +205,7 @@ $$
 + \text{execution}
 + \text{margin liquidity}
 + \text{counterparty concentration penalty}.
-$$
+```
 
 The lowest quoted spread is not necessarily the best allocation if it consumes scarce margin capacity or increases single-counterparty concentration.
 

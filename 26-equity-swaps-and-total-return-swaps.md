@@ -29,21 +29,21 @@ Start by asking what return is transferred.
 ## Core Pricing Framework
 At a high level, the swap value is:
 
-$$
+```math
 \text{TRS Value} = PV(\text{equity total return leg}) - PV(\text{financing leg})
-$$
+```
 
 For one period, an equity total return leg can be approximated as:
 
-$$
+```math
 N \times \left(\frac{S_1 - S_0}{S_0} + \text{dividend yield over period}\right)
-$$
+```
 
 The financing leg is:
 
-$$
+```math
 N \times (\text{reference rate} + \text{spread}) \times \text{year fraction}
-$$
+```
 
 ## Worked Instrument Example: One-Period Equity TRS
 Assume:
@@ -54,21 +54,21 @@ Assume:
 
 Equity total return is:
 
-$$
+```math
 10{,}000{,}000 \times (4\% + 1\%) = 500{,}000
-$$
+```
 
 Financing leg is:
 
-$$
+```math
 10{,}000{,}000 \times 2\% = 200{,}000
-$$
+```
 
 Net receiver-of-equity-return PnL is:
 
-$$
+```math
 500{,}000 - 200{,}000 = 300{,}000
-$$
+```
 
 ## Key Risk Measures and Sensitivities
 - Equity delta and beta.

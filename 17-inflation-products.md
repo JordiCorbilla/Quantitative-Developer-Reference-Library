@@ -30,11 +30,11 @@ Inflation pricing starts by comparing an index level at the beginning with an in
 
 For a simple zero-coupon inflation swap with start index $I_0$, maturity reference index $I_T$, annual fixed rate $K$, maturity $T$ in years, and notional $N$, the two undiscounted growth amounts are:
 
-$$
+```math
 N\left(\frac{I_T}{I_0}-1\right)
 \qquad\text{and}\qquad
 N\left((1+K)^T-1\right).
-$$
+```
 
 The receiver of realized inflation receives the first amount and pays the second, subject to the confirmation's index, lag, interpolation, fallback, and payment conventions. The fair fixed rate makes the present value of those two legs equal under the collateral and discounting convention. This is why a quoted annual rate cannot be subtracted directly from a cumulative index ratio without compounding it over the stated maturity.
 
@@ -52,15 +52,15 @@ Assume:
 
 The realized cumulative inflation is:
 
-$$
+```math
 \frac{280}{250} - 1 = 12\%
-$$
+```
 
 The annualized inflation rate is approximately:
 
-$$
+```math
 \left(\frac{280}{250}\right)^{1/5} - 1 \approx 2.29\%
-$$
+```
 
 Production systems must define exactly which CPI observations form the start and maturity reference values.
 

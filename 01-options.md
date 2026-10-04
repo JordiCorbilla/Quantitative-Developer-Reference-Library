@@ -46,27 +46,27 @@ Assume a stock trades at USD 277. A trader buys a 30-day listed call option with
 
 The first implementation trap is the multiplier. One standard US equity option contract usually controls 100 shares. A quoted premium of USD 5.00 therefore costs:
 
-$$
+```math
 5.00 \times 100 = 500
-$$
+```
 
 per contract. For 100 contracts:
 
-$$
+```math
 5.00 \times 100 \times 100 = 50{,}000
-$$
+```
 
 The trader has paid USD 50,000 for the right to buy 10,000 shares at USD 300. At expiry, the call is valuable only if the stock is above USD 300:
 
-$$
+```math
 \text{Call intrinsic value} = \max(S_T - 300, 0) \times 10{,}000
-$$
+```
 
 The net PnL after paying the premium is:
 
-$$
+```math
 \left[\max(S_T - 300, 0) - 5\right] \times 10{,}000
-$$
+```
 
 | Stock price at expiry | Call intrinsic value | Net PnL after USD 50,000 premium | Interpretation |
 | --- | ---: | ---: | --- |
@@ -78,15 +78,15 @@ $$
 
 A put is the mirror idea. It gives the buyer the right to sell at the strike. If the trader buys a 30-day USD 250 put for USD 4.00 per share on 100 contracts, the premium is:
 
-$$
+```math
 4.00 \times 100 \times 100 = 40{,}000
-$$
+```
 
 The put's expiry PnL is:
 
-$$
+```math
 \left[\max(250 - S_T, 0) - 4\right] \times 10{,}000
-$$
+```
 
 | Stock price at expiry | Put intrinsic value | Net PnL after USD 40,000 premium | Interpretation |
 | --- | ---: | ---: | --- |
@@ -127,19 +127,19 @@ Two useful European no-arbitrage relationships anchor the data checks.
 
 Put-call parity with continuous dividend yield $q$:
 
-$$
+```math
 C - P = S_0 e^{-qT} - K e^{-rT}
-$$
+```
 
 European option bounds:
 
-$$
+```math
 \max(S_0 e^{-qT} - K e^{-rT}, 0) \leq C \leq S_0 e^{-qT}
-$$
+```
 
-$$
+```math
 \max(K e^{-rT} - S_0 e^{-qT}, 0) \leq P \leq K e^{-rT}
-$$
+```
 
 If a liquid quote violates these checks, the first suspects are stale market data, wrong dividend assumptions, bad discounting, incorrect units, or a broken surface interpolation.
 
@@ -164,29 +164,29 @@ Core assumptions:
 
 Under the continuous-yield setup:
 
-$$
+```math
 \frac{dS_t}{S_t} = (r - q)dt + \sigma dW_t
-$$
+```
 
 the European option price satisfies:
 
-$$
+```math
 \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + (r-q)S\frac{\partial V}{\partial S} - rV = 0
-$$
+```
 
 Closed-form vanilla prices:
 
-$$
+```math
 C = S_0 e^{-qT} N(d_1) - K e^{-rT} N(d_2)
-$$
+```
 
-$$
+```math
 P = K e^{-rT} N(-d_2) - S_0 e^{-qT} N(-d_1)
-$$
+```
 
-$$
+```math
 d_1 = \frac{\ln(S_0 / K) + (r - q + \sigma^2 / 2)T}{\sigma \sqrt{T}}, \qquad d_2 = d_1 - \sigma \sqrt{T}
-$$
+```
 
 Parameter meanings:
 
@@ -223,9 +223,9 @@ So the production workflow often becomes:
 ### Implied Volatility And Surface Logic
 Implied volatility is the volatility that makes the model price equal the market price:
 
-$$
+```math
 \text{ModelPrice}(S_0, K, T, \sigma_{\text{imp}}) = \text{MarketPrice}
-$$
+```
 
 The inversion is usually straightforward. The difficult part is turning sparse, noisy quotes into a stable surface that:
 
@@ -241,9 +241,9 @@ European options have no exercise decision before expiry. American and Bermudan 
 
 At each possible exercise point, the model compares:
 
-$$
+```math
 \text{exercise value} \quad \text{versus} \quad \text{continuation value}
-$$
+```
 
 If exercising now is better than holding the option, the holder exercises. This turns pricing into an optimal-stopping problem.
 
@@ -298,9 +298,9 @@ Greeks are local derivatives of option value with respect to market inputs. They
 
 A local Taylor approximation is:
 
-$$
+```math
 \Delta V \approx \Delta\,\Delta S + \frac{1}{2}\Gamma(\Delta S)^2 + \text{Vega}\,\Delta\sigma + \Theta\,\Delta t + \rho\,\Delta r
-$$
+```
 
 This works best for small moves and smooth payoffs. It breaks down around barriers, digitals, expiry, exercise boundaries, and large surface shocks.
 
@@ -379,41 +379,41 @@ Reproduce the full repricing, verify Greek units against finite differences, and
 ### Black-Scholes Greek Formula Reference
 For a European vanilla option with continuous dividend yield $q$:
 
-$$
+```math
 \phi(d_1) = \frac{1}{\sqrt{2\pi}}e^{-d_1^2/2}
-$$
+```
 
-$$
+```math
 \Delta_{\text{call}} = e^{-qT}N(d_1), \qquad
 \Delta_{\text{put}} = e^{-qT}(N(d_1)-1)
-$$
+```
 
-$$
+```math
 \Gamma = \frac{e^{-qT}\phi(d_1)}{S_0\sigma\sqrt{T}}
-$$
+```
 
-$$
+```math
 \text{Vega} = S_0 e^{-qT}\phi(d_1)\sqrt{T}
-$$
+```
 
-$$
+```math
 \Theta_{\text{call}} =
 -\frac{S_0 e^{-qT}\phi(d_1)\sigma}{2\sqrt{T}}
 - rK e^{-rT}N(d_2)
 + qS_0 e^{-qT}N(d_1)
-$$
+```
 
-$$
+```math
 \Theta_{\text{put}} =
 -\frac{S_0 e^{-qT}\phi(d_1)\sigma}{2\sqrt{T}}
 + rK e^{-rT}N(-d_2)
 - qS_0 e^{-qT}N(-d_1)
-$$
+```
 
-$$
+```math
 \rho_{\text{call}} = KT e^{-rT}N(d_2), \qquad
 \rho_{\text{put}} = -KT e^{-rT}N(-d_2)
-$$
+```
 
 These formulas return vega per 1.00 absolute volatility change and rho per 1.00 absolute rate change. A desk vega per one volatility point multiplies the formula value by $0.01$; a rho per one basis point multiplies it by $0.0001$. Position quantity, contract multiplier, and reporting currency are separate scaling layers.
 
@@ -422,59 +422,59 @@ Theta is especially easy to misunderstand. The formula above is model theta. Man
 ### Theta, Gamma, and the Rent for Convexity
 For a European vanilla under Black-Scholes, the pricing PDE gives the exact model identity:
 
-$$
+```math
 \Theta + (r-q)S\Delta-rV
 =-\frac{1}{2}\Gamma S^2\sigma_{\text{imp}}^2
-$$
+```
 
 When rates and carry are ignored, this becomes the desk shorthand:
 
-$$
+```math
 -\Theta \approx \frac{1}{2}\Gamma S^2\sigma_{\text{imp}}^2
-$$
+```
 
 This is why theta is often described as the rent paid to own gamma. The identity is conditional, not a promise of trading profit. It assumes the same model, volatility, time clock, carry treatment, and Greek units on both sides. Real PnL also contains discrete-hedging error, jumps, surface moves, vanna and volga, financing, dividends, transaction costs, and model residual.
 
 For a small interval $\Delta\tau$ measured on the same annualization clock as volatility, after option carry, option financing, and hedge financing are booked consistently—or under the zero-rate, zero-carry shorthand—a locally delta-hedged long option has the remaining gamma/theta approximation:
 
-$$
+```math
 \Delta\Pi_{\Delta\text{-hedged}}
 \approx
 \frac{1}{2}\Gamma
 \left[(\Delta S)^2-S^2\sigma_{\text{imp}}^2\Delta\tau\right]
-$$
+```
 
 or, defining the one-step annualized move
 
-$$
+```math
 \widehat\sigma_{\text{step}}
 =\frac{|\Delta S|}{S\sqrt{\Delta\tau}},
-$$
+```
 
-$$
+```math
 \Delta\Pi_{\Delta\text{-hedged}}
 \approx
 \frac{1}{2}\Gamma S^2\Delta\tau
 \left(\widehat\sigma_{\text{step}}^2-\sigma_{\text{imp}}^2\right).
-$$
+```
 
 The local daily break-even absolute move is therefore:
 
-$$
+```math
 |\Delta S|_{\text{BE}}
 \approx S\sigma_{\text{imp}}\sqrt{\Delta\tau}
 \approx \sqrt{\frac{-2\Theta_{\Delta\tau}}{\Gamma}},
-$$
+```
 
 where the second equality is the zero-carry shorthand and $\Theta_{\Delta\tau}<0$ is the long option's decay over that exact interval. The first expression is an implied one-standard-deviation move under the model clock. It is not the same as an expiry premium break-even, an expected absolute move, or a guarantee that a path with that close-to-close move breaks even after hedging.
 
 For $S=100$, $\sigma_{\text{imp}}=25\%$, and one trading-variance day $\Delta\tau=1/252$:
 
-$$
+```math
 |\Delta S|_{\text{BE}}
 =100(0.25)\sqrt{\frac{1}{252}}
 =1.575.
-$$
+```
 
 If gamma is $0.035$ option-value units per $1^2$ move, the matching zero-carry theta is about $-0.0434$ per share for that variance day. A $1 move gives approximately $0.5(0.035)(1)^2-0.0434=-0.0259$ per share; a $2 move gives approximately $0.0266$. Apply quantity, multiplier, and currency conversion only after the per-unit convention is verified. See [examples/theta-gamma-daily-breakeven.md](examples/theta-gamma-daily-breakeven.md) for executable checks.
 
@@ -498,11 +498,11 @@ Time decay is nonlinear. For a near-ATM, zero-rate Black-Scholes option, time va
 
 At comparable forward moneyness, Black-Scholes gives the useful scaling:
 
-$$
+```math
 \Gamma_{\text{ATM}}\propto \frac{1}{S\sigma\sqrt{T}},
 \qquad
 \text{Vega}_{\text{ATM}}\propto S\sqrt{T}.
-$$
+```
 
 Front expiries therefore tend to carry more gamma per option and more expiry/pin risk, while back expiries tend to carry more vega and surface-model exposure. "Gamma is highest ATM and near expiry" is a local statement, not a complete book comparison: notionals, multipliers, forwards, skew, event variance, and strike grids must first be normalized.
 
@@ -517,16 +517,16 @@ Markets may mark some implied volatilities down before a weekend, leave them fir
 
 Distinguish the two quantities explicitly:
 
-$$
+```math
 \Theta_{\text{model}}
 =\left.\frac{\partial V}{\partial t}\right|_{\text{stated market state and coordinates}},
-$$
+```
 
-$$
+```math
 \text{One-day roll PnL}
 =V(t+\Delta t;\mathcal{M}_{\text{rolled}})
 -V(t;\mathcal{M}_t).
-$$
+```
 
 The second is a revaluation policy, not merely a derivative. Its result depends on what $\mathcal{M}_{\text{rolled}}$ holds fixed, ages, rebuilds, or removes. Store the theta sign, unit, day-count basis, valuation timestamps, surface coordinates, and roll recipe with the risk number.
 

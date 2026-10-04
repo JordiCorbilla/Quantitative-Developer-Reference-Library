@@ -6,15 +6,15 @@ Assume a EUR/USD spot rate of 1.1000 and a 3-month forward rate of 1.0960.
 
 The forward points are:
 
-$$
+```math
 1.0960 - 1.1000 = -0.0040
-$$
+```
 
 In pip-style points:
 
-$$
+```math
 -0.0040 \times 10{,}000 = -40
-$$
+```
 
 An FX swap can be viewed as:
 - near leg: exchange EUR and USD on the spot date,

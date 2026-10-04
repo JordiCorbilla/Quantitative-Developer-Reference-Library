@@ -30,9 +30,9 @@ Variance products make the unit problem explicit: volatility and variance are no
 
 A simplified variance swap payoff is:
 
-$$
+```math
 N_{\text{var}}(\sigma_{\text{realized}}^2 - K_{\text{var}})
-$$
+```
 
 The fair variance strike can be related to a strip of options across strikes under idealized assumptions. In production, the practical problem is building an arbitrage-aware surface and applying the correct index methodology.
 
@@ -47,15 +47,15 @@ GARCH models are time-series models for conditional volatility. They do not pric
 
 The basic GARCH(1,1) structure models variance as a dynamic process:
 
-$$
+```math
 \sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2
-$$
+```
 
 where $\epsilon_{t-1}$ is the previous return shock, $\alpha$ controls the impact of new shocks, and $\beta$ controls volatility persistence. For the standard parameterization with $\omega>0$ and $\alpha,\beta\geq0$, the familiar condition for a finite unconditional variance, also called covariance or weak stationarity here, is:
 
-$$
+```math
 \alpha + \beta < 1
-$$
+```
 
 ### Visual GARCH Reference
 
@@ -87,33 +87,33 @@ Implementation cautions:
 ## EWMA and Realized-Volatility Forecasting
 GARCH is not the only defensible volatility baseline. An exponentially weighted moving average (EWMA) updates conditional variance as:
 
-$$
+```math
 h_t=\lambda h_{t-1}+(1-\lambda)r_{t-1}^2,\qquad 0<\lambda<1.
-$$
+```
 
 The weight on an observation $k$ periods old is $(1-\lambda)\lambda^{k-1}$. Its variance-weight half-life is:
 
-$$
+```math
 \text{half-life}=\frac{\log(0.5)}{\log(\lambda)}.
-$$
+```
 
 EWMA is transparent, fast, and often a useful benchmark. In its basic form it has no separate long-run variance, so a multi-step forecast remains at the current variance rather than mean-reverting. A value of $\lambda$ is inseparable from sampling frequency: a daily decay parameter cannot be moved to intraday bars without conversion and validation.
 
 When reliable high-frequency observations are available, daily realized variance can be estimated from intraday returns:
 
-$$
+```math
 RV_t=\sum_{j=1}^{M_t}r_{t,j}^2.
-$$
+```
 
 The heterogeneous autoregressive realized-volatility model (HAR-RV) uses daily, weekly, and monthly components:
 
-$$
+```math
 RV_{t+1}
 =\beta_0+\beta_d RV_t
 +\beta_w\overline{RV}_{t,5}
 +\beta_m\overline{RV}_{t,22}
 +\epsilon_{t+1}.
-$$
+```
 
 In practice, modelling $\log RV$ can keep forecasts positive and reduce skew, but retransformation requires care because $\exp(\mathbb E[\log RV])\neq\mathbb E[RV]$. Robust realized measures such as realized kernels, subsampled variance, or pre-averaging can reduce microstructure-noise bias. Overnight returns, market closures, and changing numbers of intraday observations need an explicit policy.
 
@@ -130,24 +130,24 @@ Regime models are now covered in this chapter because they sit naturally between
 ### Markov Switching Model
 A Markov switching model lets return parameters depend on an unobserved state $S_t$:
 
-$$
+```math
 r_t = \mu_{S_t} + \sigma_{S_t}\epsilon_t
-$$
+```
 
 The state follows a Markov chain with transition probabilities:
 
-$$
+```math
 P(S_t = j \mid S_{t-1} = i) = p_{ij}
-$$
+```
 
 This is useful when mean, volatility, or correlation changes across regimes.
 
 ### Hidden Markov Model
 An HMM also treats the state as hidden, but emphasizes the observation model:
 
-$$
+```math
 y_t \mid S_t = i \sim f(y_t \mid \theta_i)
-$$
+```
 
 The model estimates state probabilities from observed data. In practice, this is useful for regime classification, time-varying risk estimates, and dashboards that show the probability of being in a stress state rather than forcing a hard label.
 
@@ -181,11 +181,11 @@ Implementation cautions:
 ### Gaussian-Mixture Regimes
 A finite Gaussian mixture represents an unconditional return or feature distribution as:
 
-$$
+```math
 f(y_t)=\sum_{k=1}^{K}\pi_k
 \mathcal N(y_t\mid\mu_k,\Sigma_k),
 \qquad \sum_{k=1}^{K}\pi_k=1.
-$$
+```
 
 Mixtures can separate low-variance and high-variance clusters without imposing Markov transitions. That makes them a useful descriptive baseline, but an ordinary mixture is not a temporal regime model: conditional on its parameters, each observation's component assignment does not depend on the previous assignment. An HMM adds that persistence through a transition matrix.
 
@@ -194,14 +194,14 @@ Mixture fitting is sensitive to scaling, initialization, outliers, covariance re
 ### Bayesian Change-Point Detection
 Change-point methods ask whether the data-generating parameters have shifted rather than assuming a fixed transition matrix. In Bayesian online change-point detection, the run length $r_t$ is the number of observations since the most recent change. The algorithm recursively updates:
 
-$$
+```math
 P(r_t,y_{1:t})
 =
 \sum_{r_{t-1}}
 P(y_t\mid r_{t-1},y_{1:t-1})
 P(r_t\mid r_{t-1})
 P(r_{t-1},y_{1:t-1}),
-$$
+```
 
 where the transition term includes a hazard rate governing prior change probability. Useful outputs are the posterior change probability and the distribution of run length, not a guaranteed crisis call.
 
@@ -210,9 +210,9 @@ The hazard, predictive distribution, prior, and treatment of outliers materially
 ### Regime-Switching GARCH
 Regime-switching GARCH combines latent states with regime-specific volatility dynamics:
 
-$$
+```math
 h_t^{(k)} = \omega_k + \alpha_k \epsilon_{t-1}^2 + \beta_k h_{t-1}^{(k)}
-$$
+```
 
 Each regime $k$ has its own GARCH parameters. The displayed recursion is schematic: a complete Markov-switching GARCH specification must also say how lagged variance is carried across an unobserved regime transition. Gray-, Klaassen-, and path-dependent formulations make different choices and are not interchangeable. The extra flexibility can help when volatility clustering changes across calm and stressed markets, but it also creates additional state and estimation uncertainty.
 
@@ -255,17 +255,17 @@ The Heston model is a stochastic-volatility model used for option pricing and vo
 
 Under a risk-neutral measure, a common Heston specification for an asset with continuous carry or dividend yield $q$ is:
 
-$$
+```math
 dS_t = (r-q) S_t\,dt + \sqrt{v_t} S_t\,dW_{1,t}
-$$
+```
 
-$$
+```math
 dv_t = \kappa(\theta - v_t)\,dt + \sigma\sqrt{v_t}\,dW_{2,t}
-$$
+```
 
-$$
+```math
 dW_{1,t}dW_{2,t} = \rho dt
-$$
+```
 
 where:
 - $v_t$ is instantaneous variance,
@@ -296,9 +296,9 @@ Assume:
 
 The payoff uses squared decimal volatility:
 
-$$
+```math
 50{,}000 \times (0.24^2 - 0.20^2) = 880
-$$
+```
 
 This deliberately uses decimal variance. Market systems may instead quote a variance notional per variance point; the conversion must be stored explicitly. A production implementation must never combine decimal inputs with percentage-point notionals silently.
 

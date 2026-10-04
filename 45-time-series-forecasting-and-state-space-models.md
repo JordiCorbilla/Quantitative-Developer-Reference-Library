@@ -48,65 +48,65 @@ These are forecasting rather than no-arbitrage pricing models. Their output may 
 ### Stationarity, Differencing, and Cointegration
 A weakly stationary series has time-invariant mean and variance, with autocovariance depending only on lag:
 
-$$
+```math
 \mathbb{E}[y_t]=\mu,\qquad
 \operatorname{Cov}(y_t,y_{t-k})=\gamma_k.
-$$
+```
 
 Stationarity is a modelling approximation, not a permanent property of markets. Visual inspection, rolling moments, structural-break checks, the Augmented Dickey-Fuller test, and KPSS-type tests provide complementary evidence; none proves that a relationship will persist.
 
 The lag operator $B$ is defined by $B y_t=y_{t-1}$. First differencing gives:
 
-$$
+```math
 \Delta y_t=(1-B)y_t=y_t-y_{t-1}.
-$$
+```
 
 Differencing can remove a stochastic trend, but unnecessary differencing discards low-frequency information and can induce moving-average behavior. Two or more $I(1)$ series are cointegrated if a non-zero linear combination is $I(0)$. Cointegration supports an error-correction representation; it does not by itself establish a profitable trade.
 
 ### AR, MA, and ARMA
 An autoregressive model of order $p$ is:
 
-$$
+```math
 y_t=c+\sum_{i=1}^{p}\phi_i y_{t-i}+\epsilon_t.
-$$
+```
 
 An MA($q$) model expresses the series using current and past innovations:
 
-$$
+```math
 y_t=\mu+\epsilon_t+\sum_{j=1}^{q}\theta_j\epsilon_{t-j}.
-$$
+```
 
 ARMA($p,q$) combines both:
 
-$$
+```math
 \phi(B)(y_t-\mu)=\theta(B)\epsilon_t.
-$$
+```
 
 The roots of the AR polynomial must lie outside the unit circle for covariance stationarity; the corresponding MA root condition gives invertibility. In practice, estimation libraries use a documented sign convention for $\theta$, so parameter interchange between implementations requires a test against identical data.
 
 ### ARIMA, SARIMA, and ARIMAX
 ARIMA($p,d,q$) applies an ARMA model after $d$ differences:
 
-$$
+```math
 \phi(B)(1-B)^d y_t=c+\theta(B)\epsilon_t.
-$$
+```
 
 Seasonal ARIMA extends this with seasonal period $s$:
 
-$$
+```math
 \Phi(B^s)\phi(B)(1-B)^d(1-B^s)^D y_t
 =c+\Theta(B^s)\theta(B)\epsilon_t.
-$$
+```
 
 Seasonality must follow the data-generating calendar. “Five trading days” is not an invariant weekly season when holidays intervene, and intraday seasonality should usually be modeled in exchange-local event time.
 
 In the common regression-with-ARIMA-errors convention, ARIMAX adds known or forecast external inputs to a regression and models its residual $u_t$ with ARIMA dynamics:
 
-$$
+```math
 y_t=c+\boldsymbol{\beta}^{\mathsf T}x_t+u_t,
 \qquad
 \phi(B)(1-B)^d u_t=\theta(B)\epsilon_t.
-$$
+```
 
 Some libraries instead implement ARMAX or transfer-function conventions in which lag polynomials operate on $y_t$, $x_t$, or both. These parameterizations are not algebraically interchangeable, so production code must record the library and exact equation rather than relying on the label `ARIMAX` alone.
 
@@ -115,59 +115,59 @@ Using contemporaneous $x_t$ is leakage if $x_t$ arrives after the trading decisi
 ### VAR and VECM
 For a stationary vector $\mathbf y_t$, a VAR($p$) is:
 
-$$
+```math
 \mathbf y_t=\mathbf c+\sum_{i=1}^{p}A_i\mathbf y_{t-i}+\boldsymbol\epsilon_t.
-$$
+```
 
 The parameter count grows approximately with the square of the number of series. Shrinkage, economically constrained variable selection, or factor compression is often needed when the sample is short.
 
 A cointegrated VAR can be written as a VECM:
 
-$$
+```math
 \Delta\mathbf y_t
 =\Pi\mathbf y_{t-1}
 +\sum_{i=1}^{p-1}\Gamma_i\Delta\mathbf y_{t-i}
 +\boldsymbol\epsilon_t,
 \qquad
 \Pi=\alpha\beta^{\mathsf T}.
-$$
+```
 
 Columns of $\beta$ represent cointegrating relations; $\alpha$ describes how each series adjusts toward them. The Johansen procedure estimates cointegration rank in a multivariate system, but its results depend on lag order, deterministic terms, sample window, and structural stability.
 
 ### State-Space Models and the Kalman Filter
 A linear Gaussian state-space model separates an unobserved state $\mathbf a_t$ from noisy observations $\mathbf y_t$:
 
-$$
+```math
 \mathbf a_t=T_t\mathbf a_{t-1}+R_t\boldsymbol\eta_t,
 \qquad \boldsymbol\eta_t\sim\mathcal N(0,Q_t),
-$$
+```
 
-$$
+```math
 \mathbf y_t=Z_t\mathbf a_t+\mathbf d_t+\boldsymbol\epsilon_t,
 \qquad \boldsymbol\epsilon_t\sim\mathcal N(0,H_t).
-$$
+```
 
 The Kalman prediction and update are:
 
-$$
+```math
 \mathbf a_{t|t-1}=T_t\mathbf a_{t-1|t-1},
 \qquad
 P_{t|t-1}=T_tP_{t-1|t-1}T_t^{\mathsf T}+R_tQ_tR_t^{\mathsf T},
-$$
+```
 
-$$
+```math
 \mathbf v_t=\mathbf y_t-Z_t\mathbf a_{t|t-1}-\mathbf d_t,
 \quad
 F_t=Z_tP_{t|t-1}Z_t^{\mathsf T}+H_t,
 \quad
 K_t=P_{t|t-1}Z_t^{\mathsf T}F_t^{-1},
-$$
+```
 
-$$
+```math
 \mathbf a_{t|t}=\mathbf a_{t|t-1}+K_t\mathbf v_t,
 \qquad
 P_{t|t}=P_{t|t-1}-K_tF_tK_t^{\mathsf T}.
-$$
+```
 
 Filtering uses observations through $t$ and is live-usable. Smoothing conditions on later observations and is appropriate for retrospective estimation, not a historical trading signal unless the delay is represented. A numerically stable implementation uses matrix factorizations or square-root filters rather than explicit matrix inverses.
 
@@ -176,26 +176,26 @@ A Kalman model usually has a continuous latent state with Gaussian innovations. 
 ## Worked Instrument Example
 Suppose a demeaned daily spread follows an estimated AR(1):
 
-$$
+```math
 y_t=0.80y_{t-1}+\epsilon_t,\qquad
 \operatorname{Var}(\epsilon_t)=0.0004.
-$$
+```
 
 At the forecast origin, $y_t=0.050$. The one- and three-day conditional forecasts are:
 
-$$
+```math
 \hat y_{t+1|t}=0.80(0.050)=0.040,
-$$
+```
 
-$$
+```math
 \hat y_{t+3|t}=0.80^3(0.050)=0.0256.
-$$
+```
 
 The three-day innovation variance is:
 
-$$
+```math
 0.0004(1+0.80^2+0.80^4)=0.00081984,
-$$
+```
 
 so the forecast standard deviation is about $0.0286$. A Gaussian 95% interval is approximately $0.0256\pm1.96(0.0286)$, or $[-0.0305,0.0817]$.
 

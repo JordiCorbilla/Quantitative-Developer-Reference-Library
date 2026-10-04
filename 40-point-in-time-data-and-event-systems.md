@@ -61,35 +61,35 @@ A bitemporal record stores two independent intervals:
 1. the **valid-time interval** during which the fact applies economically;
 2. the **system-time interval** during which the platform believed that version was current.
 
-For record version \(r\), write:
+For record version $r$, write:
 
-$$
+```math
 [v_r^{start}, v_r^{end})
-$$
+```
 
 for valid time and:
 
-$$
+```math
 [s_r^{start}, s_r^{end})
-$$
+```
 
-for system time. A point-in-time query at economic time \(t\) and knowledge cutoff \(\tau\) returns versions satisfying:
+for system time. A point-in-time query at economic time $t$ and knowledge cutoff $\tau$ returns versions satisfying:
 
-$$
+```math
 v_r^{start} \le t < v_r^{end}
 \quad\text{and}\quad
 s_r^{start} \le \tau < s_r^{end}.
-$$
+```
 
 This is different from selecting the row with the latest timestamp. The latest row may be a correction that was unavailable at the historical decision time.
 
 The same discipline applies to derived analytics. A signal should be identified by a dependency tuple such as:
 
-$$
+```math
 \text{SignalVersion}
 =
 (\text{data snapshot},\ \text{code version},\ \text{configuration},\ \text{calendar version}).
-$$
+```
 
 Without that tuple, "rerun the strategy for last Tuesday" is not a stable request.
 
@@ -157,11 +157,11 @@ Use interval or as-of joins rather than equality joins for histories. Test bound
 
 For event strategies, define a state reducer:
 
-$$
+```math
 \text{State}_{n} = f(\text{State}_{n-1}, \text{Event}_{n})
-$$
+```
 
-where \(f\) is deterministic, versioned, and rejects invalid transitions. This makes replay and audit much safer than directly updating a mutable row from many services.
+where $f$ is deterministic, versioned, and rejects invalid transitions. This makes replay and audit much safer than directly updating a mutable row from many services.
 
 ## Production Pitfalls and Sanity Checks
 - Replacing history with the latest corrected value.

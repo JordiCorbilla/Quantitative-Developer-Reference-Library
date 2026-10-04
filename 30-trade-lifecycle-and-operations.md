@@ -56,15 +56,15 @@ Suppose an asset manager buys EUR 250 million against USD at EUR/USD 1.0923 for 
 
 The economics are simple:
 
-$$
+```math
 \text{EUR }250{,}000{,}000
-$$
+```
 
 is received, and:
 
-$$
+```math
 \text{USD }250{,}000{,}000 \times 1.0923 = \text{USD }273{,}075{,}000
-$$
+```
 
 is paid on the value date.
 

@@ -4,20 +4,20 @@ Related chapter: [../20-execution-microstructure-and-tca.md](../20-execution-mic
 
 A 200,000-share buy order must trade over four buckets. Compare quantities in thousands of shares:
 
-- even schedule: \([50,50,50,50]\);
-- front-loaded schedule: \([80,60,40,20]\).
+- even schedule: $[50,50,50,50]$;
+- front-loaded schedule: $[80,60,40,20]$.
 
-For a toy temporary-impact exposure proportional to \(\sum_k n_k^2\):
+For a toy temporary-impact exposure proportional to $\sum_k n_k^2$:
 
-$$
+```math
 E_{\text{even}}=4(50^2)=10{,}000,
-$$
+```
 
-$$
+```math
 E_{\text{front}}=80^2+60^2+40^2+20^2=12{,}000.
-$$
+```
 
-The front-loaded schedule has \(12{,}000/10{,}000-1=20\%\) more temporary-impact exposure under this assumption. It also reduces remaining inventory faster:
+The front-loaded schedule has $12{,}000/10{,}000-1=20\%$ more temporary-impact exposure under this assumption. It also reduces remaining inventory faster:
 
 | End of bucket | Even inventory | Front-loaded inventory |
 | ---: | ---: | ---: |
@@ -29,9 +29,9 @@ The front-loaded schedule has \(12{,}000/10{,}000-1=20\%\) more temporary-impact
 
 Suppose displayed best-level quantities are 120,000 bid and 80,000 ask. Snapshot order-book imbalance is:
 
-$$
+```math
 I=\frac{120{,}000-80{,}000}{120{,}000+80{,}000}=0.20.
-$$
+```
 
 ```python
 even = [50.0, 50.0, 50.0, 50.0]

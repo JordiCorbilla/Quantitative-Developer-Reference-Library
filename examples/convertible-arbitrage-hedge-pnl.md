@@ -20,25 +20,25 @@ The position contains 5,000 bonds.
 
 Parity and conversion premium are:
 
-$$
+```math
 \text{parity}=48\times20=USD\ 960,
-$$
+```
 
-$$
+```math
 \text{premium}=\frac{1{,}080-960}{960}=12.5\%.
-$$
+```
 
 Share-equivalent delta per bond is:
 
-$$
+```math
 0.62\times20=12.4\text{ shares}.
-$$
+```
 
 The delta-neutral hedge is therefore:
 
-$$
+```math
 5{,}000\times12.4=62{,}000\text{ shares short}.
-$$
+```
 
 The long convert costs USD 5.4m and the short stock has USD 2.976m market value. For this simplified example, short-sale proceeds offset financing, leaving USD 2.424m of net financed capital.
 
@@ -48,9 +48,9 @@ Assume 6% financing, a 4% stock-borrow fee, and ACT/360:
 
 | Component | Calculation | Daily PnL |
 | --- | --- | ---: |
-| Coupon accrual | \(5m\times2.5\%/360\) | USD 347.22 |
-| Financing | \(-2.424m\times6\%/360\) | USD -404.00 |
-| Stock borrow | \(-2.976m\times4\%/360\) | USD -330.67 |
+| Coupon accrual | $5m\times2.5\%/360$ | USD 347.22 |
+| Financing | $-2.424m\times6\%/360$ | USD -404.00 |
+| Stock borrow | $-2.976m\times4\%/360$ | USD -330.67 |
 | Net carry | sum | USD -387.44 |
 
 Actual prime-broker treatment may restrict short-sale proceeds or quote a rebate rather than a fee. The agreement, not this simplification, determines carry.
@@ -59,24 +59,24 @@ Actual prime-broker treatment may restrict short-sale proceeds or quote a rebate
 
 Let the stock rise USD 2 to USD 50. Initial long-convert delta PnL and short-stock delta PnL cancel. Remaining second-order PnL is approximately:
 
-$$
+```math
 \frac{1}{2}\times0.18\times(2)^2\times5{,}000
 =USD\ 1{,}800.
-$$
+```
 
 Approximate PnL after one day of carry and before trading costs is:
 
-$$
+```math
 1{,}800-387.44=USD\ 1{,}412.56.
-$$
+```
 
 Delta per bond increases by:
 
-$$
+```math
 0.18\times2=0.36\text{ shares}.
-$$
+```
 
-Restoring neutrality requires another \(0.36\times5{,}000=1{,}800\) shares short, bringing the hedge to 63,800 shares.
+Restoring neutrality requires another $0.36\times5{,}000=1{,}800$ shares short, bringing the hedge to 63,800 shares.
 
 ```python
 bond_count = 5_000

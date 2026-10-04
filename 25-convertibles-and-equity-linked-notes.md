@@ -30,21 +30,21 @@ Start by identifying the embedded equity right and issuer features.
 ## Core Pricing Framework
 A convertible is often decomposed conceptually as:
 
-$$
+```math
 \text{Convertible Value} \approx \text{Bond Floor} + \text{Equity Option Value} + \text{Issuer/Investor Feature Value}
-$$
+```
 
 Parity is:
 
-$$
+```math
 \text{Parity} = S \times \text{Conversion Ratio}
-$$
+```
 
 Conversion premium is:
 
-$$
+```math
 \frac{\text{Convertible Price} - \text{Parity}}{\text{Parity}}
-$$
+```
 
 Production valuation often uses trees, finite-difference methods, or Monte Carlo methods because credit, calls, puts, dividends, and early conversion interact.
 
@@ -57,21 +57,21 @@ Assume:
 
 Parity is:
 
-$$
+```math
 45 \times 20 = 900
-$$
+```
 
 The conversion price is:
 
-$$
+```math
 \frac{1{,}000}{20} = 50
-$$
+```
 
 The conversion premium is:
 
-$$
+```math
 \frac{1{,}050 - 900}{900} = 16.7\%
-$$
+```
 
 The holder is paying above immediate equity parity because the instrument still has bond value, optionality, and time value.
 

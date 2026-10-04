@@ -29,7 +29,7 @@ Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecyc
 | File | Focus | Why It Matters |
 | --- | --- | --- |
 | [01-options.md](01-options.md) | Calls, puts, payoff mechanics, Greeks, theta/gamma carry, dynamic hedging, volatility surfaces | The most common entry point for pricing and hedging logic |
-| [02-futures.md](02-futures.md) | Futures, forwards, basis, carry, margining, and rolling | Core mechanics for listed and OTC linear products |
+| [02-futures-forwards.md](02-futures-forwards.md) | Futures, forwards, basis, carry, margining, and rolling | Core mechanics for listed and OTC linear products |
 | [03-equities.md](03-equities.md) | Cash equities, long/short PnL, dividends, financing, factors, execution | Links direct share exposure to real trading and portfolio systems |
 | [04-fx.md](04-fx.md) | Spot, forwards, swaps, NDFs, pair orientation, and FX option conventions | Essential for multi-currency systems and collateral logic |
 | [05-fixed-income.md](05-fixed-income.md) | Bonds, dated cashflows, clean/dirty price, yields, duration, spread measures | The foundation for rates and credit analytics |
@@ -82,9 +82,9 @@ Every chapter has a pricing lens, a risk lens, and a lifecycle lens. The lifecyc
 ### Risk-Neutral Pricing
 Unless a chapter says otherwise, present values are written under a pricing measure with discounting separated from payoff generation:
 
-$$
+```math
 V(t) = \mathbb{E}^{\mathbb{Q}}\left[D(t, T) \cdot X_T \mid \mathcal{F}_t\right]
-$$
+```
 
 where:
 - $X_T$ is the terminal payoff or cashflow stream

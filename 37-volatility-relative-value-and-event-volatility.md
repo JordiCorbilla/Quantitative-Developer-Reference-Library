@@ -43,64 +43,64 @@ Listed options provide transparent contract terms but fragmented liquidity acros
 ## Core Pricing Framework
 For an expiry $T$, define total implied variance:
 
-$$
+```math
 W(T,k) = \sigma_{\text{imp}}^2(T,k)T
-$$
+```
 
 where $k=\log(K/F_T)$ is log-forward moneyness. At a fixed moneyness, the forward variance between $T_1$ and $T_2$ is:
 
-$$
+```math
 v_{T_1,T_2} =
 \frac{W(T_2,k)-W(T_1,k)}{T_2-T_1}
-$$
+```
 
 The calculation is simple; using incompatible moneyness, forwards, or interpolation rules is not. Negative forward variance is either a data or construction error, or evidence that the fitted surface violates calendar arbitrage.
 
 For one known event before expiry, a useful *Gaussian-equivalent* first model decomposes Black total variance into diffuse variance and one effective event-variance parameter:
 
-$$
+```math
 W(T) = \int_0^T v_{\text{diffuse}}(u)\,du
 + \mathbf{1}_{\{\tau_{\text{event}}\leq T\}}q_{\text{event}}^{\text{eff}}
-$$
+```
 
 Under an independent Gaussian log-jump model, $q_{\text{event}}^{\text{eff}}=\operatorname{Var}^Q(J)$. It is not generally $E^Q[J^2]$, because a nonzero risk-neutral mean contributes to the second moment without becoming Black variance. More broadly, generic jumps, skew, and strike-dependent implied volatility do not collapse exactly into one additive ATM-variance number. With expiries bracketing the event and an estimated diffuse variance $\bar v$, desks often use the following explicitly model-dependent screen:
 
-$$
+```math
 \widehat q_{\text{event}}^{\text{eff}}
 = W(T_2)-W(T_1)-\bar v(T_2-T_1)
-$$
+```
 
 The corresponding Gaussian-equivalent one-standard-deviation log move is approximately:
 
-$$
+```math
 m_{\text{event}}=\sqrt{\max(\widehat q_{\text{event}}^{\text{eff}},0)}
-$$
+```
 
 For small moves, traders may read this as an approximate percentage move, but it is not a model-free event distribution. A model-free expected-variance estimate requires a strip of out-of-the-money options across strikes, as in variance-swap replication; subtracting two ATM Black variances is only a screening heuristic. The at-the-money straddle premium divided by spot is another useful shorthand, but it is not algebraically identical: it reflects discounting, diffuse volatility, skew, tails, and option convexity.
 
 For a locally delta-hedged option in a continuous interval, the familiar approximation is:
 
-$$
+```math
 d\Pi \approx
 \frac{1}{2}\Gamma S^2
 \left(\sigma_{\text{realized}}^2-\sigma_{\text{implied}}^2\right)dt
-$$
+```
 
 For one discrete step of variance time $\Delta\tau$, after carry and financing are handled consistently, the same local comparison can be written:
 
-$$
+```math
 \Delta\Pi
 \approx
 \frac{1}{2}\Gamma
 \left[(\Delta S)^2-S^2\sigma_{\text{imp}}^2\Delta\tau\right].
-$$
+```
 
 The corresponding close-to-close absolute move that offsets the model theta is:
 
-$$
+```math
 |\Delta S|_{\text{BE}}
 \approx S\sigma_{\text{imp}}\sqrt{\Delta\tau}.
-$$
+```
 
 This is a local gamma/theta break-even, not the premium break-even at expiry. It assumes compatible Greek units, the same volatility clock, continuous local dynamics, no surface move, and costless delta hedging. A long-gamma hedge sells underlying after rises and buys after falls; a short-gamma hedge must buy after rises and sell after falls. Gaps occur before either side can trade, so realized close-to-close variance does not by itself determine executable hedge PnL. The full derivation and code are in [examples/theta-gamma-daily-breakeven.md](examples/theta-gamma-daily-breakeven.md).
 
@@ -116,27 +116,27 @@ Suppose two at-the-money expiries bracket one scheduled event:
 
 Assume diffuse volatility over the seven-day interval is 28%. The total variances are:
 
-$$
+```math
 W_1=0.30^2\frac{20}{365}=0.004932
-$$
+```
 
-$$
+```math
 W_2=0.44^2\frac{27}{365}=0.014321
-$$
+```
 
 The inferred event variance is:
 
-$$
+```math
 \widehat q_{\text{event}}
 =0.014321-0.004932-0.28^2\frac{7}{365}
 =0.007886
-$$
+```
 
 Therefore the risk-neutral RMS implied log jump is about:
 
-$$
+```math
 \sqrt{0.007886}=8.88\%
-$$
+```
 
 For an illustrative event-variance position with USD 10m notional per unit of decimal variance, ignoring continuous variance and costs:
 
@@ -165,14 +165,14 @@ Short volatility should be evaluated as an asymmetric distribution, not describe
 
 Tail-first sizing starts with a scenario set $\mathcal S$ that includes gaps, skew rotations, volatility jumps, wider execution, delayed hedging, and any market closure or price-limit state. If $L_{\max}$ is the allowed loss and $\operatorname{PnL}_{1}(s)$ is the full-revalued PnL of one trade unit, a basic hard cap is:
 
-$$
+```math
 N_{\max}
 =
 \left\lfloor
 \frac{L_{\max}}
 {\max_{s\in\mathcal S}\left[-\operatorname{PnL}_{1}(s)\right]}
 \right\rfloor.
-$$
+```
 
 Apply concentration, liquidity, model-risk, and wrong-way-risk add-ons after this calculation. Premium received, historical hit rate, and normal-day theta do not increase $L_{\max}$ automatically.
 

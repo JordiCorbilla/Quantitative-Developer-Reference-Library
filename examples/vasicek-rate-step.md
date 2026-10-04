@@ -4,9 +4,9 @@ Related chapter: [../06-interest-rates.md](../06-interest-rates.md).
 
 The Vasicek model is:
 
-$$
+```math
 dr_t = a(b-r_t)dt + \sigma dW_t
-$$
+```
 
 Assume:
 - current short rate: 3.00%
@@ -34,11 +34,11 @@ assert abs(next_rate - 0.03025) < 1e-12
 
 Result:
 
-$$
+```math
 0.03 + 0.50(0.04 - 0.03)0.25
 + 0.01\sqrt{0.25}(-0.20)
 = 0.03025
-$$
+```
 
 So the next simulated short rate is 3.025%. The factor $\sqrt{dt}$ converts the standard-normal draw into a Brownian increment with variance $dt$; omitting it silently changes the diffusion scale whenever $dt\neq1$.
 

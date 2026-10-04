@@ -22,10 +22,10 @@ The bond normally trades over the counter; its hedge may trade on exchange or th
 
 ## Quoting and Market Conventions
 - Convertible price is commonly quoted in points per 100 of par, normally clean. Settlement adds accrued interest.
-- Conversion ratio \(CR\) is shares received per bond. Conversion price is \(\text{par}/CR\).
-- Parity is \(S\times CR\), adjusted for currency and deliverable property where necessary.
-- Conversion premium is \((P_{\text{convertible}}-\text{parity})/\text{parity}\).
-- Delta must state its basis. “62 delta” may mean 62% of conversion ratio, 12.4 shares per bond with \(CR=20\), or a vendor-specific normalized measure.
+- Conversion ratio $CR$ is shares received per bond. Conversion price is $\text{par}/CR$.
+- Parity is $S\times CR$, adjusted for currency and deliverable property where necessary.
+- Conversion premium is $(P_{\text{convertible}}-\text{parity})/\text{parity}$.
+- Delta must state its basis. “62 delta” may mean 62% of conversion ratio, 12.4 shares per bond with $CR=20$, or a vendor-specific normalized measure.
 - Stock borrow can quote fee or rebate; signs and the treatment of short-sale proceeds differ by agreement.
 - Yield-to-maturity, yield-to-put, and yield-to-call depend on clean/full price, day count, settlement, and assumed exercise.
 - Calls may require a notice period or a stock-price condition such as 130% of conversion price for 20 of 30 trading days. Make-whole tables can add shares based on call date and stock price.
@@ -35,31 +35,31 @@ Terms should be modelled as dated rules, not prose flags. Conversion windows, ca
 ## Core Pricing Framework
 A conceptual decomposition is:
 
-$$
+```math
 V_{\text{CB}} \approx V_{\text{debt}}
 +V_{\text{conversion option}}
 +V_{\text{investor puts}}
 -V_{\text{issuer calls}}
 +V_{\text{other terms}}.
-$$
+```
 
 The components are not independent. Default can terminate equity optionality; conversion removes credit exposure; an issuer call changes exercise timing. The Tsiveriotis-Fernandes framework separates a cash-only component exposed to credit from an equity component treated as credit-risk-free:
 
-$$
+```math
 V = B + E,
-$$
+```
 
 and discounts the two components differently. Lattices and finite-difference solvers can implement the coupled problem with discrete dividends and exercise boundaries. More general path-dependent terms may require Monte Carlo with regression-based exercise or a carefully constructed state lattice.
 
-For \(N\) bonds and a model delta expressed as a fraction \(d\) of the conversion ratio, the initial equity hedge is:
+For $N$ bonds and a model delta expressed as a fraction $d$ of the conversion ratio, the initial equity hedge is:
 
-$$
+```math
 Q_{\text{short}} = N\,d\,CR.
-$$
+```
 
 After hedging first-order equity exposure, a one-period PnL approximation is:
 
-$$
+```math
 \Delta\Pi \approx
 \frac{1}{2}\Gamma(\Delta S)^2
 +\text{Vega}\,\Delta\sigma
@@ -71,7 +71,7 @@ $$
 -\text{funding}
 -\text{costs}
 +\text{residual}.
-$$
+```
 
 Every term must use a declared sign and unit. Gamma may be shares per currency unit per bond; vega may be currency per one volatility point; CS01 may be currency per basis point. Credit-equity cross-effects and changing exercise boundaries make the Taylor explain incomplete in large moves.
 
@@ -92,36 +92,36 @@ Assume each bond has:
 - clean price 108, or USD 1,080,
 - conversion ratio 20 shares,
 - stock price USD 48,
-- model delta \(d=0.62\),
-- model gamma \(0.18\) shares per USD stock move per bond.
+- model delta $d=0.62$,
+- model gamma $0.18$ shares per USD stock move per bond.
 
 Parity is USD 960, conversion price is USD 50, and conversion premium is:
 
-$$
+```math
 \frac{1{,}080-960}{960}=12.5\%.
-$$
+```
 
 A position of 5,000 bonds has USD 5m face and costs USD 5.4m clean. The delta hedge is:
 
-$$
+```math
 5{,}000\times0.62\times20=62{,}000\text{ shares short}.
-$$
+```
 
 The short market value is USD 2.976m. If short-sale proceeds are credited against the long position, simplified financed capital is USD 2.424m. At 6% funding, 4% stock-borrow fee, and ACT/360, daily carry is approximately:
 
-$$
+```math
 \frac{5m\times2.5\%-2.424m\times6\%-2.976m\times4\%}{360}
 =-388.
-$$
+```
 
 Now let the stock rise from USD 48 to USD 50 with all other model inputs unchanged. The initial delta terms cancel. Approximate convexity PnL is:
 
-$$
+```math
 \frac{1}{2}\times0.18\times(2)^2\times5{,}000
 =USD\ 1{,}800.
-$$
+```
 
-After one day of carry, approximate PnL before execution costs is USD 1,412.56. Delta rises by \(0.18\times2=0.36\) shares per bond, so restoring neutrality requires another 1,800 shares short. A reversal may monetize that rebalance; execution costs or falling implied volatility can still overwhelm it.
+After one day of carry, approximate PnL before execution costs is USD 1,412.56. Delta rises by $0.18\times2=0.36$ shares per bond, so restoring neutrality requires another 1,800 shares short. A reversal may monetize that rebalance; execution costs or falling implied volatility can still overwhelm it.
 
 The calculation is reproduced in [examples/convertible-arbitrage-hedge-pnl.md](examples/convertible-arbitrage-hedge-pnl.md).
 

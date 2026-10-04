@@ -13,25 +13,25 @@ Assume:
 
 Net debt and actual leverage are:
 
-$$
+```math
 \text{net debt}=225m-15m=USD\ 210m,
-$$
+```
 
-$$
+```math
 \text{actual leverage}=\frac{210m}{50m}=4.20x.
-$$
+```
 
 Headroom can be reported in turns and in debt-capacity dollars:
 
-$$
+```math
 \text{headroom}_{x}=5.25x-4.20x=1.05x,
-$$
+```
 
-$$
+```math
 \text{headroom}_{\$}
 =5.25\times50m-210m
 =USD\ 52.5m.
-$$
+```
 
 The dollar measure holds EBITDA and eligible cash constant. It is not incremental borrowing capacity if another covenant, basket, liquidity condition, or lender-consent requirement is tighter.
 
@@ -39,21 +39,21 @@ The dollar measure holds EBITDA and eligible cash constant. It is not incrementa
 
 Suppose EBITDA falls 25% to USD 37.5m, with debt and cash unchanged:
 
-$$
+```math
 \text{stressed leverage}=\frac{210m}{37.5m}=5.60x.
-$$
+```
 
 The test is 0.35x above the maximum, equivalent to negative USD 13.125m of debt-capacity headroom:
 
-$$
+```math
 5.25\times37.5m-210m=-USD\ 13.125m.
-$$
+```
 
 EBITDA required to sit exactly at the covenant is:
 
-$$
+```math
 \frac{210m}{5.25}=USD\ 40m.
-$$
+```
 
 The borrower therefore needs USD 2.5m more agreement-defined EBITDA than in the stressed case, or an equivalent reduction in net debt, before considering cures or waivers.
 

@@ -70,7 +70,7 @@ Use these paths when you want to study the library with a concrete goal.
 ## Rates And Fixed Income
 1. [05-fixed-income.md](05-fixed-income.md)
 2. [06-interest-rates.md](06-interest-rates.md)
-3. [02-futures.md](02-futures.md)
+3. [02-futures-forwards.md](02-futures-forwards.md)
 4. [17-inflation-products.md](17-inflation-products.md)
 5. [19-financing-repo-and-securities-lending.md](19-financing-repo-and-securities-lending.md)
 

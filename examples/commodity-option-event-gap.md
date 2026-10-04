@@ -16,10 +16,10 @@ Assume:
 
 The short straddle's expiry PnL per contract is:
 
-$$
+```math
 \operatorname{PnL}_{1}(F_T)
 =1{,}000\left[4-|F_T-75|\right].
-$$
+```
 
 For a first scenario set:
 
@@ -33,14 +33,14 @@ For a first scenario set:
 
 The mechanical contract cap is:
 
-$$
+```math
 N_{\max}
 =
 \left\lfloor
 \frac{110{,}000}{11{,}000}
 \right\rfloor
 =10.
-$$
+```
 
 The locked rows do **not** make $\pm8$ a maximum move. Their displayed prices may not be executable, a short-gamma rebalance may be impossible, and the reopening price can lie outside the initial limit. A production scenario attaches a delayed-fill or no-fill path and an expanded-limit/reopening shock before approving the cap.
 
@@ -48,16 +48,16 @@ Now add a signed-price diagnostic at $F_T=-37.63$. That is the settlement record
 
 The hypothetical straddle PnL at that signed futures level is:
 
-$$
+```math
 1{,}000\left[4-|-37.63-75|\right]
 =-\$108{,}630.
-$$
+```
 
 If that scenario is relevant to the contract and holding horizon, the same loss budget permits only one contract before liquidity, model-risk, margin, and concentration add-ons:
 
-$$
+```math
 \left\lfloor\frac{110{,}000}{108{,}630}\right\rfloor=1.
-$$
+```
 
 The purpose is not to mandate this historical price as every oil option's stress. It is to expose a dangerous dependency: clamping the future at zero, rejecting a signed vendor value, or using a lognormal pricer outside its domain can turn a six-figure per-contract scenario into a missing row.
 

@@ -31,9 +31,9 @@ Most margin and capital models are rule engines wrapped around risk analytics.
 
 Many margin and capital models reduce to:
 
-$$
+```math
 \text{requirement} = f(\text{trades}, \text{sensitivities}, \text{risk weights}, \text{correlations}, \text{netting rules}, \text{add-ons})
-$$
+```
 
 The hard part is reproducibility. Two runs should differ only because an input, rule version, or market state changed.
 
@@ -51,9 +51,9 @@ Assume:
 
 A simplified weighted sensitivity is:
 
-$$
+```math
 WS_k=RW_k\,s_k\,CR_k=15\%\times\text{USD }2m\times1.0=\text{USD }300k.
-$$
+```
 
 Here USD 2m is already the dollar-equivalent sensitivity defined by the applicable methodology; it is not "USD 2m per 1% move" multiplied by a 15-percentage-point scenario. Real models first build prescribed sensitivities and then aggregate weighted sensitivities across buckets, correlations, product classes, tenors, netting sets, and add-ons. This example is only the unit intuition, and the current methodology version remains authoritative.
 

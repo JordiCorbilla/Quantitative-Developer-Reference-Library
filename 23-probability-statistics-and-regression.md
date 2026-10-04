@@ -29,17 +29,17 @@ The basic objects are small, but they appear everywhere in portfolio and risk sy
 
 The basic probability objects are expectation, variance, covariance, and correlation:
 
-$$
+```math
 E[X], \quad Var(X) = E[(X - E[X])^2]
-$$
+```
 
-$$
+```math
 Cov(X,Y) = E[(X - E[X])(Y - E[Y])]
-$$
+```
 
-$$
+```math
 \rho_{X,Y} = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}
-$$
+```
 
 ### Visual Probability And Statistics Reference
 
@@ -47,27 +47,27 @@ $$
 
 For linear regression, the model is:
 
-$$
+```math
 y_i = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i
-$$
+```
 
 In matrix form:
 
-$$
+```math
 y = X\beta + \epsilon
-$$
+```
 
 Ordinary least squares estimates coefficients by minimizing the sum of squared residuals:
 
-$$
+```math
 \min_\beta \sum_i (y_i - \hat{y}_i)^2
-$$
+```
 
 When $X^\top X$ is invertible, the OLS estimator is:
 
-$$
+```math
 \hat{\beta} = (X^\top X)^{-1}X^\top y
-$$
+```
 
 ### Visual Regression Reference
 
@@ -80,17 +80,17 @@ Under homoskedastic, uncorrelated errors, the classical OLS covariance formula s
 ## Worked Instrument Example: Beta Regression
 Assume a stock return is regressed on market return:
 
-$$
+```math
 r_{\text{stock}} = \alpha + \beta r_{\text{market}} + \epsilon
-$$
+```
 
 If the estimated slope is 1.25, the stock has estimated beta of 1.25 to the benchmark. A 1% market return contributes 1.25% to the fitted stock return; the intercept and residual remain separate. This is a conditional linear estimate under the fitted specification, rather than a guaranteed response or a causal claim.
 
 This feeds directly into equity VaR and factor risk:
 
-$$
+```math
 \Delta V_{\text{market}} \approx \text{position value} \times \beta \times \Delta r_m
-$$
+```
 
 Regression is useful here, but only if the benchmark, return definition, sampling frequency, window, and residual behavior are documented.
 

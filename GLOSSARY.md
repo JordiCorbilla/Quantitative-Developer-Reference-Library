@@ -59,7 +59,7 @@
 ## E
 - **Earnings per share (EPS)**: Profit attributable to common shareholders divided by weighted average common shares; diluted EPS reflects potential share-count dilution.
 - **Event time**: Time an event occurred in the source domain, distinct from when it was published, received, or processed.
-- **Elastic net**: Linear-model regularization combining lasso's \(L_1\) penalty with ridge's \(L_2\) penalty.
+- **Elastic net**: Linear-model regularization combining lasso's $L_1$ penalty with ridge's $L_2$ penalty.
 - **Efficient frontier**: Upper boundary of mandate-feasible risky portfolios in expected-return/volatility space; at a given volatility, no feasible portfolio on the frontier has a higher expected return.
 - **Engle-Granger procedure**: Two-step cointegration method estimating a long-run relation and testing its fitted residual for a unit root with appropriate critical values.
 - **EWMA volatility**: Exponentially weighted moving-average variance estimate whose decay parameter is tied to the sampling frequency.
@@ -113,7 +113,7 @@
 
 ## L
 - **LEAPS**: Long-dated listed options; equity LEAPS have American exercise. Longer tenor makes rate, dividend, and volatility assumptions more consequential; see the [OIC overview](https://www.optionseducation.org/optionsoverview/how-leaps-work).
-- **Lasso**: Linear-model estimator using an \(L_1\) coefficient penalty that can shrink some coefficients to zero.
+- **Lasso**: Linear-model estimator using an $L_1$ coefficient penalty that can shrink some coefficients to zero.
 - **LGD**: Loss given default, equal to one minus recovery rate.
 - **Locate**: Confirmation from a broker or lender that shares may be available to borrow for a short sale; it is not a guarantee that borrow remains available.
 - **Longstaff-Schwartz**: Monte Carlo regression method for estimating continuation values in Bermudan-style exercise problems.
@@ -167,7 +167,7 @@
 - **Regime model**: Model that lets parameters or dynamics change across latent market states.
 - **Regime-switching GARCH**: GARCH model where volatility parameters depend on an unobserved regime.
 - **Repo**: Financing transaction where securities are sold and later repurchased.
-- **Ridge regression**: Linear regression with an \(L_2\) coefficient penalty that shrinks correlated or noisy estimates without usually setting them exactly to zero.
+- **Ridge regression**: Linear regression with an $L_2$ coefficient penalty that shrinks correlated or noisy estimates without usually setting them exactly to zero.
 - **Risk parity**: Portfolio construction targeting equal or specified component risk contributions under a declared covariance model; inverse-volatility weighting is not generally identical.
 - **Residual PnL**: PnL not explained by known risk factors or lifecycle changes.
 - **Rights offering**: Capital raise granting existing holders transferable or non-transferable rights to buy new securities at stated terms before expiry.

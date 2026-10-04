@@ -14,9 +14,9 @@ Assume monthly market returns and stock returns:
 
 Estimate beta as the OLS slope:
 
-$$
+```math
 \hat{\beta} = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{\sum_i (x_i - \bar{x})^2}
-$$
+```
 
 ```python
 market = [-0.02, 0.01, 0.03, -0.01, 0.02]

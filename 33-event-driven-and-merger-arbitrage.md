@@ -25,63 +25,63 @@ Pre-announcement event strategies seek an event before definitive terms exist. P
 Participants include target and acquirer shareholders, arbitrageurs, market makers, lenders of stock, options dealers, legal and regulatory advisers, and sometimes competing bidders. Trading continues while legal milestones occur outside market hours, so event time and market time need separate representations.
 
 ## Quoting and Market Conventions
-For a cash offer \(C\) and target price \(P_T\), the simple spread is:
+For a cash offer $C$ and target price $P_T$, the simple spread is:
 
-$$
+```math
 \text{Spread} = C-P_T, \qquad
 \text{Gross Return} = \frac{C-P_T}{P_T}
-$$
+```
 
 An annualized return requires an assumed settlement date:
 
-$$
+```math
 \text{Annualized Return}
 =
 \left(\frac{C-\text{costs}}{P_T}\right)^{365/d}-1
-$$
+```
 
-where \(d\) is calendar days to cash receipt. This is a scenario metric, not a promised yield. A delayed close can sharply reduce it.
+where $d$ is calendar days to cash receipt. This is a scenario metric, not a promised yield. A delayed close can sharply reduce it.
 
-For a fixed-ratio stock deal with exchange ratio \(r\), cash component \(c\), and acquirer price \(P_A\):
+For a fixed-ratio stock deal with exchange ratio $r$, cash component $c$, and acquirer price $P_A$:
 
-$$
+```math
 \text{Current Consideration}=rP_A+c
-$$
+```
 
-The contractual hedge is short \(r\) acquirer shares per target share. A beta or minimum-variance hedge answers a different question and leaves contractual closing exposure. Reports should name the convention.
+The contractual hedge is short $r$ acquirer shares per target share. A beta or minimum-variance hedge answers a different question and leaves contractual closing exposure. Reports should name the convention.
 
 Quotes must also declare treatment of expected target and acquirer dividends, withholding tax, borrow fee, funding rate, commissions, foreign-exchange conversion, settlement lag, and fractional shares. Deal dates should be stored as ranges or distributions when management only gives a quarter or long-stop date.
 
 ## Core Pricing Framework
 A merger position is a discounted scenario tree:
 
-$$
+```math
 V_0 =
 \sum_{i=1}^{n} p_i
 \frac{V_i + D_i - H_i - K_i}{(1+r_i)^{t_i}}
-$$
+```
 
-where \(p_i\) is the probability of scenario \(i\), \(V_i\) its terminal consideration or security value, \(D_i\) dividends received net of dividends owed on hedges, \(H_i\) financing and borrow cost, \(K_i\) transaction and settlement cost, and \(t_i\) time in years. Scenarios should include at least close, break, and delay; material cases may require price bump, revised terms, proration, divestiture, litigation, or competing bid branches.
+where $p_i$ is the probability of scenario $i$, $V_i$ its terminal consideration or security value, $D_i$ dividends received net of dividends owed on hedges, $H_i$ financing and borrow cost, $K_i$ transaction and settlement cost, and $t_i$ time in years. Scenarios should include at least close, break, and delay; material cases may require price bump, revised terms, proration, divestiture, litigation, or competing bid branches.
 
 For a two-state cash deal, ignoring discounting and costs, the market-implied completion probability is:
 
-$$
+```math
 p_{\text{implied}}=\frac{P_T-B}{C-B}
-$$
+```
 
-where \(B\) is the estimated unaffected or break price. This is an inversion of assumptions, not an observable probability. If \(B\) is wrong or embeds a changed market, \(p_{\text{implied}}\) is wrong.
+where $B$ is the estimated unaffected or break price. This is an inversion of assumptions, not an observable probability. If $B$ is wrong or embeds a changed market, $p_{\text{implied}}$ is wrong.
 
-For a fixed-ratio stock merger with cash consideration \(c\), buying one target share and shorting \(r\) acquirer shares creates a net entry cash outlay:
+For a fixed-ratio stock merger with cash consideration $c$, buying one target share and shorting $r$ acquirer shares creates a net entry cash outlay:
 
-$$
+```math
 C_0=P_T-rP_A.
-$$
+```
 
 On clean completion the received acquirer shares cover the short and the locked convergence amount is
 
-$$
+```math
 G_{\text{close}}=rP_A+c-P_T=c-C_0.
-$$
+```
 
 This is before dividends, borrow, funding, and execution costs; whether short-sale proceeds are available to fund the purchase is an agreement-specific financing question. On failure, both legs remain exposed and may gap in opposite directions. Scenario valuation must therefore forecast both security prices in every branch rather than assume the hedge survives a break.
 
@@ -90,25 +90,25 @@ Consider a cash offer of USD 50 per target share. The target trades at USD 46.20
 
 The headline spread and annualized convergence return are:
 
-$$
+```math
 50-46.20=\text{USD }3.80
-$$
+```
 
-$$
+```math
 \left(\frac{49.80}{46.20}\right)^{365/120}-1=25.5\%
-$$
+```
 
 The simplified market-implied completion probability is:
 
-$$
+```math
 \frac{46.20-35.40}{50.00-35.40}=74.0\%
-$$
+```
 
 Suppose independent underwriting assigns 82% to completion at USD 50, 6% to a nine-month delayed close worth USD 48.60 after incremental carry, and 12% to a break at USD 35.40. The probability-weighted terminal value is:
 
-$$
+```math
 0.82(50.00)+0.06(48.60)+0.12(35.40)=48.164
-$$
+```
 
 After USD 0.20 base costs, expected PnL is USD 1.764 per share, or 3.82% of entry price. The 12% break branch loses USD 10.80 before costs. A high expected return therefore coexists with severe downside asymmetry. The companion [merger-arbitrage scenario example](examples/merger-arbitrage-scenario.md) makes these assumptions executable.
 
@@ -155,7 +155,7 @@ Backtests must reconstruct the investable universe, event state, terms, borrow, 
 - Counting a locate as durable borrow, or using the latest borrow fee throughout history.
 - Leaving stale positions live after a tender, proration, ticker change, or share conversion.
 
-Minimum controls include consideration recomputation from raw terms, scenario probabilities summing to one, dates ordered consistently, stock hedge quantities reconciling to exchange terms, PnL reconciling to leg-level ledgers, and a no-look-ahead test on every point-in-time field. Prices above stated consideration or implied probabilities outside \([0,1]\) should be investigated, not silently clipped; they can signal a competing bid, dividend, optionality, bad terms, or bad data.
+Minimum controls include consideration recomputation from raw terms, scenario probabilities summing to one, dates ordered consistently, stock hedge quantities reconciling to exchange terms, PnL reconciling to leg-level ledgers, and a no-look-ahead test on every point-in-time field. Prices above stated consideration or implied probabilities outside $[0,1]$ should be investigated, not silently clipped; they can signal a competing bid, dividend, optionality, bad terms, or bad data.
 
 ## Illustrative Code
 ```python

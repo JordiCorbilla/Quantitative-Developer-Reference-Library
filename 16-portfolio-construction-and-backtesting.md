@@ -34,13 +34,13 @@ This chapter is mostly equity-oriented because that is where portfolio engineeri
 
 Useful benchmark-relative definitions:
 
-$$
+```math
 w^{\text{active}} = w - w^{\text{bench}}
-$$
+```
 
-$$
+```math
 \text{Tracking Error} = \sqrt{(w - w^{\text{bench}})^\top \Sigma (w - w^{\text{bench}})}
-$$
+```
 
 If a report says "active risk" without specifying benchmark, covariance horizon, and annualization convention, the number is not a stable interface.
 
@@ -49,9 +49,9 @@ The optimizer is only one step in a larger investment process.
 
 The canonical portfolio-construction problem is an optimization under risk and implementation constraints:
 
-$$
+```math
 \min_w \frac{1}{2} w^\top \Sigma w - \lambda \mu^\top w + C(w, w_{\text{prev}})
-$$
+```
 
 subject to funding, leverage, concentration, factor, and turnover limits.
 
@@ -62,9 +62,9 @@ In practice:
 
 Factor models are often the right engineering abstraction:
 
-$$
+```math
 \Sigma = B \Sigma_f B^\top + D
-$$
+```
 
 where:
 - $B$ is the asset-by-factor exposure matrix,
@@ -77,16 +77,16 @@ This matters because portfolio tools are usually built around exposures, active 
 
 Markowitz optimization makes the expected-return/risk trade-off explicit. Equivalent formulations maximize expected return for a risk budget, minimize risk for a return target, or maximize a quadratic utility:
 
-$$
+```math
 \max_w
 \mu^\top w-\frac{\delta}{2}w^\top\Sigma w-C(w,w_{\text{prev}}).
-$$
+```
 
-The mathematical optimum is highly sensitive to \(\mu\). A stable production process normally shrinks expected returns and covariance, limits leverage and concentration, and reports how much each constraint changes the unconstrained answer.
+The mathematical optimum is highly sensitive to $\mu$. A stable production process normally shrinks expected returns and covariance, limits leverage and concentration, and reports how much each constraint changes the unconstrained answer.
 
-For a target expected return \(\mu_p\), the canonical minimum-variance frontier problem is:
+For a target expected return $\mu_p$, the canonical minimum-variance frontier problem is:
 
-$$
+```math
 \begin{aligned}
 \min_w\quad & \frac{1}{2}w^\top\Sigma w \\
 \text{subject to}\quad
@@ -94,9 +94,9 @@ $$
 & \mathbf{1}^\top w=1, \\
 & w_i\geq0\quad\text{when the mandate is long-only}.
 \end{aligned}
-$$
+```
 
-Each constraint-consistent weight vector is feasible. Its expected return is \(w^\top\mu\) and its volatility is \(\sqrt{w^\top\Sigma w}\). The efficient frontier is the upper boundary of feasible risky portfolios: at a given volatility, a portfolio is efficient only when no other feasible portfolio offers a higher expected return. Constraints can introduce corners and kinks, so the feasible region and frontier belong to the mandate, not just to \(\mu\) and \(\Sigma\).
+Each constraint-consistent weight vector is feasible. Its expected return is $w^\top\mu$ and its volatility is $\sqrt{w^\top\Sigma w}$. The efficient frontier is the upper boundary of feasible risky portfolios: at a given volatility, a portfolio is efficient only when no other feasible portfolio offers a higher expected return. Constraints can introduce corners and kinks, so the feasible region and frontier belong to the mandate, not just to $\mu$ and $\Sigma$.
 
 ![Markowitz feasible region, efficient frontier, and tangency portfolio](assets/markowitz-efficient-frontier.svg)
 
@@ -104,13 +104,13 @@ Each constraint-consistent weight vector is feasible. Its expected return is \(w
 
 Suppose Asset A has expected return $6\%$ and volatility $10\%$, while Asset B has expected return $10\%$ and volatility $20\%$. Their correlation is $0.25$, so the covariance matrix is:
 
-$$
+```math
 \Sigma=
 \begin{bmatrix}
 0.010 & 0.005\\
 0.005 & 0.040
 \end{bmatrix}.
-$$
+```
 
 With weights summing to one and no shorting, every convex combination of A and B is feasible. The minimum-variance choice is $87.5\%$ in A and $12.5\%$ in B. It has expected return $6.5\%$ and volatility about $9.68\%$. That is the leftmost feasible point in expected-return/volatility space. The upper branch beginning there is efficient: for each attainable volatility on that branch, no other feasible mix has higher expected return.
 
@@ -122,58 +122,58 @@ The story ends with a control, not the optimizer: those weights are only as cred
 
 Black-Litterman starts from equilibrium excess returns rather than treating a noisy alpha estimate as certain. A common reverse-optimization prior is:
 
-$$
+```math
 \Pi=\delta\Sigma w_{\text{mkt}},
-$$
+```
 
-where \(w_{\text{mkt}}\) is a reference market portfolio and \(\delta\) is risk aversion. Views are represented by \(P\), view returns \(q\), and view-error covariance \(\Omega\). With prior uncertainty scale \(\tau\), a common posterior mean is:
+where $w_{\text{mkt}}$ is a reference market portfolio and $\delta$ is risk aversion. Views are represented by $P$, view returns $q$, and view-error covariance $\Omega$. With prior uncertainty scale $\tau$, a common posterior mean is:
 
-$$
+```math
 \mu_{\text{BL}}
 =
 \left[(\tau\Sigma)^{-1}+P^\top\Omega^{-1}P\right]^{-1}
 \left[(\tau\Sigma)^{-1}\Pi+P^\top\Omega^{-1}q\right].
-$$
+```
 
-The formula does not remove judgment. Portfolio definition, risk aversion, \(\tau\), view units, relative-versus-absolute view rows, and \(\Omega\) determine the result. Confidence must be encoded as uncertainty, not as an informal label disconnected from the calculation.
+The formula does not remove judgment. Portfolio definition, risk aversion, $\tau$, view units, relative-versus-absolute view rows, and $\Omega$ determine the result. Confidence must be encoded as uncertainty, not as an informal label disconnected from the calculation.
 
 ### Risk Parity And Risk Budgets
 
-For portfolio volatility \(\sigma_p=\sqrt{w^\top\Sigma w}\), asset \(i\)'s contribution to volatility is:
+For portfolio volatility $\sigma_p=\sqrt{w^\top\Sigma w}$, asset $i$'s contribution to volatility is:
 
-$$
+```math
 RC_i
 =
 w_i\frac{(\Sigma w)_i}{\sigma_p}.
-$$
+```
 
-Equal-risk-contribution risk parity targets the same \(RC_i\) for each included asset. General risk budgeting targets fractions \(b_i\) that sum to one. Inverse-volatility weights are a useful heuristic, but they are not generally risk parity because they ignore correlation. Risk parity also does not mean equal tail risk, equal scenario loss, or economic diversification.
+Equal-risk-contribution risk parity targets the same $RC_i$ for each included asset. General risk budgeting targets fractions $b_i$ that sum to one. Inverse-volatility weights are a useful heuristic, but they are not generally risk parity because they ignore correlation. Risk parity also does not mean equal tail risk, equal scenario loss, or economic diversification.
 
 ### Kelly And Fractional Kelly
 
 Kelly allocation maximizes expected logarithmic wealth:
 
-$$
+```math
 \max_w\ E[\log(1+w^\top r)].
-$$
+```
 
 The feasible domain must satisfy $1+w^\top r>0$ for every return outcome given positive modeled probability; otherwise log wealth is undefined. In finite-scenario code this is an explicit scenario constraint, while unbounded return models require a leverage or loss-support treatment consistent with the model.
 
 For small returns under a quadratic approximation, the unconstrained solution resembles:
 
-$$
+```math
 w_{\text{Kelly}}\approx\Sigma^{-1}\mu.
-$$
+```
 
-That answer can be dangerously levered when \(\mu\) is noisy, returns are non-normal, losses are discontinuous, or trading is constrained. Fractional Kelly scales the estimate, but the fraction is not a substitute for scenario limits, liquidity controls, or uncertainty analysis.
+That answer can be dangerously levered when $\mu$ is noisy, returns are non-normal, losses are discontinuous, or trading is constrained. Fractional Kelly scales the estimate, but the fraction is not a substitute for scenario limits, liquidity controls, or uncertainty analysis.
 
 ### Hierarchical Risk Parity
 
 HRP converts correlation to a distance such as:
 
-$$
+```math
 d_{ij}=\sqrt{\frac{1-\rho_{ij}}{2}},
-$$
+```
 
 then clusters assets, orders them by the hierarchy, and recursively allocates between clusters using their estimated variances. It avoids directly inverting the full covariance matrix and can produce more stable weights in ill-conditioned problems. It is still sensitive to the return window, distance definition, linkage method, cluster ordering, and covariance estimator.
 
@@ -189,9 +189,9 @@ No method dominates in every mandate:
 
 ### Worked Allocation Example: Two-Asset Risk Parity
 
-Assume two uncorrelated assets have annualized volatility \(10\%\) and \(20\%\). With no shorting and weights summing to one, inverse-volatility weights are:
+Assume two uncorrelated assets have annualized volatility $10\%$ and $20\%$. With no shorting and weights summing to one, inverse-volatility weights are:
 
-$$
+```math
 w_1
 =
 \frac{1/0.10}{1/0.10+1/0.20}
@@ -199,14 +199,14 @@ w_1
 \frac{2}{3},
 \qquad
 w_2=\frac{1}{3}.
-$$
+```
 
-Each standalone weighted volatility is \(6.67\%\), so the two assets contribute equally in this simple diagonal-covariance case. Portfolio volatility is:
+Each standalone weighted volatility is $6.67\%$, so the two assets contribute equally in this simple diagonal-covariance case. Portfolio volatility is:
 
-$$
+```math
 \sqrt{(2/3)^2(0.10)^2+(1/3)^2(0.20)^2}
 \approx9.43\%.
-$$
+```
 
 With larger universes and heterogeneous correlations, solve the risk-budget equations using the full covariance matrix rather than assuming inverse-volatility weights are sufficient. The arithmetic is reproduced in [examples/portfolio-risk-budgeting.md](examples/portfolio-risk-budgeting.md).
 

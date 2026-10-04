@@ -38,27 +38,27 @@ Common systematic signal families:
 
 The empirical single-factor market-model regression writes realized asset excess return as market exposure plus an intercept and residual:
 
-$$
+```math
 r_{i,t}-r_{f,t}
 =
 \alpha_i+\beta_{i,M}(r_{M,t}-r_{f,t})+\epsilon_{i,t}.
-$$
+```
 
 The CAPM adds an equilibrium restriction on expected returns:
 
-$$
+```math
 E[r_i]-r_f=\beta_{i,M}\bigl(E[r_M]-r_f\bigr).
-$$
+```
 
 In that model, correctly specified expected abnormal return is zero; an estimated regression intercept $\alpha_i$ is a diagnostic or empirical abnormal-return estimate, not part of the CAPM restriction itself. The market model is useful for beta and return attribution, while CAPM is a baseline expected-return theory rather than a complete description of observed returns. Beta still depends on benchmark, currency, frequency, window, weighting, and regime.
 
 The Fama-French three-factor model adds size and value:
 
-$$
+```math
 r_i-r_f
 =
 \alpha_i+\beta_M MKT+\beta_S SMB+\beta_H HML+\epsilon_i.
-$$
+```
 
 The five-factor model adds profitability `RMW` and investment `CMA`. The Carhart four-factor specification adds a momentum factor, often labelled `MOM` or `UMD`, to the three-factor model. These names identify published construction families, not universal data columns: source, breakpoints, region, weighting, and formation lag still matter.
 
@@ -66,13 +66,13 @@ The five-factor model adds profitability `RMW` and investment `CMA`. The Carhart
 
 A practical multi-factor risk model represents asset returns as:
 
-$$
+```math
 r_t = B_t f_t + \epsilon_t,
 \qquad
 \Sigma_t = B_t\Sigma_{f,t}B_t^\top + D_t,
-$$
+```
 
-where \(B_t\) contains industry and style exposures, \(f_t\) contains factor returns, \(\Sigma_{f,t}\) is factor covariance, and \(D_t\) contains specific variances. Commercial Barra models have documented proprietary specifications; “Barra-style” should mean this engineering structure, not a claim that an internal approximation reproduces a vendor model.
+where $B_t$ contains industry and style exposures, $f_t$ contains factor returns, $\Sigma_{f,t}$ is factor covariance, and $D_t$ contains specific variances. Commercial Barra models have documented proprietary specifications; “Barra-style” should mean this engineering structure, not a claim that an internal approximation reproduces a vendor model.
 
 Exposure estimation can be:
 
@@ -85,32 +85,32 @@ Exposure estimation can be:
 
 A volatility-scaled time-series momentum score can be written:
 
-$$
+```math
 s_{i,t}^{TS}
 =
 \frac{\sum_{u=t-h}^{t-k} r_{i,u}}
 {\widehat{\sigma}_{i,t}},
-$$
+```
 
-where \(k\) is an explicit skip period and every input is available before the decision. A moving-average crossover or channel breakout is another trend rule, but window choice and trade timing must be part of the strategy definition.
+where $k$ is an explicit skip period and every input is available before the decision. A moving-average crossover or channel breakout is another trend rule, but window choice and trade timing must be part of the strategy definition.
 
 A mean-reversion score often standardizes a residual:
 
-$$
+```math
 z_{i,t}=\frac{x_{i,t}-\widehat{\mu}_{i,t}}{\widehat{\sigma}_{i,t}}.
-$$
+```
 
 The residual may be relative to a pair, sector, factor model, curve, or state-space estimate. It is not evidence that the relationship will continue to revert.
 
-For a cross-sectional characteristic \(x_{i,t}\), a simple neutralized score is:
+For a cross-sectional characteristic $x_{i,t}$, a simple neutralized score is:
 
-$$
+```math
 \widetilde{x}_{i,t}
 =
 x_{i,t}
 -
 \operatorname{groupmean}(x_{i,t}),
-$$
+```
 
 Winsorize or otherwise transform the raw characteristic within the point-in-time universe first, then neutralize, scale, and apply portfolio constraints. A nonlinear transform after neutralization can reintroduce the unwanted exposure; if one is required, neutralize again afterward. Regression residualization can neutralize several exposures at once, but the design matrix and weights must be point-in-time.
 
@@ -126,7 +126,7 @@ Suppose four assets have raw momentum scores:
 | C | Banks | 0.3 |
 | D | Banks | -0.5 |
 
-Each industry mean is \(1.0\) for Technology and \(-0.1\) for Banks. Subtracting the contemporaneous industry mean gives:
+Each industry mean is $1.0$ for Technology and $-0.1$ for Banks. Subtracting the contemporaneous industry mean gives:
 
 | Asset | Industry-neutral score |
 | --- | ---: |
@@ -135,7 +135,7 @@ Each industry mean is \(1.0\) for Technology and \(-0.1\) for Banks. Subtracting
 | C | 0.4 |
 | D | -0.4 |
 
-Scaling absolute weights to gross exposure \(1.0\) produces weights \(+0.25,-0.25,+0.25,-0.25\). The portfolio is industry-dollar neutral by construction, but it is not automatically neutral to beta, size, country, liquidity, or nonlinear exposures. Those require a risk model and explicit constraints.
+Scaling absolute weights to gross exposure $1.0$ produces weights $+0.25,-0.25,+0.25,-0.25$. The portfolio is industry-dollar neutral by construction, but it is not automatically neutral to beta, size, country, liquidity, or nonlinear exposures. Those require a risk model and explicit constraints.
 
 The calculation is reproduced in [examples/factor-signal-neutralization.md](examples/factor-signal-neutralization.md).
 

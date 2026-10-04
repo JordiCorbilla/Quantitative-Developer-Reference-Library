@@ -29,18 +29,18 @@ Credit pricing is built around survival under a pricing measure: the market-impl
 
 Reduced-form pricing models use risk-neutral hazard rates or survival probabilities calibrated to traded prices:
 
-$$
+```math
 Q(0, T) = \exp\left(-\int_0^T \lambda(u) du\right)
-$$
+```
 
 CDS pricing balances premium leg and protection leg under a recovery assumption. Bond pricing adds default-adjusted expected cashflows and, often, liquidity premia not captured by a simple hazard-rate model. These market-implied probabilities are valuation parameters, not automatically forecasts of realized default frequency.
 
 ### Probability Of Default Models
 For underwriting, monitoring, expected loss, and capital, Probability of Default (PD) usually means a real-world or physical-measure estimate over a defined horizon, often one year. Keep this forecasting object separate from a risk-neutral default curve used to price CDS or bonds; the two can differ because of risk premia, liquidity, recovery assumptions, and calibration instruments.
 
-$$
+```math
 PD = P(\text{default within horizon} \mid \text{information available today})
-$$
+```
 
 Common PD types:
 - Point-in-time (PIT) PD: captures current borrower and macro conditions at a specific point in time.
@@ -55,15 +55,15 @@ Common modelling approaches:
 
 For logistic regression scorecards:
 
-$$
+```math
 \log\left(\frac{PD_i}{1-PD_i}\right) = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_k x_{i,k}
-$$
+```
 
 or:
 
-$$
+```math
 PD_i = \frac{1}{1 + e^{-z_i}}
-$$
+```
 
 where $z_i$ is the borrower score. Higher scores should map consistently to higher or lower risk depending on score orientation.
 
@@ -91,15 +91,15 @@ Assume an investor buys 5-year CDS protection on USD 10,000,000 notional with:
 
 Ignoring accrual, discounting, and settlement timing for the moment, the annual premium paid by the protection buyer is:
 
-$$
+```math
 10{,}000{,}000 \times 1.00\% = 100{,}000
-$$
+```
 
 If the reference entity defaults and the recovery value is 40%, the protection payment is approximately:
 
-$$
+```math
 10{,}000{,}000 \times (1 - 40\%) = 6{,}000{,}000
-$$
+```
 
 The protection buyer pays periodic spread and receives a large payment if default occurs. The protection seller receives the spread but is short default risk. A CDS valuation engine therefore needs premium-leg cashflows, accrued premium on default, default probabilities, discount factors, and recovery assumptions.
 

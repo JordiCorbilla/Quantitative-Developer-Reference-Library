@@ -39,7 +39,7 @@ def tracked_markdown_files() -> list[Path]:
     except FileNotFoundError:
         result = None
     if result is not None and result.returncode == 0:
-        return sorted({ROOT / name for name in result.stdout.decode("utf-8").split("\0") if name})
+        return sorted({ROOT / name for name in result.stdout.decode("utf-8").split("\0") if name and (ROOT / name).is_file()})
     # Source archives can be checked without Git metadata.
     excluded = {".git", ".codex-remote-attachments", ".venv", "venv", "node_modules", "__pycache__"}
     markdown = []
@@ -181,6 +181,28 @@ def validate_markdown_integrity(errors: list[str]) -> None:
             errors.append(f"Placeholder text in {relative}:{line}: {match.group(0)}")
 
 
+def validate_math_rendering(errors: list[str]) -> None:
+    """Reject unsupported delimiters and display contents exposed to Markdown."""
+    for path in tracked_markdown_files():
+        in_code = False
+        in_display = False
+        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+            if stripped == "$$":
+                in_display = not in_display
+                continue
+            if in_display:
+                if re.fullmatch(r"[=-]+", stripped):
+                    errors.append(f"Markdown heading underline inside display math: {path.relative_to(ROOT)}:{number}; use a math fence")
+            elif re.search(r"\\[()\[\]]", re.sub(r"`[^`]*`", "", line)):
+                errors.append(f"Use GitHub math delimiters in {path.relative_to(ROOT)}:{number}")
+
+
 def validate_python_fences(errors: list[str]) -> None:
     for path in tracked_markdown_files():
         text = path.read_text(encoding="utf-8")
@@ -268,6 +290,7 @@ def main() -> int:
     validate_chapter_sections(errors)
     validate_duplicate_h1(errors)
     validate_markdown_integrity(errors)
+    validate_math_rendering(errors)
     validate_python_fences(errors)
     validate_worked_example_checks(errors)
     validate_currency_style(errors)

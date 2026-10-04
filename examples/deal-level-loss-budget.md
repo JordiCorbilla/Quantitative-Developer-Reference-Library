@@ -13,22 +13,22 @@ Assume a multi-leg strategy has a USD 750k approved loss budget. Full revaluatio
 
 The reasonable-worst-case loss is the largest nonnegative scenario loss:
 
-$$
+```math
 L_{\text{RWC}}=\max(0, -\min_s\operatorname{PnL}_s)
 =\text{USD }1{,}240\text{k}
-$$
+```
 
 Budget utilization is:
 
-$$
+```math
 u=\frac{1{,}240}{750}=165.3\%
-$$
+```
 
 The largest proportional size that would fit the budget is:
 
-$$
+```math
 k=\frac{750}{1{,}240}=60.48\%
-$$
+```
 
 ```python
 from dataclasses import dataclass

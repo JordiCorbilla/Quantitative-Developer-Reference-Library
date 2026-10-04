@@ -10,15 +10,15 @@ Assume:
 
 Loss given default:
 
-$$
+```math
 LGD = 1 - 40\% = 60\%
-$$
+```
 
 CVA:
 
-$$
+```math
 1{,}000{,}000 \times 2\% \times 60\% \times 1.00 = 12{,}000
-$$
+```
 
 ```python
 exposure = 1_000_000

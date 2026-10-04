@@ -4,15 +4,15 @@ Related chapter: [../07-credit.md](../07-credit.md).
 
 A simple logistic PD model maps borrower variables to default probability:
 
-$$
+```math
 PD = \frac{1}{1 + e^{-z}}
-$$
+```
 
 where:
 
-$$
+```math
 z = \beta_0 + \beta_1 x_1 + \beta_2 x_2
-$$
+```
 
 Assume:
 - intercept: -3.0
@@ -33,13 +33,13 @@ assert abs(pd - 0.35434369377420455) < 1e-12
 
 Result:
 
-$$
+```math
 z = -0.6
-$$
+```
 
-$$
+```math
 PD \approx 35.4\%
-$$
+```
 
 Implementation notes:
 - Coefficients and variables must be calibrated on a defined default horizon and default definition.

@@ -1,6 +1,6 @@
 # Financing, Repo, and Securities Lending
 
-Related chapters: [02-futures.md](02-futures.md), [03-equities.md](03-equities.md), [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), and [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md).
+Related chapters: [02-futures-forwards.md](02-futures-forwards.md), [03-equities.md](03-equities.md), [05-fixed-income.md](05-fixed-income.md), [09-cross-asset.md](09-cross-asset.md), and [21-regulatory-margin-capital.md](21-regulatory-margin-capital.md).
 
 ## What This Domain Covers
 Financing is the cost of holding the trade.
@@ -31,15 +31,15 @@ The simplest repo story is cash today in exchange for collateral, then cash repa
 
 For a simple repo:
 
-$$
+```math
 \text{repurchase price} = \text{cash proceeds} \times \left(1 + r_{\text{repo}} \times \text{year fraction}\right)
-$$
+```
 
 For a continuously dividend-paying equity under the idealized cash-and-carry assumptions, a baseline forward relation is:
 
-$$
+```math
 F_0(T)=S_0e^{(r_f-q)T},
-$$
+```
 
 where $r_f$ is the funding rate used by the replicating long position and $q$ is the continuous dividend yield. Securities lending must not be inserted as an undefined $+b$ term. If $\ell$ denotes lending income that the stock holder can earn, it is a carry benefit and the corresponding relation becomes $F_0(T)=S_0e^{(r_f-q-\ell)T}$. A fee paid by a short seller instead changes the reverse-cash-and-carry economics and may create a no-arbitrage band rather than the same equality. Production systems should therefore store funding, dividends, lending income, short borrow fees, and rebates as separate signed inputs.
 
@@ -58,15 +58,15 @@ Assume:
 
 Cash advanced is:
 
-$$
+```math
 100m \times (1 - 2\%) = 98m
-$$
+```
 
 Repo interest is:
 
-$$
+```math
 98m \times 5\% \times \frac{30}{360} \approx 408{,}333
-$$
+```
 
 ## Key Risk Measures and Sensitivities
 - Repo-rate DV01 and financing carry.
