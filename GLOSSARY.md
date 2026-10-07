@@ -176,6 +176,7 @@
 - **Roll-down**: PnL from moving along a curve or surface as time passes.
 
 ## S
+- **Sharpe ratio**: Mean excess return divided by its standard deviation over a stated observation horizon; sample estimates require aligned cash returns, explicit costs, and qualified annualization. See the [explanation and example](16-portfolio-construction-and-backtesting.md#sharpe-ratio-is-the-extra-return-worth-the-ride).
 - **SAC**: Soft Actor-Critic, an off-policy continuous-action actor-critic method adding policy entropy to reward.
 - **SARIMA**: Seasonal ARIMA model with declared seasonal period, seasonal differencing, and seasonal AR/MA orders.
 - **Settlement risk**: Risk that one side of a trade pays or delivers but does not receive the expected cash or asset.

@@ -118,6 +118,34 @@ Now add a $2\%$ cash rate. Under the same single-period horizon and a frictionle
 
 The story ends with a control, not the optimizer: those weights are only as credible as the return, covariance, cash-rate, shorting, leverage, and cost assumptions. A desk should perturb the inputs, inspect binding constraints, add transaction and liquidity costs, and compare the target with the holdings it can actually execute.
 
+### Sharpe Ratio: Is The Extra Return Worth The Ride?
+
+Suppose two funds each have an expected annual arithmetic return of 10%, while cash earns 2%. Fund A has annual volatility of 10%; Fund B has 20%. Both offer eight percentage points of expected excess return, but B takes twice the volatility to get there. Their Sharpe ratios are 0.8 and 0.4 respectively. A's higher ratio means more expected excess return per unit of variability under these assumptions. It does not mean A earns more money, cannot lose money, or is automatically suitable for every investor.
+
+For observed returns, first subtract the cash return earned over each matching observation interval, then calculate:
+
+```math
+x_t = r_{p,t}-r_{f,t},
+\qquad
+\widehat{SR}=\frac{\bar{x}}{s_x},
+\qquad
+s_x=\sqrt{\frac{1}{n-1}\sum_{t=1}^{n}(x_t-\bar{x})^2}.
+```
+
+Here $\bar{x}$ is the arithmetic mean excess return and $s_x$ is its sample standard deviation. Use total portfolio returns in one currency, aligned cash returns, and a stated gross or net cost basis. Do not substitute CAGR for the mean in this sample formula or divide daily excess returns by annual volatility. With varying cash rates, compute the excess-return series before taking its volatility. Zero sample volatility makes the ratio undefined; it is not evidence of infinite investment skill.
+
+#### From Daily Or Monthly To Annual
+
+The conventional scaling is $\widehat{SR}_{annual}\approx\sqrt{m}\,\widehat{SR}_{period}$, where $m$ might be 252 daily trading observations or 12 monthly observations per year. State your calendar and sampling convention. This scaling assumes stable moments and no serial correlation for additive excess returns; compounding adds another approximation. Overlapping returns, stale marks, or autocorrelation can invalidate it. With stationary autocovariances $\gamma_k$, the variance of an $m$-period sum is $m\gamma_0+2\sum_{k=1}^{m-1}(m-k)\gamma_k$, which exposes the missing dependence terms.
+
+#### Read The Number Before Ranking The Strategy
+
+A positive historical Sharpe means the sample average beat cash; a negative one means it did not. For negative excess returns, increasing volatility can make the ratio less negative without improving the economics. There is no universal threshold that proves a strategy is good. Compare the same horizon, currency, cash convention, and cost basis, and distinguish an expected model ratio from an observed sample estimate.
+
+Then ask what the number hides: drawdowns, rare jump losses, illiquidity, changing leverage, financing costs, and how many backtests were tried before choosing the winner. Sharpe penalizes upside and downside variability alike and can miss severe tail exposure. Report it beside drawdown and stress-loss measures, net performance, sample length, and out-of-sample evidence. See [research selection controls](44-robust-portfolio-and-research-validation.md) for the consequences of selecting among many trials.
+
+Reproduce the arithmetic and cost effect in the [Sharpe worked example](examples/sharpe-ratio-and-costs.md). Primary reference: William F. Sharpe, [*The Sharpe Ratio* (1994)](https://web.stanford.edu/~wfsharpe/art/sr/SR.htm), including its discussion of differential returns and time dependence.
+
 ### Black-Litterman
 
 Black-Litterman starts from equilibrium excess returns rather than treating a noisy alpha estimate as certain. A common reverse-optimization prior is:

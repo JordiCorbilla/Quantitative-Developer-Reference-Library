@@ -290,6 +290,7 @@ Common questions:
 - What is look-ahead bias?
 - How do factor models help portfolio risk?
 - What is turnover and why does it matter?
+- What does Sharpe ratio measure, when is square-root annualization valid, and what risks can a high ratio hide?
 - How do you include transaction costs?
 - Compare Markowitz, Black-Litterman, risk parity, Kelly, and Hierarchical Risk Parity.
 

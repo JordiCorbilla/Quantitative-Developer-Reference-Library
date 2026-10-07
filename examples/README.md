@@ -55,6 +55,8 @@ These examples are focused and self-contained. They connect formulas to implemen
 - [option-tree-convergence.md](option-tree-convergence.md) - independently benchmark European call/put prices with a CRR tree across twelve cases and three resolutions.
 - [curve-bootstrap-and-quote-risk.md](curve-bootstrap-and-quote-risk.md) - calibrate deposit/swap quotes, verify residuals, price off-node cashflows, and rebuild after a quote shock.
 
+- [sharpe-ratio-and-costs.md](sharpe-ratio-and-costs.md) - calculate sample excess-return Sharpe, show conventional annualization, and reconcile gross versus net costs.
+
 ## How To Use
 
 Use the options repricing example to follow a complete question-to-control story; use the other examples to isolate a specific calculation.

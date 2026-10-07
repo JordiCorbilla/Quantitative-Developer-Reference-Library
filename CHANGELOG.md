@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-07: Sharpe Ratio From Intuition To Calculation
+
+- Added a two-fund story, sample excess-return formula, annualization assumptions, and interpretation pitfalls.
+- Added an executable monthly gross/net cost example and glossary/interview navigation.
+
 ## 2026-10-04: GitHub Formula Rendering And Futures Chapter Name
 
 - Replaced unsupported inline math delimiters and protected display equations with GitHub-supported math fences, including standalone equals signs previously parsed as headings.
